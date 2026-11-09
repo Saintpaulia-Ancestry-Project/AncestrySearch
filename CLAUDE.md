@@ -125,6 +125,9 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
 - Site text pages live in data/pages/<slug>.md (first line `# Title`, then paragraphs, `## ` headings,
   `- ` lists, **bold**, `code`, [links](url)); build_db.py loads them into the `pages` table. The
   Project history page (about.md) was rewritten by hand; it is NOT generated from the source xlsx.
+- Site icon: cropped from source/lf3h_chlv_161216.jpg, a free-to-use illustration by brgfx from
+  Magnific free vectors (https://www.magnific.com/free-vector). No attribution required (per user).
+  Regenerate with scripts/make_icons.py (needs Pillow).
 - Deferred: 1963 MasterListBook OCR (separate project, will load into SQLite later).
 
 - scripts/build_db.py: done; builds site/avancestry.sqlite from data/*.csv (tables,
