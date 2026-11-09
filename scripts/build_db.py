@@ -59,6 +59,8 @@ CREATE TABLE cultivars (
   hybridizer_raw      TEXT,
   source_note         TEXT,
   supplement_year     INTEGER,
+  registered_1963     INTEGER NOT NULL DEFAULT 0,  -- 1 = flagged REG. in the 1963 AVSA Master List
+  masterlist_1963     TEXT,                        -- where the 1963 Master List lists it, e.g. "main list p. 14"
   CHECK (sport_of_id IS NULL OR sport_of_id <> id)
 );
 
@@ -138,7 +140,9 @@ CREATE VIEW cultivar_hybridizer_names AS
 -- One row per cultivar for list/browse pages. Shows which kinds of data exist.
 CREATE VIEW v_cultivar_list AS
   SELECT c.id, c.name, c.kind, c.size_class, c.color, c.registration_no, c.registered_year,
-         h.hybridizers,
+         coalesce(h.hybridizers, c.hybridizer_raw) AS hybridizers,
+         (c.masterlist_1963 IS NOT NULL) AS in_masterlist_1963,
+         c.registered_1963,
          (c.sport_of_id IS NOT NULL
             OR EXISTS (SELECT 1 FROM cultivars s WHERE s.sport_of_id = c.id)) AS is_sport_family,
          (c.sport_of_id IS NOT NULL) AS is_sport,
@@ -310,14 +314,12 @@ def main():
                         [(p["id"], p["name"], p["kind"], nz(p["country"]), nz(p["aliases"])) for p in people])
         # parents first is not required (FKs are checked at commit, deferred below)
         con.execute("PRAGMA defer_foreign_keys = ON")
+        cols = list(cultivars[0].keys())
+        int_cols = {"registration_no", "registered_year", "source_row", "supplement_year", "registered_1963"}
         con.executemany(
-            "INSERT INTO cultivars VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            [(c["id"], c["name"], c["kind"], nz(c["sport_of_id"]), nz(c["size_class"]), nz(c["color"]),
-              nz(c["bloom_description"]), nz(c["foliage_description"]), to_int(c["registration_no"]),
-              to_int(c["registered_year"]), nz(c["registered_date"]), nz(c["description"]), nz(c["notes"]),
-              nz(c["sources"]), to_int(c["source_row"]), nz(c["added_at"]), nz(c["seed_parent_raw"]),
-              nz(c["pollen_parent_raw"]), nz(c["hybridizer_raw"]), nz(c["source_note"]),
-              to_int(c["supplement_year"])) for c in cultivars])
+            f"INSERT INTO cultivars ({','.join(cols)}) VALUES ({','.join('?' * len(cols))})",
+            [tuple((to_int(c[k]) or 0) if k == "registered_1963" else (to_int(c[k]) if k in int_cols else nz(c[k]))
+                   for k in cols) for c in cultivars])
         con.executemany("INSERT INTO cultivar_hybridizers VALUES (?,?,?)",
                         [(r["cultivar_id"], r["person_id"], int(r["position"])) for r in ch])
         con.executemany("INSERT INTO parentage VALUES (?,?,?,?,?)",
@@ -338,7 +340,7 @@ def main():
             INSERT INTO cultivars_fts (id, kind, name, hybridizers, size_class, color, bloom_description,
                                        foliage_description, description, notes)
             SELECT c.id, c.kind, c.name,
-                   trim(coalesce(h.hybridizers,'') || ' ' || coalesce((
+                   trim(coalesce(h.hybridizers, c.hybridizer_raw, '') || ' ' || coalesce((
                        SELECT group_concat(p.aliases, ' ') FROM cultivar_hybridizers x
                        JOIN people p ON p.id = x.person_id WHERE x.cultivar_id = c.id AND p.aliases IS NOT NULL), '')),
                    c.size_class, c.color, c.bloom_description, c.foliage_description, c.description, c.notes
@@ -399,7 +401,7 @@ def main():
 
     now = datetime.datetime.now().replace(microsecond=0).isoformat(sep=" ")
     con.executemany("INSERT INTO meta VALUES (?,?)", [
-        ("built_at", now), ("schema_version", "2"), ("image_base_url", image_base),
+        ("built_at", now), ("schema_version", "3"), ("image_base_url", image_base),
         *[(f"count_{k}", str(v)) for k, v in counts.items()]])
     con.commit()
     con.execute("VACUUM")

@@ -98,8 +98,10 @@ function badges(r) {
   if (r.is_sport) b.push(`<span class="badge">sport</span>`);
   if (r.has_description) b.push(`<span class="badge">description</span>`);
   if (r.has_photo) b.push(`<span class="badge">photo</span>`);
+  if (r.in_masterlist_1963) b.push(`<span class="badge">1963 list</span>`);
   if (r.has_ancestry) b.push(`<span class="badge">ancestry</span>`);
   if (r.registration_no) b.push(`<span class="badge">AVSA #${esc(r.registration_no)}</span>`);
+  else if (r.registered_1963) b.push(`<span class="badge">registered by 1963</span>`);
   return b.length ? `<div class="badges">${b.join("")}</div>` : "";
 }
 const photoUrl = (f) => IMG_BASE + "photos/" + encodeURIComponent(f);
@@ -284,13 +286,16 @@ function renderCultivar(app, id) {
 
   const facts = [
     ["Type", c.kind === "cultivar" ? "" : ({ stub: "Appears only as a parent in other records; no record of its own", seedling: "Seedling / unnamed", species: "Species" }[c.kind] || c.kind)],
-    ["Hybridizer", people.map((p) => `<a href="#/p/${encodeURIComponent(p.id)}">${esc(p.name)}</a>${p.country ? ` <span class="muted">(${esc(p.country)})</span>` : ""}`).join(" / ")],
+    ["Hybridizer", people.length ? people.map((p) => `<a href="#/p/${encodeURIComponent(p.id)}">${esc(p.name)}</a>${p.country ? ` <span class="muted">(${esc(p.country)})</span>` : ""}`).join(" / ")
+      : (c.hybridizer_raw ? `${esc(c.hybridizer_raw)}${c.masterlist_1963 ? ` <span class="muted">(as printed in the 1963 Master List)</span>` : ""}` : "")],
     ["Size", esc(c.size_class)],
     ["Color", esc(c.color)],
     ["Bloom", esc(c.bloom_description)],
     ["Foliage", esc(c.foliage_description)],
     ["Description", esc(c.description)],
-    ["AVSA registration", c.registration_no ? `#${esc(c.registration_no)}${c.registered_date ? `, registered ${esc(c.registered_date)}` : ""}` : ""],
+    ["AVSA registration", c.registration_no ? `#${esc(c.registration_no)}${c.registered_date ? `, registered ${esc(c.registered_date)}` : ""}`
+      : (c.registered_1963 ? "Registered before 1964 (marked REG. in the 1963 Master List, which gives no number)" : "")],
+    ["1963 Master List", c.masterlist_1963 ? `Listed in the 1963 Master List: ${esc(c.masterlist_1963)}` : ""],
   ].filter(([, v]) => v);
 
   const parentLine = (p) => `<li>${linkCultivar(p.parent_id, p.parent_name)}${p.parent_kind !== "cultivar" ? ` <span class="role">${esc(kindLabel(p.parent_kind))}</span>` : ""}
@@ -308,7 +313,10 @@ function renderCultivar(app, id) {
   const showAll = (arr, render, n = 25) => arr.length <= n ? `<ul class="plain">${arr.map(render).join("")}</ul>`
     : `<ul class="plain">${arr.slice(0, n).map(render).join("")}</ul><details><summary>Show all ${arr.length}</summary><ul class="plain">${arr.slice(n).map(render).join("")}</ul></details>`;
 
-  const sources = [c.sources && `Source: ${esc(c.sources.replace(/\+/g, " + "))}`, c.supplement_year && `AVSA Master List supplement ${esc(c.supplement_year)}`, c.source_note && esc(c.source_note)].filter(Boolean);
+  const SOURCE_LABEL = { xlsx: "Saintpaulia Ancestry spreadsheet", sqlite: "AVSA registry database", supplement: "AVSA Master List supplements",
+    masterlist1963: "1963 Master List", parent: "named as a parent in other records" };
+  const sourceText = (c.sources || "").split("+").map((x) => SOURCE_LABEL[x] || x).join(", ");
+  const sources = [c.sources && `Sources: ${esc(sourceText)}`, c.supplement_year && `AVSA Master List supplement ${esc(c.supplement_year)}`, c.source_note && esc(c.source_note)].filter(Boolean);
 
   app.innerHTML = `
     <div class="crumbs"><a href="#/">&larr; Search</a></div>

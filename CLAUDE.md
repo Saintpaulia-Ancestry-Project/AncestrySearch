@@ -141,7 +141,16 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   The images repo does not exist yet: the user creates it; clone it next to this folder (or set
   AV_IMAGES_REPO). jsDelivr caches @main for hours: purge via cdn.jsdelivr.net/gh/... if needed.
   Front end: gallery + enlarge viewer on the cultivar page, thumbnails and a Has photo filter in search.
-- Deferred: 1963 MasterListBook OCR (separate project, will load into SQLite later).
+- 1963 Master List (decided with the user): scripts/parse_masterlist1963.py turns the OCR text in
+  source/AV-MasterLIstSupplements/MasterListBook (raw, git-ignored) into data/masterlist1963.csv (name, originator,
+  REG. flag, section, printed page, xref) and reports/masterlist1963_report.md. DESCRIPTIONS ARE NOT IMPORTED:
+  ~10% are scrambled by the OCR's column handling; add them after a better OCR from page images. import_excel.py
+  then adds each distinct name+originator as its own record (names are reused: 9 different Stardust), shown with
+  everything else (user choice). A book entry joins an existing record automatically only when the originator
+  agrees (28); every other name match is in reports/review/masterlist_matches.csv (decision column: `join`).
+  Book originators are kept as text (hybridizer_raw), not people. Record ids for reused names carry the
+  originator (stardust-madison). New columns: registered_1963, masterlist_1963.
+  Pipeline order: parse_masterlist1963.py -> import_excel.py -> build_db.py.
 
 - scripts/build_db.py: done; builds site/avancestry.sqlite from data/*.csv (tables,
   FTS4 `cultivars_fts`, views `edges`/`v_cultivar_list`/`v_parents`/`v_children`),

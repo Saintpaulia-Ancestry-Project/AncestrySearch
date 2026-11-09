@@ -13,8 +13,9 @@ The site grew out of the Saintpaulia Ancestry Project, a volunteer-built spreads
 
 - **Ancestry:** the Saintpaulia Ancestry spreadsheet, which records each cultivar's seed parent, pollen parent, hybridizer and notes.
 - **Descriptions and registrations:** a database of cultivar records, including sports, AVSA registration numbers and dates, size classes, and bloom and foliage descriptions, together with the AVSA Master List supplements.
+- **Older cultivars:** the names, originators and registered flags from the AVSA's 1963 Master List, which covers cultivars from 1935 to 1963.
 
-Records from these sources are matched by cultivar name. Spelling variants and duplicate entries were reviewed by hand, and corrections continue. Where the sources disagree about the parent of a sport, the registry database is used and the spreadsheet's value is kept in the cultivar's notes.
+Records from the first two sources are matched by cultivar name. The 1963 Master List reuses many names for different plants, so each entry there is kept as its own record and joins another record only when the originator agrees. Spelling variants and duplicate entries were reviewed by hand, and corrections continue. Where the sources disagree about the parent of a sport, the registry database is used and the spreadsheet's value is kept in the cultivar's notes.
 
 ## Searching
 
@@ -42,7 +43,7 @@ The outline around a parent's name matches the line drawn from it to its offspri
 - Not every cultivar has both ancestry and a description. Many have only one.
 - Parentage is what hybridizers recorded. Some is uncertain, some records do not say which parent was seed and which was pollen, and some parents are unknown. These are shown as recorded and are not guessed.
 - A parent recorded as "X Sport" is kept exactly as written. It is not assumed to be any particular registered sport of X.
-- The AVSA's 1963 Master List, which covers cultivars from 1935 to 1963, has not been added yet.
+- Cultivars from the 1963 Master List are marked **1963 list** and usually have only a name, an originator (as printed, often just a surname or a firm) and whether they were registered. Their descriptions have not been added yet, because the text of the book needs to be read again more reliably first.
 - The information is the work of volunteers and published registries, and errors are possible. Please treat it as a reference and not as a guarantee.
 
 ## Using the data yourself

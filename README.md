@@ -35,6 +35,7 @@ site/avancestry.sqlite
 
 ```
 pip install -r requirements.txt
+python scripts/parse_masterlist1963.py   # 1963 Master List OCR text -> data/masterlist1963.csv
 python scripts/import_excel.py     # source/ -> data/ and reports/
 python scripts/build_db.py         # data/ -> site/avancestry.sqlite
 ```

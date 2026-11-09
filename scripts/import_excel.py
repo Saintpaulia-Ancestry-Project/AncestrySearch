@@ -361,6 +361,137 @@ def load_supplements():
 
 
 # ------------------------------------------------------------------ build
+# ------------------------------------------------------------------ 1963 Master List
+# data/masterlist1963.csv (from scripts/parse_masterlist1963.py): names, originators and the registered
+# flag. Each distinct name + originator is its own record, because the book reuses names (nine different
+# "Stardust" varieties). An entry joins an existing record automatically only when the originators agree;
+# every other name match is listed in reports/review/masterlist_matches.csv for a human decision.
+ML_STOP = {"greenhouse", "greenhouses", "gardens", "garden", "nursery", "nurseries", "violets", "violet", "african",
+           "the", "and", "inc", "farm", "farms", "plants", "plant", "company"}
+ML_SECTION = {"main": "main list", "1960": "1960 section", "1961": "1961 section", "1962": "1962 section",
+              "nodesc": "names without descriptions"}
+ML_REVIEW = REVIEW / "masterlist_matches.csv"
+
+
+def otokens(s):
+    t = unicodedata.normalize("NFKD", str(s)).encode("ascii", "ignore").decode().lower()
+    return {w for w in re.findall(r"[a-z]+", t) if len(w) >= 3 and w not in ML_STOP}
+
+
+def load_masterlist():
+    path = DATA / "masterlist1963.csv"
+    if not path.exists():
+        return []
+    groups = collections.OrderedDict()
+    for r in pd.read_csv(path, dtype=str, keep_default_na=False).to_dict("records"):
+        negated = bool(re.match(r"(?i)^not\b", r["originator"]))
+        orig = "" if negated else r["originator"]
+        key = (norm(r["name"]), norm(orig))
+        g = groups.setdefault(key, {"key": key, "name": r["name"], "originator": orig, "registered": 0,
+                                    "entries": [], "xref": [], "negated": ""})
+        g["registered"] = max(g["registered"], int(r["registered"] or 0))
+        g["entries"].append((r["section"], r["printed_page"]))
+        if r["xref"]:
+            g["xref"].append(r["xref"])
+        if negated:
+            g["negated"] = r["originator"]
+    return list(groups.values())
+
+
+def load_ml_decisions():
+    out = {}
+    if ML_REVIEW.exists():
+        for _, r in read_review_csv(ML_REVIEW).iterrows():
+            out[(norm(r["book_name"]), norm(r["book_originator"]), norm(r["existing_name"]))] = r["decision"].strip().lower()
+    return out
+
+
+def listing_text(g):
+    seen = []
+    for sec, pg in g["entries"]:
+        t = f"{ML_SECTION[sec]} p. {pg}"
+        if t not in seen:
+            seen.append(t)
+    return "; ".join(seen)
+
+
+def join_masterlist(d, g):
+    d["sources"] = d["sources"] if "masterlist1963" in d["sources"] else d["sources"] + "+masterlist1963"
+    d["registered_1963"] = max(int(d.get("registered_1963") or 0), g["registered"])
+    d["masterlist_1963"] = listing_text(g)
+    extra = " ".join(f"1963 Master List: {x}" for x in dict.fromkeys(g["xref"]))
+    if g["negated"]:
+        extra = (extra + " " if extra else "") + f"1963 Master List gives the originator as \"{g['negated']}\"."
+    if extra:
+        d["notes"] = (d["notes"] + " " if d["notes"] else "") + extra
+    if not d["hybridizer_raw"] and g["originator"]:
+        d["hybridizer_raw"] = g["originator"]
+        d["_text_hyb"] = True  # an originator as printed in 1963 (often a surname or firm): kept as text, not a person
+    if d["kind"] == "stub":
+        d["kind"] = "cultivar"  # a name that was only a parent now has a record of its own
+
+
+def attach_masterlist(allrec):
+    groups = load_masterlist()
+    if not groups:
+        return {"groups": 0, "joined_auto": 0, "joined_decision": 0, "new": 0, "review": 0}
+    decisions = load_ml_decisions()
+    by_name = collections.defaultdict(list)
+    for k, d in allrec.items():
+        by_name[K(d["name"])].append((k, d))
+    stats = collections.Counter()
+    review = []
+    for g in groups:
+        cands = by_name.get(K(g["name"]), [])
+        agree = [(k, d) for k, d in cands if g["originator"] and otokens(g["originator"]) & otokens(d["hybridizer_raw"])]
+        target, how = None, ""
+        if len(agree) == 1:
+            target, how = agree[0], "joined_auto"
+        else:
+            for k, d in cands:
+                if decisions.get((g["key"][0], g["key"][1], norm(d["name"])), "").startswith("join"):
+                    target, how = (k, d), "joined_decision"
+                    break
+        if target:
+            join_masterlist(target[1], g)
+            stats[how] += 1
+        else:
+            rec = {"id": "", "name": g["name"], "kind": "cultivar", "sport_of": "", "sport_xlsx": "", "size_class": "",
+                   "color": "", "bloom_description": "", "foliage_description": "", "registration_no": "",
+                   "registered_date": "", "description": "", "notes": "", "sources": "masterlist1963", "source_row": "",
+                   "added_at": "", "seed_parent_raw": "", "pollen_parent_raw": "", "hybridizer_raw": "",
+                   "source_note": "", "supplement_year": "", "_q": None, "_x": None, "uses": 0}
+            rec["_key"] = "ml63|%s|%s" % g["key"]
+            join_masterlist(rec, g)
+            rec["hybridizer_raw"] = g["originator"]
+            rec["_text_hyb"] = True
+            allrec[rec["_key"]] = rec
+            stats["new"] += 1
+        for k, d in cands:
+            if target and target[0] == k:
+                continue
+            if len(agree) > 1 and (k, d) in agree:
+                why = "originator matches several existing records"
+            elif not g["originator"]:
+                why = "book entry gives no originator"
+            elif not d["hybridizer_raw"]:
+                why = "existing record has no known hybridizer"
+            else:
+                why = "originators differ"
+            review.append({"book_name": g["name"], "book_originator": g["originator"], "book_listing": listing_text(g),
+                           "existing_name": d["name"], "existing_kind": d["kind"],
+                           "existing_hybridizer": d["hybridizer_raw"], "existing_sources": d["sources"], "reason": why,
+                           "decision": decisions.get((g["key"][0], g["key"][1], norm(d["name"])), "")})
+    order = {"existing record has no known hybridizer": 0, "book entry gives no originator": 1,
+             "originator matches several existing records": 2, "originators differ": 3}
+    review.sort(key=lambda r: (order[r["reason"]], r["book_name"].lower()))
+    pd.DataFrame(review, columns=["book_name", "book_originator", "book_listing", "existing_name", "existing_kind",
+                                  "existing_hybridizer", "existing_sources", "reason", "decision"]).to_csv(
+        ML_REVIEW, index=False, encoding="utf-8-sig")
+    stats["groups"], stats["review"] = len(groups), len(review)
+    return dict(stats)
+
+
 FIELD_MAP = [("Variety", "size_class"), ("Colour", "color"), ("Bloom", "bloom_description"),
              ("Foliage", "foliage_description")]
 
@@ -569,10 +700,15 @@ def build():
     parentage = par2
 
     allrec = collections.OrderedDict(list(out.items()) + list(stubs.items()))
+    ml_stats = attach_masterlist(allrec)
     # ids
     used = {}
+    same_name = collections.Counter(norm(d["name"]) for d in allrec.values())
     for k, d in allrec.items():
         base = slugify(d["name"])
+        if k.startswith("ml63|") and same_name[norm(d["name"])] > 1:
+            # a name used by several plants: 1963 records are told apart by their originator
+            base = f"{base}-{slugify(d['hybridizer_raw']) if d['hybridizer_raw'] else '1963'}"
         sid, n = base, 2
         while sid in used and used[sid] != k:
             sid = f"{base}-{n}"
@@ -589,7 +725,7 @@ def build():
     needed = {}
     for d in allrec.values():
         h = cname(d["hybridizer_raw"])
-        if h:
+        if h and not d.get("_text_hyb"):
             src = "sqlite" if d["_q"] and d["_q"]["hyb"] else ("supplement" if "supplement" in d["sources"] else "xlsx")
             needed.setdefault(h, [src, 0])[1] += 1
     mapping, n_new = load_mapping({k: tuple(v) for k, v in needed.items()})
@@ -612,7 +748,7 @@ def build():
 
     for k, d in allrec.items():
         h = cname(d["hybridizer_raw"])
-        if not h:
+        if not h or d.get("_text_hyb"):
             continue
         names = mapping.get(h)
         if names is None:
@@ -641,7 +777,7 @@ def build():
                        "kind": "photos" if "drive.google.com" in u else "web"})
 
     return dict(n_corr=n_corr, allrec=allrec, parentage=parentage, people=people, hyb=links, links=cl, n_named=n_named,
-                dropped=dropped, n_new_map=n_new, sq=sq, xl=xl, sp=sp, stubs=stubs, out=out)
+                dropped=dropped, n_new_map=n_new, sq=sq, xl=xl, sp=sp, stubs=stubs, out=out, ml=ml_stats)
 
 
 # ------------------------------------------------------------------ near-miss review file
@@ -692,7 +828,8 @@ def write_all(res):
     allrec = res["allrec"]
     cols = ["id", "name", "kind", "sport_of_id", "size_class", "color", "bloom_description", "foliage_description",
             "registration_no", "registered_year", "registered_date", "description", "notes", "sources", "source_row",
-            "added_at", "seed_parent_raw", "pollen_parent_raw", "hybridizer_raw", "source_note", "supplement_year"]
+            "added_at", "seed_parent_raw", "pollen_parent_raw", "hybridizer_raw", "source_note", "supplement_year",
+            "registered_1963", "masterlist_1963"]
     rows = []
     for d in allrec.values():
         r = {c: d.get(c, "") for c in cols}
@@ -729,6 +866,7 @@ def main():
              f"- SQLite rows dropped by review decisions: {res['dropped']}",
              f"- new hybridizer strings appended to hybridizer_mapping.csv: {res['n_new_map']}",
              f"- reviewer corrections applied (data_corrections.csv): {res['n_corr']}",
+             f"- 1963 Master List: {res['ml']}",
              f"- sports linked: {sum(1 for d in allrec.values() if d['sport_of'])}",
              f"- with registration no.: {sum(1 for d in allrec.values() if d['registration_no'])}",
              f"- name near-miss candidates written for review: {nm if nm is not None else '(file exists; decisions applied: ' + str(len(ALIAS)) + ')'}",
