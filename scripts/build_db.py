@@ -20,6 +20,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 DEFAULT_OUT = ROOT / "site" / "avancestry.sqlite"
+# Where the photo files are served from (the separate images repository, through the jsDelivr CDN).
+# Override with --image-base-url or the AV_IMAGE_BASE_URL environment variable.
+DEFAULT_IMAGE_BASE_URL = "https://cdn.jsdelivr.net/gh/Saintpaulia-Ancestry-Project/AncestrySearch-images@main/"
 
 SCHEMA = """
 PRAGMA foreign_keys = ON;
@@ -82,12 +85,19 @@ CREATE TABLE cultivar_links (
   PRIMARY KEY (cultivar_id, url)
 );
 
+-- Photos. The image files live in a separate repository (see meta.image_base_url):
+--   <base>photos/<file>  full size    <base>thumbs/<file>  thumbnail
 CREATE TABLE images (
   id          INTEGER PRIMARY KEY,
   cultivar_id TEXT NOT NULL REFERENCES cultivars(id),
-  url         TEXT NOT NULL,
+  file        TEXT NOT NULL UNIQUE,
   caption     TEXT,
-  credit      TEXT
+  credit      TEXT NOT NULL CHECK (length(trim(credit)) > 0),
+  sort_order  INTEGER NOT NULL DEFAULT 1,
+  width       INTEGER,
+  height      INTEGER,
+  source_url  TEXT,
+  added_at    TEXT
 );
 
 CREATE TABLE pages (slug TEXT PRIMARY KEY, title TEXT NOT NULL, body TEXT NOT NULL);
@@ -135,7 +145,9 @@ CREATE VIEW v_cultivar_list AS
          EXISTS (SELECT 1 FROM edges e WHERE e.child_id = c.id) AS has_ancestry,
          EXISTS (SELECT 1 FROM edges e WHERE e.parent_id = c.id) AS has_descendants,
          (c.bloom_description IS NOT NULL OR c.foliage_description IS NOT NULL
-            OR c.color IS NOT NULL OR c.description IS NOT NULL) AS has_description
+            OR c.color IS NOT NULL OR c.description IS NOT NULL) AS has_description,
+         (SELECT i.file FROM images i WHERE i.cultivar_id = c.id ORDER BY i.sort_order, i.id LIMIT 1) AS photo,
+         EXISTS (SELECT 1 FROM images i WHERE i.cultivar_id = c.id) AS has_photo
   FROM cultivars c
   LEFT JOIN cultivar_hybridizer_names h ON h.cultivar_id = c.id;
 
@@ -271,7 +283,11 @@ def find_cycles(con):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(DEFAULT_OUT))
-    out = Path(ap.parse_args().out)
+    ap.add_argument("--image-base-url", default=os.environ.get("AV_IMAGE_BASE_URL", DEFAULT_IMAGE_BASE_URL))
+    ap.add_argument("--images-csv", default=str(DATA / "images.csv"))
+    args = ap.parse_args()
+    out = Path(args.out)
+    image_base = args.image_base_url if args.image_base_url.endswith("/") else args.image_base_url + "/"
     out.parent.mkdir(parents=True, exist_ok=True)
     tmp = out.with_suffix(".building")
     if tmp.exists():
@@ -307,6 +323,15 @@ def main():
         con.executemany("INSERT INTO parentage VALUES (?,?,?,?,?)",
                         [(r["child_id"], r["parent_id"], r["role"], r["certainty"], nz(r["raw_text"])) for r in par])
         con.executemany("INSERT INTO pages VALUES (?,?,?)", read_pages())
+        images_csv = Path(args.images_csv)
+        if images_csv.exists():
+            with open(images_csv, newline="", encoding="utf-8") as f:
+                rows = list(csv.DictReader(f))
+            con.executemany(
+                "INSERT INTO images (cultivar_id, file, caption, credit, sort_order, width, height, source_url, added_at)"
+                " VALUES (?,?,?,?,?,?,?,?,?)",
+                [(r["cultivar_id"], r["file"], nz(r["caption"]), r["credit"], to_int(r["sort_order"]) or 1,
+                  to_int(r["width"]), to_int(r["height"]), nz(r["source_url"]), nz(r["added_at"])) for r in rows])
         con.executemany("INSERT INTO cultivar_links VALUES (?,?,?)",
                         [(r["cultivar_id"], r["url"], r["kind"]) for r in links])
         con.execute("""
@@ -334,7 +359,7 @@ def main():
 
     one = lambda sql, *a: con.execute(sql, a).fetchone()[0]
     counts = {t: one(f"SELECT count(*) FROM {t}") for t in
-              ("cultivars", "people", "parentage", "cultivar_hybridizers", "cultivar_links", "cultivars_fts")}
+              ("cultivars", "people", "parentage", "cultivar_hybridizers", "cultivar_links", "images", "cultivars_fts")}
     if counts["cultivars_fts"] != counts["cultivars"]:
         problems.append("FTS row count differs from cultivars")
     if counts["cultivars"] != len(cultivars) or counts["parentage"] != len(par):
@@ -374,7 +399,7 @@ def main():
 
     now = datetime.datetime.now().replace(microsecond=0).isoformat(sep=" ")
     con.executemany("INSERT INTO meta VALUES (?,?)", [
-        ("built_at", now), ("schema_version", "1"),
+        ("built_at", now), ("schema_version", "2"), ("image_base_url", image_base),
         *[(f"count_{k}", str(v)) for k, v in counts.items()]])
     con.commit()
     con.execute("VACUUM")

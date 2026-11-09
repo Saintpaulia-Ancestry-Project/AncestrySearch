@@ -13,6 +13,7 @@ const MAX_GRAPH_NODES = 220;
 const MAX_FAN = 8;  // most children drawn under one parent; the full list is on the page
 
 let db = null;
+let IMG_BASE = ""; // where photo files are served from (database meta: image_base_url)
 let cy = null;
 
 /* ------------------------------------------------------------------ helpers */
@@ -60,6 +61,8 @@ async function boot() {
       ${file ? "This page was opened as a file. Browsers block loading the database that way. Run <code>python scripts/serve.py</code> and open the address it prints." : ""}</div>`;
     return;
   }
+  const ib = q1("SELECT value FROM meta WHERE key='image_base_url'");
+  IMG_BASE = ib ? ib.value : "";
   const built = q1("SELECT value FROM meta WHERE key='built_at'");
   if (built) $("#footer").insertAdjacentHTML("beforeend", ` <span class="muted">Database built ${esc(built.value)}.</span>`);
   window.addEventListener("hashchange", route);
@@ -70,6 +73,8 @@ function route() {
   const { parts, params } = parseHash();
   const app = $("#app");
   if (cy) { cy.destroy(); cy = null; }
+  const lb = $("#lightbox");
+  if (lb && lb.open) lb.close();
   try {
     if (parts[0] === "c" && parts[1]) renderCultivar(app, decodeURIComponent(parts[1]));
     else if (parts[0] === "p" && parts[1]) renderPerson(app, decodeURIComponent(parts[1]), params);
@@ -92,16 +97,20 @@ function badges(r) {
   if (r.kind && r.kind !== "cultivar") b.push(`<span class="badge kind">${esc(kindLabel(r.kind))}</span>`);
   if (r.is_sport) b.push(`<span class="badge">sport</span>`);
   if (r.has_description) b.push(`<span class="badge">description</span>`);
+  if (r.has_photo) b.push(`<span class="badge">photo</span>`);
   if (r.has_ancestry) b.push(`<span class="badge">ancestry</span>`);
   if (r.registration_no) b.push(`<span class="badge">AVSA #${esc(r.registration_no)}</span>`);
   return b.length ? `<div class="badges">${b.join("")}</div>` : "";
 }
+const photoUrl = (f) => IMG_BASE + "photos/" + encodeURIComponent(f);
+const thumbUrl = (f) => IMG_BASE + "thumbs/" + encodeURIComponent(f);
 function card(r) {
   const meta = [r.hybridizers, r.size_class, r.color, r.registered_year ? "registered " + r.registered_year : ""].filter(Boolean);
-  return `<li class="card">
+  const thumb = r.photo ? `<img class="thumb" src="${esc(thumbUrl(r.photo))}" alt="" loading="lazy" width="72" height="72" onerror="this.remove()">` : "";
+  return `<li class="card${thumb ? " has-thumb" : ""}">${thumb}<div class="card-body">
     <a class="title" href="#/c/${encodeURIComponent(r.id)}">${esc(r.name)}</a>
     ${meta.length ? `<div class="meta">${meta.map((m) => `<span>${esc(m)}</span>`).join("")}</div>` : ""}
-    ${badges(r)}</li>`;
+    ${badges(r)}</div></li>`;
 }
 function linkCultivar(id, name) { return `<a href="#/c/${encodeURIComponent(id)}">${esc(name)}</a>`; }
 
@@ -121,6 +130,7 @@ function renderSearch(app, params) {
     sport: params.get("sport") === "1",
     anc: params.get("anc") === "1",
     desc: params.get("desc") === "1",
+    photo: params.get("photo") === "1",
     page: Math.max(1, parseInt(params.get("page") || "1", 10) || 1),
   };
   const where = [];
@@ -130,6 +140,7 @@ function renderSearch(app, params) {
   if (state.sport) where.push("l.is_sport = 1");
   if (state.anc) where.push("l.has_ancestry = 1");
   if (state.desc) where.push("l.has_description = 1");
+  if (state.photo) where.push("l.has_photo = 1");
 
   let from, order, orderBind = {};
   const words = searchWords(state.q);
@@ -162,7 +173,7 @@ function renderSearch(app, params) {
                         (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND has_ancestry) AS a,
                         (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND has_description) AS d`);
 
-  const link = (page) => hashFor("/", { q: state.q, size: state.size, all: state.all, sport: state.sport, anc: state.anc, desc: state.desc, page: page > 1 ? page : "" });
+  const link = (page) => hashFor("/", { q: state.q, size: state.size, all: state.all, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, page: page > 1 ? page : "" });
   app.innerHTML = `
     <h1>African violet cultivars</h1>
     <p class="lede">${num(st.n)} cultivars &middot; ${num(st.a)} with ancestry &middot; ${num(st.d)} with descriptions.
@@ -177,12 +188,13 @@ function renderSearch(app, params) {
         <label><input type="checkbox" name="sport"${state.sport ? " checked" : ""}> Sports only</label>
         <label><input type="checkbox" name="anc"${state.anc ? " checked" : ""}> Has ancestry</label>
         <label><input type="checkbox" name="desc"${state.desc ? " checked" : ""}> Has description</label>
+        <label><input type="checkbox" name="photo"${state.photo ? " checked" : ""}> Has photo</label>
         <label><input type="checkbox" name="all"${state.all ? " checked" : ""}> Include seedlings, species &amp; unlisted parents</label>
       </div>
     </form>
     <p class="stats" role="status">${num(total)} ${total === 1 ? "result" : "results"}${state.q ? ` for “${esc(state.q)}”` : ""}${total > PAGE_SIZE ? ` &middot; page ${state.page} of ${pages}` : ""}</p>
-    ${hidden > 0 ? `<p class="note-box">${num(hidden)} more ${hidden === 1 ? "match is a name" : "matches are names"} that appear only as parents, seedlings or species.
-        <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, all: true })}">Include ${hidden === 1 ? "it" : "them"}</a></p>` : ""}
+    ${hidden > 0 ? `<p class="note-box">${num(hidden)} more ${hidden === 1 ? "match is a name that appears only as a parent, seedling or species." : "matches are names that appear only as parents, seedlings or species."}
+        <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, all: true })}">Include ${hidden === 1 ? "it" : "them"}</a></p>` : ""}
     ${rows.length ? `<ul class="results">${rows.map(card).join("")}</ul>` : `<p>No cultivars match. Try fewer words or clear a filter.</p>`}
     ${pages > 1 ? `<div class="pager">
         <a class="btn secondary" ${state.page > 1 ? `href="${link(state.page - 1)}"` : 'aria-disabled="true" style="visibility:hidden"'}>&larr; Previous</a>
@@ -192,9 +204,65 @@ function renderSearch(app, params) {
   $("#sform").addEventListener("submit", (e) => {
     e.preventDefault();
     const f = new FormData(e.target);
-    location.hash = hashFor("/", { q: (f.get("q") || "").trim(), size: f.get("size"), sport: f.get("sport"), anc: f.get("anc"), desc: f.get("desc"), all: f.get("all") });
+    location.hash = hashFor("/", { q: (f.get("q") || "").trim(), size: f.get("size"), sport: f.get("sport"), anc: f.get("anc"), desc: f.get("desc"), photo: f.get("photo"), all: f.get("all") });
   });
   $("#sform").addEventListener("change", (e) => { if (e.target.type !== "search") $("#sform").requestSubmit(); });
+}
+
+/* ------------------------------------------------------------------ photos */
+const captionHtml = (p) => `${p.caption ? esc(p.caption) + " " : ""}<span class="credit">Photo: ${esc(p.credit)}</span>`;
+const photoAlt = (c, p) => c.name + (p.caption ? ": " + p.caption : "");
+
+function renderGallery(c, photos) {
+  if (!photos.length) return "";
+  const p = photos[0];
+  return `<section class="gallery" aria-label="Photos of ${esc(c.name)}">
+    <figure class="gallery-main">
+      <button type="button" class="photo-btn" id="photo-main" aria-label="Enlarge photo">
+        <img id="photo-main-img" src="${esc(photoUrl(p.file))}" alt="${esc(photoAlt(c, p))}"${p.width ? ` width="${p.width}" height="${p.height}"` : ""}>
+      </button>
+      <figcaption id="photo-main-cap">${captionHtml(p)}</figcaption>
+    </figure>
+    ${photos.length > 1 ? `<div class="gallery-strip">${photos.map((ph, i) => `<button type="button" class="strip-btn${i === 0 ? " current" : ""}" data-i="${i}" aria-label="Show photo ${i + 1} of ${photos.length}"><img src="${esc(thumbUrl(ph.file))}" alt="" loading="lazy"></button>`).join("")}</div>` : ""}
+  </section>`;
+}
+
+function wireGallery(c, photos) {
+  if (!photos.length) return;
+  let cur = 0;
+  const dlg = $("#lightbox");
+  const fillLightbox = () => {
+    const p = photos[cur];
+    $("#lb-img").src = photoUrl(p.file);
+    $("#lb-img").alt = photoAlt(c, p);
+    $("#lb-cap").innerHTML = captionHtml(p);
+    $("#lb-prev").hidden = $("#lb-next").hidden = photos.length < 2;
+  };
+  const show = (i) => {
+    cur = (i + photos.length) % photos.length;
+    const p = photos[cur], img = $("#photo-main-img");
+    img.src = photoUrl(p.file);
+    img.alt = photoAlt(c, p);
+    if (p.width) { img.width = p.width; img.height = p.height; }
+    $("#photo-main-cap").innerHTML = captionHtml(p);
+    document.querySelectorAll(".strip-btn").forEach((b, k) => b.classList.toggle("current", k === cur));
+    if (dlg.open) fillLightbox();
+  };
+  document.querySelectorAll(".strip-btn").forEach((b) => b.addEventListener("click", () => show(parseInt(b.dataset.i, 10))));
+  $("#photo-main-img").addEventListener("error", (e) => {
+    e.target.closest("figure").insertAdjacentHTML("afterbegin", `<p class="muted">This photo could not be loaded.</p>`);
+    e.target.closest("button").remove();
+  });
+  // handlers on the shared dialog are assigned (not added), so they never stack up across pages
+  $("#photo-main").addEventListener("click", () => { fillLightbox(); dlg.showModal(); });
+  $("#lb-close").onclick = () => dlg.close();
+  $("#lb-prev").onclick = () => show(cur - 1);
+  $("#lb-next").onclick = () => show(cur + 1);
+  dlg.onclick = (e) => { if (e.target === dlg) dlg.close(); };
+  dlg.onkeydown = (e) => {
+    if (e.key === "ArrowLeft") { e.preventDefault(); show(cur - 1); }
+    if (e.key === "ArrowRight") { e.preventDefault(); show(cur + 1); }
+  };
 }
 
 /* ------------------------------------------------------------------ cultivar page */
@@ -207,6 +275,7 @@ function renderCultivar(app, id) {
   const children = q(`SELECT * FROM v_children WHERE parent_id = :id AND role <> 'sport' ORDER BY child_name`, { id });
   const sports = q(`SELECT id, name FROM cultivars WHERE sport_of_id = :id ORDER BY name`, { id });
   const links = q(`SELECT url, kind FROM cultivar_links WHERE cultivar_id = :id`, { id });
+  const photos = q(`SELECT * FROM images WHERE cultivar_id = :id ORDER BY sort_order, id`, { id });
   const family = q(`
     WITH RECURSIVE up(id) AS (SELECT :id UNION SELECT c.sport_of_id FROM cultivars c JOIN up ON c.id = up.id WHERE c.sport_of_id IS NOT NULL),
     fam(id, depth) AS (SELECT c.id, 0 FROM up JOIN cultivars c ON c.id = up.id WHERE c.sport_of_id IS NULL
@@ -245,6 +314,7 @@ function renderCultivar(app, id) {
     <div class="crumbs"><a href="#/">&larr; Search</a></div>
     <h1>${esc(c.name)}</h1>
     ${badges({ kind: c.kind, is_sport: !!c.sport_of_id, registration_no: null })}
+    ${renderGallery(c, photos)}
     <div class="grid2" style="margin-top:16px">
       <section class="panel" aria-labelledby="h-desc"><h2 id="h-desc">Description</h2>
         ${facts.length ? `<dl class="facts">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>` : `<p class="muted">No description recorded.</p>`}
@@ -272,6 +342,7 @@ function renderCultivar(app, id) {
     <p class="graph-msg" id="graph-msg" role="status"></p>
     <p class="muted small">Click any cultivar in the graph to open it. The outline around a parent's name matches the line drawn from it to its offspring. Pale italic names appear only as parents.</p>`;
 
+  wireGallery(c, photos);
   const draw = () => drawGraph(id, parseInt($("#anc-depth").value, 10), parseInt($("#dec-depth").value, 10));
   $("#anc-depth").addEventListener("change", draw);
   $("#dec-depth").addEventListener("change", draw);

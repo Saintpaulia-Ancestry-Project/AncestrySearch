@@ -3,5 +3,5 @@
 pandas>=3.0
 openpyxl>=3.1
 
-# Optional: regenerate the site icons (scripts/make_icons.py)
-# pillow>=10
+# Needed to add photos (scripts/add_images.py) and to regenerate the site icons (scripts/make_icons.py)
+pillow>=10

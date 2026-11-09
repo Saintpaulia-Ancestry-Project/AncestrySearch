@@ -44,6 +44,23 @@ variants to merge, individual value corrections) are in `reports/review/`. `repo
 lists everything the import found unusual. `data/pages/*.md` holds the site's text pages.
 `CLAUDE.md` records the design decisions in detail.
 
+## Adding photos
+
+Photo files live in a separate repository, [AncestrySearch-images](https://github.com/Saintpaulia-Ancestry-Project/AncestrySearch-images),
+and are served through the jsDelivr CDN. This repository keeps only the list of photos and their credits
+(`data/images.csv`). Every photo must have a photographer credit.
+
+1. Clone the images repository next to this folder (or set the `AV_IMAGES_REPO` environment variable).
+2. Name each photo after its cultivar, for example `Rob's Lucky Penny.jpg`. A second photo of the same
+   cultivar ends in a number: `Rob's Lucky Penny 2.jpg`. Put them in one folder.
+3. `pip install pillow`, then run
+   `python scripts/add_images.py "path/to/folder" --credit "Photographer name"`.
+   Photos are resized, location data is removed, and anything that does not match a cultivar exactly is
+   listed (with the closest names) and left out. For different credits or captions per photo, put a
+   `credits.csv` in the folder (`file,credit,caption,source_url`).
+4. Commit and push the images repository, then run `python scripts/build_db.py` here and commit
+   `data/images.csv` and the rebuilt database.
+
 ## Deployment
 
 Every push to `main` rebuilds and validates the database, then publishes `site/` to GitHub Pages

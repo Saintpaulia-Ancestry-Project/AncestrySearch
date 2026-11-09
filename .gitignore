@@ -6,3 +6,6 @@ __pycache__/
 source/AV-MasterLIstSupplements/**/*.pdf
 source/AV-MasterLIstSupplements/**/*Page*.txt
 source/AV-MasterLIstSupplements/MasterListBook/
+
+# Original photo files as supplied; only the resized copies in the images repository are published.
+source/AVPhotos/

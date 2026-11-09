@@ -140,3 +140,26 @@ details summary { cursor: pointer; color: var(--link); margin-top: 6px; }
 .prose li { margin-bottom: 6px; }
 .error { background: #fdeceb; color: #7a1d17; border: 1px solid #f1b9b4; border-radius: var(--radius); padding: 14px 16px; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .error { background: #3b1c1a; color: #f5c6c2; border-color: #7a3430; } }
+
+/* photos */
+.card.has-thumb { grid-template-columns: 72px 1fr; gap: 0 14px; align-items: start; }
+.card .card-body { display: grid; gap: 4px; min-width: 0; }
+.thumb { width: 72px; height: 72px; object-fit: cover; border-radius: 8px; background: var(--accent-soft); }
+.gallery { margin-top: 16px; }
+.gallery-main { margin: 0; }
+.photo-btn { padding: 0; border: 0; background: transparent; cursor: zoom-in; display: block; max-width: 100%; }
+.photo-btn img { display: block; max-width: 100%; max-height: 460px; width: auto; height: auto; object-fit: contain; border-radius: var(--radius); background: var(--accent-soft); }
+.gallery-main figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
+.gallery-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.strip-btn { padding: 0; border: 2px solid transparent; border-radius: 8px; background: transparent; cursor: pointer; line-height: 0; }
+.strip-btn img { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; }
+.strip-btn.current { border-color: var(--accent); }
+dialog#lightbox { border: 0; padding: 12px 12px 8px; background: var(--surface); color: var(--text); border-radius: 12px; max-width: min(96vw, 1240px); }
+dialog#lightbox::backdrop { background: rgba(10, 6, 16, 0.78); }
+#lb-img { display: block; max-width: 100%; max-height: 78vh; margin: 0 auto; }
+.lb-cap { margin: 8px 0 0; text-align: center; font-size: 0.925rem; color: var(--muted); }
+.lb-btn { position: absolute; background: rgba(0, 0, 0, 0.55); color: #fff; border: 0; border-radius: 999px; width: 40px; height: 40px; font-size: 1.6rem; line-height: 1; padding: 0; cursor: pointer; }
+.lb-close { top: 8px; right: 8px; }
+.lb-nav, .lb-prev, .lb-next { top: 50%; transform: translateY(-50%); }
+.lb-prev { left: 8px; } .lb-next { right: 8px; }
+.lb-btn[hidden] { display: none; }

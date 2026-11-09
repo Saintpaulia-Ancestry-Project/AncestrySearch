@@ -36,6 +36,14 @@
   </div>
 </footer>
 
+<dialog id="lightbox" aria-label="Photo viewer">
+  <button type="button" id="lb-close" class="lb-btn lb-close" aria-label="Close photo viewer">&times;</button>
+  <button type="button" id="lb-prev" class="lb-btn lb-prev" aria-label="Previous photo">&lsaquo;</button>
+  <img id="lb-img" alt="">
+  <button type="button" id="lb-next" class="lb-btn lb-next" aria-label="Next photo">&rsaquo;</button>
+  <p id="lb-cap" class="lb-cap"></p>
+</dialog>
+
 <script src="vendor/sql-wasm.js"></script>
 <script src="vendor/cytoscape.min.js"></script>
 <script src="vendor/dagre.min.js"></script>

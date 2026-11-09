@@ -85,7 +85,8 @@ The core data point is the **cultivar name**.
   known|assumed|unsure, raw_text). Placeholders produce no row; the original
   cell text is kept in raw_text.
 - cultivar_links (cultivar_id, url, kind) for photo folders and web pages.
-- images (cultivar_id, url, caption, credit).
+- images (cultivar_id, file, caption, credit NOT NULL, sort_order, width, height, source_url, added_at):
+  metadata only. The files live in a separate repository (see Photos below).
 - Parents with no row of their own become stub cultivars.
 - Sports use `sport_of_id` (single parent, no seed/pollen split).
 
@@ -128,6 +129,18 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
 - Site icon: cropped from source/lf3h_chlv_161216.jpg, a free-to-use illustration by brgfx from
   Magnific free vectors (https://www.magnific.com/free-vector). No attribution required (per user).
   Regenerate with scripts/make_icons.py (needs Pillow).
+- Photos (decided with the user): files are hosted in a SEPARATE public repo
+  Saintpaulia-Ancestry-Project/AncestrySearch-images, served through the jsDelivr CDN (base URL stored
+  in the DB as meta.image_base_url; override with build_db.py --image-base-url). Layout there:
+  photos/<cultivar-id>-<n>.webp (longest side 1600) and thumbs/<same name> (longest side 400).
+  Metadata is data/images.csv (single source of truth; credit is REQUIRED on every photo).
+  scripts/add_images.py FOLDER --credit NAME matches filenames to cultivars (exact name after
+  normalising; never guesses), resizes, strips EXIF/GPS, skips duplicates, writes images.csv.
+  Sources expected: user's own collection, contributors, hybridizers' Drive folders (19 cultivars
+  currently link to Drive photo albums; they stay plain links until imported). First batch < 500.
+  The images repo does not exist yet: the user creates it; clone it next to this folder (or set
+  AV_IMAGES_REPO). jsDelivr caches @main for hours: purge via cdn.jsdelivr.net/gh/... if needed.
+  Front end: gallery + enlarge viewer on the cultivar page, thumbnails and a Has photo filter in search.
 - Deferred: 1963 MasterListBook OCR (separate project, will load into SQLite later).
 
 - scripts/build_db.py: done; builds site/avancestry.sqlite from data/*.csv (tables,
@@ -147,7 +160,7 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   Tested with headless Edge screenshots only (no automated JS tests, no Node here).
 
 ## Next steps
-1. User review of the prototype; decide look/feel, extra filters, photos (images table is empty).
+1. User review of the prototype; decide look/feel and extra filters.
 2. Local mode: mydata.sqlite for user data (sql.js cannot ATTACH files: plan a second
    in-memory DB and merge in JS, or load user CSVs).
 3. Deploy to GitHub Pages; images via jsDelivr.
