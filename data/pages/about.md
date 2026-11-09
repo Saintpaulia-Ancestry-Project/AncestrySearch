@@ -47,8 +47,14 @@ The outline around a parent's name matches the line drawn from it to its offspri
 
 ## Using the data yourself
 
-The site is a single web page plus one database file, and needs no server. You can download the GitHub project, run it on your own computer, and read the cleaned source data, which is kept as plain CSV files. Adding your own hybridizing projects to a local copy is planned but not available yet.
+The site is a single web page plus one database file, and needs no server. The whole project is on GitHub at [Saintpaulia-Ancestry-Project/AncestrySearch](https://github.com/Saintpaulia-Ancestry-Project/AncestrySearch). To run your own copy:
+
+- On the GitHub page, choose **Code**, then **Download ZIP**, and unzip it.
+- Install Python 3 if you do not have it.
+- In the unzipped folder, run `python scripts/serve.py`. Your browser opens on the site.
+
+The cleaned data is in the `data` folder as plain CSV files, so you can open it in a spreadsheet. Adding your own hybridizing projects to a local copy is planned but not available yet.
 
 ## Contributing
 
-Corrections and additions are welcome. The planned way to contribute is to export your records as a CSV file and send them by pull request or form. Details will be added here when contributions open.
+Corrections and additions are welcome. If you spot a mistake or have information to add, open an [issue on GitHub](https://github.com/Saintpaulia-Ancestry-Project/AncestrySearch/issues) saying which cultivar and what should change. If you are comfortable with GitHub, you can send a pull request instead. A simpler way to send a whole hybridizing record, by exporting it as a CSV file, is planned.
