@@ -142,6 +142,7 @@ CREATE VIEW v_cultivar_list AS
   SELECT c.id, c.name, c.kind, c.size_class, c.color, c.registration_no, c.registered_year,
          coalesce(h.hybridizers, c.hybridizer_raw) AS hybridizers,
          (c.masterlist_1963 IS NOT NULL) AS in_masterlist_1963,
+         (c.sources = 'masterlist1963') AS only_1963,
          c.registered_1963,
          (c.sport_of_id IS NOT NULL
             OR EXISTS (SELECT 1 FROM cultivars s WHERE s.sport_of_id = c.id)) AS is_sport_family,

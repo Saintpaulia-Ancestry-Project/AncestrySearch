@@ -151,6 +151,9 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   Book originators are kept as text (hybridizer_raw), not people. Record ids for reused names carry the
   originator (stardust-madison). New columns: registered_1963, masterlist_1963.
   Pipeline order: parse_masterlist1963.py -> import_excel.py -> build_db.py.
+  Search page: the checkbox "Exclude names found only in the 1963 Master List" is ON by default (URL param
+  old=1 turns it off). It hides records whose only source is the 1963 list (view column only_1963), not the
+  28 that joined other records. A hint offers the hidden matches when a search finds some.
 
 - scripts/build_db.py: done; builds site/avancestry.sqlite from data/*.csv (tables,
   FTS4 `cultivars_fts`, views `edges`/`v_cultivar_list`/`v_parents`/`v_children`),
