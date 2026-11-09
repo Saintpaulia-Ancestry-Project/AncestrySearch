@@ -1,0 +1,45 @@
+name: Deploy site to GitHub Pages
+
+# Rebuilds and validates the database from the CSVs in data/, then publishes the site/ folder.
+# One-time setup in the repository: Settings > Pages > Build and deployment > Source: "GitHub Actions".
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # build_db.py uses only the Python standard library. It exits with an error if the data
+      # fails its checks (foreign keys, ancestry cycles, search index, query templates).
+      - name: Build and validate the database
+        run: python scripts/build_db.py
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
