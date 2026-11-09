@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saintpaulia Ancestry</title>
+<meta name="description" content="Search African violet (Saintpaulia) cultivars, descriptions and ancestry.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="#/" aria-label="Saintpaulia Ancestry, home">
+      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><g fill="currentColor">
+        <circle cx="16" cy="7.5" r="5.2"/><circle cx="24.5" cy="13.7" r="5.2"/><circle cx="21.3" cy="23.6" r="5.2"/>
+        <circle cx="10.7" cy="23.6" r="5.2"/><circle cx="7.5" cy="13.7" r="5.2"/></g>
+        <circle cx="16" cy="16" r="3.4" fill="var(--accent-eye)"/></svg>
+      <span>Saintpaulia Ancestry</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#/">Search</a>
+      <a href="#/about">Project history</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap" tabindex="-1">
+  <div id="app" aria-live="polite"><p class="muted">Loading the database&hellip;</p></div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap" id="footer">
+    Cultivar data compiled from the Saintpaulia Ancestry Project and the African Violet Society of America
+    (AVSA) Master List supplements. AVSA is the international registrar of African violet cultivars.
+  </div>
+</footer>
+
+<script src="vendor/sql-wasm.js"></script>
+<script src="vendor/cytoscape.min.js"></script>
+<script src="vendor/dagre.min.js"></script>
+<script src="vendor/cytoscape-dagre.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

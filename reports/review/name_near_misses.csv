@@ -1,0 +1,88 @@
+﻿variant,target,variant_kind,target_kind,variant_sources,target_sources,variant_parent_uses,target_parent_uses,similarity,decision,import_status
+[Snuggles x Rainbow's Meteor Splash],[Snuggles x Rainbow's Meteor Splashes],seedling,seedling,parent,parent,1,1,0.967,"merge, [Snuggles x Rainbow's Meteor Splash] is the correct form.",merged -> [Snuggles x Rainbow's Meteor Splash]
+Allegro Darcy Farrow,Allego Darcy Farrow,cultivar,cultivar,sqlite,xlsx,0,0,0.971,"merge, Allegro Darcy Farrow is the correct form. ",merged -> Allegro Darcy Farrow
+Allegro Meadow Rue,Allegro Meadow Rye,cultivar,cultivar,sqlite,xlsx,0,0,0.938,"merge, Allegro Meadow Rue is the correct form. ",merged -> Allegro Meadow Rue
+Apache Midgnight,Apache Midnight,stub,cultivar,parent,xlsx,2,1,0.966,"merge, Apache Midnight is the correct form. ",merged -> Apache Midnight
+Arctic Fox,Artic Fox,stub,stub,parent,parent,1,1,0.941,"merge, Arctic Fox is the correct form",merged -> Arctic Fox
+Artic Frost,Arctic Frost,stub,cultivar,parent,sqlite,5,10,0.952,"merge, Arctic Frost is the correct form. ",merged -> Arctic Frost
+Backcrss,Backcross,stub,stub,parent,parent,1,9,0.941,"merge, Backcross is the correct form.",merged -> Backcross
+Ballet Martha,Ballet Marta,stub,stub,parent,parent,1,1,0.957,"merge, Ballet Martha is the correct form. ",merged -> Ballet Martha
+Bubble Gume Charm,Bubble Gum Charm,stub,cultivar,parent,supplement,1,5,0.966,"merge, Bubble Gum Charm is the correct form.",merged -> Bubble Gum Charm
+Buckeye Brithe Spirit,Buckeye Blithe Spirit,cultivar,cultivar,xlsx,xlsx+supplement,0,0,0.947,"merge, Buckeye Blithe Spirit is the correct form. ",merged -> Buckeye Blithe Spirit
+Buckeye Cranberry Sparker,Buckeye Cranberry Sparkler,stub,cultivar,parent,xlsx+supplement,1,84,0.979,"merge, Buckeye Cranberry Sparkler is the correct form.",merged -> Buckeye Cranberry Sparkler
+Buckeye Lace Petticoats,Buckeye Lace Patticoats,cultivar,cultivar,supplement,xlsx,0,0,0.952,"merge, Buckeye Lace Petticoats is the correct form. ",merged -> Buckeye Lace Petticoats
+Buckeye Love's Caress,Buckeye Love's Carees,cultivar,cultivar,sqlite+supplement,xlsx,0,0,0.944,"merge, Buckeye Love's Caress is the correct form.",merged -> Buckeye Love's Caress
+Buckeye Lucky Irish,Buckeye Lucky Frish,stub,cultivar,parent,xlsx,4,0,0.941,"merge, Buckeye Lucky Irish is the correct form.",merged -> Buckeye Lucky Irish
+Buckeye Northern Lights,Buckeye Nothern Lights,cultivar,cultivar,supplement,xlsx,0,0,0.976,"merge, Buckeye Northern Lights is the correct form.",merged -> Buckeye Northern Lights
+Buckeye Nostagia,Buckeye Nostalgia,stub,cultivar,parent,xlsx+supplement,1,9,0.968,"merge, Buckeye Nostalgia is the correct form.",merged -> Buckeye Nostalgia
+Buckeye Too Shameless,Buckeye To Shameless,cultivar,cultivar,sqlite+supplement,xlsx,0,0,0.973,"merge, Buckeye Too Shameless is the correct form.",merged -> Buckeye Too Shameless
+Cajun's Pink Negligee,Cajun's Pink Neglegee,cultivar,cultivar,supplement,xlsx,0,0,0.944,"merge, Cajun's Pink Negligee is the correct form. ",merged -> Cajun's Pink Negligee
+Candy Swirl,Candy Swirls,stub,cultivar,parent,sqlite,2,2,0.952,"merge, Candy Swirls is the correct form.",merged -> Candy Swirls
+Chery Chimes,Cherry Chimes,stub,stub,parent,parent,2,6,0.957,"merge, Cherry Chimes is the correct form. ",merged -> Cherry Chimes
+Chiffon Princess,Chiffon Prince,cultivar,cultivar,xlsx,xlsx,0,0,0.929,Keep separate. Chiffon Prince and Chiffon Princess are different cultivars.,kept separate
+Cranberry 9ight,Cranberry Night,cultivar,cultivar,supplement,sqlite,0,0,0.929,"merge, Cranberry Night is the correct form. ",merged -> Cranberry Night
+DancinTrail,Dancing Trail,stub,stub,parent,parent,2,3,0.957,"merge, update both to Dancin’ Trail",merged -> Dancin' Trail
+Erin's Apple Blossom,Ern's Apple Blossom,cultivar,cultivar,supplement,supplement,0,0,0.97,"merge, Ern's Apple Blossom is the correct form. ",merged -> Ern's Apple Blossom
+Flamingo Queen,Flaming Queen,stub,stub,parent,parent,1,1,0.96,"Merge, Flamingo Queen is the correct form. ",merged -> Flamingo Queen
+Forbidden Ecstacy,Forbidden Ecstasy,stub,cultivar,parent,xlsx,4,0,0.938,"merge, Forbidden Ecstasy is the correct form",merged -> Forbidden Ecstasy
+Frostry Spring,Frosty Spring,stub,stub,parent,parent,1,2,0.96,"merge, Frosty Spring is the correct form. ",merged -> Frosty Spring
+Grandmothers Halo,Granmother's Halo,stub,cultivar,parent,xlsx,1,0,0.968,"merge, update both to Grandmother’s Halo",merged -> Grandmother's Halo
+Guelph's Dynamite,Guelph's Dynomite,cultivar,cultivar,sqlite,xlsx,0,0,0.933,"merge, Guelph's Dynamite is the correct form",merged -> Guelph's Dynamite
+Happy Trail,Happy Trails,stub,cultivar,parent,xlsx,2,0,0.952,"merge, Happy Trails is the correct form",merged -> Happy Trails
+Hein'z Starfish,Heinz's Starfish,stub,cultivar,parent,xlsx,8,1,0.963,"merge, Heinz's Starfish is the correct form",merged -> Heinz's Starfish
+Hidden Treasure,Hidden Treasures,stub,cultivar,parent,sqlite,1,0,0.966,"merge, Hidden Treasures is the correct form",merged -> Hidden Treasures
+Hunter's Lightning Strike,Hunter's Lightening Strike,cultivar,cultivar,supplement,xlsx,0,0,0.978,"merge, Hunter's Lightning Strike is the correct form.",merged -> Hunter's Lightning Strike
+Ian-Zabava-2,Ian-Zabava,cultivar,cultivar,supplement,supplement,0,0,0.947,Keep separate. Ian-Zabava and Ian-Zabava-2 have different registration numbers. ,kept separate
+Imp's Shiny Seashell,Imp's Shiny Seashells,stub,cultivar,parent,xlsx,9,0,0.971,"merge, Imp's Shiny Seashell is the correct form.",merged -> Imp's Shiny Seashell
+Irish Iridescense,Irish Iridescence,stub,cultivar,parent,sqlite+supplement,1,0,0.938,"merge, Irish Iridescence is the correct form",merged -> Irish Iridescence
+Jersey Girl Trailer,Jersey Girl Trail,cultivar,cultivar,xlsx,supplement,0,1,0.938,"merge, Jersey Girl Trail is the correct form",merged -> Jersey Girl Trail
+Jesica Ellen,Jessica Ellen,stub,stub,parent,parent,1,1,0.957,"merge, Jessica Ellen is the correct form",merged -> Jessica Ellen
+King's Ransome,King's Ransom,stub,cultivar,parent,sqlite,1,0,0.957,"merge, King's Ransom is the correct form",merged -> King's Ransom
+Ko's Lil Memento,Ko's Lil Mememto,cultivar,cultivar,sqlite+supplement,xlsx,0,0,0.923,"merge, Ko's Lil Memento is the correct form",merged -> Ko's Lil Memento
+Ko's Lil Princess,Ko's Lil Prince,cultivar,cultivar,xlsx+sqlite+supplement,xlsx+sqlite+supplement,0,0,0.923,Keep separate. Both are registered varieties,kept separate
+Ko's Lil Sweetheart,Ko's Lil Sweetheeart,cultivar,cultivar,sqlite+supplement,xlsx,0,0,0.97,"merge, Ko's Lil Sweetheart is the correct form",merged -> Ko's Lil Sweetheart
+Ko's Luve Whisper,Ko's Luv Whisper,stub,cultivar,parent,xlsx+sqlite,0,0,0.963,"merge, Ko's Luv Whisper is the correct form",merged -> Ko's Luv Whisper
+Ko's Midsummer 9ight,Ko's Midsummer Night,cultivar,cultivar,supplement,xlsx+sqlite,0,0,0.941,"merge, Ko's Midsummer Night is the correct form",merged -> Ko's Midsummer Night
+Ko's Unforgettable,Ko's Unforgetable,cultivar,cultivar,sqlite,xlsx,0,0,0.968,"merge, Ko's Unforgettable is the correct form",merged -> Ko's Unforgettable
+LE Prekrasnia Kreolka,LE-Prekrasnaia Kreolka,stub,cultivar,parent,xlsx+supplement,4,0,0.974,"merge, LE-Prekrasnaia Kreolka is the correct form.",merged -> LE-Prekrasnaia Kreolka
+LE-Adzhio,LE-Adazhio,cultivar,cultivar,supplement,xlsx+supplement,0,0,0.941,"merge, LE-Adazhio is the correct form",merged -> LE-Adazhio
+LE-Vzbitye Slivki,LE-Vsbitye Slivki,stub,cultivar,parent,sqlite,14,0,0.933,"merge, LE-Vsbitye Slivki is the correct form",merged -> LE-Vsbitye Slivki
+Ma's Happily Every After,Ma's Happily Ever After,stub,cultivar,parent,sqlite+supplement,1,4,0.974,"merge, Ma's Happily Ever After is the correct form. ",merged -> Ma's Happily Ever After
+Ma's Hickie,Ma's Hickies,cultivar,cultivar,sqlite+supplement,xlsx,0,0,0.947,"merge, Ma's Hickie is the correct form",merged -> Ma's Hickie
+Mac's Freckle-faced Redhead,Mac's Freckled-Faced Redhead,cultivar,cultivar,supplement,xlsx,0,0,0.979,"merge, Mac's Freckle-faced Redhead is the correct form.",merged -> Mac's Freckle-faced Redhead
+Mac's Voodoo Yoodoo,Mac's Voodoo Voodoo,cultivar,cultivar,supplement,xlsx,0,0,0.938,"merge, Mac's Voodoo Yoodoo is the correct form",merged -> Mac's Voodoo Yoodoo
+Midget Valentien,Midget Valentine,stub,cultivar,parent,xlsx,4,0,0.933,"merge, Midget Valentine is the correct form",merged -> Midget Valentine
+Midgnight Frolic,Midnight Frolic,stub,cultivar,parent,sqlite,1,2,0.966,"merge, Midnight Frolic is the correct form",merged -> Midnight Frolic
+Midnight Wave,Midnight Waves,stub,stub,parent,parent,1,2,0.96,"merge, Midnight Wave is the correct form",merged -> Midnight Wave
+Neptune's Jewel,Neptune's Jewels,stub,cultivar,parent,sqlite,2,2,0.963,"merge, Neptune's Jewels is the correct form",merged -> Neptune's Jewels
+Ness' Mindy's Dream,Ness' Midny's Dream,stub,cultivar,parent,xlsx,1,0,0.933,"merge, Ness' Mindy's Dream is the correct form",merged -> Ness' Mindy's Dream
+Newton Ohio,Newtown Ohio,stub,cultivar,parent,xlsx,1,2,0.952,"merge, Newtown Ohio is the correct form",merged -> Newtown Ohio
+Optimara Chico,Optimara Chicago,stub,cultivar,parent,sqlite,0,0,0.929,Keep separate. Both are registered varieties,kept separate
+Optimara Connecticut,Optimara Connecticut II,stub,cultivar,parent,supplement,5,0,0.95,Keep separate. Both are registered varieties,kept separate
+Optimara Little Chicataw,Optimara Little Chickasaw,stub,cultivar,parent,sqlite,3,0,0.933,"merge, Optimara Little Chickasaw is the correct form",merged -> Optimara Little Chickasaw
+Optimara Little Hopi,Optimara Little Hopi II,stub,cultivar,parent,sqlite,1,0,0.947,Keep separate. Both are registered varieties,kept separate
+Optimara Rocky Mountain II,Optimara Rocky Mountain,cultivar,cultivar,supplement,sqlite,0,0,0.955,Keep separate. Both are registered varieties,kept separate
+Optimara Trinidad II,Optimara Trinidad,cultivar,cultivar,supplement,xlsx,0,0,0.941,Keep separate. Both are registered varieties,kept separate
+Persian Prince,Persian Princess,cultivar,cultivar,sqlite,sqlite,0,0,0.929,Keep separate. Both are registered varieties,kept separate
+Prelestnaya Teshca,Prelestnaya Tescha,stub,stub,parent,parent,1,1,0.941,"merge, Prelestnaya Teshcha is the correct form",merged -> Prelestnaya Teshcha
+Rain Main,Rain Man,stub,cultivar,parent,xlsx,1,9,0.933,"merge, Rain Man is the correct form",merged -> Rain Man
+Rainbow's Quiet Rion,Rainbow's Quiet Riot,stub,cultivar,parent,sqlite,1,15,0.941,"merge, Rainbow's Quiet Riot is the correct form",merged -> Rainbow's Quiet Riot
+Rhapsodie Mars,Rhapsodie Mary,stub,stub,parent,parent,1,3,0.923,Keep separate. Both are registered varieties,kept separate
+Rhapsodie Susi,Rhapsodie Susi II,cultivar,cultivar,supplement,supplement,0,0,0.929,Keep separate. Both are registered varieties,kept separate
+Rob's Afghanistan Banana Stand,Rob's Afghanistan Bananistan,cultivar,cultivar,sqlite+supplement,xlsx,0,0,0.941,"merge, Rob's Afghanistan Banana Stand is the correct form",merged -> Rob's Afghanistan Banana Stand
+Rob's Combustible Pigeon,Rob's Combustible Piggeon,cultivar,cultivar,sqlite,xlsx,0,0,0.977,"merge, Rob's Combustible Pigeon is the correct form",merged -> Rob's Combustible Pigeon
+Rob's Flirtatious Floozie,Rob's Flirtatioous Floozie,cultivar,cultivar,sqlite,xlsx,0,0,0.978,"merge, Rob's Flirtatious Floozie is the correct form.",merged -> Rob's Flirtatious Floozie
+Rob's Galiwinku,Rob's Gailiwinku,stub,cultivar,parent,xlsx,0,0,0.963,"merge, Rob's Galiwinku is the correct form.",merged -> Rob's Galiwinku
+Rob's Grey Ghost,Rob's Gray Ghost,stub,cultivar,parent,xlsx,1,1,0.923,"merge, Rob's Gray Ghost is the correct form",merged -> Rob's Gray Ghost
+Rob's Macko Devil,Rob's Macho Devil,stub,cultivar,parent,xlsx,1,3,0.929,"merge, Rob's Macho Devil is the correct form",merged -> Rob's Macho Devil
+Rob's Ouiter Orbit,Rob's Outer Orbit,stub,cultivar,parent,xlsx+sqlite,1,3,0.966,"merge, Rob's Outer Orbit is the correct form",merged -> Rob's Outer Orbit
+Rob's Sarsarparilla,Rob's Sarsparilla,stub,cultivar,parent,xlsx,10,1,0.938,"merge, Rob's Sarsparilla is the correct form",merged -> Rob's Sarsparilla
+Royal Mountbattan,Royal Mountbatton,stub,cultivar,parent,xlsx,3,1,0.938,"merge, Royal Mountbatton is the correct form",merged -> Royal Mountbatton
+RS Gertsognia,RS-Gertsoginia,stub,cultivar,parent,supplement,3,3,0.96,"merge, RS-Gertsoginia is the correct form",merged -> RS-Gertsoginia
+Silvewr Lining,Silver Lining,stub,cultivar,parent,sqlite,1,2,0.96,"merge, Silver Lining is the correct form",merged -> Silver Lining
+Sky Lantern,Sky Lanterns,stub,cultivar,parent,xlsx+supplement,1,0,0.952,"merge, Sky Lanterns is the correct form",merged -> Sky Lanterns
+Stellar Clouds,Stella Clouds,stub,cultivar,parent,xlsx,7,0,0.96,"merge, Stellar Clouds is the correct form",merged -> Stellar Clouds
+Strawberry Daiquri,Strawberry Daiquiri,stub,cultivar,parent,sqlite,3,12,0.971,"merge, Strawberry Daiquiri is the correct form",merged -> Strawberry Daiquiri
+Tinkerbell,Tinker Bells,cultivar,cultivar,xlsx,xlsx,0,0,0.952,Keep separate. Two cultivars: Tinker Bells (Pittman) and Tinkerbell (Clements).,kept separate
+Venus Butterly,Venus Butterfly,stub,cultivar,parent,xlsx,6,14,0.963,"merge, Venus Butterfly is the correct form",merged -> Venus Butterfly
+Lovely Rainbow,Mag's Lovely Rainbow,cultivar,cultivar,sqlite,supplement,0,0,manual,"merge, Mag's Lovely Rainbow is the correct form (only Mag's Lovely Rainbow, reg# 10627, exists in the online database).",merged -> Mag's Lovely Rainbow

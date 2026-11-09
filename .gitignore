@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Raw publication content stays out of the repo; cleaned data derived from it may be committed.
+source/AV-MasterLIstSupplements/**/*.pdf
+source/AV-MasterLIstSupplements/**/*Page*.txt
+source/AV-MasterLIstSupplements/MasterListBook/

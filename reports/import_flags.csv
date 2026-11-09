@@ -1,0 +1,330 @@
+﻿category,cultivar,detail
+xlsx_conflicting_duplicate,Buckeye Glad Rags,"row 462 differs from kept row 461: seed='Buckeye Cranberry Sparkler' pollen='Buckeye Calico' hybridizer='Hancock, Pat'"
+xlsx_conflicting_duplicate,Dean's (most all),"row 819 differs from kept row 818: seed='Snuggles (Lyons)' pollen='diverse pollent parent' hybridizer='Hobbs, H'"
+xlsx_conflicting_duplicate,Pink Wasp,"row 2063 differs from kept row 2062: seed='Georgia Peach on Bustles, bred back on Georgia Peach' pollen='' hybridizer='Dates, Jimmy'"
+xlsx_conflicting_duplicate,Rob's Afghanistan Bananistan,"row 2310 differs from kept row 2309: seed=""Rob's Penguin Suit (sport of)"" pollen='sport of' hybridizer='Robinson, Ralph'"
+xlsx_conflicting_duplicate,Royal Blue Trailer,row 2557 differs from kept row 2556: seed='backcrosses of Wild Girl and S. grotei' pollen='' hybridizer='Tinari'
+xlsx_conflicting_duplicate,Southsea Rock,"row 2749 differs from kept row 2748: seed='Birthday Blush' pollen=""Aca's Summer Parfait"" hybridizer='Taylor, Margaret'"
+xlsx_conflicting_duplicate,Sylph's Dragonhead,"row 2812 differs from kept row 2811: seed='Playful Spectrum' pollen='Ultra Violet Twilgiht' hybridizer='Jackson, Jeff'"
+xlsx_conflicting_duplicate,Tea's Blueberry Butterfly,"row 2827 differs from kept row 2826: seed='Summer Carnival (sport of)' pollen='sport of' hybridizer='Baker, Joan'"
+supplement_conflict,Cajun's Christy,"bloom_description: 2018='Single-semidouble purple star/white eye and rays, thin white edge, variable green on top petals' vs 2017='Semidouble purple star/white eye and rays, thin white-green edge' (kept 2018)"
+supplement_conflict,Cajun's Cotton Candy,bloom_description: 2018='Semidouble-double rose pink ruffled star/white eye and edge' vs 2017='Semidouble-double rose pink star/white eye and edge' (kept 2018)
+supplement_conflict,Cajun's Cotton Candy,"foliage_description: 2018='Variegated medium green and cream, serrated' vs 2017='Variegated medium green and cream, ruffled, serrated' (kept 2018)"
+supplement_conflict,Cajun's Maya,bloom_description: 2019='Double rose-pink frilled star/raspberry sparkle edge' vs 2017='Double rose pink frilled star/raspberry edge' (kept 2019)
+supplement_conflict,Cajun's Maya,"foliage_description: 2019='Variegated medium green and cream, plain, serrated' vs 2017='Variegated, medium green and cream, plain, serrated' (kept 2019)"
+supplement_conflict,Cajun's Midnight Mayhem,bloom_description: 2019='Double blue star/wide white edge' vs 2017='Double blue star/white edge' (kept 2019)
+supplement_conflict,Cajun's Mystical Star,bloom_description: 2018='Single-semidouble white star/random white-rayed purple patches' vs 2017='Single-semidouble white star/random purple patches' (kept 2018)
+supplement_conflict,Cajun's Mystical Star,"foliage_description: 2018='Variegated medium green and cream, ovate, quilted' vs 2017='Variegated medium green and pink, ovate, quilted' (kept 2018)"
+supplement_conflict,Cajun's Swamp Dancer,"foliage_description: 2018='Variegated light green and cream, quilted, serrated' vs 2017='Variegated light green and cream, serrated' (kept 2018)"
+supplement_conflict,Kev's Plum Surprise,"bloom_description: 2018='Single-semidouble lavender sticktite pansy/darker top petals, white eye' vs 2017='Single lavender sticktite pansy/darker top petals, white eye' (kept 2018)"
+supplement_conflict,Buckeye Enough Pizzazz,"bloom_description: 2016='Semidouble-double lavender two-tone pansy/purple top petals, variable thin purple edge' vs 2015='Single-semidouble lavender two-tone pansy/purple top petals, variable thin purple edge' (kept 2016)"
+supplement_conflict,Jolly Andrea,bloom_description: 2016='Semidouble-double blue and variable white' vs 2015='Semidouble-double blue and white' (kept 2016)
+supplement_conflict,Mezame,bloom_description: 2018='Single chimera white-light blue star/dark blue stripe' vs 2015='Single chimera white-light blue sticktite star/dark blue stripe' (kept 2018)
+supplement_conflict,Milk's Ten Cats,"hyb: 2017='Robinson, O./Fu, S.' vs 2015='Fu, S.' (kept 2017)"
+supplement_conflict,Tawawa,bloom_description: 2018='Single white star/bright pink stripe' vs 2015='Single white sticktite star/bright pink stripe' (kept 2018)
+supplement_conflict,Jersey Starlight Trail,"foliage_description: 2019='Crown variegated medium green, cream, and yellow, quilted' vs 2014='Crown variegated medium green and cream, quilted' (kept 2019)"
+supplement_conflict,Jersey Starlight Trail,"hyb: 2019='Kurzynski, R.' vs 2014='Kuzynski, R.' (kept 2019)"
+supplement_conflict,LE-Prekrasnaia Kreolka,bloom_description: 2015='Semidouble dark blue wavy large pansy/green-white edge' vs 2014='Semidouble dark blue wavy large pansy/wide white edge' (kept 2015)
+supplement_conflict,LE-Prekrasnaia Kreolka,"foliage_description: 2015='Medium green, plain, ovate' vs 2014='Medium green, plain, ovate, longifolia' (kept 2015)"
+supplement_conflict,Mag's Lovely Rainbow,"bloom_description: 2017='Single chimera light pink sticktite ruffled star/light lavender stripe, dark lavender fantasy, variable fuchsia edge' vs 2014='Single chimera light pink sticktite ruffled star/light lavender stripe, dark lavender fantasy, fuchsia edge' (kept 2017)"
+supplement_conflict,RM-Korolevskie Kruzheva,"bloom_description: 2015='Double white frilled large star/variable white-green edge' vs 2014='Double white frilled large star/variable pink blush, white-green edge' (kept 2015)"
+supplement_conflict,Cajun's Fair Maiden,"foliage_description: 2014='Variegated dark green, cream and pink, plain, heart-shaped, quilted' vs 2013='Variegated dark green, cream and pink, plain, heart-shaped' (kept 2014)"
+supplement_conflict,Cajun's Hill Be Blue,"foliage_description: 2014='Variegated medium green, cream and pink, plain, quilted' vs 2013='Variegated medium green, cream and pink, plain' (kept 2014)"
+supplement_conflict,Cajun's Pink Crepe Paper,"bloom_description: 2014='Semidouble-double pink star/variable raspberry mottling' vs 2013='Semidouble-double pink star/raspberry overlay, sparkle edge' (kept 2014)"
+supplement_conflict,Cajun's Pink Crepe Paper,"foliage_description: 2014='Variegated dark green, cream and pink, plain, heart-shaped' vs 2013='Variegated medium green, cream and pink, plain, heart-shaped, serrated' (kept 2014)"
+supplement_conflict,Cajun's Roses Anyone,bloom_description: 2014='Double pink two-tone star' vs 2013='Double pink star/mauve eye' (kept 2014)
+supplement_conflict,Allegro Wee Whimsy,bloom_description: 2017='Semidouble lavender wavy pansy/darker veins in top petals' vs 2012='Semidouble lavender wavy pansy/darker veins in top petals.' (kept 2017)
+supplement_conflict,Allegro Wee Whimsy,"foliage_description: 2017='Dark green, heart shaped, scalloped/red reverse' vs 2012='Dark green, heart shaped, scalloped/red reverse.' (kept 2017)"
+supplement_conflict,Allegro Epicenter,"bloom_description: 2014='Single light pink sticktite pansy/fuchsia-red eye, variable notched tips' vs 2012='Single light pink sticktite pansy/fuchsia-red eye, variable notched tips.' (kept 2014)"
+supplement_conflict,Allegro Epicenter,"foliage_description: 2014='Medium green, heart-shaped, quilted, glossy, serrated' vs 2012='Medium green, heart-shaped, quilted, glossy, serrated.' (kept 2014)"
+supplement_conflict,Allegro Pepto Pink,bloom_description: 2013='Semidouble-double medium pink pansy/darker pink overlay' vs 2012='Semidouble-double medium pink pansy/darker pink overlay.' (kept 2013)
+supplement_conflict,Allegro Pepto Pink,"foliage_description: 2013='Medium green, heart-shaped, glossy, serrated' vs 2012='Medium green, heart-shaped, glossy, serrated.' (kept 2013)"
+supplement_conflict,Buckeye Lazy Daze,"bloom_description: 2018='Semidouble lavender frilled pansy/pink-white and purple fantasy, purple fantasy with variable green edge' vs 2012='Semidouble lavender frilled pansy/pink-white and purple fantasy, purple fantasy edge.' (kept 2018)"
+supplement_conflict,Buckeye Lazy Daze,"foliage_description: 2018='Variegated dark green, pink and cream, ruffled' vs 2012='Variegated dark green, pink and cream, ruffled.' (kept 2018)"
+supplement_conflict,Buckeye Ticker Tape,bloom_description: 2015='Semidouble lavender pansy/pink and variable purple fantasy' vs 2012='Semidouble lavender pansy/pink and purple fantasy.' (kept 2015)
+supplement_conflict,Buckeye Ticker Tape,"foliage_description: 2015='Variegated dark green, pink and cream' vs 2012='Variegated dark green, pink and cream.' (kept 2015)"
+supplement_conflict,Buckeye Too Much,bloom_description: 2016='Semidouble lavender-pink pansy/darker fantasy' vs 2012='Semidouble lavender-pink pansy/darker fantasy.' (kept 2016)
+supplement_conflict,Buckeye Too Much,"foliage_description: 2016='Variegated dark green, pink and cream, plain' vs 2012='Variegated dark green, pink and cream, plain.' (kept 2016)"
+supplement_conflict,Buckeye Too Tempting,"bloom_description: 2016='Semidouble lavender-pink ruffled pansy/purple fantasy, edge' vs 2012='Semidouble lavender-pink ruffled pansy/purple fantasy, edge.' (kept 2016)"
+supplement_conflict,Buckeye Too Tempting,"foliage_description: 2016='Variegated medium green, cream and pink, ruffled, serrated' vs 2012='Variegated medium green, cream and pink, ruffled, serrated.' (kept 2016)"
+supplement_conflict,Buckeye Torrid Zone,"bloom_description: 2016='Semidouble lavender-plum pansy/darker top petals, dark purple fantasy' vs 2012='Semidouble lavender-plum pansy/darker top petals, dark purple fantasy.' (kept 2016)"
+supplement_conflict,Buckeye Torrid Zone,"foliage_description: 2016='Variegated dark green, pink and cream' vs 2012='Variegated dark green, pink and cream.' (kept 2016)"
+supplement_conflict,Cajun's Beautiful Oblivion,bloom_description: 2013='Single-semidouble purple frilled star/pink and white fantasy' vs 2012='Single-semidouble purple frilled star/pink and white fantasy.' (kept 2013)
+supplement_conflict,Cajun's Beautiful Oblivion,"foliage_description: 2013='Variegated dark green, cream and pink, plain' vs 2012='Variegated dark green, cream and pink, plain.' (kept 2013)"
+supplement_conflict,Cajun's Blueberry Hill,bloom_description: 2013='Semidouble-double blue frilled star/pink and white fantasy' vs 2012='Semidouble-double blue frilled star/pink and white fantasy.' (kept 2013)
+supplement_conflict,Cajun's Blueberry Hill,"foliage_description: 2013='Variegated medium green, cream and pink, plain, heart-shaped, serrated' vs 2012='Variegated medium green, cream and pink, plain, heart-shaped, serrated.' (kept 2013)"
+supplement_conflict,Cajun's Cha-Ching!,bloom_description: 2013='Single-semidouble dark blue pansy/pink and white fantasy' vs 2012='Single-semidouble dark blue pansy/pink and white fantasy.' (kept 2013)
+supplement_conflict,Cajun's Cha-Ching!,"foliage_description: 2013='Variegated dark green, cream and pink, plain/red back' vs 2012='Variegated dark green, cream and pink, plain/red back.' (kept 2013)"
+supplement_conflict,Cajun's Cherished Hope,bloom_description: 2013='Single-semidouble pink star/variable raspberry fantasy' vs 2012='Single-semidouble pink star/variable raspberry fantasy.' (kept 2013)
+supplement_conflict,Cajun's Cherished Hope,"foliage_description: 2013='Variegated dark green, cream and pink, pointed/red back' vs 2012='Variegated dark green, cream and pink, pointed/red back.' (kept 2013)"
+supplement_conflict,Cajun's Delicate Touch,bloom_description: 2014='Semidouble-double pink frilled star/thin raspberry sparkle edge' vs 2012='Semidouble-double pink frilled star/thin raspberry sparkle edge.' (kept 2014)
+supplement_conflict,Cajun's Delicate Touch,"foliage_description: 2014='Variegated medium green and cream, heart-shaped, quilted' vs 2012='Variegated medium green and white, heart-shaped.' (kept 2014)"
+supplement_conflict,Cajun's Dixie Pride,bloom_description: 2013='Double pink frilled star/variable thin raspberry edge' vs 2012='Double pink frilled star/variable thin raspberry edge.' (kept 2013)
+supplement_conflict,Cajun's Dixie Pride,"foliage_description: 2013='Variegated dark green, cream and pink, plain, heart-shaped, serrated/red back' vs 2012='Variegated dark green, cream and pink, plain, heart-shaped, serrated/red back.' (kept 2013)"
+supplement_conflict,Cajun's Drama Queen,bloom_description: 2013='Semidouble dark blue frilled pansy/pink and white fantasy' vs 2012='Semidouble dark blue frilled pansy/pink and white fantasy.' (kept 2013)
+supplement_conflict,Cajun's Drama Queen,"foliage_description: 2013='Variegated medium green, white and pink, plain, serrated' vs 2012='Variegated medium green, white and pink, plain, serrated.' (kept 2013)"
+supplement_conflict,Cajun's Fascinating Fury,bloom_description: 2013='Semidouble-double blue frilled star/pink and white fantasy' vs 2012='Semidouble-double blue frilled star/pink and white fantasy.' (kept 2013)
+supplement_conflict,Cajun's Fascinating Fury,"foliage_description: 2013='Variegated medium green, cream and pink, plain, heart-shaped, serrated/red back' vs 2012='Variegated medium green, cream and pink, plain, heart-shaped, serrated/red back.' (kept 2013)"
+supplement_conflict,Cajun's Freckleface Kid,bloom_description: 2013='Semidouble-double pink frilled pansy/variable raspberry speckled edge' vs 2012='Semidouble-double pink frilled pansy/variable raspberry speckled edge.' (kept 2013)
+supplement_conflict,Cajun's Freckleface Kid,"foliage_description: 2013='Variegated dark green, cream and pink, plain, heart-shaped' vs 2012='Variegated dark green, cream and pink, plain, heart-shaped.' (kept 2013)"
+supplement_conflict,Cajun's Frisky Whiskey,bloom_description: 2013='Single dark blue pansy/pink and white fantasy' vs 2012='Single dark blue sticktite pansy/pink and white fantasy.' (kept 2013)
+supplement_conflict,Cajun's Frisky Whiskey,"foliage_description: 2013='Variegated medium green, cream and pink, heart-shaped, serrated/red back' vs 2012='Variegated medium green, cream and pink, heart-shaped, serrated/red back.' (kept 2013)"
+supplement_conflict,Cajun's Hot Expectations,bloom_description: 2013='Double hot pink star/variable raspberry speckled edge' vs 2012='Double hot pink star/variable raspberry speckled edge.' (kept 2013)
+supplement_conflict,Cajun's Hot Expectations,"foliage_description: 2013='Variegated dark green, cream and pink, plain, heart-shaped, serrated/red back' vs 2012='Variegated dark green, cream and pink, plain, heart-shaped, serrated/red back.' (kept 2013)"
+supplement_conflict,Cajun's Storm Watch,bloom_description: 2014='Double dark blue frilled star/pink and white fantasy' vs 2012='Double dark blue frilled star/pink and white fantasy.' (kept 2014)
+supplement_conflict,Cajun's Storm Watch,"foliage_description: 2014='Variegated dark green, cream and pink, heart-shaped, quilted, serrated/red back' vs 2012='Variegated dark green, cream and pink, heart-shaped, quilted, serrated/red back.' (kept 2014)"
+supplement_conflict,Cajun's Sundowners,bloom_description: 2013='Semidouble bright pink wavy pansy' vs 2012='Semidouble bright pink wavy pansy.' (kept 2013)
+supplement_conflict,Cajun's Sundowners,"foliage_description: 2013='Variegated dark green, cream and pink, plain' vs 2012='Variegated dark green, cream and pink, plain.' (kept 2013)"
+supplement_conflict,Erin's Apple Blossom,bloom_description: 2015='Semidouble pale pink star' vs 2012='Semidouble white star/light pink edge.' (kept 2015)
+supplement_conflict,Erin's Apple Blossom,"foliage_description: 2015='Dark green, heart-shaped, quilted' vs 2012='Dark green, quilted.' (kept 2015)"
+supplement_conflict,Jolly Lilac,bloom_description: 2015='Single-semidouble lavender pansy/darker eye' vs 2012='Single-semidouble lavender pansy/darker eye.' (kept 2015)
+supplement_conflict,Jolly Lilac,"foliage_description: 2015='Dark green, plain' vs 2012='Dark green, plain.' (kept 2015)"
+supplement_conflict,K's Eclipse,"bloom_description: 2015='Double white pansy/pink eye, variable pink edges' vs 2012='Double white pansy/pink eye, variable pink edges.' (kept 2015)"
+supplement_conflict,K's Eclipse,"foliage_description: 2015='Light green, plain' vs 2012='Light green, plain.' (kept 2015)"
+supplement_conflict,K's Irish Whiskey,bloom_description: 2015='Single white sticktite pansy/green and burgundy streaks' vs 2012='Single white sticktite pansy/green and burgundy streaks.' (kept 2015)
+supplement_conflict,K's Irish Whiskey,foliage_description: 2015='Variegated medium green and ivory' vs 2012='Variegated medium green and ivory.' (kept 2015)
+supplement_conflict,K's Kiwiberry,"bloom_description: 2015='Single white cupped sticktite pansy/green streaks, purple edge' vs 2012='Single white cupped sticktite pansy/green streaks, purple edge.' (kept 2015)"
+supplement_conflict,K's Kiwiberry,"foliage_description: 2015='Variegated light green and ivory, quilted, wavy' vs 2012='Variegated light green and ivory, quilted, wavy.' (kept 2015)"
+supplement_conflict,K's Lip Liner,bloom_description: 2015='Single pink sticktite star/dark red tips' vs 2012='Single pink sticktite star/dark red tips.' (kept 2015)
+supplement_conflict,K's Lip Liner,foliage_description: 2015='Variegated medium green and ivory' vs 2012='Variegated medium green and ivory.' (kept 2015)
+supplement_conflict,K's Pink Agate,bloom_description: 2016='Semidouble-double light pink large star/dark pink streaks' vs 2012='Semidouble-double light pink large pansy/dark pink streaks.' (kept 2016)
+supplement_conflict,K's Pink Agate,"foliage_description: 2016='Medium-dark green, quilted, reverse spooned' vs 2012='Medium-dark green, quilted.' (kept 2016)"
+supplement_conflict,K's Pistachio Blush,"bloom_description: 2016='Single-semidouble white frilled bell/pink eye, variable dark pink markings; green edge' vs 2012='Semidouble-double white star/pink eye, green edges.' (kept 2016)"
+supplement_conflict,K's Pistachio Blush,"foliage_description: 2016='Variegated medium green and white, quilted' vs 2012='Variegated medium green and ivory, wavy.' (kept 2016)"
+supplement_conflict,K's Sheer Quartz,bloom_description: 2015='Semidouble white/pink eye' vs 2012='Semidouble white/pink eye.' (kept 2015)
+supplement_conflict,K's Sheer Quartz,"foliage_description: 2015='Medium green, quilted' vs 2012='Medium green, quilted.' (kept 2015)"
+supplement_conflict,Mac's Freckle-faced Redhead,bloom_description: 2014='Single-semidouble coral-red two-tone pansy' vs 2012='Single-semidouble coral-red two-tone pansy.' (kept 2014)
+supplement_conflict,Mac's Freckle-faced Redhead,foliage_description: 2014='Mosaic variegated dark green and white' vs 2012='Mosaic variegated dark green and white.' (kept 2014)
+supplement_conflict,Tatanka,bloom_description: 2013='Single-semidouble red pansy' vs 2012='Single-semidouble red pansy.' (kept 2013)
+supplement_conflict,Tatanka,"foliage_description: 2013='Dark green, plain/red back' vs 2012='Dark green, plain/red back.' (kept 2013)"
+supplement_conflict,Mac's Misty Meadow,bloom_description: 2014='Single white sticktite pansy/variable purple tinge; green edge' vs 2011='Single white sticktite pansy/green edge' (kept 2014)
+supplement_conflict,Optimara EverBeautiful,bloom_description: 2014='Single-semidouble two-tone lavender frilled pansy/white edge' vs 2011='Single-semidouble purple and dark lavender frilled pansy/green edge' (kept 2014)
+supplement_conflict,Optimara EverBeautiful,"foliage_description: 2014='Dark green, plain, glossy, wavy, hairy, scalloped/red back' vs 2011='Dark green, plain, wavy, scalloped, serrated/red back' (kept 2014)"
+supplement_conflict,Optimara EverBeautiful,"hyb: 2014='Holtkamp, R.' vs 2011='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverGlory,bloom_description: 2014='Single pink two-tone sticktite frilled pansy/green-white edge' vs 2011='Single purple-pink two-tone sticktite pansy/green-white edge' (kept 2014)
+supplement_conflict,Optimara EverGlory,"foliage_description: 2014='Medium green, plain, glossy, wavy, scalloped' vs 2011='Dark green, plain, wavy, scalloped, serrated' (kept 2014)"
+supplement_conflict,Optimara EverGlory,"hyb: 2014='Holtkamp, R.' vs 2011='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverHarmony,"bloom_description: 2014='Single-semidouble white to pale pink frilled pansy/variable darker eye, band; light green edge' vs 2011='Single white to pale pink sticktite frilled pansy/variable darker eye, band; light green edge' (kept 2014)"
+supplement_conflict,Optimara EverHarmony,"foliage_description: 2014='Medium green, plain, glossy, hairy, wavy, scalloped./red back' vs 2011='Medium green, plain, glossy, hairy, wavy, scalloped' (kept 2014)"
+supplement_conflict,Optimara EverJoy,bloom_description: 2014='Single-semidouble purple-burgundy frilled pansy/variable green edge' vs 2011='Single-semidouble purple-burgundy frilled pansy/green edge' (kept 2014)
+supplement_conflict,Optimara EverJoy,"foliage_description: 2014='Medium green, hairy, ruffled, wavy' vs 2011='Medium green, plain, wavy, scalloped, serrated' (kept 2014)"
+supplement_conflict,Optimara EverJoy,"hyb: 2014='Holtkamp, R.' vs 2011='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverPrecious,"bloom_description: 2014='Single-semidouble white frilled pansy/thin purple band, variable green edge' vs 2011='Single white frilled sticktite pansy/thin lilac band, green edge' (kept 2014)"
+supplement_conflict,Optimara EverPrecious,"foliage_description: 2014='Medium green, glossy, ruffled, wavy' vs 2011='Dark green, plain, wavy, scalloped, serrated' (kept 2014)"
+supplement_conflict,Optimara EverPrecious,"hyb: 2014='Holtkamp, R.' vs 2011='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverRejoice,bloom_description: 2014='Single-semidouble salmon-pink frilled pansy/variable green edge' vs 2011='Single-semidouble salmon-pink frilled pansy/green-salmon edge' (kept 2014)
+supplement_conflict,Optimara EverRejoice,"foliage_description: 2014='Medium green, ruffled, glossy/red back' vs 2011='Medium green, plain, wavy, scalloped, serrated/red back' (kept 2014)"
+supplement_conflict,Optimara EverRejoice,"hyb: 2014='Holtkamp, R.' vs 2011='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverSpecial,bloom_description: 2014='Semidouble dark blue frilled pansy/variable green edge' vs 2011='Single-semidouble purple-blue frilled pansy/white-green edge' (kept 2014)
+supplement_conflict,Optimara EverSpecial,"foliage_description: 2014='Dark green, glossy, wavy, ruffled/red back' vs 2011='Dark green, plain, wavy, scalloped, serrated/red back' (kept 2014)"
+supplement_conflict,Optimara EverSpecial,"hyb: 2014='Holtkamp, R.' vs 2011='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverYoung,bloom_description: 2014='Single pink two-tone sticktite frilled pansy' vs 2011='Single-semidouble pink two-tone pansy' (kept 2014)
+supplement_conflict,Optimara EverYoung,"foliage_description: 2014='Medium green, glossy, ruffled' vs 2011='Medium green, plain, wavy, scalloped, serrated' (kept 2014)"
+supplement_conflict,Optimara EverYoung,"hyb: 2014='Holtkamp, R.' vs 2011='Holtkamp' (kept 2014)"
+supplement_conflict,Blueberry Sprite,bloom_description: 2011='Single dark purple sticktite pansy/lighter edge' vs 2010='Single dark purple sticktite pansy/lighter edge.' (kept 2011)
+supplement_conflict,Blueberry Sprite,"foliage_description: 2011='Medium green, serrated' vs 2010='Medium green, serrated.' (kept 2011)"
+supplement_conflict,Blueberry Sprite,"hyb: 2011='Sorano, S./Lyndon Lyon Greenhouses' vs 2010='Sorano, S./ Lyndon Lyon Greenhouses' (kept 2011)"
+supplement_conflict,Buckeye Delightful,"foliage_description: 2012='Variegated dark green, pink and cream, plain.' vs 2010='Variegated dark green, pink and cream.' (kept 2012)"
+supplement_conflict,Buckeye Especially Mine,"bloom_description: 2016='Semidouble pink-lavender ruffled pansy/variable raspberry and purple fantasy; raspberry-purple edge' vs 2010='Semidouble pink-lavender ruffled pansy/raspberry and purple fantasy, raspberry-purple edge.' (kept 2016)"
+supplement_conflict,Buckeye Especially Mine,"foliage_description: 2016='Variegated dark green, pink and cream, heart-shaped, glossy, serrated/red back' vs 2010='Variegated dark green, pink and cream, heart-shaped, glossy, serrated/red back.' (kept 2016)"
+supplement_conflict,Buckeye Serenity,bloom_description: 2012='Double white ruffled star/green edge.' vs 2010='Double white star/green edge.' (kept 2012)
+supplement_conflict,Buckeye Serenity,"foliage_description: 2012='Variegated medium green and cream, scalloped.' vs 2010='Variegated medium green and cream.' (kept 2012)"
+supplement_conflict,EK-Belyi Tanets,bloom_description: 2011='Single white large ruffled star' vs 2010='Single white large ruffled star.' (kept 2011)
+supplement_conflict,EK-Belyi Tanets,"foliage_description: 2011='Medium green, plain' vs 2010='Medium green, plain.' (kept 2011)"
+supplement_conflict,GT's Addie,bloom_description: 2017='Single white and pink pansy' vs 2010='Single white and pink pansy.' (kept 2017)
+supplement_conflict,GT's Addie,"foliage_description: 2017='Variegated' vs 2010='Medium green, plain.' (kept 2017)"
+supplement_conflict,Jolly Fairy,bloom_description: 2019='Double pink two-tone/green edge' vs 2010='Double pink/green edge' (kept 2019)
+supplement_conflict,Jolly Fun,bloom_description: 2019='Semidouble-double rose pansy/white edge' vs 2010='Semidouble rose/white edge' (kept 2019)
+supplement_conflict,Jolly Glitter,bloom_description: 2019='Semidouble lavender pansy/purple fantasy' vs 2010='Semidouble lavender/purple fantasy' (kept 2019)
+supplement_conflict,Jolly Glory,bloom_description: 2019='Semidouble pink pansy/variable white edge' vs 2010='Semidouble pink/variable white edge' (kept 2019)
+supplement_conflict,Jolly Imp,bloom_description: 2019='Double pink pansy/green edge' vs 2010='Double pink/green edge' (kept 2019)
+supplement_conflict,Jolly Imp,"foliage_description: 2019='Dark green, plain, pointed' vs 2010='Medium green, plain' (kept 2019)"
+supplement_conflict,Jolly Jingle,"bloom_description: 2019='Semidouble pink pansy/darker eye, white edge' vs 2010='Double pink/white edge' (kept 2019)"
+supplement_conflict,Jolly Star,bloom_description: 2019='Single pink sticktite pansy/darker eye' vs 2010='Single pink sticktite' (kept 2019)
+supplement_conflict,LE-Prekrasnaia Kreolka,bloom_description: 2015='Semidouble dark blue wavy large pansy/green-white edge' vs 2010='Semidouble dark blue wavy large star/wide white edge' (kept 2015)
+supplement_conflict,LE-Prekrasnaia Kreolka,"foliage_description: 2015='Medium green, plain, ovate' vs 2010='Medium green, plain, ovate, longifolia' (kept 2015)"
+supplement_conflict,Mac's Misty Meadow,bloom_description: 2014='Single white sticktite pansy/variable purple tinge; green edge' vs 2010='Single white sticktite pansy/green edge' (kept 2014)
+supplement_conflict,Morgan's Bibighar,bloom_description: 2018='Double white ruffled pansy/variable pink-green edge' vs 2010='Double white ruffled pansy/variable pink-green edge.' (kept 2018)
+supplement_conflict,Morgan's Bibighar,"foliage_description: 2018='Variegated medium green and cream, plain, quilted, serrated' vs 2010='Medium green, plain, quilted, serrated.' (kept 2018)"
+supplement_conflict,Optimara EverBeautiful,bloom_description: 2014='Single-semidouble two-tone lavender frilled pansy/white edge' vs 2010='Single-semidouble purple and dark lavender frilled pansy/green edge.' (kept 2014)
+supplement_conflict,Optimara EverBeautiful,"foliage_description: 2014='Dark green, plain, glossy, wavy, hairy, scalloped/red back' vs 2010='Dark green, plain, wavy, scalloped, serrated/red back.' (kept 2014)"
+supplement_conflict,Optimara EverBeautiful,"hyb: 2014='Holtkamp, R.' vs 2010='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverGlory,bloom_description: 2014='Single pink two-tone sticktite frilled pansy/green-white edge' vs 2010='Single purple-pink two-tone sticktite pansy/green-white edge.' (kept 2014)
+supplement_conflict,Optimara EverGlory,"foliage_description: 2014='Medium green, plain, glossy, wavy, scalloped' vs 2010='Dark green, plain, wavy, scalloped, serrated.' (kept 2014)"
+supplement_conflict,Optimara EverGlory,"hyb: 2014='Holtkamp, R.' vs 2010='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverGrace,"bloom_description: 2014='Single white sticktite frilled pansy/medium blue eye, band, variable light green edge' vs 2010='Single white sticktite frilled pansy/variable medium blue eye, band; light green edge.' (kept 2014)"
+supplement_conflict,Optimara EverGrace,"foliage_description: 2014='Medium green, heart-shaped, glossy, hairy, wavy, scalloped' vs 2010='Medium green, heart-shaped, glossy, hairy, wavy, scalloped.' (kept 2014)"
+supplement_conflict,Optimara EverHarmony,"bloom_description: 2014='Single-semidouble white to pale pink frilled pansy/variable darker eye, band; light green edge' vs 2010='Single white to pale pink sticktite frilled pansy/variable darker eye, band; light green edge.' (kept 2014)"
+supplement_conflict,Optimara EverHarmony,"foliage_description: 2014='Medium green, plain, glossy, hairy, wavy, scalloped./red back' vs 2010='Medium green, plain, glossy, hairy, wavy, scalloped.' (kept 2014)"
+supplement_conflict,Optimara EverJoy,bloom_description: 2014='Single-semidouble purple-burgundy frilled pansy/variable green edge' vs 2010='Single-semidouble purple-burgundy frilled pansy/green edge.' (kept 2014)
+supplement_conflict,Optimara EverJoy,"foliage_description: 2014='Medium green, hairy, ruffled, wavy' vs 2010='Medium green, plain, wavy, scalloped, serrated.' (kept 2014)"
+supplement_conflict,Optimara EverJoy,"hyb: 2014='Holtkamp, R.' vs 2010='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverLove,"bloom_description: 2011='Single purple-red sticktite frilled/wide white to light pink band, light green edge' vs 2010='Single purple-red sticktite frilled/wide white to light pink band, light green edge.' (kept 2011)"
+supplement_conflict,Optimara EverLove,"foliage_description: 2011='Dark green, heart-shaped, glossy, hairy, wavy, scalloped/red back' vs 2010='Dark green, heart-shaped, glossy, hairy, wavy, scalloped/red back.' (kept 2011)"
+supplement_conflict,Optimara EverPraise,bloom_description: 2011='Single medium blue sticktite pansy/light green frilled edge' vs 2010='Single medium blue sticktite pansy/light green frilled edge.' (kept 2011)
+supplement_conflict,Optimara EverPraise,"foliage_description: 2011='Medium green, heart-shaped, glossy, hairy, wavy, scalloped' vs 2010='Medium green, heart-shaped, glossy, hairy, wavy, scalloped.' (kept 2011)"
+supplement_conflict,Optimara EverPrecious,"bloom_description: 2014='Single-semidouble white frilled pansy/thin purple band, variable green edge' vs 2010='Single white frilled sticktite pansy/thin lilac band, green edge.' (kept 2014)"
+supplement_conflict,Optimara EverPrecious,"foliage_description: 2014='Medium green, glossy, ruffled, wavy' vs 2010='Dark green, plain, wavy, scalloped, serrated.' (kept 2014)"
+supplement_conflict,Optimara EverPrecious,"hyb: 2014='Holtkamp, R.' vs 2010='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverRejoice,bloom_description: 2014='Single-semidouble salmon-pink frilled pansy/variable green edge' vs 2010='Single-semidouble salmon-pink frilled pansy/green-salmon edge.' (kept 2014)
+supplement_conflict,Optimara EverRejoice,"foliage_description: 2014='Medium green, ruffled, glossy/red back' vs 2010='Medium green, plain, wavy, scalloped, serrated/red back.' (kept 2014)"
+supplement_conflict,Optimara EverRejoice,"hyb: 2014='Holtkamp, R.' vs 2010='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverSpecial,bloom_description: 2014='Semidouble dark blue frilled pansy/variable green edge' vs 2010='Single-semidouble purple-blue frilled pansy/white-green edge.' (kept 2014)
+supplement_conflict,Optimara EverSpecial,"foliage_description: 2014='Dark green, glossy, wavy, ruffled/red back' vs 2010='Dark green, plain, wavy, scalloped, serrated/red back.' (kept 2014)"
+supplement_conflict,Optimara EverSpecial,"hyb: 2014='Holtkamp, R.' vs 2010='Holtkamp' (kept 2014)"
+supplement_conflict,Optimara EverYoung,bloom_description: 2014='Single pink two-tone sticktite frilled pansy' vs 2010='Single-semidouble pink two-tone pansy.' (kept 2014)
+supplement_conflict,Optimara EverYoung,"foliage_description: 2014='Medium green, glossy, ruffled' vs 2010='Medium green, plain, wavy, scalloped, serrated.' (kept 2014)"
+supplement_conflict,Optimara EverYoung,"hyb: 2014='Holtkamp, R.' vs 2010='Holtkamp' (kept 2014)"
+placeholder_parent,8E Fryderyk Chopin,seed: '? (lost info)'
+placeholder_parent,8E Fryderyk Chopin,pollen: '? (lost info)'
+placeholder_parent,8E Helen Magnus,seed: '? (lost info)'
+placeholder_parent,8E Helen Magnus,pollen: '? (lost info)'
+placeholder_parent,Alice Henry,seed: '(unreadable)'
+placeholder_parent,Alice Henry,pollen: '(unreadable)'
+sport_conflict_sqlite_wins,Allegro Sundae Eclipse,SQLite='Allegro Sundae' xlsx='Allegro Sundae #05'
+placeholder_parent,Aluminum Foil,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Aluminum Foil,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Anafair,seed: '(unreadable)'
+placeholder_parent,Anafair,pollen: '(unreadable)'
+placeholder_parent,Azilene,seed: '(unreadable)'
+placeholder_parent,Azilene,pollen: '(unreadable)'
+placeholder_parent,Big Top,seed: 'Unknown seedling'
+placeholder_parent,Blackhorne,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Blackhorne,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Bonita Rosa,seed: '(unreadable)'
+placeholder_parent,Bonita Rosa,pollen: '(unreadable)'
+sport_conflict_sqlite_wins,Buckeye Claret Wine,SQLite='Buckeye Candy Striper' xlsx='Buckeye Candy Stripes'
+placeholder_parent,Burgandy Woods,seed: '(unreadable)'
+placeholder_parent,Burgandy Woods,pollen: '(unreadable)'
+sport_conflict_sqlite_wins,Cajun's Studmuffin,"SQLite=""Cajun's Purple Knight"" xlsx=""Cajun's James Mixon"""
+placeholder_parent,California Belle,seed: '(unreadable)'
+placeholder_parent,California Belle,pollen: '(unreadable)'
+placeholder_parent,Cartwheel,seed: '(unreadable)'
+placeholder_parent,Cartwheel,pollen: '(unreadable)'
+placeholder_parent,Columbella,seed: 'unreadable'
+sport_conflict_sqlite_wins,Concord,SQLite='Rhapsodie Elfriede' xlsx='Rhapsody Elfriede'
+placeholder_parent,Country Rose,seed: '(unreadable)'
+placeholder_parent,Country Rose,pollen: '(unreadable)'
+placeholder_parent,Dean's (most all),pollen: 'diverse pollent parent'
+placeholder_parent,Easy Sunday Mornin',seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Easy Sunday Mornin',pollen: 'mixed Ronn Nadeau seeds'
+sport_without_parent,EW-7,'' / 'sport of'
+placeholder_parent,Flower Drum,seed: 'Unknown'
+sport_without_parent,FP8Y8,'' / 'sport of'
+placeholder_parent,Green Valley Champion,"seed: 'Seeds from Ethel Champion, 1973'"
+placeholder_parent,Green Valley Champion,pollen: '—'
+placeholder_parent,Green Valley Dream,"seed: 'Seeds from Ethel Champion, 1973'"
+placeholder_parent,Green Valley Dream,pollen: '—'
+placeholder_parent,Green Valley Frills,"seed: 'Seeds from Ethel Champion, 1973'"
+placeholder_parent,Green Valley Frills,pollen: '—'
+placeholder_parent,Green Valley Grin,"seed: 'Seeds from Ethel Champion, 1973'"
+placeholder_parent,Green Valley Grin,pollen: '—'
+placeholder_parent,Green Valley Shadows,"seed: 'Seeds from Ethel Champion, 1973'"
+placeholder_parent,Green Valley Shadows,pollen: '—'
+placeholder_parent,Green Valley Snows,"seed: 'Seeds from Ethel Champion, 1973'"
+placeholder_parent,Green Valley Snows,pollen: '—'
+placeholder_parent,Green Valley Sunrise,"seed: 'Seeds from Ethel Champion, 1973'"
+placeholder_parent,Green Valley Sunrise,pollen: '—'
+placeholder_parent,Green Valley Sunset,"seed: 'Seeds from Ethel Champion, 1973'"
+placeholder_parent,Green Valley Sunset,pollen: '—'
+placeholder_parent,Hood Wink,seed: 'unreadable'
+placeholder_parent,Hortense's Cloud Nine,seed: '(unreadable)'
+placeholder_parent,Hortense's Cloud Nine,pollen: '(unreadable)'
+placeholder_parent,Hortense's Grande Willie,seed: '(unreadable)'
+placeholder_parent,Hortense's Grande Willie,pollen: '(unreadable)'
+placeholder_parent,Hortense's Mindy,pollen: '(unreadable)'
+placeholder_parent,Hortense's Stacy,seed: '(unreadable)'
+placeholder_parent,Hortense's Stacy,pollen: '(unreadable)'
+placeholder_parent,Hortense's Wishing,seed: '(unreadable)'
+placeholder_parent,Hortense's Wishing,pollen: '(unreadable)'
+placeholder_parent,Hot Places,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Hot Places,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,I Am Woman,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,I Am Woman,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Incredible Edible,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Incredible Edible,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Island Orchid,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Island Orchid,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Juicy,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Juicy,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Just Whisper,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Just Whisper,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Karla Lea,seed: '(unreadable)'
+placeholder_parent,Karla Lea,pollen: '(unreadable)'
+sport_conflict_sqlite_wins,Kbugs Irish Mist,SQLite='Sergeant Pepper' xlsx='Sargent Pepper'
+placeholder_parent,Kenfro,seed: '(unreadable)'
+placeholder_parent,Kenfro,pollen: '(unreadable)'
+sport_conflict_sqlite_wins,Ko's Love Blossoms,SQLite='Buckeye Legal Tender' xlsx='Buckee Legal Tender'
+sport_conflict_sqlite_wins,Ko's Melody of Blossoms,SQLite='Natchurly Nawlins' xlsx='Natchurly Nawlings'
+sport_conflict_sqlite_wins,Ko's Misty Moon,"SQLite=""Momma's Backhoe"" xlsx=""Lyon's Momma's Backhoe"""
+sport_conflict_sqlite_wins,Ko's Wonderful Dawn,"SQLite=""Momma's Backhoe"" xlsx=""Lyon's Momma's Backhoe"""
+placeholder_parent,La Violetta,seed: '(unreadable)'
+placeholder_parent,La Violetta,pollen: '(unreadable)'
+sport_conflict_sqlite_wins,Lilian Jarrett Variegated,SQLite='Lilian Jarrett' xlsx='Lilian Jarret'
+placeholder_parent,Little Joey,seed: 'Unknown Optimara Mini'
+placeholder_parent,Lloyd's Jo Ann,seed: 'Unknown (purchased seed)'
+placeholder_parent,Lloyd's Jo Ann,pollen: '—'
+placeholder_parent,Love in Bloom,seed: '(unreadable)'
+placeholder_parent,Love in Bloom,pollen: '(unreadable)'
+placeholder_parent,Ma Jolie,pollen: '?'
+sport_two_parents,Mac's Glacial Grape,"seed=""Mac's Southern Springtime"" pollen='0216-4'; used seed"
+sport_two_parents,Mac's Nocturne,"seed=""Mac's Southern Springtime"" pollen='0216-4'; used seed"
+placeholder_parent,Midnight Oasis,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Misty Moon,seed: '(not listed)'
+placeholder_parent,Nancy Ann,seed: '?'
+placeholder_parent,Ness' Ballyhoo Blue,seed: 'unreadable record'
+placeholder_parent,Ness' Blue Babe,seed: 'unreadable record'
+placeholder_parent,Ness' Crimson Kiss,seed: 'unreadable record'
+placeholder_parent,Ness' Grape Fizz,pollen: 'unknown'
+placeholder_parent,Ness' Joey's Pal,seed: 'unreadable record'
+placeholder_parent,Ness' Minnesota Splash,seed: 'unreadable record'
+placeholder_parent,Ness' Neat Nellie,seed: 'unreadable record'
+placeholder_parent,Ness' Night Life,seed: 'unreadable record'
+placeholder_parent,Ness' Shirley's Delight,seed: 'unreadable record'
+placeholder_parent,Ness' Sister Sue,seed: 'unknown'
+placeholder_parent,Ness' Sister Sue,pollen: 'unknown'
+placeholder_parent,Ness' Snowy Daze,seed: 'unreadable record'
+placeholder_parent,Ness' Sweet Shirl,seed: 'unknown'
+placeholder_parent,Ness' Sweet Shirl,pollen: 'unknown'
+placeholder_parent,One on One,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,One on One,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Organdy Ruffles,seed: '(not listed)'
+placeholder_parent,Organdy Ruffles,pollen: '(not listed)'
+placeholder_parent,Other Guys' Girls,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Other Guys' Girls,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Our Naked Joy,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Our Naked Joy,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Party Town,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Party Town,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Petite Jewel,seed: '(not listed)'
+placeholder_parent,Petite Jewel,pollen: '(not listed)'
+placeholder_parent,Rainbow's Dragonfyre,seed: '(not listed)'
+placeholder_parent,Rainbow's Dragonfyre,pollen: '(not listed)'
+placeholder_parent,Rainbow's Ruby Lou,seed: '(not listed)'
+placeholder_parent,Rainbow's Ruby Lou,pollen: '(not listed)'
+sport_conflict_sqlite_wins,Rob's Strobe Light,"SQLite=""Rob's Cookie Monster"" xlsx=""Rob's Cookie Moster"""
+placeholder_parent,Sable and Sand,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Sable and Sand,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Santana Stormy,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Santana Stormy,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Soaring,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Soaring,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Soft Places,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Soft Places,pollen: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Suite Dreams,seed: 'mixed Ronn Nadeau seeds'
+placeholder_parent,Suite Dreams,pollen: 'mixed Ronn Nadeau seeds'
+parent_is_self,Summer Rain,"seed parent equals the cultivar ('Summer Rain'); edge dropped, raw text kept"
+placeholder_parent,Teen Dream,seed: '(not listed)'
+placeholder_parent,Teen Dream,pollen: '(not listed)'
+placeholder_parent,Trabo,seed: '(unreadable)'
+placeholder_parent,Trabo,pollen: '(unreadable)'
+placeholder_parent,Twice Pink,pollen: '—'
+placeholder_parent,Viego,seed: '(unreadable)'
+placeholder_parent,Viego,pollen: '(unreadable)'
+placeholder_parent,White Ruffles,seed: '(not listed)'
+placeholder_parent,White Ruffles,pollen: '(not listed)'
+hybridizer_listed_twice,Jays' Aussie Dream,"'White, J./White, J.' resolves to 'White, J.' more than once; one link kept"
+hybridizer_listed_twice,Jays' Icecastle,"'White, J./White, J.' resolves to 'White, J.' more than once; one link kept"
+hybridizer_listed_twice,Jays' Just Pink,"'White, J./White, J.' resolves to 'White, J.' more than once; one link kept"
+hybridizer_listed_twice,Jays' Lucinda,"'White, J./White, J.' resolves to 'White, J.' more than once; one link kept"
+hybridizer_listed_twice,Jays' Tammy,"'White, J./White, J.' resolves to 'White, J.' more than once; one link kept"
