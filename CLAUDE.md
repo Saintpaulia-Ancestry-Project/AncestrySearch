@@ -233,6 +233,21 @@ Never push without being asked.
   before anything is published). Never publish or quote the CONFIDENTIAL registration applications.
   Write the index to reports/ or notes/ without copying confidential content into git-tracked files.
 
+## Contributor submissions (decided with the user; full plan in notes/submission-form-plan.md)
+Custom form `#/submit` (multi-cultivar batches) -> Google Apps Script receiver -> private Google Sheet as review inbox
+(review is done in the Sheet) -> admin downloads CSV -> scripts/import_submissions.py -> data/submissions/<id>.csv
+(tracked, no contact details) -> build_db.py. This Apps Script receiver is the one accepted exception to "no
+server-side write infrastructure". Pipeline order: import_excel.py -> import_submissions.py -> build_db.py.
+Status: scripts/submissions_lib.py, check_submissions.py and import_submissions.py (ingest | apply) are built and
+tested with a sample batch. The #/submit form is built (site/submit.js, route in app.js, text in data/pages/contribute.md,
+nav link 'Contribute'): multi-cultivar drafts in localStorage, parent autocomplete against the DB (ambiguous names
+are written as id:<slug>), existing-name warning with 'add to this one', CSV download and re-open. Tested with a
+headless-Edge script (not kept). The Send button (shown when SUBMIT_URL in submit.js is set) resizes photos
+in the browser (JPEG, 1600 px, drops EXIF), POSTs text/plain JSON to the Apps Script receiver
+(apps_script/Code.gs, setup in apps_script/README.md) and shows the result; tested with a mocked receiver and the
+receiver's pure validation code in headless Edge. Not yet deployed: SUBMIT_URL is empty until the user deploys the
+script and gives the /exec URL.
+
 ## Next steps
 1. User review of the prototype; decide look/feel and extra filters.
 2. Local mode: mydata.sqlite for user data (sql.js cannot ATTACH files: plan a second

@@ -5,6 +5,7 @@
  *   #/p/<person id>         hybridizer page
  *   #/about                 project history
  *   #/downloads             downloadable files (list: DOWNLOADS below)
+ *   #/submit                contributor form (submit.js)
  */
 "use strict";
 
@@ -93,6 +94,7 @@ function route() {
     else if (parts[0] === "p" && parts[1]) renderPerson(app, decodeURIComponent(parts[1]), params);
     else if (parts[0] === "about") renderAbout(app);
     else if (parts[0] === "downloads") renderDownloads(app);
+    else if (parts[0] === "submit") renderSubmit(app);   // submit.js
     else renderSearch(app, params);
   } catch (err) {
     console.error(err);
@@ -345,7 +347,7 @@ function renderCultivar(app, id) {
     : `<ul class="plain">${arr.slice(0, n).map(render).join("")}</ul><details><summary>Show all ${arr.length}</summary><ul class="plain">${arr.slice(n).map(render).join("")}</ul></details>`;
 
   const SOURCE_LABEL = { xlsx: "Saintpaulia Ancestry spreadsheet", sqlite: "AVSA registry database", supplement: "AVSA Master List supplements",
-    masterlist1963: "1963 Master List", parent: "named as a parent in other records" };
+    masterlist1963: "1963 Master List", submission: "contributed by a hybridizer", parent: "named as a parent in other records" };
   const sourceText = (c.sources || "").split("+").map((x) => SOURCE_LABEL[x] || x).join(", ");
   const sources = [c.sources && `Sources: ${esc(sourceText)}`, c.supplement_year && `AVSA Master List supplement ${esc(c.supplement_year)}`, c.source_note && esc(c.source_note)].filter(Boolean);
 
