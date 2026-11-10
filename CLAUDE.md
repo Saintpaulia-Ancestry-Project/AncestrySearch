@@ -161,6 +161,14 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   reports/masterlist1963_needs_human.md: a person should verify those. Final ocr_check values in
   data/masterlist1963.csv: verified / ocr1 incomplete / ocr1 had neighbour text (OCRs agree), image-checked,
   image-transcribed (please check), series member (name only), ocr2 only, name list.
+  HUMAN REVIEW (done by the user in reports/masterlist1963_human-review.md, applied with check_status
+  "human: reviewed by the user"): all 36 "please check" rows are resolved. Decisions: (1) the user's wording is used
+  AS WRITTEN even where it differs from the printed book (e.g. 'Pink double blossom', 'Girl foliage' for AVON,
+  BEHNKE'S DOLLY MADISON, BEHNKE'S MARTHA WASHINGTON, BURGUNDY VELVET, DOLLY VARDEN (Hammond); the printed text is
+  shorter, so those descriptions intentionally differ from the scan); (2) the originator is NOT part of the
+  description text (BLUE CHARM: 'An improved Blue Delight.', originator Ulery); (3) the 11 LONGIFOLIA series names are
+  left out (no description); (4) obvious typos (folliage, Redish) are fixed; (5) REG. printed on the page = registered
+  (DOLLY MADISON, MARTHA WASHINGTON, LOLLIPOP).
   Lesson: the new OCR sometimes merged two entries (e.g. GYPSY MAIDEN + GYPSY MISS) and swapped descriptions
   between same-name entries (SNOWFLAKE x6, DOLLY VARDEN x3); same-name entries must be checked individually.
   import_excel.py then adds each plant as its own record: the same name+originator is one plant only when the

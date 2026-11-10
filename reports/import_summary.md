@@ -1,13 +1,13 @@
 # Import summary
 
-- cultivars.csv: 18566 rows (named from sources: 4765; stubs from parents: 1025)
-- kinds: {'seedling': 237, 'cultivar': 17507, 'stub': 796, 'species': 26}
-- sources: {'xlsx': 2266, 'xlsx+sqlite': 200, 'xlsx+supplement': 421, 'xlsx+masterlist1963': 26, 'xlsx+sqlite+supplement': 82, 'xlsx+supplement+masterlist1963': 1, 'sqlite': 803, 'sqlite+supplement': 206, 'sqlite+masterlist1963': 2, 'supplement': 758, 'parent': 1025, 'masterlist1963': 12776}
-- parentage.csv: 5364; people.csv: 857; cultivar_hybridizers.csv: 12172; cultivar_links.csv: 31
+- cultivars.csv: 18555 rows (named from sources: 4765; stubs from parents: 1025)
+- kinds: {'seedling': 237, 'cultivar': 17496, 'stub': 796, 'species': 26}
+- sources: {'xlsx': 2266, 'xlsx+sqlite': 200, 'xlsx+supplement': 421, 'xlsx+masterlist1963': 26, 'xlsx+sqlite+supplement': 82, 'xlsx+supplement+masterlist1963': 1, 'sqlite': 803, 'sqlite+supplement': 206, 'sqlite+masterlist1963': 2, 'supplement': 758, 'parent': 1025, 'masterlist1963': 12765}
+- parentage.csv: 5364; people.csv: 857; cultivar_hybridizers.csv: 12161; cultivar_links.csv: 31
 - SQLite rows dropped by review decisions: 5
 - new hybridizer strings appended to hybridizer_mapping.csv: 0
 - reviewer corrections applied (data_corrections.csv): 1
-- 1963 Master List: {'new': 12776, 'joined_auto': 29, 'groups': 12805, 'review': 412}
+- 1963 Master List: {'new': 12765, 'joined_auto': 29, 'groups': 12794, 'review': 412}
 - parents written 'Name (Originator)': {'joined: originator agrees': 1, 'separate record with its originator': 2, 'review': 0}
 - originators written as text, now people: {'originators': 507, 'with a proposed link': 43, 'linked by decision': 1}
 - sports linked: 816
