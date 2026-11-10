@@ -24,3 +24,9 @@ source/PageImages/
 submissions/inbox/
 reports/submission_photos/
 source/Rivermist Hybrids #* of 3.eml
+
+# Cached WordPress API responses (scrape_wp_fetch.py)
+cache/
+
+# WordPress blog photos as downloaded (originals; only resized copies are published)
+source/WordPressPhotos/

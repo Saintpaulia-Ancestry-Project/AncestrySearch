@@ -15,6 +15,8 @@ and run again. Files that were already added (same content) are skipped, so re-r
 Per-photo credits or captions: put a credits.csv in the folder with columns
     file,credit,caption,source_url
 (file is the original filename; credit overrides --credit; caption and source_url are optional).
+An optional cultivar_id column names the cultivar directly (needed when several cultivars share a name);
+it overrides matching by filename.
 
 Every photo needs a credit. Photos are saved as WebP: full size (longest side 1600 px) in photos/
 and a thumbnail (longest side 400 px) in thumbs/. Camera metadata, including GPS location, is
@@ -88,6 +90,17 @@ def match(stem, by_key):
     return None, 0
 
 
+def ahash(im):
+    """Average hash (16x16 = 256 bits): spots the same picture saved at a different size or compression."""
+    g = im.convert("L").resize((16, 16), Image.LANCZOS)
+    px = list(g.get_flattened_data() if hasattr(g, "get_flattened_data") else g.getdata())
+    mean = sum(px) / len(px)
+    return [p > mean for p in px]
+
+
+SAME_PICTURE_BITS = 12     # of 256 bits; the same picture differs by 0-5, different photos by 50 or more
+
+
 def save_webp(im, path, longest, quality):
     im = im.copy()
     im.thumbnail((longest, longest), Image.LANCZOS)  # never upscales
@@ -129,7 +142,8 @@ def main():
             for r in csv.DictReader(f):
                 per_file[r["file"].strip().lower()] = r
 
-    _, by_key = load_cultivars()
+    all_rows, by_key = load_cultivars()
+    by_id = {r["id"]: r for r in all_rows}
     existing = read_images()
     seen_sha = {r["original_sha1"] for r in existing if r.get("original_sha1")}
     next_n = {}
@@ -137,19 +151,37 @@ def main():
         next_n[r["cultivar_id"]] = max(next_n.get(r["cultivar_id"], 0), int(r["sort_order"] or 0))
 
     # process each cultivar's photos in their intended order: "Name.jpg" first, then "Name 2.jpg", ...
+    def find(path):
+        cid = (per_file.get(path.name.lower(), {}).get("cultivar_id") or "").strip()
+        if cid:
+            return by_id.get(cid), 1
+        return match(path.stem, by_key)
+
     def sort_key(path):
-        cult, hint = match(path.stem, by_key)
+        cult, hint = find(path)
         return (cult["id"] if cult else "~", hint, path.name.lower())
 
     files = sorted((p for p in folder.iterdir() if p.is_file()), key=sort_key)
     added, skipped, unmatched, problems, ignored = [], [], [], [], []
+    look_alike = []
+    hashes = {}
+
+    def existing_hash(row):
+        if row["file"] not in hashes:
+            try:
+                with Image.open(repo / "photos" / row["file"]) as e:
+                    hashes[row["file"]] = ahash(to_rgb(e))
+            except Exception:
+                hashes[row["file"]] = None
+        return hashes[row["file"]]
+
     for path in files:
         if not path.is_file() or path.name.lower() == "credits.csv":
             continue
         if path.suffix.lower() not in SUPPORTED:
             ignored.append(path.name)
             continue
-        cult, _ = match(path.stem, by_key)
+        cult, _ = find(path)
         if not cult:
             keys = list(by_key)
             near = difflib.get_close_matches(norm(path.stem), keys, n=3, cutoff=0.75)
@@ -172,6 +204,17 @@ def main():
         except Exception as e:  # unreadable or corrupt image
             problems.append((path.name, f"cannot read image: {e}"))
             continue
+        hnew = ahash(im)
+        twin = None
+        for er in existing:
+            if er["cultivar_id"] == cult["id"]:
+                he = existing_hash(er)
+                if he and sum(a != b for a, b in zip(hnew, he)) <= SAME_PICTURE_BITS:
+                    twin = er["file"]
+                    break
+        if twin:
+            look_alike.append((path.name, twin))
+            continue
         n = next_n.get(cult["id"], 0) + 1
         fname = f"{cult['id']}-{n}.webp"
         if not args.dry_run:
@@ -182,6 +225,7 @@ def main():
         else:
             w, h = im.size
         next_n[cult["id"]] = n
+        hashes[fname] = hnew
         seen_sha.add(sha)
         row = {"file": fname, "cultivar_id": cult["id"], "caption": (meta.get("caption") or "").strip(),
                "credit": credit, "sort_order": n, "width": w, "height": h,
@@ -199,6 +243,10 @@ def main():
         print(f"  {src}  ->  {name}  [{fname}]  credit: {credit}")
     if skipped:
         print(f"\nALREADY ADDED (same content), skipped {len(skipped)}: " + ", ".join(skipped))
+    if look_alike:
+        print(f"\nLOOKS LIKE AN EXISTING PHOTO, skipped {len(look_alike)}:")
+        for src, twin in look_alike:
+            print(f"  {src}  ~  {twin}")
     if unmatched:
         print(f"\nNOT MATCHED to a cultivar ({len(unmatched)}). Rename the file to the cultivar's name and run again:")
         for src, names in unmatched:
