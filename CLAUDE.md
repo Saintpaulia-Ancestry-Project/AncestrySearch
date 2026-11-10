@@ -212,6 +212,15 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   (date, counts, legend, CC BY 4.0). Listed on the #/downloads page (DOWNLOADS array in app.js; intro text in data/pages/downloads.md); the
   button appears only if the file exists.
 
+## Before every push to main (deploy rule)
+Pushing to main deploys the site. The Pages workflow rebuilds the database and spreadsheet itself, but local
+clones use the COMMITTED copies, so whenever data/, scripts/build_db.py or the export changed, before pushing:
+1. `python scripts/build_db.py` (must end with "All checks passed.")
+2. `python scripts/export_ancestry_xlsx.py`
+3. Commit site/avancestry.sqlite and site/downloads/AfricanVioletAncestry.xlsx with the data change.
+Claude: remind the user of these steps (and do them, with approval to commit) whenever they ask to deploy or push.
+Never push without being asked.
+
 ## Next steps
 1. User review of the prototype; decide look/feel and extra filters.
 2. Local mode: mydata.sqlite for user data (sql.js cannot ATTACH files: plan a second
