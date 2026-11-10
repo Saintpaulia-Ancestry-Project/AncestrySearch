@@ -43,9 +43,10 @@ SCAN = "https://babel.hathitrust.org/cgi/pt?id=coo.31924019134067&seq={seq}"  # 
 SECTION = {"Master List": "main", "1960 List": "1960", "1961 List": "1961", "1962 List": "1962"}
 COLUMNS = ["entry_id", "section", "printed_page", "name", "name_printed", "originator", "registered", "xref", "note",
            "description", "kind", "ocr_check"]
-REVIEW_COLUMNS = ["issue", "printed_page", "scan_url", "name_ocr2", "name_ocr1", "originator_ocr2", "originator_ocr1",
+REVIEW_COLUMNS = ["row_id", "issue", "printed_page", "scan_url", "name_ocr2", "name_ocr1", "originator_ocr2", "originator_ocr1",
                   "registered_ocr2", "registered_ocr1", "description_ocr2", "description_ocr1",
-                  "corrected_name", "corrected_originator", "corrected_description", "use", "notes"]
+                  "corrected_name", "corrected_originator", "corrected_description", "corrected_registered", "use",
+                  "check_status", "notes"]
 
 
 def norm(s):
@@ -115,7 +116,7 @@ def load_review():
     if REVIEW.exists():
         with open(REVIEW, newline="", encoding="utf-8-sig") as f:
             for r in csv.DictReader(f):
-                out[(r["issue"], r["printed_page"], norm(r["name_ocr2"] or r["name_ocr1"]))] = r
+                out[(r["issue"], r["row_id"])] = r
     return out
 
 
@@ -174,13 +175,15 @@ def main():
         rn, ro = (new[j] if j is not None else None), (old_main[i] if i is not None else None)
         page = (rn["printed_page"] if rn else str(ro["printed_page"]))
         review.append({
+            "row_id": f"n{j}" if j is not None else f"o{i}",
             "issue": issue, "printed_page": page, "scan_url": SCAN.format(seq=int(page) + 2),
             "name_ocr2": rn["name"] if rn else "", "name_ocr1": ro["name_printed"] if ro else "",
             "originator_ocr2": rn["hybridiser"] if rn else "", "originator_ocr1": ro["originator"] if ro else "",
             "registered_ocr2": ("1" if rn["registered"] == "Y" else "0") if rn else "",
             "registered_ocr1": str(ro["registered"]) if ro else "",
             "description_ocr2": rn["description"] if rn else "", "description_ocr1": ro["_desc"] if ro else "",
-            "corrected_name": "", "corrected_originator": "", "corrected_description": "", "use": "", "notes": note})
+            "corrected_name": "", "corrected_originator": "", "corrected_description": "", "corrected_registered": "", "use": "",
+            "check_status": "", "notes": note})
 
     for j, r in enumerate(new):
         i = pair.get(j)
@@ -245,27 +248,29 @@ def main():
                 add_review("entry only in OCR 2", j, None, "OCR 1 has no matching entry; check the page")
         stat[check] += 1
 
-        # --- apply a person's decision from an earlier review
-        dec = decisions.get(("description unresolved", str(int(r["printed_page"])), norm(r["name"]))) or \
-              decisions.get(("entry only in OCR 2", str(int(r["printed_page"])), norm(r["name"]))) or \
-              decisions.get(("originator differs", str(int(r["printed_page"])), norm(r["name"]))) or \
-              decisions.get(("name differs", str(int(r["printed_page"])), norm(r["name"])))
-        for key_, issue in (("corrected_name", None), ("corrected_originator", None), ("corrected_description", None)):
-            pass
-        for issue in ("name differs", "originator differs", "registered flag differs", "description unresolved", "entry only in OCR 2"):
-            d = decisions.get((issue, str(int(r["printed_page"])), norm(r["name"])))
+        # --- apply decisions from the review file (a person's, or an image check by Claude: see check_status)
+        for issue in ("name differs", "originator differs", "registered flag differs", "description unresolved",
+                      "entry only in OCR 2"):
+            d = decisions.get((issue, f"n{j}"))
             if not d:
                 continue
             if d["use"].strip().lower() == "drop":
                 row = None
                 break
+            by_person = not d["check_status"].lower().startswith("claude")
+            how = "reviewed" if by_person else "image-checked"
             if d["corrected_name"].strip():
                 row["name_printed"] = d["corrected_name"].strip()
                 row["name"] = p1.smart_title(row["name_printed"])
-            if d["corrected_originator"].strip():
+            if d["corrected_originator"].strip() or (issue == "originator differs" and d["corrected_originator"] == "" and d["check_status"]):
                 row["originator"] = d["corrected_originator"].strip()
+            if d["corrected_registered"].strip() in ("0", "1"):
+                row["registered"] = int(d["corrected_registered"])
             if d["corrected_description"].strip():
-                row["description"], row["ocr_check"] = clean_description(d["corrected_description"]), "reviewed"
+                row["description"] = clean_description(d["corrected_description"])
+                row["ocr_check"] = how if "please check" not in d["check_status"].lower() else "image-transcribed (please check)"
+            elif d["check_status"] and issue == "description unresolved" and row["ocr_check"] == "unresolved":
+                pass
         if row is None:
             stat["dropped by review"] += 1
             continue
@@ -278,12 +283,19 @@ def main():
         if i not in used_old:
             add_review("entry only in OCR 1", None, i, "OCR 2 has no matching entry; not imported unless you set use = keep")
             stat["entry only in OCR 1"] += 1
-            d = decisions.get(("entry only in OCR 1", str(r["printed_page"]), norm(r["name_printed"])))
+            d = decisions.get(("entry only in OCR 1", f"o{i}"))
             if d and d["use"].strip().lower() == "keep":
-                rows.append({"section": r["section"], "printed_page": r["printed_page"], "name": r["name"],
-                             "name_printed": r["name_printed"], "originator": r["originator"],
-                             "registered": r["registered"], "xref": r["xref"], "note": r["note"], "description": "",
-                             "kind": "entry", "ocr_check": "ocr1 only (kept by review)"})
+                nm = d["corrected_name"].strip() or r["name_printed"]
+                rows.append({"section": r["section"], "printed_page": r["printed_page"], "name": p1.smart_title(nm),
+                             "name_printed": nm,
+                             "originator": d["corrected_originator"].strip() if d["corrected_originator"].strip() else r["originator"],
+                             "registered": int(d["corrected_registered"]) if d["corrected_registered"].strip() in ("0", "1") else r["registered"],
+                             "xref": r["xref"], "note": r["note"], "description": clean_description(d["corrected_description"]),
+                             "kind": "entry",
+                             "ocr_check": ("series member (name only)" if not d["corrected_description"].strip()
+                                           and "please check" in d["check_status"].lower() and "series" in d["notes"].lower()
+                                           else "image-transcribed (please check)" if "please check" in d["check_status"].lower()
+                                           else ("reviewed" if not d["check_status"].lower().startswith("claude") else "image-checked"))})
     # ---- name lists that OCR 2 does not cover (no descriptions in the book for these)
     for r in old_extra:
         rows.append({"section": r["section"], "printed_page": r["printed_page"], "name": r["name"],
@@ -302,11 +314,12 @@ def main():
     order = {"description unresolved": 0, "originator differs": 1, "name differs": 2, "registered flag differs": 3,
              "entry only in OCR 2": 4, "entry only in OCR 1": 5}
     review.sort(key=lambda r: (order[r["issue"]], int(r["printed_page"]), r["name_ocr2"] or r["name_ocr1"]))
-    # carry the person's decisions forward
+    # carry earlier decisions forward
     for r in review:
-        d = decisions.get((r["issue"], str(int(r["printed_page"])), norm(r["name_ocr2"] or r["name_ocr1"])))
+        d = decisions.get((r["issue"], r["row_id"]))
         if d:
-            for c in ("corrected_name", "corrected_originator", "corrected_description", "use", "notes"):
+            for c in ("corrected_name", "corrected_originator", "corrected_description", "corrected_registered",
+                      "use", "check_status", "notes"):
                 if d.get(c):
                     r[c] = d[c]
     REVIEW.parent.mkdir(parents=True, exist_ok=True)
@@ -315,14 +328,35 @@ def main():
         w.writeheader()
         w.writerows(review)
 
+    todo = [r for r in review if "please check" in r["check_status"].lower() or not r["check_status"]]
+    md = ["# 1963 Master List: rows that still need a person", "",
+          "Rows where the page image was read but my transcription matches neither OCR, or that have no decision yet. "
+          "Open the scan, then correct the row in reports/review/masterlist_ocr_review.csv (corrected_* columns) "
+          "and re-run the merge.", "", "| page | issue | name | what I read | OCR 1 | OCR 2 | scan |", "|---|---|---|---|---|---|---|"]
+    for r in sorted(todo, key=lambda r: (int(r["printed_page"]), r["name_ocr2"] or r["name_ocr1"])):
+        read = r["corrected_description"] or r["corrected_name"] or r["corrected_originator"] or (
+            "registered: " + r["corrected_registered"] if r["corrected_registered"] else "") or "(none)"
+        o1 = (r["description_ocr1"] or r["originator_ocr1"] or r["name_ocr1"])[:45]
+        o2 = (r["description_ocr2"] or r["originator_ocr2"] or r["name_ocr2"])[:45]
+        md.append(f"| {r['printed_page']} | {r['issue']} | {(r['name_ocr2'] or r['name_ocr1'])[:30]} | {read[:55]} | {o1} | {o2} | "
+                  f"[page]({r['scan_url']}) |".replace("|  |", "| |"))
+    (ROOT / "reports" / "masterlist1963_needs_human.md").write_text(chr(10).join(md), encoding="utf-8")
     n_desc = sum(1 for r in rows if r["description"])
+    status = collections.Counter(r["check_status"].split(":")[0] + ":" + r["check_status"].split(":")[-1].strip()[:40]
+                                 if r["check_status"] else "(no decision yet)" for r in review)
+    final_check = collections.Counter(r["ocr_check"] for r in rows)
     lines = ["# 1963 Master List: merge of the two OCRs", "",
              f"- final entries written to data/masterlist1963.csv: **{len(rows)}** ({n_desc} with a description)",
              f"- OCR 2 entries: {len(new)}; paired with an OCR 1 entry: {len(pair)} "
              f"({len(pair) - len(fuzzy)} by exact name, {len(fuzzy)} by a close name on the same page)", "",
-             "## How each description was decided", "", "| ocr_check | entries |", "|---|---|"]
+             "## How each entry's text was decided (final state)", "", "| ocr_check | entries |", "|---|---|"]
+    lines += [f"| {k} | {v} |" for k, v in final_check.most_common()]
+    lines += ["", "Disagreements found while merging (before the review file's corrections):", "",
+              "| finding | count |", "|---|---|"]
     lines += [f"| {k} | {v} |" for k, v in stat.most_common()]
     lines += ["", f"Review file: {len(review)} rows in reports/review/masterlist_ocr_review.csv", "",
+              "| check_status | rows |", "|---|---|"] + [f"| {k} | {v} |" for k, v in status.most_common()] + [""]
+    lines += ["",
               "| issue | rows |", "|---|---|"]
     lines += [f"| {k} | {v} |" for k, v in collections.Counter(r["issue"] for r in review).most_common()]
     REPORT.write_text("\n".join(lines), encoding="utf-8")

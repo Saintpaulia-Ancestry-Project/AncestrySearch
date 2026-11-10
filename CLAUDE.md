@@ -153,6 +153,16 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   originator and registered-flag disagreements and entries found in only one OCR). Fill corrected_* or use=drop/keep
   there and re-run the merge. Names/descriptions inside the book's series lists and the 'No Description Available'
   lists come from OCR 1 only (names, no description). Scan sequence on HathiTrust = printed page + 2.
+  IMAGE CHECK (done by Claude, source/PageImages = 175 page scans, git-ignored, 889 MB): every row of the review
+  file was resolved by reading the scan (or by a mechanical rule). reports/review/masterlist_ocr_review.csv now has
+  row_id (n<j> = entry j of AVML1963_import.csv, o<i> = OCR 1-only entry), corrected_name / _originator /
+  _description / _registered, use, and check_status (claude: image agrees with OCR 1/2 | transcribed from image,
+  please check | resolved by rule). Rows whose status says "please check" (36) are listed with scan links in
+  reports/masterlist1963_needs_human.md: a person should verify those. Final ocr_check values in
+  data/masterlist1963.csv: verified / ocr1 incomplete / ocr1 had neighbour text (OCRs agree), image-checked,
+  image-transcribed (please check), series member (name only), ocr2 only, name list.
+  Lesson: the new OCR sometimes merged two entries (e.g. GYPSY MAIDEN + GYPSY MISS) and swapped descriptions
+  between same-name entries (SNOWFLAKE x6, DOLLY VARDEN x3); same-name entries must be checked individually.
   import_excel.py then adds each plant as its own record: the same name+originator is one plant only when the
   descriptions agree (five different Amour plants), shown with everything else (user choice). A book entry joins an
   existing record automatically only when the originator agrees (28); every other name match is in
