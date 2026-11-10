@@ -35,6 +35,13 @@ jobs:
       - name: Build and validate the database
         run: python scripts/build_db.py
 
+      # Regenerate the Excel download so the published copy always matches the data.
+      # (A copy is also committed, so local clones have it.)
+      - name: Export the ancestry spreadsheet
+        run: |
+          pip install "openpyxl>=3.1"
+          python scripts/export_ancestry_xlsx.py
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3

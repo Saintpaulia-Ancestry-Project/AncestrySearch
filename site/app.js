@@ -4,10 +4,23 @@
  *   #/c/<cultivar id>       cultivar page + lineage graph
  *   #/p/<person id>         hybridizer page
  *   #/about                 project history
+ *   #/downloads             downloadable files (list: DOWNLOADS below)
  */
 "use strict";
 
 const DB_URL = "avancestry.sqlite";
+// Files offered on #/downloads. To add one: put the file under site/downloads/ (or generate it in the
+// deploy workflow) and add an entry here. An entry whose file is missing is listed as "not available".
+const DOWNLOADS = [
+  {
+    title: "Ancestry data (Excel)",
+    file: "downloads/AfricanVioletAncestry.xlsx",
+    format: "Excel workbook (.xlsx)",
+    text: "Every cultivar with at least one recorded parent, with its seed parent, pollen parent and hybridizer, " +
+      "on the Ancestry sheet. The Sports sheet lists each sport with the cultivar it is a sport of. " +
+      "The About sheet explains the columns.",
+  },
+];
 const PAGE_SIZE = 40;
 const MAX_GRAPH_NODES = 220;
 const MAX_FAN = 8;  // most children drawn under one parent; the full list is on the page
@@ -79,6 +92,7 @@ function route() {
     if (parts[0] === "c" && parts[1]) renderCultivar(app, decodeURIComponent(parts[1]));
     else if (parts[0] === "p" && parts[1]) renderPerson(app, decodeURIComponent(parts[1]), params);
     else if (parts[0] === "about") renderAbout(app);
+    else if (parts[0] === "downloads") renderDownloads(app);
     else renderSearch(app, params);
   } catch (err) {
     console.error(err);
@@ -546,6 +560,27 @@ function renderAbout(app) {
   const pg = q1("SELECT title, body FROM pages WHERE slug = 'about'");
   app.innerHTML = `<h1>${esc(pg ? pg.title : "Project history")}</h1>
     <div class="prose">${pg ? renderProse(pg.body) : "<p>No project history is available.</p>"}</div>`;
+}
+
+function renderDownloads(app) {
+  const pg = q1("SELECT title, body FROM pages WHERE slug = 'downloads'");
+  app.innerHTML = `<h1>${esc(pg ? pg.title : "Downloads")}</h1>
+    ${pg ? `<div class="prose">${renderProse(pg.body)}</div>` : ""}
+    <ul class="downloads">${DOWNLOADS.map((d, i) => `<li class="card" id="dl-${i}">
+      <h2>${esc(d.title)}</h2><p>${esc(d.text)}</p>
+      <p class="muted">${esc(d.format)} <span class="dl-size"></span></p>
+      <a class="btn" href="${esc(d.file)}" download hidden>Download</a>
+      <span class="muted dl-missing" hidden>Not available in this copy of the site. Run the export script (see the README).</span>
+    </li>`).join("")}</ul>`;
+  DOWNLOADS.forEach((d, i) => {
+    const li = $("#dl-" + i, app);
+    fetch(d.file, { method: "HEAD" }).then((r) => {
+      if (!r.ok) throw new Error(r.status);
+      const n = Number(r.headers.get("content-length"));
+      if (n) $(".dl-size", li).textContent = "· " + (n >= 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.round(n / 1024) + " KB");
+      $(".btn", li).hidden = false;
+    }).catch(() => { $(".dl-missing", li).hidden = false; });
+  });
 }
 
 boot();

@@ -206,6 +206,12 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   Graph caps fan-out at 8 children per parent ("+N more"); full lists are on the page.
   Tested with headless Edge screenshots only (no automated JS tests, no Node here).
 
+- scripts/export_ancestry_xlsx.py: writes site/downloads/AfricanVioletAncestry.xlsx (COMMITTED so local clones have
+  it; the Pages workflow also regenerates it; needs openpyxl. Re-run after every build_db.py that changes data). Sheets: Ancestry (every cultivar with >=1 parentage row; seed/pollen/other
+  parent columns, '(unsure)'/'(assumed)' marks uncertain parents), Sports (every sport with its parent), About
+  (date, counts, legend, CC BY 4.0). Listed on the #/downloads page (DOWNLOADS array in app.js; intro text in data/pages/downloads.md); the
+  button appears only if the file exists.
+
 ## Next steps
 1. User review of the prototype; decide look/feel and extra filters.
 2. Local mode: mydata.sqlite for user data (sql.js cannot ATTACH files: plan a second

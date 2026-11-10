@@ -163,3 +163,10 @@ dialog#lightbox::backdrop { background: rgba(10, 6, 16, 0.78); }
 .lb-nav, .lb-prev, .lb-next { top: 50%; transform: translateY(-50%); }
 .lb-prev { left: 8px; } .lb-next { right: 8px; }
 .lb-btn[hidden] { display: none; }
+
+/* Downloads page */
+ul.downloads { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 16px; max-width: 68ch; }
+ul.downloads h2 { margin: 0 0 6px; font-size: 1.15rem; }
+ul.downloads [hidden] { display: none !important; }
+ul.downloads p { margin: 0 0 10px; }
+ul.downloads .btn { display: inline-block; width: auto; }

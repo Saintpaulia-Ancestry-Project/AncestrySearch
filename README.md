@@ -38,6 +38,7 @@ pip install -r requirements.txt
 python scripts/merge_masterlist1963.py   # two OCRs of the 1963 Master List -> data/masterlist1963.csv
 python scripts/import_excel.py     # source/ -> data/ and reports/
 python scripts/build_db.py         # data/ -> site/avancestry.sqlite
+python scripts/export_ancestry_xlsx.py   # site/downloads/AfricanVioletAncestry.xlsx (needs openpyxl); commit it with the data
 ```
 
 Human decisions that shape the import (which duplicates to drop, hybridizer name mapping, spelling
