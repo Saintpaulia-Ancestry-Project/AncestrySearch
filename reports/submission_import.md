@@ -1,0 +1,205 @@
+# Submission import
+
+- files applied: 1
+- new cultivars: 35; stubs filled in: 1; existing records updated: 35
+- parent stubs created: 3; new people: 0
+- already applied (skipped): 0; HELD: 0; conflicts/ignored values: 24
+- photos to import: 82 (add_images.py; see --photos-dir)
+
+## Conflicts and ignored values (existing data kept)
+
+- Rivermist Annie [rivermist-annie] bloom_description: kept 'Semidouble lavender-pink large star/variable light pink mottling and veining, thin blue fluted edge', submission has 'Semidouble lavender-pink large star/variable light pink mottling and veining, thin blue fluted edge.' (Rivermist Annie (submission rivermist-baker-2026-04, entry 14))
+- Rivermist Annie [rivermist-annie] foliage_description: kept 'Variegated dark green and pink, quilted, ruffled, serrated/red back', submission has 'Variegated dark green and pink, quilted, ruffled, serrated/red back.' (Rivermist Annie (submission rivermist-baker-2026-04, entry 14))
+- Rivermist Beguiling [rivermist-beguiling] bloom_description: kept 'Single-semidouble medium red-pink large ruffled star/white puff fantasy', submission has 'Single-semidouble medium red-pink large ruffled star/white puff fantasy.' (Rivermist Beguiling (submission rivermist-baker-2026-04, entry 17))
+- Rivermist Beguiling [rivermist-beguiling] foliage_description: kept 'Variegated medium green and pink, ovate, quilted', submission has 'Variegated medium green and pink, ovate, quilted.' (Rivermist Beguiling (submission rivermist-baker-2026-04, entry 17))
+- Rivermist Calypso [rivermist-calypso] bloom_description: kept 'Single-semidouble red-pink large star/white puff fantasy, dark red and purple streaks', submission has 'Single-semidouble red-pink large star/white puff fantasy, dark red and purple streaks.' (Rivermist Calypso (submission rivermist-baker-2026-04, entry 19))
+- Rivermist Calypso [rivermist-calypso] foliage_description: kept 'Variegated medium green, cream and pink, ovate, quilted, glossy/variable white-spotted red back', submission has 'Variegated medium green, cream and pink, ovate, quilted, glossy/variable white-spotted red back.' (Rivermist Calypso (submission rivermist-baker-2026-04, entry 19))
+- Rivermist EvaBritta [rivermist-evabritta] bloom_description: kept 'Semidouble wine-red large star/white puff fantasy, dark red and pink streaks', submission has 'Semidouble wine-red large star/white puff fantasy, dark red and pink streaks.' (Rivermist EvaBritta (submission rivermist-baker-2026-04, entry 20))
+- Rivermist EvaBritta [rivermist-evabritta] foliage_description: kept 'Variegated dark green, cream and pink, quilted, glossy/variable white-spotted red back', submission has 'Variegated dark green, cream and pink, quilted, glossy/white-spotted red back.' (Rivermist EvaBritta (submission rivermist-baker-2026-04, entry 20))
+- Rivermist Frenzy [rivermist-frenzy] bloom_description: kept 'Single-semidouble bright pink cupped large fluted star/dark blue-purple fantasy', submission has 'Single-semidouble bright pink cupped large fluted star/dark blue-purple fantasy.' (Rivermist Frenzy (submission rivermist-baker-2026-04, entry 21))
+- Rivermist Frenzy [rivermist-frenzy] foliage_description: kept 'Variegated medium green and pink, ovate, quilted, serrated/red back', submission has 'Variegated medium green and pink, ovate, quilted, serrated/red back.' (Rivermist Frenzy (submission rivermist-baker-2026-04, entry 21))
+- Rivermist Galaxy [rivermist-galaxy] bloom_description: kept 'Single-semidouble blue-purple large star/white puff fantasy, pink and red streaks', submission has 'Single-semidouble blue-purple large star/white puff fantasy, pink and red streaks.' (Rivermist Galaxy (submission rivermist-baker-2026-04, entry 25))
+- Rivermist Galaxy [rivermist-galaxy] foliage_description: kept 'Variegated dark green and pink, ovate, quilted, glossy/variable white-spotted red back', submission has 'Variegated dark green and pink, ovate, quilted, glossy/white-spotted red back.' (Rivermist Galaxy (submission rivermist-baker-2026-04, entry 25))
+- Rivermist Heavenly [rivermist-heavenly] bloom_description: kept 'Single-semidouble medium blue-purple star/white puff fantasy, variable pink streaks', submission has 'Single-semidouble medium blue-purple star/white puff fantasy, variable pink streaks.' (Rivermist Heavenly (submission rivermist-baker-2026-04, entry 26))
+- Rivermist Heavenly [rivermist-heavenly] foliage_description: kept 'Variegated dark green, cream and pink, pointed, quilted, glossy/variable white-spotted red back', submission has 'Variegated dark green, cream and pink, pointed, quilted, glossy/variable white-spotted red back.' (Rivermist Heavenly (submission rivermist-baker-2026-04, entry 26))
+- Rivermist Pearls [rivermist-pearls] bloom_description: kept 'Single-semidouble light pink star/white puff fantasy', submission has 'Single-semidouble light pink star/white puff fantasy.' (Rivermist Pearls (submission rivermist-baker-2026-04, entry 27))
+- Rivermist Pearls [rivermist-pearls] foliage_description: kept 'Variegated medium green and pink, ovate, quilted, glossy/variable white-spotted red back', submission has 'Variegated medium green and pink, ovate, quilted, glossy/variable white-spotted red back.' (Rivermist Pearls (submission rivermist-baker-2026-04, entry 27))
+- Rivermist Psycho [rivermist-psycho] bloom_description: kept 'Single-semidouble red-purple large star/white puff fantasy', submission has 'Single-semidouble red-purple large star/white puff fantasy.' (Rivermist Psycho (submission rivermist-baker-2026-04, entry 28))
+- Rivermist Psycho [rivermist-psycho] foliage_description: kept 'Variegated medium green and pink, ovate, quilted, serrated', submission has 'Variegated medium green and pink, ovate, quilted, serrated.' (Rivermist Psycho (submission rivermist-baker-2026-04, entry 28))
+- Rivermist Revenge [rivermist-revenge] bloom_description: kept 'Single-semidouble dark blue-purple star/white puff fantasy, pink streaks', submission has 'Single-semidouble dark blue-purple star/white puff fantasy, pink streaks.' (Rivermist Revenge (submission rivermist-baker-2026-04, entry 29))
+- Rivermist Revenge [rivermist-revenge] foliage_description: kept 'Variegated dark green and pink, ovate, quilted, glossy, serrated/red back', submission has 'Variegated dark green and pink, ovate, quilted, glossy, serrated/red back.' (Rivermist Revenge (submission rivermist-baker-2026-04, entry 29))
+- Rivermist Venus [rivermist-venus] bloom_description: kept 'Semidouble-double light pink large fluted star/white puff fantasy', submission has 'Semidouble-double light pink large fluted star/white puff fantasy.' (Rivermist Venus (submission rivermist-baker-2026-04, entry 30))
+- Rivermist Venus [rivermist-venus] foliage_description: kept 'Variegated medium green and pink, ovate, quilted, serrated/red back', submission has 'Variegated medium green and pink, ovate, quilted, serrated/red back.' (Rivermist Venus (submission rivermist-baker-2026-04, entry 30))
+- Rivermist Zombie [rivermist-zombie] bloom_description: kept 'Single-semidouble.blue-purple large star/white puff fantasy, dark pink streaks', submission has 'Single-semidouble blue-purple large star/white puff fantasy, dark pink streaks.' (Rivermist Zombie (submission rivermist-baker-2026-04, entry 31))
+- Rivermist Zombie [rivermist-zombie] foliage_description: kept 'Variegated dark green, cream and pink, round, quilted/variable white-spotted red back', submission has 'Variegated dark green, cream and pink, round, quilted/white-spotted red back.' (Rivermist Zombie (submission rivermist-baker-2026-04, entry 31))
+
+## Parent stubs created
+
+- Miss Miyajima (miss-miyajima) for Rivermist Missy (submission rivermist-baker-2026-04, entry 7)
+- Aeka Sport (aeka-sport) for Rivermist Tattoo (submission rivermist-baker-2026-04, entry 12)
+- Tina's April Fantasy (tina-s-april-fantasy) for Rivermist Hailstorm (submission rivermist-baker-2026-04, entry 41)
+
+## Stubs filled in
+
+- Blue Lace (blue-lace) was a stub
+
+## Existing records updated
+
+- Rivermist Watercolor (rivermist-watercolor)
+- Rivermist Flames (rivermist-flames)
+- Rivermist Frostbite (rivermist-frostbite)
+- Rivermist Ruth (rivermist-ruth)
+- Rivermist Raindrops (rivermist-raindrops)
+- Rivermist Salsa (rivermist-salsa)
+- Rivermist Chaos (rivermist-chaos)
+- Rivermist Floozie (rivermist-floozie)
+- Rivermist Blizzard (rivermist-blizzard)
+- Rivermist Spirit (rivermist-spirit)
+- Rivermist Stinger (rivermist-stinger)
+- Rivermist Ghost (rivermist-ghost)
+- Rivermist Illusion (rivermist-illusion)
+- Rivermist Dragonseye (rivermist-dragonseye)
+- Rivermist Loverboy (rivermist-loverboy)
+- Rivermist Lovergirl (rivermist-lovergirl)
+- Rivermist OohLaLa (rivermist-oohlala)
+- Rivermist Zephyr (rivermist-zephyr)
+- Rivermist Sweetheart (rivermist-sweetheart)
+- Rivermist Ladybird (rivermist-ladybird)
+- Rivermist Desiree (rivermist-desiree)
+- Rivermist Rowdy (rivermist-rowdy)
+- Rivermist Flurries (rivermist-flurries)
+- Rivermist Shadows (rivermist-shadows)
+- Rivermist Royalty (rivermist-royalty)
+- Rivermist Sizzle (rivermist-sizzle)
+- Rivermist Darling (rivermist-darling)
+- Rivermist Darkness (rivermist-darkness)
+- Rivermist Fandango (rivermist-fandango)
+- Rivermist Tempest (rivermist-tempest)
+- Rivermist Sangria (rivermist-sangria)
+- Rivermist Flamenco (rivermist-flamenco)
+- Rivermist Zenyatta (rivermist-zenyatta)
+- Rivermist Zeeva (rivermist-zeeva)
+- Rivermist Zingbot (rivermist-zingbot)
+
+## New cultivars
+
+- Rivermist Heartbreaker (rivermist-heartbreaker)
+- Rivermist Hot-To-Trot (rivermist-hot-to-trot)
+- Rivermist Missy (rivermist-missy)
+- Rivermist Mister (rivermist-mister)
+- Rivermist Jezabelle (rivermist-jezabelle)
+- Rivermist Rainshowers (rivermist-rainshowers)
+- Rivermist Romance (rivermist-romance)
+- Rivermist Tattoo (rivermist-tattoo)
+- Rivermist Windchill (rivermist-windchill)
+- Rivermist Autumn (rivermist-autumn)
+- Rivermist Banshee (rivermist-banshee)
+- Rivermist Bewitched (rivermist-bewitched)
+- Rivermist Fancypants (rivermist-fancypants)
+- Rivermist Easterblossom (rivermist-easterblossom)
+- Rivermist Dreamcatcher (rivermist-dreamcatcher)
+- Rivermist Hailstorm (rivermist-hailstorm)
+- Rivermist Winx (rivermist-winx)
+- Rivermist Nightowl (rivermist-nightowl)
+- Rivermist Shinedown (rivermist-shinedown)
+- Rivermist Whisper (rivermist-whisper)
+- Rivermist Mirage (rivermist-mirage)
+- Rivermist Fearless (rivermist-fearless)
+- Rivermist Fever (rivermist-fever)
+- Rivermist Firedance (rivermist-firedance)
+- Rivermist Lilacs (rivermist-lilacs)
+- Rivermist Moondust (rivermist-moondust)
+- Rivermist Obsession (rivermist-obsession)
+- Rivermist Rapture (rivermist-rapture)
+- Rivermist Razzleberry (rivermist-razzleberry)
+- Rivermist Smiles (rivermist-smiles)
+- Rivermist Starstruck (rivermist-starstruck)
+- Rivermist Taboo (rivermist-taboo)
+- Rivermist Tango (rivermist-tango)
+- Rivermist Thriller (rivermist-thriller)
+- Rivermist Warpaint (rivermist-warpaint)
+
+## Photos
+
+- e1_image061.jpg -> Rivermist Watercolor (rivermist-watercolor), credit: Joan Baker
+- e1_image062.jpg -> Rivermist Flames (rivermist-flames), credit: Joan Baker
+- e1_image063.jpg -> Rivermist Frostbite (rivermist-frostbite), credit: Joan Baker
+- e1_image064.jpg -> Rivermist Ruth (rivermist-ruth), credit: Joan Baker
+- e1_image065.jpg -> Rivermist Heartbreaker (rivermist-heartbreaker), credit: Joan Baker
+- e1_image066.jpg -> Rivermist Hot-To-Trot (rivermist-hot-to-trot), credit: Joan Baker
+- e1_image067.jpg -> Rivermist Missy (rivermist-missy), credit: Joan Baker
+- e1_image068.jpg -> Rivermist Mister (rivermist-mister), credit: Joan Baker
+- e1_image069.jpg -> Rivermist Jezabelle (rivermist-jezabelle), credit: Joan Baker
+- e1_image070.jpg -> Rivermist Rainshowers (rivermist-rainshowers), credit: Joan Baker
+- e1_image071.jpg -> Rivermist Romance (rivermist-romance), credit: Joan Baker
+- e1_image072.jpg -> Rivermist Tattoo (rivermist-tattoo), credit: Joan Baker
+- e1_image073.jpg -> Rivermist Windchill (rivermist-windchill), credit: Joan Baker
+- e1_image074.jpg -> Rivermist Annie (rivermist-annie), credit: Joan Baker
+- e1_image075.jpg -> Rivermist Autumn (rivermist-autumn), credit: Joan Baker
+- e1_image076.jpg -> Rivermist Banshee (rivermist-banshee), credit: Joan Baker
+- e1_image077.jpg -> Rivermist Beguiling (rivermist-beguiling), credit: Joan Baker
+- e1_image078.jpg -> Rivermist Bewitched (rivermist-bewitched), credit: Joan Baker
+- e1_image079.jpg -> Rivermist Calypso (rivermist-calypso), credit: Joan Baker
+- e1_image080.jpg -> Rivermist EvaBritta (rivermist-evabritta), credit: Joan Baker
+- e1_image081.jpg -> Rivermist Frenzy (rivermist-frenzy), credit: Joan Baker
+- e1_image082.jpg -> Rivermist Fancypants (rivermist-fancypants), credit: Joan Baker
+- e1_image083.jpg -> Rivermist Easterblossom (rivermist-easterblossom), credit: Joan Baker
+- e1_image084.jpg -> Rivermist Dreamcatcher (rivermist-dreamcatcher), credit: Joan Baker
+- e1_image085.jpg -> Rivermist Galaxy (rivermist-galaxy), credit: Joan Baker
+- e1_image086.jpg -> Rivermist Heavenly (rivermist-heavenly), credit: Joan Baker
+- e1_image087.jpg -> Rivermist Pearls (rivermist-pearls), credit: Joan Baker
+- e1_image088.jpg -> Rivermist Psycho (rivermist-psycho), credit: Joan Baker
+- e1_image089.jpg -> Rivermist Revenge (rivermist-revenge), credit: Joan Baker
+- e1_image090.jpg -> Rivermist Venus (rivermist-venus), credit: Joan Baker
+- e2_image063.jpg -> Rivermist Zombie (rivermist-zombie), credit: Joan Baker
+- e2_image064.jpg -> Rivermist Raindrops (rivermist-raindrops), credit: Joan Baker
+- e2_image065.jpg -> Rivermist Salsa (rivermist-salsa), credit: Joan Baker
+- e2_image066.jpg -> Rivermist Chaos (rivermist-chaos), credit: Joan Baker
+- e2_image067.jpg -> Rivermist Floozie (rivermist-floozie), credit: Joan Baker
+- e2_image068.jpg -> Rivermist Blizzard (rivermist-blizzard), credit: Joan Baker
+- e2_image069.jpg -> Rivermist Spirit (rivermist-spirit), credit: Joan Baker
+- e2_image070.jpg -> Rivermist Stinger (rivermist-stinger), credit: Joan Baker
+- e2_image071.jpg -> Rivermist Ghost (rivermist-ghost), credit: Joan Baker
+- e2_image072.jpg -> Rivermist Illusion (rivermist-illusion), credit: Joan Baker
+- e2_image073.jpg -> Rivermist Hailstorm (rivermist-hailstorm), credit: Joan Baker
+- e2_image074.jpg -> Rivermist Dragonseye (rivermist-dragonseye), credit: Joan Baker
+- e2_image075.jpg -> Rivermist Winx (rivermist-winx), credit: Joan Baker
+- e2_image076.jpg -> Rivermist Loverboy (rivermist-loverboy), credit: Joan Baker
+- e2_image077.jpg -> Rivermist Lovergirl (rivermist-lovergirl), credit: Joan Baker
+- e2_image078.jpg -> Rivermist OohLaLa (rivermist-oohlala), credit: Joan Baker
+- e2_image079.jpg -> Rivermist Zephyr (rivermist-zephyr), credit: Joan Baker
+- e2_image080.jpg -> Rivermist Sweetheart (rivermist-sweetheart), credit: Joan Baker
+- e2_image081.jpg -> Rivermist Ladybird (rivermist-ladybird), credit: Joan Baker
+- e2_image082.jpg -> Rivermist Nightowl (rivermist-nightowl), credit: Joan Baker
+- e2_image083.jpg -> Rivermist Desiree (rivermist-desiree), credit: Joan Baker
+- e2_image084.jpg -> Rivermist Rowdy (rivermist-rowdy), credit: Joan Baker
+- e2_image085.jpg -> Rivermist Flurries (rivermist-flurries), credit: Joan Baker
+- e2_image086.jpg -> Rivermist Shadows (rivermist-shadows), credit: Joan Baker
+- e2_image087.jpg -> Rivermist Royalty (rivermist-royalty), credit: Joan Baker
+- e2_image088.jpg -> Rivermist Sizzle (rivermist-sizzle), credit: Joan Baker
+- e2_image089.jpg -> Rivermist Darling (rivermist-darling), credit: Joan Baker
+- e2_image090.jpg -> Rivermist Shinedown (rivermist-shinedown), credit: Joan Baker
+- e2_image091.jpg -> Rivermist Darkness (rivermist-darkness), credit: Joan Baker
+- e2_image092.jpg -> Rivermist Fandango (rivermist-fandango), credit: Joan Baker
+- e2_image093.jpg -> Rivermist Whisper (rivermist-whisper), credit: Joan Baker
+- e3_image043.jpg -> Rivermist Mirage (rivermist-mirage), credit: Joan Baker
+- e3_image044.jpg -> Rivermist Tempest (rivermist-tempest), credit: Joan Baker
+- e3_image045.jpg -> Rivermist Sangria (rivermist-sangria), credit: Joan Baker
+- e3_image046.jpg -> Rivermist Flamenco (rivermist-flamenco), credit: Joan Baker
+- e3_image047.jpg -> Rivermist Fearless (rivermist-fearless), credit: Joan Baker
+- e3_image048.jpg -> Rivermist Zenyatta (rivermist-zenyatta), credit: Joan Baker
+- e3_image049.jpg -> Rivermist Fever (rivermist-fever), credit: Joan Baker
+- e3_image050.jpg -> Rivermist Zeeva (rivermist-zeeva), credit: Joan Baker
+- e3_image051.jpg -> Rivermist Firedance (rivermist-firedance), credit: Joan Baker
+- e3_image052.jpg -> Rivermist Zingbot (rivermist-zingbot), credit: Joan Baker
+- e3_image053.jpg -> Rivermist Lilacs (rivermist-lilacs), credit: Joan Baker
+- e3_image054.jpg -> Rivermist Moondust (rivermist-moondust), credit: Joan Baker
+- e3_image055.jpg -> Rivermist Obsession (rivermist-obsession), credit: Joan Baker
+- e3_image056.jpg -> Rivermist Rapture (rivermist-rapture), credit: Joan Baker
+- e3_image057.jpg -> Rivermist Razzleberry (rivermist-razzleberry), credit: Joan Baker
+- e3_image058.jpg -> Rivermist Smiles (rivermist-smiles), credit: Joan Baker
+- e3_image059.jpg -> Rivermist Starstruck (rivermist-starstruck), credit: Joan Baker
+- e3_image060.jpg -> Rivermist Taboo (rivermist-taboo), credit: Joan Baker
+- e3_image061.jpg -> Rivermist Tango (rivermist-tango), credit: Joan Baker
+- e3_image062.jpg -> Rivermist Thriller (rivermist-thriller), credit: Joan Baker
+- e3_image063.jpg -> Rivermist Warpaint (rivermist-warpaint), credit: Joan Baker
