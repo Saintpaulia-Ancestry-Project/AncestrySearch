@@ -7,6 +7,10 @@ source/AV-MasterLIstSupplements/**/*.pdf
 source/AV-MasterLIstSupplements/**/*Page*.txt
 source/AV-MasterLIstSupplements/MasterListBook/
 
+# Hector Wong's Google Drive contents for this project: local only, never published (includes a folder of
+# CONFIDENTIAL AVSA registration applications)
+source/Hector Wong Archive*/
+
 # Original photo files as supplied; only the resized copies in the images repository are published.
 source/AVPhotos/
 

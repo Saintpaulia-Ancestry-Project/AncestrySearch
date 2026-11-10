@@ -221,6 +221,18 @@ clones use the COMMITTED copies, so whenever data/, scripts/build_db.py or the e
 Claude: remind the user of these steps (and do them, with approval to commit) whenever they ask to deploy or push.
 Never push without being asked.
 
+## To Do
+- **Hector Wong archive** (source/Hector Wong Archive - SAP Saintpaulia Ancestry Project/, LOCAL ONLY, git-ignored,
+  never published): the contents of Hector Wong's Google Drive for this project (~1,200 files, 275 MB: ~1,035 jpg,
+  80 pdf, 31 msg, plus doc/docx/xls/xlsx/htm/png/txt). Top-level folders: Start of the project (1990s);
+  CONFIDENTIAL AVSA Registration Applications (no. 9068 2001 to no. 10630 2013); Continuation of the project (2013s);
+  Hybridizers participating; In the News; Photo contributions (SAP photos used with permission).
+  (1) Go through it and write an index of what is there (folder, file, type, what it holds, usefulness).
+  (2) Derive images for cultivars where possible: match photos to cultivars, then import with
+  scripts/add_images.py (credit is REQUIRED per photo; "used with permission" must be confirmed per contributor
+  before anything is published). Never publish or quote the CONFIDENTIAL registration applications.
+  Write the index to reports/ or notes/ without copying confidential content into git-tracked files.
+
 ## Next steps
 1. User review of the prototype; decide look/feel and extra filters.
 2. Local mode: mydata.sqlite for user data (sql.js cannot ATTACH files: plan a second
