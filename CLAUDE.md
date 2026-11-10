@@ -141,16 +141,25 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   The images repo does not exist yet: the user creates it; clone it next to this folder (or set
   AV_IMAGES_REPO). jsDelivr caches @main for hours: purge via cdn.jsdelivr.net/gh/... if needed.
   Front end: gallery + enlarge viewer on the cultivar page, thumbnails and a Has photo filter in search.
-- 1963 Master List (decided with the user): scripts/parse_masterlist1963.py turns the OCR text in
-  source/AV-MasterLIstSupplements/MasterListBook (raw, git-ignored) into data/masterlist1963.csv (name, originator,
-  REG. flag, section, printed page, xref) and reports/masterlist1963_report.md. DESCRIPTIONS ARE NOT IMPORTED:
-  ~10% are scrambled by the OCR's column handling; add them after a better OCR from page images. import_excel.py
-  then adds each distinct name+originator as its own record (names are reused: 9 different Stardust), shown with
-  everything else (user choice). A book entry joins an existing record automatically only when the originator
-  agrees (28); every other name match is in reports/review/masterlist_matches.csv (decision column: `join`).
-  Book originators are kept as text (hybridizer_raw), not people. Record ids for reused names carry the
-  originator (stardust-madison). New columns: registered_1963, masterlist_1963.
-  Pipeline order: parse_masterlist1963.py -> import_excel.py -> build_db.py.
+- 1963 Master List (decided with the user). TWO independent OCRs: OCR 1 = HathiTrust page text in
+  source/AV-MasterLIstSupplements/MasterListBook (raw, git-ignored; parsed by parse_masterlist1963.py, whose
+  descriptions are often scrambled); OCR 2 = source/AVML1963_import.csv (re-read from the page images by the user;
+  structured, with descriptions, intro year, HathiTrust page links). scripts/merge_masterlist1963.py uses OCR 2 as the
+  primary text and OCR 1 as the cross-check, writes data/masterlist1963.csv (name, originator, REG., section, page,
+  description, kind, ocr_check) and reports/masterlist1963_ocr_merge.md. A description is published only when the OCRs
+  agree (verified / ocr1 incomplete / ocr1 had neighbour text) or a person corrected it in the review file. The
+  source CSV's ocr_reviewed flag was set by a Claude session, NOT a person, and earns no shortcut. ~170 'unresolved'
+  ones are WITHHELD and listed in reports/review/masterlist_ocr_review.csv with a page-scan link (also name,
+  originator and registered-flag disagreements and entries found in only one OCR). Fill corrected_* or use=drop/keep
+  there and re-run the merge. Names/descriptions inside the book's series lists and the 'No Description Available'
+  lists come from OCR 1 only (names, no description). Scan sequence on HathiTrust = printed page + 2.
+  import_excel.py then adds each plant as its own record: the same name+originator is one plant only when the
+  descriptions agree (five different Amour plants), shown with everything else (user choice). A book entry joins an
+  existing record automatically only when the originator agrees (28); every other name match is in
+  reports/review/masterlist_matches.csv (decision column: `join`; includes the 1963 description). Book originators
+  are kept as text (hybridizer_raw), not people. Species (16) become kind=species. Record ids for reused names carry
+  the originator (stardust-madison). Columns: registered_1963, masterlist_1963, description.
+  Pipeline order: parse (cross-check only) -> merge_masterlist1963.py -> import_excel.py -> build_db.py.
   Search page: the checkbox "Exclude names found only in the 1963 Master List" is ON by default (URL param
   old=1 turns it off). It hides records whose only source is the 1963 list (view column only_1963), not the
   28 that joined other records. A hint offers the hidden matches when a search finds some.

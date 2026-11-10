@@ -1,7 +1,7 @@
 """Parse the OCR text of the AVSA "Master List of African Violets" (1935 to 1963) into data/masterlist1963.csv.
 
 Input:  source/AV-MasterLIstSupplements/MasterListBook/*.txt  (OCR page text; raw, not tracked in git)
-Output: data/masterlist1963.csv         one row per listed name
+Output: reports/masterlist1963_ocr1.csv    one row per listed name (OCR 1; see merge_masterlist1963.py)
         reports/masterlist1963_report.md   counts, samples and everything that was skipped
 
 What is taken from the book: the name, the originator in parentheses, the registered flag ("REG."),
@@ -20,7 +20,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 BOOK = ROOT / "source" / "AV-MasterLIstSupplements" / "MasterListBook"
-OUT = ROOT / "data" / "masterlist1963.csv"
+# This parser reads OCR 1 (the HathiTrust page text). It is the CROSS-CHECK for the second OCR; the published
+# data/masterlist1963.csv is produced by scripts/merge_masterlist1963.py.
+OUT = ROOT / "reports" / "masterlist1963_ocr1.csv"
 REPORT = ROOT / "reports" / "masterlist1963_report.md"
 
 # (section, first file, last file). Printed page number = file number - 2.
@@ -111,7 +113,7 @@ def is_entry_start(line):
 HEAD = re.compile(
     r"^([A-Z0-9]" + NAME_CHAR + r"*?)(?=\s*\(|,\s|\s+REG\.?(?:\s|$)|\s+-(?:\s|(?=[A-Za-z]))|\s+[A-Z]?[a-z]|\s*$)")
 
-SMALL = {"of", "the", "and", "a", "an", "in", "on", "to", "for", "with", "at", "by", "de", "la", "le", "du", "von", "van"}
+SMALL = {"or", "of", "the", "and", "a", "an", "in", "on", "to", "for", "with", "at", "by", "de", "la", "le", "du", "von", "van"}
 
 
 def smart_title(name):
@@ -123,6 +125,10 @@ def smart_title(name):
             continue
         if i > 0 and w.lower() in SMALL:
             out.append(w.lower())
+            continue
+        mixed = re.fullmatch(r"([a-z]+)([A-Z]{2,})", w) or re.fullmatch(r"(Mac|Mc)([A-Z]{2,})", w)
+        if mixed:  # duPONT -> duPont, MacARTHUR -> MacArthur
+            out.append(mixed.group(1) + mixed.group(2).capitalize())
             continue
         parts = re.split(r"([\-/])", w)
         fixed = []
@@ -206,7 +212,8 @@ def parse_main(section, files, vocab):
         xref = rest if re.match(r"^(See|Same as|Probably|Syn\.?|Renamed|Now)\b", rest) and len(rest) < 100 else ""
         note = "originator is a negation (not the named firm)" if re.match(r"(?i)^not\b", originator) else ""
         rows.append({"section": section, "printed_page": e["page"] - 2, "name": smart_title(name), "name_printed": name,
-                     "originator": originator, "registered": reg, "xref": xref, "note": note})
+                     "originator": originator, "registered": reg, "xref": xref, "note": note,
+                     "_desc": rest})  # kept in memory for comparison with a second OCR; never written to the CSV
     return rows
 
 
@@ -264,7 +271,9 @@ def parse_nodesc(files, vocab):
     return rows
 
 
-def main():
+def parse_all():
+    """Parse every section of the OCR text. Rows carry the old OCR's description in "_desc" (in memory only)."""
+    del skipped[:]
     all_lines = []
     for _, a, b in SECTIONS:
         for n in range(a, b + 1):
@@ -274,11 +283,16 @@ def main():
     for section, a, b in SECTIONS:
         files = range(a, b + 1)
         rows += parse_nodesc(files, vocab) if section == "nodesc" else parse_main(section, files, vocab)
+    return rows
+
+
+def main():
+    rows = parse_all()
     for i, r in enumerate(rows, 1):
         r["entry_id"] = f"ML63-{i:05d}"
     OUT.parent.mkdir(exist_ok=True)
     with open(OUT, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=COLUMNS, lineterminator="\n")
+        w = csv.DictWriter(f, fieldnames=COLUMNS, lineterminator="\n", extrasaction="ignore")
         w.writeheader()
         w.writerows(rows)
 
@@ -286,7 +300,7 @@ def main():
     by_sec = collections.Counter(r["section"] for r in rows)
     keys = collections.Counter((r["name"].lower(), r["originator"].lower()) for r in rows)
     lines = ["# 1963 Master List: parse report", "",
-             f"{len(rows)} names written to data/masterlist1963.csv.", "",
+             f"{len(rows)} names written to reports/masterlist1963_ocr1.csv.", "",
              "| section | names |", "|---|---|"] + [f"| {s} | {by_sec[s]} |" for s, _, _ in SECTIONS]
     lines += ["", f"- with an originator: {sum(1 for r in rows if r['originator'])}",
               f"- flagged registered (REG.): {sum(r['registered'] for r in rows)}",

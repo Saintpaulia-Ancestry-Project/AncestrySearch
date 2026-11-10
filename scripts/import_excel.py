@@ -382,20 +382,36 @@ def load_masterlist():
     path = DATA / "masterlist1963.csv"
     if not path.exists():
         return []
-    groups = collections.OrderedDict()
+    # One record per plant. The same name + originator listed twice (the main list and a year section) is one
+    # plant when the descriptions agree; with different descriptions the book is describing different plants.
+    by_base = collections.OrderedDict()
     for r in pd.read_csv(path, dtype=str, keep_default_na=False).to_dict("records"):
         negated = bool(re.match(r"(?i)^not\b", r["originator"]))
         orig = "" if negated else r["originator"]
-        key = (norm(r["name"]), norm(orig))
-        g = groups.setdefault(key, {"key": key, "name": r["name"], "originator": orig, "registered": 0,
-                                    "entries": [], "xref": [], "negated": ""})
+        base = (norm(r["name"]), norm(orig))
+        desc = r.get("description", "")
+        g = None
+        for cand in by_base.setdefault(base, []):
+            same = (not desc or not cand["description"] or norm(desc) == norm(cand["description"])
+                    or difflib.SequenceMatcher(None, norm(desc), norm(cand["description"])).ratio() >= 0.9)
+            if same:
+                g = cand
+                break
+        if g is None:
+            g = {"key": base + (len(by_base[base]),), "name": r["name"], "originator": orig, "registered": 0,
+                 "entries": [], "xref": [], "negated": "", "description": "", "kind": "cultivar"}
+            by_base[base].append(g)
         g["registered"] = max(g["registered"], int(r["registered"] or 0))
         g["entries"].append((r["section"], r["printed_page"]))
+        if desc and not g["description"]:
+            g["description"] = desc
+        if r.get("kind") == "species":
+            g["kind"] = "species"
         if r["xref"]:
             g["xref"].append(r["xref"])
         if negated:
             g["negated"] = r["originator"]
-    return list(groups.values())
+    return [g for lst in by_base.values() for g in lst]
 
 
 def load_ml_decisions():
@@ -419,7 +435,10 @@ def join_masterlist(d, g):
     d["sources"] = d["sources"] if "masterlist1963" in d["sources"] else d["sources"] + "+masterlist1963"
     d["registered_1963"] = max(int(d.get("registered_1963") or 0), g["registered"])
     d["masterlist_1963"] = listing_text(g)
-    extra = " ".join(f"1963 Master List: {x}" for x in dict.fromkeys(g["xref"]))
+    if g["description"] and not d["description"]:
+        d["description"] = g["description"]  # the 1963 description (modern records keep their bloom/foliage text)
+    # a cross-reference is part of the description when there is one; only a bare name needs a note
+    extra = "" if g["description"] else " ".join(f"1963 Master List: {x}" for x in dict.fromkeys(g["xref"]))
     if g["negated"]:
         extra = (extra + " " if extra else "") + f"1963 Master List gives the originator as \"{g['negated']}\"."
     if extra:
@@ -441,6 +460,7 @@ def attach_masterlist(allrec):
         by_name[K(d["name"])].append((k, d))
     stats = collections.Counter()
     review = []
+    seen_pairs = set()
     for g in groups:
         cands = by_name.get(K(g["name"]), [])
         agree = [(k, d) for k, d in cands if g["originator"] and otokens(g["originator"]) & otokens(d["hybridizer_raw"])]
@@ -456,12 +476,12 @@ def attach_masterlist(allrec):
             join_masterlist(target[1], g)
             stats[how] += 1
         else:
-            rec = {"id": "", "name": g["name"], "kind": "cultivar", "sport_of": "", "sport_xlsx": "", "size_class": "",
+            rec = {"id": "", "name": g["name"], "kind": g["kind"], "sport_of": "", "sport_xlsx": "", "size_class": "",
                    "color": "", "bloom_description": "", "foliage_description": "", "registration_no": "",
                    "registered_date": "", "description": "", "notes": "", "sources": "masterlist1963", "source_row": "",
                    "added_at": "", "seed_parent_raw": "", "pollen_parent_raw": "", "hybridizer_raw": "",
                    "source_note": "", "supplement_year": "", "_q": None, "_x": None, "uses": 0}
-            rec["_key"] = "ml63|%s|%s" % g["key"]
+            rec["_key"] = "ml63|" + "|".join(str(x) for x in g["key"])
             join_masterlist(rec, g)
             rec["hybridizer_raw"] = g["originator"]
             rec["_text_hyb"] = True
@@ -478,15 +498,20 @@ def attach_masterlist(allrec):
                 why = "existing record has no known hybridizer"
             else:
                 why = "originators differ"
+            pair_key = (g["key"][0], g["key"][1], norm(d["name"]))
+            if pair_key in seen_pairs:   # several plants with this name and originator: one review row is enough
+                continue
+            seen_pairs.add(pair_key)
             review.append({"book_name": g["name"], "book_originator": g["originator"], "book_listing": listing_text(g),
+                           "book_description": g["description"],
                            "existing_name": d["name"], "existing_kind": d["kind"],
                            "existing_hybridizer": d["hybridizer_raw"], "existing_sources": d["sources"], "reason": why,
-                           "decision": decisions.get((g["key"][0], g["key"][1], norm(d["name"])), "")})
+                           "decision": decisions.get(pair_key, "")})
     order = {"existing record has no known hybridizer": 0, "book entry gives no originator": 1,
              "originator matches several existing records": 2, "originators differ": 3}
     review.sort(key=lambda r: (order[r["reason"]], r["book_name"].lower()))
-    pd.DataFrame(review, columns=["book_name", "book_originator", "book_listing", "existing_name", "existing_kind",
-                                  "existing_hybridizer", "existing_sources", "reason", "decision"]).to_csv(
+    pd.DataFrame(review, columns=["book_name", "book_originator", "book_listing", "book_description", "existing_name",
+                                  "existing_kind", "existing_hybridizer", "existing_sources", "reason", "decision"]).to_csv(
         ML_REVIEW, index=False, encoding="utf-8-sig")
     stats["groups"], stats["review"] = len(groups), len(review)
     return dict(stats)

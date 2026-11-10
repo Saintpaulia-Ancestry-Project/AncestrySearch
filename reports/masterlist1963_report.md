@@ -1,6 +1,6 @@
 # 1963 Master List: parse report
 
-12769 names written to data/masterlist1963.csv.
+12769 names written to reports/masterlist1963_ocr1.csv.
 
 | section | names |
 |---|---|

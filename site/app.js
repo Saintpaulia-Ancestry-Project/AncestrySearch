@@ -104,6 +104,11 @@ function badges(r) {
   else if (r.registered_1963) b.push(`<span class="badge">registered by 1963</span>`);
   return b.length ? `<div class="badges">${b.join("")}</div>` : "";
 }
+/** Link to the page of the HathiTrust scan of the 1963 book (scan sequence = printed page + 2). */
+function scanLink(listing) {
+  const m = /p\. (\d+)/.exec(listing || "");
+  return m ? ` &middot; <a href="https://babel.hathitrust.org/cgi/pt?id=coo.31924019134067&amp;seq=${parseInt(m[1], 10) + 2}" rel="noopener" target="_blank">view the page</a>` : "";
+}
 const photoUrl = (f) => IMG_BASE + "photos/" + encodeURIComponent(f);
 const thumbUrl = (f) => IMG_BASE + "thumbs/" + encodeURIComponent(f);
 function card(r) {
@@ -181,8 +186,8 @@ function renderSearch(app, params) {
   const sizes = q("SELECT DISTINCT size_class AS s FROM cultivars WHERE size_class IS NOT NULL ORDER BY 1").map((r) => r.s);
   const st = q1(`SELECT (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0) AS n,
                         (SELECT count(*) FROM v_cultivar_list WHERE only_1963 = 1) AS old,
-                        (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND has_ancestry) AS a,
-                        (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND has_description) AS d`);
+                        (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0 AND has_ancestry) AS a,
+                        (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0 AND has_description) AS d`);
 
   const link = (page) => hashFor("/", { q: state.q, size: state.size, all: state.all, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, old: state.old, page: page > 1 ? page : "" });
   app.innerHTML = `
@@ -304,10 +309,10 @@ function renderCultivar(app, id) {
     ["Color", esc(c.color)],
     ["Bloom", esc(c.bloom_description)],
     ["Foliage", esc(c.foliage_description)],
-    ["Description", esc(c.description)],
+    ["Description", c.description ? `${esc(c.description)}${c.masterlist_1963 ? ` <span class="muted">(1963 Master List)</span>` : ""}` : ""],
     ["AVSA registration", c.registration_no ? `#${esc(c.registration_no)}${c.registered_date ? `, registered ${esc(c.registered_date)}` : ""}`
       : (c.registered_1963 ? "Registered before 1964 (marked REG. in the 1963 Master List, which gives no number)" : "")],
-    ["1963 Master List", c.masterlist_1963 ? `Listed in the 1963 Master List: ${esc(c.masterlist_1963)}` : ""],
+    ["1963 Master List", c.masterlist_1963 ? `Listed in the 1963 Master List: ${esc(c.masterlist_1963)}${scanLink(c.masterlist_1963)}` : ""],
   ].filter(([, v]) => v);
 
   const parentLine = (p) => `<li>${linkCultivar(p.parent_id, p.parent_name)}${p.parent_kind !== "cultivar" ? ` <span class="role">${esc(kindLabel(p.parent_kind))}</span>` : ""}
