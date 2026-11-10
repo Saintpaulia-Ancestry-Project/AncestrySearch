@@ -245,8 +245,8 @@ are written as id:<slug>), existing-name warning with 'add to this one', CSV dow
 headless-Edge script (not kept). The Send button (shown when SUBMIT_URL in submit.js is set) resizes photos
 in the browser (JPEG, 1600 px, drops EXIF), POSTs text/plain JSON to the Apps Script receiver
 (apps_script/Code.gs, setup in apps_script/README.md) and shows the result; tested with a mocked receiver and the
-receiver's pure validation code in headless Edge. Not yet deployed: SUBMIT_URL is empty until the user deploys the
-script and gives the /exec URL.
+receiver's pure validation code in headless Edge. Deployed: SUBMIT_URL in submit.js is the live /exec URL; a live Send test
+(Sheet row, email) passed.
 
 ## Next steps
 1. User review of the prototype; decide look/feel and extra filters.

@@ -181,7 +181,7 @@ function parentCount(name) {
 /* ------------------------------------------------------------------ rendering */
 let sizeOptions = null;
 function sizeList() {
-  if (!sizeOptions) sizeOptions = q("SELECT size_class AS s FROM cultivars WHERE size_class <> '' GROUP BY size_class HAVING count(*) >= 20 ORDER BY count(*) DESC LIMIT 12").map((r) => r.s);
+  if (!sizeOptions) sizeOptions = q("SELECT size_class AS s FROM cultivars WHERE size_class <> '' GROUP BY size_class HAVING count(*) >= 5 ORDER BY count(*) DESC LIMIT 12").map((r) => r.s);
   return sizeOptions;
 }
 const field = (label, inner, hint) => `<div class="fld"><label><span>${label}</span>${inner}</label>${hint ? `<span class="hint">${hint}</span>` : ""}</div>`;
