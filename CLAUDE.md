@@ -169,6 +169,14 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   reports/review/masterlist_matches.csv (decision column: `join`; includes the 1963 description). Book originators
   are kept as text (hybridizer_raw), not people. Species (16) become kind=species. Record ids for reused names carry
   the originator (stardust-madison). Columns: registered_1963, masterlist_1963, description.
+  ORIGINATORS GIVEN AS TEXT (decided with the user): (1) a parent cell written 'Name (Originator)' (and
+  'Sport of 'Name' (Originator)') is read as a name plus an originator: it is the existing record when the
+  originators agree, else a separate parent record carrying the originator; a name match with no known hybridizer
+  goes to reports/review/parent_originator_matches.csv (decision `join`). (2) The 1963 book's 509 originator strings
+  (and bracketed parent originators) become people exactly as printed, so hybridizer pages exist; they are linked to
+  an existing person ONLY where reports/review/originator_mapping.csv says so (decision `link`, or type the
+  person's name(s) separated by ;), because a 1960s originator and a modern hybridizer can share a surname. The `kind`
+  column there (person/organization) is editable. 'A & B' / 'A and B' split into two people; 'A&R' does not.
   Pipeline order: parse (cross-check only) -> merge_masterlist1963.py -> import_excel.py -> build_db.py.
   Search page: the checkbox "Exclude names found only in the 1963 Master List" is ON by default (URL param
   old=1 turns it off). It hides records whose only source is the 1963 list (view column only_1963), not the

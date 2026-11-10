@@ -1696,7 +1696,7 @@ measles,Measles,cultivar,,,,,,,,,,,xlsx,1713,,I Am Woman,Love Spots,"Domiano, Je
 melissa-lou,Melissa Lou,cultivar,,,,,,,,,,,xlsx,1714,,Meadow Rose,Melissa’s twin,Rienhardt,,,,
 memory-maker,Memory Maker,cultivar,,,,,,,,,,,xlsx,1715,,Little Pro,Wee Be,"Pittman, Hortense",,,,
 merci-beaucoup,Merci Beaucoup,cultivar,,,,,,,,,,,xlsx,1716,,Wonderland,Mystique,"Croteau, Denis",,,,
-mermaid,Mermaid,cultivar,,Standard,Medium blue,Single medium blue,,,,,,,xlsx+supplement,1717,,Circus Blue,Grape Splash,Armacost & Royston,,2013,,
+mermaid,Mermaid,cultivar,,Standard,Medium blue,Single medium blue,,,,,"Glossy heart-shaped. quilted leaves. Light blue single, darker shading.",,xlsx+supplement+masterlist1963,1717,,Circus Blue,Grape Splash,Armacost & Royston,,2013,0,main list p. 71
 merry-go-round,Merry Go Round,cultivar,,,,,,,,,,,xlsx,1718,,Star Holly,Seedling,"Champion, Ethel",,,,
 midas-glow,Midas Glow,cultivar,,,,,,,,,,,xlsx,1719,,Texas Buttercup,Lemon Cookie,"Pittman, Hortense",,,,
 midget-bon-bon,Midget Bon Bon,cultivar,,,,,,,,,,,xlsx,1720,,Tiny Blue,Seedling,"Champion, Ethel",,,,
@@ -5084,7 +5084,6 @@ vallin-pink,Vallin pink,stub,,,,,,,,,,,parent,,,,,,,,,
 0627-13,0627-13,stub,,,,,,,,,,,parent,,,,,,,,,
 dancin-trail,Dancin' Trail,stub,,,,,,,,,,,parent,,,,,,,,,
 sapphire-trail,Sapphire Trail,stub,,,,,,,,,,,parent,,,,,,,,,
-precious-pink-pittman,Precious Pink (Pittman),stub,,,,,,,,,,,parent,,,,,,,,,
 playful-pet,Playful Pet,stub,,,,,,,,,,,parent,,,,,,,,,
 enchanted-april,Enchanted April,stub,,,,,,,,,,,parent,,,,,,,,,
 holiday-lights,Holiday Lights,stub,,,,,,,,,,,parent,,,,,,,,,
@@ -5187,7 +5186,7 @@ heinz-s-reminiscing-sport,Heinz's Reminiscing Sport,stub,,,,,,,,,,,parent,,,,,,,
 ballet-lisa,Ballet Lisa,stub,,,,,,,,,,,parent,,,,,,,,,
 ness-jesse,Ness' Jesse,stub,,,,,,,,,,,parent,,,,,,,,,
 seedling-prog-etl-hrs,Seedling (prog. ETL/HRS),seedling,,,,,,,,,,,parent,,,,,,,,,
-little-axel-anthoflores,Little Axel (Anthoflores),stub,,,,,,,,,,,parent,,,,,,,,,
+little-axel,Little Axel,stub,,,,,,,,,,,parent,,,,,Anthoflores,,,,
 hula-hoop,Hula Hoop,stub,,,,,,,,,,,parent,,,,,,,,,
 reminiscing-sport,Reminiscing Sport,stub,,,,,,,,,,,parent,,,,,,,,,
 dreamtime-sport,Dreamtime Sport,stub,,,,,,,,,,,parent,,,,,,,,,
@@ -5254,7 +5253,7 @@ crimson-magic,Crimson Magic,stub,,,,,,,,,,,parent,,,,,,,,,
 warm-sunshine,Warm Sunshine,stub,,,,,,,,,,,parent,,,,,,,,,
 taffeta-petticoats,Taffeta Petticoats,stub,,,,,,,,,,,parent,,,,,,,,,
 harster-s-239,Harster's #239,stub,,,,,,,,,,,parent,,,,,,,,,
-double-delight,Double Delight,stub,,,,,,,,,,,parent,,,,,,,,,
+double-delight,Double Delight,stub,,,,,,,,,,,parent,,,,,Ulery,,,,
 kentucky-gooseberries-note-kentucky-berry-bush-will-sport-back-to-kentucky-gooseberries,Kentucky Gooseberries . Note: Kentucky Berry Bush will sport back to Kentucky Gooseberries.,stub,,,,,,,,,,,parent,,,,,,,,,
 ultra-violet-dusk,Ultra Violet Dusk,stub,,,,,,,,,,,parent,,,,,,,,,
 optimara-grenada-ii,Optimara Grenada II,stub,,,,,,,,,,,parent,,,,,,,,,
@@ -10864,7 +10863,6 @@ merkel-s-red-purple,Merkel's Red-Purple,cultivar,,,,,,,,,Similar to Purple Princ
 merkel-s-ripples,Merkel's Ripples,cultivar,,,,,,,,,Light green rippled leaves. Violet-red single.,,masterlist1963,,,,,,,,0,main list p. 71
 merkel-s-wax-blue,Merkel's Wax Blue,cultivar,,,,,,,,,Waxy leaves. Vivid blue single.,,masterlist1963,,,,,,,,0,main list p. 71
 merkel-s-white,Merkel's White,cultivar,,,,,,,,,Plain foliage. White single.,,masterlist1963,,,,,,,,0,main list p. 71
-mermaid-a-r,Mermaid,cultivar,,,,,,,,,"Glossy heart-shaped. quilted leaves. Light blue single, darker shading.",,masterlist1963,,,,,A&R,,,0,main list p. 71
 mermaid-amazon-or-supreme,Mermaid Amazon or Supreme,cultivar,,,,,,,,,Large form of Mermaid.,,masterlist1963,,,,,,,,0,main list p. 71
 mermaid-fischer,Mermaid,cultivar,,,,,,,,,Large wavy shiny leaves. Semidouble ruffled pink.,,masterlist1963,,,,,Fischer,,,0,main list p. 71
 merna,Merna,cultivar,,,,,,,,,"Plain leaves. White single, orchid eye.",,masterlist1963,,,,,,,,0,main list p. 71

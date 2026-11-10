@@ -223,7 +223,7 @@ def K(name):
 
 
 # ------------------------------------------------------------------ hybridizer mapping
-ORG_RE = re.compile(r"nurser|universit|greenhouse|society|college|farm|garden|laborator|institute", re.I)
+ORG_RE = re.compile(r"nurser|universit|greenhouse|society|college|farm|garden|laborator|institute|\bclub\b|racks|\bbros\b", re.I)
 COUNTRIES = {"Germany", "Hungary", "Russia", "Ukraine", "Japan", "Canada", "Australia", "England", "Netherlands",
              "Poland", "Latvia", "Lithuania", "Belarus", "Sweden", "Denmark", "France", "Italy", "New Zealand",
              "Brazil", "Czech Republic", "Finland", "Norway", "Taiwan", "China", "Korea"}
@@ -293,9 +293,17 @@ SELF_RE = re.compile(r"\s*\(?\bx\s+self\)?\s*$", re.I)
 SEEDLING_CODE = re.compile(r"^\d{1,2}-\d{1,3}-\d{1,3}$")
 
 
+ORIG_TAIL = re.compile(r"^(.+?)\s*\(([A-Z][A-Za-z.'& \-]{1,30})\)$")
+
+
+def looks_like_originator(text):
+    """A bracketed capitalised word or two (Pittman, Lyons, Armacost & Royston), not a cross or a note."""
+    return bool(text) and " x " not in text.lower() and not re.search(r"\d", text)
+
+
 def parse_cell(raw):
     t = cname(raw)
-    r = {"name": "", "sport": False, "self": False, "placeholder": False, "raw": clean(raw)}
+    r = {"name": "", "orig": "", "sport": False, "self": False, "placeholder": False, "raw": clean(raw)}
     if not t:
         return r
     if re.fullmatch(r"sport of", t, re.I):
@@ -305,6 +313,9 @@ def parse_cell(raw):
     if m:
         r["sport"] = True
         t = m.group(1).strip()
+        inner = (m.group(2) or "").strip("() ")
+        if looks_like_originator(inner) and re.match(r"[A-Z]", inner):
+            r["orig"] = inner  # Sport of 'Bellissima' (Tinari): the bracket names the parent's originator
     if SPORT_MARK.search(t):
         r["sport"] = True
         t = SPORT_MARK.sub("", t).strip()
@@ -314,6 +325,9 @@ def parse_cell(raw):
     if not t or PLACEHOLDER.match(t):
         r["placeholder"] = not r["sport"] and not r["self"] and bool(t)
         return r
+    m = ORIG_TAIL.match(t)
+    if m and looks_like_originator(m.group(2)) and not r["orig"]:
+        t, r["orig"] = m.group(1).strip(), m.group(2).strip()
     r["name"] = t
     return r
 
@@ -374,6 +388,7 @@ ML_REVIEW = REVIEW / "masterlist_matches.csv"
 
 
 def otokens(s):
+    s = str(s).replace("A&R", "Armacost Royston")   # A&R is the business Armacost & Royston
     t = unicodedata.normalize("NFKD", str(s)).encode("ascii", "ignore").decode().lower()
     return {w for w in re.findall(r"[a-z]+", t) if len(w) >= 3 and w not in ML_STOP}
 
@@ -517,6 +532,67 @@ def attach_masterlist(allrec):
     return dict(stats)
 
 
+# ------------------------------------------------------------------ originators given as text
+PO_REVIEW = REVIEW / "parent_originator_matches.csv"
+OM_REVIEW = REVIEW / "originator_mapping.csv"
+ORIG_SPLIT = re.compile(r"\s+(?:&|and)\s+|\s*[/;]\s*")   # "A & B" and "A and B" split; "A&R" does not
+
+
+def load_po_decisions():
+    out = {}
+    if PO_REVIEW.exists():
+        for _, r in read_review_csv(PO_REVIEW).iterrows():
+            out[(norm(r["name"]), norm(r["originator"]))] = r["decision"].strip()
+    return out
+
+
+def own_names(text):
+    """The people an originator string names: split 'A & B', drop a trailing full stop."""
+    return [x.strip().rstrip(".").strip() for x in ORIG_SPLIT.split(text) if x.strip().rstrip(".").strip()]
+
+
+def load_originator_mapping(needed, base_people):
+    """reports/review/originator_mapping.csv: every originator written only as text, with a proposed link to an
+    existing person where the surname matches exactly one. NOTHING is linked unless `decision` says `link`,
+    because a 1960s originator and a modern hybridizer can share a surname. A decision may also be the person's
+    name(s) typed out ("Lyon, Lyndon"; separate several with ;). Otherwise the originator becomes a person
+    exactly as printed."""
+    sur = collections.defaultdict(list)
+    for nm_ in base_people:
+        sur[norm(nm_.split(",")[0])].append(nm_)
+    old = {}
+    if OM_REVIEW.exists():
+        for _, r in read_review_csv(OM_REVIEW).iterrows():
+            old[r["originator"]] = r
+    rows, mapping, kinds, linked_n = [], {}, {}, 0
+    existing_norm = {norm(nm_) for nm_ in base_people}
+    for orig, uses in sorted(needed.items(), key=lambda kv: (-kv[1], kv[0])):
+        parts = [orig.strip().rstrip(".")] if norm(orig) in existing_norm else own_names(orig)
+        cands = sur.get(norm(parts[0]), []) if len(parts) == 1 else []
+        proposed = " | ".join(cands)
+        dec = old[orig]["decision"].strip() if orig in old else ""
+        if dec.lower() in ("link", "yes", "y", "join") and len(cands) == 1:
+            final = [cands[0]]
+            linked_n += 1
+        elif dec and dec.lower() not in ("link", "yes", "y", "join", "keep", "no", "n", "text"):
+            final = [x.strip() for x in dec.split(";") if x.strip()]
+            linked_n += 1
+        else:
+            final = parts
+        mapping[orig] = final
+        guess = "organization" if ORG_RE.search(orig) else "person"
+        kind = old[orig]["kind"].strip() if orig in old and old[orig]["kind"].strip() else guess
+        if kind in ("person", "organization") and final == parts:
+            for nm_ in final:
+                kinds[nm_] = kind
+        rows.append({"originator": orig, "uses": uses, "kind": kind,
+                     "proposed_link": proposed, "decision": dec, "final_person(s)": " ; ".join(final)})
+    pd.DataFrame(rows, columns=["originator", "uses", "kind", "proposed_link", "decision", "final_person(s)"]).to_csv(
+        OM_REVIEW, index=False, encoding="utf-8-sig")
+    return mapping, kinds, {"originators": len(rows), "with a proposed link": sum(1 for r in rows if r["proposed_link"]),
+                     "linked by decision": linked_n}
+
+
 FIELD_MAP = [("Variety", "size_class"), ("Colour", "color"), ("Bloom", "bloom_description"),
              ("Foliage", "foliage_description")]
 
@@ -650,19 +726,67 @@ def build():
                 out[k]["registered_date"] = ""
 
     stubs = {}
+    po_decisions = load_po_decisions()
+    po_review, po_stats = [], collections.Counter()
 
-    def resolve(name, kind_hint=None):
+    # names cited as a parent WITHOUT an originator: a "Name (Originator)" citation may be the same plant
+    plain_keys = set()
+    for d_ in out.values():
+        if d_["_x"]:
+            for col in ("Seed Parent", "Pollen Parent"):
+                c_ = parse_cell(d_["_x"][col])
+                if c_["name"] and not c_["orig"]:
+                    plain_keys.add(K(c_["name"]))
+        if d_["_q"] and d_["_q"]["sport"]:
+            plain_keys.add(K(d_["_q"]["sport"]))
+
+    def new_stub(k, name, kind_hint=None):
+        stubs[k] = {"id": "", "name": CANON.get(K(name), cname(name)), "kind": kind_hint or stub_kind(name), "sport_of": "",
+                    "sport_xlsx": "", "size_class": "", "color": "", "bloom_description": "",
+                    "foliage_description": "", "registration_no": "", "registered_date": "", "description": "",
+                    "notes": "", "sources": "parent", "source_row": "", "added_at": "", "seed_parent_raw": "",
+                    "pollen_parent_raw": "", "hybridizer_raw": "", "source_note": "", "supplement_year": "",
+                    "_q": None, "_x": None, "_key": k, "uses": 0}
+
+    def resolve(name, kind_hint=None, orig="", cell_text=""):
         k = K(name)
+        if orig:
+            # "Name (Originator)": the same plant as an existing record only when the originators agree
+            existing_hyb = out[k]["hybridizer_raw"] if k in out else ""
+            if k in out and existing_hyb and otokens(orig) & otokens(existing_hyb):
+                out[k]["uses"] = out[k].get("uses", 0) + 1
+                po_stats["joined: originator agrees"] += 1
+                return k
+            if k in out or k in plain_keys:
+                dec = po_decisions.get((norm(name), norm(orig)), "")
+                po_review.append({"parent_text": cell_text or f"{name} ({orig})", "name": cname(name), "originator": orig,
+                                  "existing_name": out[k]["name"] if k in out else cname(name),
+                                  "existing_hybridizer": existing_hyb,
+                                  "reason": "originators differ" if existing_hyb else "existing record has no known hybridizer",
+                                  "decision": dec})
+                if dec.lower().startswith("join"):
+                    if k not in out:
+                        if k not in stubs:
+                            new_stub(k, name, kind_hint)
+                        if not stubs[k]["hybridizer_raw"]:
+                            stubs[k]["hybridizer_raw"], stubs[k]["_text_hyb"] = orig, True
+                        stubs[k]["uses"] += 1
+                    else:
+                        out[k]["uses"] = out[k].get("uses", 0) + 1
+                    po_stats["joined: by decision"] += 1
+                    return k
+            sk = f"{k}|{norm(orig)}"
+            if sk not in stubs:
+                new_stub(sk, name, kind_hint)
+                stubs[sk]["hybridizer_raw"], stubs[sk]["_text_hyb"] = orig, True
+                po_stats["separate record with its originator"] += 1
+            stubs[sk]["uses"] += 1
+            return sk
         if k in out:
             out[k]["uses"] = out[k].get("uses", 0) + 1
             return k
         if k not in stubs:
-            stubs[k] = {"id": "", "name": CANON.get(k, cname(name)), "kind": kind_hint or stub_kind(name), "sport_of": "",
-                        "sport_xlsx": "", "size_class": "", "color": "", "bloom_description": "",
-                        "foliage_description": "", "registration_no": "", "registered_date": "", "description": "",
-                        "notes": "", "sources": "parent", "source_row": "", "added_at": "", "seed_parent_raw": "",
-                        "pollen_parent_raw": "", "hybridizer_raw": "", "source_note": "", "supplement_year": "",
-                        "_q": None, "_x": None, "_key": k, "uses": 0}
+            new_stub(k, name, kind_hint)
         stubs[k]["uses"] += 1
         return k
 
@@ -673,6 +797,7 @@ def build():
         q, x = d["_q"], d["_x"]
         sport_parent_key = None
         xlsx_sport = ""
+        xlsx_sport_orig, xlsx_sport_cell = "", ""
         if x:
             S, P = parse_cell(x["Seed Parent"]), parse_cell(x["Pollen Parent"])
             note = x["Notes"]
@@ -685,6 +810,8 @@ def build():
                     flag("sport_two_parents", d["name"], f"seed={S['name']!r} pollen={P['name']!r}; used seed")
                 if par:
                     xlsx_sport = par
+                    xlsx_sport_orig = S["orig"] if S["name"] else P["orig"]
+                    xlsx_sport_cell = x["Seed Parent"] if S["name"] else x["Pollen Parent"]
                 else:
                     flag("sport_without_parent", d["name"], f"{x['Seed Parent']!r} / {x['Pollen Parent']!r}")
             else:
@@ -696,7 +823,8 @@ def build():
                     if cell["placeholder"]:
                         flag("placeholder_parent", d["name"], f"{role}: {cell['raw']!r}")
                     if nm_:
-                        pk = resolve(nm_)
+                        o_ = cell["orig"] if cell["name"] else (S["orig"] or P["orig"])
+                        pk = resolve(nm_, orig=o_, cell_text=cell["raw"])
                         if pk == k:
                             # a cultivar cannot be its own ancestor: keep the raw cell text, drop the edge
                             flag("parent_is_self", d["name"],
@@ -711,7 +839,7 @@ def build():
                 flag("sport_conflict_sqlite_wins", d["name"], f"SQLite={q['sport']!r} xlsx={xlsx_sport!r}")
                 d["notes"] = (d["notes"] + " " if d["notes"] else "") + f"[xlsx sport parent: {xlsx_sport}]"
         elif xlsx_sport:
-            sport_parent_key = resolve(xlsx_sport)
+            sport_parent_key = resolve(xlsx_sport, orig=xlsx_sport_orig, cell_text=xlsx_sport_cell)
         if sport_parent_key:
             sport_fk[k] = sport_parent_key
 
@@ -731,8 +859,8 @@ def build():
     same_name = collections.Counter(norm(d["name"]) for d in allrec.values())
     for k, d in allrec.items():
         base = slugify(d["name"])
-        if k.startswith("ml63|") and same_name[norm(d["name"])] > 1:
-            # a name used by several plants: 1963 records are told apart by their originator
+        if "|" in k and same_name[norm(d["name"])] > 1:
+            # a name used by several plants: records are told apart by their originator
             base = f"{base}-{slugify(d['hybridizer_raw']) if d['hybridizer_raw'] else '1963'}"
         sid, n = base, 2
         while sid in used and used[sid] != k:
@@ -756,6 +884,7 @@ def build():
     mapping, n_new = load_mapping({k: tuple(v) for k, v in needed.items()})
     people = collections.OrderedDict()
     links = []
+    kind_override = {}   # kinds the reviewer set in originator_mapping.csv
 
     def person(pname):
         pname = pname.strip()
@@ -765,7 +894,7 @@ def build():
             pname, country = m.group(1), m.group(2)
         pid = slugify(pname)
         if pid not in people:
-            kind = "species" if pname == "Species" else ("organization" if ORG_RE.search(pname) else "person")
+            kind = kind_override.get(pname) or ("species" if pname == "Species" else ("organization" if ORG_RE.search(pname) else "person"))
             people[pid] = {"id": pid, "name": pname, "kind": kind, "country": country, "aliases": set()}
         elif country and not people[pid]["country"]:
             people[pid]["country"] = country
@@ -793,6 +922,41 @@ def build():
             if sv != people[pid]["name"]:
                 people[pid]["aliases"].add(sv)
 
+    # originators given only as text (the 1963 Master List, "Name (Originator)" parents): each becomes a person
+    # as printed. They are linked to an existing person only where the review file says so (eras differ).
+    text_needed = collections.Counter(cname(d["hybridizer_raw"]) for d in allrec.values()
+                                      if d.get("_text_hyb") and cname(d["hybridizer_raw"]))
+    omap, o_kinds, o_stats = load_originator_mapping(text_needed, [p_["name"] for p_ in people.values()])
+    kind_override.update(o_kinds)
+    for p_ in people.values():
+        if p_["name"] in o_kinds:
+            p_["kind"] = o_kinds[p_["name"]]
+    for k, d in allrec.items():
+        h = cname(d["hybridizer_raw"])
+        if not h or not d.get("_text_hyb"):
+            continue
+        linked = set()
+        for pn in omap.get(h, []):
+            pid = person(pn)
+            if pid not in linked:
+                linked.add(pid)
+                links.append({"cultivar_id": d["id"], "person_id": pid, "position": len(linked)})
+    for orig_, names_ in omap.items():
+        if len(names_) == 1:
+            pid_ = slugify(names_[0])
+            if pid_ in people and orig_ != people[pid_]["name"]:
+                people[pid_]["aliases"].add(orig_)
+    # the review file for "Name (Originator)" parents that might be an existing plant
+    seen_po, rows_po = set(), []
+    for r_ in po_review:
+        kk = (norm(r_["name"]), norm(r_["originator"]))
+        if kk not in seen_po:
+            seen_po.add(kk)
+            rows_po.append(r_)
+    pd.DataFrame(rows_po, columns=["parent_text", "name", "originator", "existing_name", "existing_hybridizer",
+                                   "reason", "decision"]).to_csv(REVIEW / "parent_originator_matches.csv",
+                                                                 index=False, encoding="utf-8-sig")
+
     # --- links from notes
     cl = []
     for d in allrec.values():
@@ -802,7 +966,8 @@ def build():
                        "kind": "photos" if "drive.google.com" in u else "web"})
 
     return dict(n_corr=n_corr, allrec=allrec, parentage=parentage, people=people, hyb=links, links=cl, n_named=n_named,
-                dropped=dropped, n_new_map=n_new, sq=sq, xl=xl, sp=sp, stubs=stubs, out=out, ml=ml_stats)
+                dropped=dropped, n_new_map=n_new, sq=sq, xl=xl, sp=sp, stubs=stubs, out=out, ml=ml_stats,
+                po=dict(po_stats, review=len(rows_po)), om=o_stats)
 
 
 # ------------------------------------------------------------------ near-miss review file
@@ -892,6 +1057,8 @@ def main():
              f"- new hybridizer strings appended to hybridizer_mapping.csv: {res['n_new_map']}",
              f"- reviewer corrections applied (data_corrections.csv): {res['n_corr']}",
              f"- 1963 Master List: {res['ml']}",
+             f"- parents written 'Name (Originator)': {res['po']}",
+             f"- originators written as text, now people: {res['om']}",
              f"- sports linked: {sum(1 for d in allrec.values() if d['sport_of'])}",
              f"- with registration no.: {sum(1 for d in allrec.values() if d['registration_no'])}",
              f"- name near-miss candidates written for review: {nm if nm is not None else '(file exists; decisions applied: ' + str(len(ALIAS)) + ')'}",
