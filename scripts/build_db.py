@@ -310,6 +310,22 @@ def main():
     par = read("parentage.csv")
     links = read("cultivar_links.csv")
 
+    # color / bloom / foliage split out of the free-text description by split_descriptions.py; only fills fields
+    # that are empty, so source and contributor values always win. The description itself is never changed.
+    split_csv = DATA / "description_split.csv"
+    if split_csv.exists():
+        with open(split_csv, newline="", encoding="utf-8") as f:
+            splits = {r["id"]: r for r in csv.DictReader(f)}
+        filled = 0
+        for c in cultivars:
+            sp = splits.get(c["id"])
+            if sp:
+                for k in ("color", "bloom_description", "foliage_description"):
+                    if not (c[k] or "").strip() and sp[k]:
+                        c[k] = sp[k]
+                        filled += 1
+        print(f"Filled {filled} empty color/bloom/foliage fields from description_split.csv")
+
     with con:
         con.executemany("INSERT INTO people VALUES (?,?,?,?,?)",
                         [(p["id"], p["name"], p["kind"], nz(p["country"]), nz(p["aliases"])) for p in people])

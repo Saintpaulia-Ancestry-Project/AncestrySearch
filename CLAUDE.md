@@ -196,6 +196,10 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   site/queries.sql (search, ancestors, descendants, sport family, cultivar page).
 - Pipeline: `import_excel.py` then `build_db.py`. Review inputs live in reports/review/
   (sqlite_duplicates, hybridizer_mapping, name_near_misses, data_corrections).
+- data/description_split.csv (ONE-TIME result, reviewed by the user): color / bloom_description / foliage_description
+  split out of the 1963 Master List `description` text (description itself unchanged; ~10,600 cultivars). The script
+  that made it was deleted, so this file is now hand-maintained data: edit it directly. build_db.py fills those three
+  fields from it only where the cultivar's own field is empty (source/contributor values win).
 - Parents named "X Sport" are literal parent names; never infer a sport link or a
   sport's name from them (decision by user). Explicit sport markers only.
 
