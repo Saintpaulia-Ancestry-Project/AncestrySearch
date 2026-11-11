@@ -342,8 +342,9 @@ def stub_kind(name):
 
 # ------------------------------------------------------------------ load sources
 def load_xlsx():
-    df = pd.read_excel(XLSX, sheet_name="Name", usecols=range(6), dtype=object, keep_default_na=False)
-    df.columns = ["Timestamp", "Plant Name", "Seed Parent", "Pollen Parent", "Hybridizer", "Notes"]
+    df = pd.read_excel(XLSX, sheet_name="Name", usecols=range(7), dtype=object, keep_default_na=False)
+    # column G has no header: it holds a short blossom description on a few rows (e.g. the 8E cultivars)
+    df.columns = ["Timestamp", "Plant Name", "Seed Parent", "Pollen Parent", "Hybridizer", "Notes", "Extra"]
     df["_row"] = df.index + 2
     nonblank = (df.drop(columns="_row").astype(str).apply(lambda s: s.str.strip()) != "").any(axis=1)
     return df[nonblank].reset_index(drop=True)
@@ -619,9 +620,9 @@ def build():
         name = cname(r["Plant Name"])
         k = K(name)
         rr = rec(k, name)
-        row = {c: clean(r[c]) for c in ("Seed Parent", "Pollen Parent", "Hybridizer", "Notes")}
+        row = {c: clean(r[c]) for c in ("Seed Parent", "Pollen Parent", "Hybridizer", "Notes", "Extra")}
         row.update(row_no=int(r["_row"]), ts=ts_iso(r["Timestamp"]))
-        content = tuple(row[c] for c in ("Seed Parent", "Pollen Parent", "Hybridizer", "Notes"))
+        content = tuple(row[c] for c in ("Seed Parent", "Pollen Parent", "Hybridizer", "Notes", "Extra"))
         if rr["x"] is None:
             rr["x"] = row
             seen[k] = content
@@ -700,6 +701,10 @@ def build():
         if x:
             d.update(source_row=x["row_no"], added_at=x["ts"], seed_parent_raw=x["Seed Parent"],
                      pollen_parent_raw=x["Pollen Parent"], notes=x["Notes"])
+            # unheaded column G: kept entirely as a blossom description (user decision; a stray "sport of" is ignored)
+            if x["Extra"] and x["Extra"].strip().lower() != "sport of":
+                d["description"] = d["description"] or x["Extra"]
+                d["bloom_description"] = d["bloom_description"] or x["Extra"]
         d["_q"], d["_x"], d["_key"] = q, x, k
         out[k] = d
 
