@@ -239,7 +239,7 @@ function renderSearch(app, params) {
   $("#sform").addEventListener("submit", (e) => {
     e.preventDefault();
     const f = new FormData(e.target);
-    location.hash = hashFor("/", { q: (f.get("q") || "").trim(), size: f.get("size"), sport: f.get("sport"), anc: f.get("anc"), desc: f.get("desc"), photo: f.get("photo"), all: f.get("all"), old: f.get("excl63") ? "" : "1" });
+    location.hash = hashFor("/", { q: (f.get("q") || "").trim(), size: f.get("size"), sport: !!f.get("sport"), anc: !!f.get("anc"), desc: !!f.get("desc"), photo: !!f.get("photo"), all: !!f.get("all"), old: f.get("excl63") ? "" : "1" });
   });
   $("#sform").addEventListener("change", (e) => { if (e.target.type !== "search") $("#sform").requestSubmit(); });
 }
