@@ -60,6 +60,11 @@ function hashFor(path, params) {
   return "#" + path + (s ? "?" + s : "");
 }
 
+// The last search (filters, query, page), so "Search" links on cultivar and hybridizer pages return to it.
+let lastSearch = "#/";
+try { lastSearch = sessionStorage.getItem("lastSearch") || "#/"; } catch (e) { /* storage may be blocked */ }
+const searchHref = () => lastSearch;
+
 /* ------------------------------------------------------------------ boot */
 async function boot() {
   const app = $("#app");
@@ -146,6 +151,8 @@ const ftsQuery = (words) => words.map((w) => `"${w}*"`).join(" ");
 
 /* ------------------------------------------------------------------ search page */
 function renderSearch(app, params) {
+  lastSearch = location.hash && location.hash !== "#" ? location.hash : "#/";
+  try { sessionStorage.setItem("lastSearch", lastSearch); } catch (e) { /* ignore */ }
   const state = {
     q: (params.get("q") || "").trim(),
     size: params.get("size") || "",
@@ -303,7 +310,7 @@ function wireGallery(c, photos) {
 /* ------------------------------------------------------------------ cultivar page */
 function renderCultivar(app, id) {
   const c = q1(`SELECT c.*, h.hybridizers FROM cultivars c LEFT JOIN cultivar_hybridizer_names h ON h.cultivar_id = c.id WHERE c.id = :id`, { id });
-  if (!c) { app.innerHTML = `<h1>Not found</h1><p>There is no cultivar with the id “${esc(id)}”. <a href="#/">Back to search</a></p>`; return; }
+  if (!c) { app.innerHTML = `<h1>Not found</h1><p>There is no cultivar with the id “${esc(id)}”. <a href="${searchHref()}">Back to search</a></p>`; return; }
 
   const people = q(`SELECT p.id, p.name, p.kind, p.country FROM cultivar_hybridizers ch JOIN people p ON p.id = ch.person_id WHERE ch.cultivar_id = :id ORDER BY ch.position`, { id });
   const parents = q(`SELECT * FROM v_parents WHERE child_id = :id ORDER BY CASE role WHEN 'seed' THEN 1 WHEN 'pollen' THEN 2 WHEN 'sport' THEN 0 ELSE 3 END, parent_name`, { id });
@@ -352,7 +359,7 @@ function renderCultivar(app, id) {
   const sources = [c.sources && `Sources: ${esc(sourceText)}`, c.supplement_year && `AVSA Master List supplement ${esc(c.supplement_year)}`, c.source_note && esc(c.source_note)].filter(Boolean);
 
   app.innerHTML = `
-    <div class="crumbs"><a href="#/">&larr; Search</a></div>
+    <div class="crumbs"><a href="${searchHref()}">&larr; Search</a></div>
     <h1>${esc(c.name)}</h1>
     ${badges({ kind: c.kind, is_sport: !!c.sport_of_id, registration_no: null })}
     ${renderGallery(c, photos)}
@@ -512,7 +519,7 @@ function drawGraph(id, up, down) {
 /* ------------------------------------------------------------------ person page */
 function renderPerson(app, id, params) {
   const p = q1("SELECT * FROM people WHERE id = :id", { id });
-  if (!p) { app.innerHTML = `<h1>Not found</h1><p><a href="#/">Back to search</a></p>`; return; }
+  if (!p) { app.innerHTML = `<h1>Not found</h1><p><a href="${searchHref()}">Back to search</a></p>`; return; }
   const page = Math.max(1, parseInt(params.get("page") || "1", 10) || 1);
   const total = q1(`SELECT count(*) AS n FROM cultivar_hybridizers ch JOIN cultivars c ON c.id = ch.cultivar_id WHERE ch.person_id = :id AND c.kind = 'cultivar'`, { id }).n;
   const rows = q(`SELECT l.* FROM cultivar_hybridizers ch JOIN v_cultivar_list l ON l.id = ch.cultivar_id
@@ -521,7 +528,7 @@ function renderPerson(app, id, params) {
   const link = (n) => hashFor("/p/" + encodeURIComponent(id), { page: n > 1 ? n : "" });
   const aliases = p.aliases ? p.aliases.split(" | ") : [];
   app.innerHTML = `
-    <div class="crumbs"><a href="#/">&larr; Search</a></div>
+    <div class="crumbs"><a href="${searchHref()}">&larr; Search</a></div>
     <h1>${esc(p.name)}</h1>
     <p class="lede">${esc({ person: "Hybridizer", organization: "Organization", species: "Species" }[p.kind])}${p.country ? `, ${esc(p.country)}` : ""}
       &middot; ${num(total)} ${total === 1 ? "cultivar" : "cultivars"}${aliases.length ? ` &middot; also written as ${aliases.map(esc).join(", ")}` : ""}</p>
