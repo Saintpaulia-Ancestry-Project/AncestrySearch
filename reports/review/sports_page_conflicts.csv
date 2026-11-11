@@ -1,0 +1,20 @@
+﻿kind,id,name,reg_no,field,page_value,database_value_before,note,decision
+page_wins,b-man-s-taormina,B-Man’s Taormina,,bloom_description,Large white single pansy/bright fuchsia-red edge on top petals,Single white single pansy/bright fuchsia-red edge on top petals.,,
+page_wins,buckeye-irish-lace,Buckeye Irish Lace,,foliage_description,Ruffled edge varies from pink to very green. Medium green and cream variegated,Medium green and cream variegated.,,
+page_silent,easter-angel,Easter Angel,9921,size_class,,Standard,page gives no size; database value kept,
+page_name_trimmed,emerald-love-sport,Emerald Love Sport,,name,Emerald Love Sport Single,Emerald Love Sport,bold name on the page is longer than the name matched; check the match,name stays 'Emerald Love Sport'; the page markup glues the next word ('Single') onto the bold name (user)
+page_silent,emerald-love-sport,Emerald Love Sport,,size_class,,Standard,page gives no size; database value kept,
+page_name_trimmed,ford-s-pinwheel,Ford’s Pinwheel,,name,Ford’s Pinwheel Single,Ford's Pinwheel,bold name on the page is longer than the name matched; check the match,name stays 'Ford's Pinwheel'; the page markup glues the next word ('Single') onto the bold name (user)
+page_wins,ma-s-wicked-witch,Ma’s Wicked Witch,9298,bloom_description,"Semidouble chimera cream-white to blush pink pansy/blue stripe, white fantasy","Variegated dark green and white, plain, pointed, quilted.",,
+page_wins,ma-s-wicked-witch,Ma’s Wicked Witch,9298,foliage_description,"Variegated dark green and white, plain, pointed, quilted",,,
+page_repeat_differs,easter-angel,Easter Angel,9921,description,"Semidouble white star/light pink eye, green edge. Variegated medium green and ivory. Standard","Semidouble white star/light pink eye, green edge. Variegated medium green and ivory.",same cultivar listed twice on the page with different text; first listing used,
+description_replaced,lilian-jarrett,Lilian Jarrett,1060,description,"Double light pink. Pointed, quilted, serrated. Large",Spooned leaves. Pink double.,,
+page_wins,lyon-s-fortune-teller,Lyon’s Fortune Teller,9169,bloom_description,Single chimera purple sticktite large frilled star/white-light lavender stripe,Single chimera purple sticktite large frilled star/white stripe.,,
+page_silent,marian-star-sport,Marian Star Sport,,size_class,,Standard,page gives no size; database value kept,
+page_repeat_differs,lyon-s-fortune-teller,Lyon’s Fortune Teller,9169,description,"Single chimera purple sticktite large frilled star/white stripe. Variegated medium green and cream, wavy. Large","Single chimera purple sticktite large frilled star/white-light lavender stripe. Variegated medium green and cream, wavy. Large",same cultivar listed twice on the page with different text; first listing used,
+matched_by_registration,mag-s-lovely-rainbow,Lovely Rainbow,10627,name,Lovely Rainbow,Mag's Lovely Rainbow,page name differs from our record; matched on the registration number,"page name lacks ""Mag's"" (confirmed by AVSA First Class); AVSA text applied via sports_page_splits.csv (user)"
+registration_differs,milk-in-wonderland,Milk in Wonderland,10886,registration_no,10886,10888,info only; not applied,official AVSA no. is 10888; page value 10886 is wrong (user)
+page_wins,shimai,Shimai,10519,bloom_description,"Single chimera white sticktite star/green stripe, variable thin purple edge","Single white sticktite star/green stripe, variable thin purple edge.",,
+ambiguous,,Summer Breeze,,,,,original; 2 candidate records,
+description_replaced,wintergreen,Wintergreen,878,description,Double blue and white. Variegated. Standard,Variegated leaves. Blue and white double.,,
+page_silent,yukako,Yukako,,size_class,,Standard,page gives no size; database value kept,

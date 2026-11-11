@@ -216,6 +216,13 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   (date, counts, legend, CC BY 4.0). Listed on the #/downloads page (DOWNLOADS array in app.js; intro text in data/pages/downloads.md); the
   button appears only if the file exists.
 
+- AVSA Sports page (source/African Violet Sports - African Violet Society of America.html, the original source of the
+  sports data): scripts/import_sports_page.py parses it and writes data/sports_page.csv (description + any bloom/foliage/size
+  value where the page disagreed) and the review log reports/review/sports_page_conflicts.csv. build_db.py applies it: THE PAGE
+  WINS (decided with the user). Matches by registration number + exact name (hybridizer / equal text to break ties; name
+  mismatches fall back to the registration number and are logged). Pipeline order: import_excel.py ->
+  import_sports_page.py -> build_db.py. Fill `decision` in the log to record later reviews.
+
 ## Before every push to main (deploy rule)
 Pushing to main deploys the site. The Pages workflow rebuilds the database and spreadsheet itself, but local
 clones use the COMMITTED copies, so whenever data/, scripts/build_db.py or the export changed, before pushing:
