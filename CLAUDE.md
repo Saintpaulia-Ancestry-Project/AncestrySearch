@@ -209,6 +209,11 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   Run locally: `python scripts/serve.py` (the DB cannot load from a file:// page).
   Graph caps fan-out at 8 children per parent ("+N more"); full lists are on the page.
   Tested with headless Edge screenshots only (no automated JS tests, no Node here).
+  Lineage section (cultivar page): tabs Ancestors | Descendants | Both, a generations selector per direction
+  (including All), and an Outline | Graph toggle. Outline = collapsible indented tree (every generation, branches
+  drawn lazily, repeated ancestors link back to their first appearance, 'Open all' asks above 250 links); it is the
+  default on screens <= 700px wide. The phone graph uses a tall canvas and a minimum readable zoom centered on the
+  focus cultivar. Caps (8 children per parent, two-generation fallback) apply to the graph only.
 
 - scripts/export_ancestry_xlsx.py: writes site/downloads/AfricanVioletAncestry.xlsx (COMMITTED so local clones have
   it; the Pages workflow also regenerates it; needs openpyxl. Re-run after every build_db.py that changes data). Sheets: Ancestry (every cultivar with >=1 parentage row; seed/pollen/other

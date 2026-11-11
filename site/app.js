@@ -32,6 +32,7 @@ let cy = null;
 
 /* ------------------------------------------------------------------ helpers */
 const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const num = (n) => Number(n).toLocaleString("en-US");
 
@@ -380,22 +381,194 @@ function renderCultivar(app, id) {
     ${family.length > 1 ? `<section class="panel" style="margin-top:16px" aria-labelledby="h-fam"><h2 id="h-fam">Sport family</h2>
       <ul class="plain">${family.map((f) => `<li style="padding-left:${f.depth * 20}px">${f.id === c.id ? `<strong>${esc(f.name)}</strong>` : linkCultivar(f.id, f.name)}</li>`).join("")}</ul></section>` : ""}
     <h2 id="h-graph">Lineage</h2>
+    <div class="lin-tabs" role="tablist" aria-label="Lineage direction">
+      <button type="button" role="tab" id="tab-anc" aria-selected="true">Ancestors</button>
+      <button type="button" role="tab" id="tab-dec" aria-selected="false">Descendants</button>
+      <button type="button" role="tab" id="tab-both" aria-selected="false">Both</button>
+    </div>
     <div class="graph-tools">
-      <label>Ancestors <select id="anc-depth">${[1, 2, 3, 4, 5, 6, 8].map((n) => `<option${n === 4 ? " selected" : ""}>${n}</option>`).join("")}</select> generations</label>
-      <label>Descendants <select id="dec-depth">${[0, 1, 2, 3, 4].map((n) => `<option${n === 1 ? " selected" : ""}>${n}</option>`).join("")}</select> generations</label>
+      <label id="anc-label">Ancestors <select id="anc-depth"></select><span class="gen-word"> generations</span></label>
+      <label id="dec-label">Descendants <select id="dec-depth"></select><span class="gen-word"> generations</span></label>
+      <span class="seg" role="group" aria-label="Lineage display">
+        <button type="button" id="v-list" aria-pressed="false">Outline</button>
+        <button type="button" id="v-graph" aria-pressed="true">Graph</button>
+      </span>
       <button type="button" class="secondary" id="fit">Fit to view</button>
     </div>
     <div id="graph" role="img" aria-label="Lineage graph for ${esc(c.name)}"></div>
+    <div id="outline" hidden></div>
     <div class="legend" aria-hidden="true"><span class="seed">seed parent</span><span class="pollen">pollen parent</span><span class="sport">sport of</span><span class="unordered">parent, role not stated</span></div>
     <p class="graph-msg" id="graph-msg" role="status"></p>
-    <p class="muted small">Click any cultivar in the graph to open it. The outline around a parent's name matches the line drawn from it to its offspring. Pale italic names appear only as parents.</p>`;
+    <p class="muted small" id="lin-help"></p>`;
 
   wireGallery(c, photos);
-  const draw = () => drawGraph(id, parseInt($("#anc-depth").value, 10), parseInt($("#dec-depth").value, 10));
-  $("#anc-depth").addEventListener("change", draw);
-  $("#dec-depth").addEventListener("change", draw);
-  $("#fit").addEventListener("click", () => cy && cy.fit(undefined, 30));
+  const DEPTHS = { anc: [1, 2, 3, 4, 5, 6, 8, 12, 0], dec: [1, 2, 3, 4, 6, 8, 0] };   // 0 = all generations
+  const st = { dir: "anc", view: isNarrow() ? "list" : "graph", depth: { anc: 4, dec: 1 } };
+  for (const k of ["anc", "dec"]) {
+    $("#" + k + "-depth").innerHTML = DEPTHS[k].map((n) => `<option value="${n}"${n === st.depth[k] ? " selected" : ""}>${n || "All"}</option>`).join("");
+    $("#" + k + "-depth").addEventListener("change", (e) => { st.depth[k] = parseInt(e.target.value, 10); draw(); });
+  }
+  const draw = () => {
+    const both = st.dir === "both";
+    const upN = st.dir === "dec" ? 0 : (st.depth.anc || 40), downN = st.dir === "anc" ? 0 : (st.depth.dec || 40);
+    for (const k of ["anc", "dec", "both"]) $("#tab-" + k).setAttribute("aria-selected", st.dir === k);
+    $("#anc-label").hidden = st.dir === "dec";
+    $("#dec-label").hidden = st.dir === "anc";
+    $$(".gen-word").forEach((w) => { w.hidden = both; });
+    $("#v-list").setAttribute("aria-pressed", st.view === "list");
+    $("#v-graph").setAttribute("aria-pressed", st.view === "graph");
+    $("#graph").hidden = st.view !== "graph";
+    $("#outline").hidden = st.view !== "list";
+    $("#fit").hidden = st.view !== "graph";
+    $(".legend").hidden = st.view !== "graph";
+    $("#graph-msg").textContent = "";
+    $("#lin-help").textContent = st.view === "graph"
+      ? "Tap any cultivar in the graph to open it. The outline around a parent's name matches the line drawn from it to its offspring. Pale italic names appear only as parents."
+      : "Tap an arrow to open or close a branch; tap a name to open that cultivar. Every generation is in the outline.";
+    if (st.view === "graph") drawGraph(id, upN, downN);
+    else {
+      if (cy) { cy.destroy(); cy = null; }
+      const out = $("#outline");
+      out.innerHTML = "";
+      for (const [dir, n] of [["anc", upN], ["dec", downN]]) {
+        if (!n) continue;
+        const sec = document.createElement("section");
+        sec.className = "ol-section";
+        if (both) sec.innerHTML = `<h3>${dir === "anc" ? "Ancestors" : "Descendants"}</h3>`;
+        out.appendChild(sec);
+        drawOutline(id, dir, n, sec);
+      }
+    }
+  };
+  for (const k of ["anc", "dec", "both"]) $("#tab-" + k).addEventListener("click", () => { st.dir = k; draw(); });
+  $("#v-list").addEventListener("click", () => { st.view = "list"; draw(); });
+  $("#v-graph").addEventListener("click", () => { st.view = "graph"; draw(); });
+  $("#fit").addEventListener("click", () => fitGraph(id));
   draw();
+}
+
+/* ------------------------------------------------------------------ lineage outline */
+const ROLE_LABEL = { seed: "seed", pollen: "pollen", unordered: "parent", sport: "sport of" };
+const ROLE_ORDER = { seed: 0, pollen: 1, unordered: 2, sport: 3 };
+
+/** Indented, collapsible tree. "anc": rows are the parents of the row above. "dec": rows are its children.
+ *  Every generation is included; branches below the first levels are drawn only when opened. */
+function drawOutline(id, dir, maxDepth, box) {
+  const edges = edgeSet(id, dir === "anc" ? "up" : "down", maxDepth);
+  if (!edges.length) { box.insertAdjacentHTML("beforeend", `<p class="muted" style="padding:8px 0">No recorded ${dir === "anc" ? "ancestry" : "descendants"} for this cultivar.</p>`); return; }
+  const ids = new Set([id]);
+  edges.forEach((e) => { ids.add(e.child_id); ids.add(e.parent_id); });
+  const info = new Map();
+  const all = [...ids];
+  for (let i = 0; i < all.length; i += 400) {
+    const part = all.slice(i, i + 400);
+    const stmt = db.prepare(`SELECT id, name, kind FROM cultivars WHERE id IN (${part.map(() => "?").join(",")})`);
+    stmt.bind(part);
+    while (stmt.step()) { const r = stmt.getAsObject(); info.set(r.id, r); }
+    stmt.free();
+  }
+  // node -> [{id, role, certainty}]: its parents ("anc") or its children ("dec")
+  const next = new Map();
+  for (const e of edges) {
+    const from = dir === "anc" ? e.child_id : e.parent_id, to = dir === "anc" ? e.parent_id : e.child_id;
+    if (!next.has(from)) next.set(from, []);
+    next.get(from).push({ id: to, role: e.role, certainty: e.certainty });
+  }
+  const nm = (x) => (info.get(x.id) ? info.get(x.id).name : "");
+  for (const list of next.values()) list.sort((a, b) => (ROLE_ORDER[a.role] - ROLE_ORDER[b.role]) || nm(a).localeCompare(nm(b), undefined, { sensitivity: "base" }));
+  // descendants: show the other parent of each child ("x Rob's Twist")
+  const others = new Map();
+  if (dir === "dec") {
+    const kids = [...new Set(edges.map((e) => e.child_id))];
+    for (let i = 0; i < kids.length; i += 400) {
+      const part = kids.slice(i, i + 400);
+      const stmt = db.prepare(`SELECT e.child_id, e.parent_id, c.name FROM edges e JOIN cultivars c ON c.id = e.parent_id WHERE e.child_id IN (${part.map(() => "?").join(",")})`);
+      stmt.bind(part);
+      while (stmt.step()) { const r = stmt.getAsObject(); if (!others.has(r.child_id)) others.set(r.child_id, []); others.get(r.child_id).push(r); }
+      stmt.free();
+    }
+  }
+  const expanded = new Set();   // cultivars whose branch is already drawn; later copies link back instead of repeating it
+  const openLevels = dir === "anc" ? 3 : 1;
+  const noun = (n) => dir === "anc" ? (n === 1 ? "parent" : "parents") : (n === 1 ? "child" : "children");
+
+  function row(nid, via, parentId, level, path) {
+    const n = info.get(nid) || { name: nid, kind: "stub" };
+    const kids = (next.get(nid) || []).filter((k) => !path.has(k.id));
+    const cls = n.kind === "stub" ? " stub" : n.kind === "seedling" ? " seedling" : "";
+    let tag = "";
+    if (via) {
+      const unsure = via.certainty !== "known";
+      tag = `<span class="ol-role ${via.role}${unsure ? " unsure" : ""}">${esc(ROLE_LABEL[via.role] || via.role)}${unsure ? " (" + esc(via.certainty) + ")" : ""}</span>`;
+      if (dir === "dec") {
+        const o = (others.get(nid) || []).filter((x) => x.parent_id !== parentId);
+        if (o.length) tag += `<span class="ol-other">&times; ${o.map((x) => esc(x.name)).join(", ")}</span>`;
+      }
+    }
+    const nameHtml = nid === id ? `<strong>${esc(n.name)}</strong>` : linkCultivar(nid, n.name);
+    const repeat = kids.length && expanded.has(nid);
+    if (!kids.length || repeat) {
+      return `<div class="ol-row leaf${cls}" data-cid="${esc(nid)}">${tag}${nameHtml}${repeat ? ` <a class="ol-again" href="#" data-goto="${esc(nid)}">branch shown above</a>` : ""}</div>`;
+    }
+    expanded.add(nid);
+    const open = level < openLevels;
+    const sub = new Set(path); sub.add(nid);
+    return `<details class="ol-node${cls}" data-cid="${esc(nid)}" data-level="${level}"${open ? " open data-filled=\"1\"" : ""}>
+      <summary>${tag}${nameHtml}<span class="ol-count">${kids.length} ${noun(kids.length)}</span></summary>
+      <div class="ol-kids">${open ? kids.map((k) => row(k.id, k, nid, level + 1, sub)).join("") : ""}</div></details>`;
+  }
+
+  box.insertAdjacentHTML("beforeend", `<div class="ol-tools"><button type="button" class="secondary ol-open">Open all</button> <button type="button" class="secondary ol-close">Close all</button></div>
+    <div class="ol-root">${row(id, null, null, 0, new Set())}</div>`);
+
+  function fill(det) {
+    if (det.dataset.filled) return;
+    det.dataset.filled = "1";
+    const path = new Set([id]);   // the cultivars above this row, to avoid loops
+    for (let p = det.parentElement; p && p !== box; p = p.parentElement) if (p.dataset && p.dataset.cid) path.add(p.dataset.cid);
+    const kids = (next.get(det.dataset.cid) || []).filter((k) => !path.has(k.id));
+    det.querySelector(":scope > .ol-kids").innerHTML = kids.map((k) => row(k.id, k, det.dataset.cid, parseInt(det.dataset.level, 10) + 1, path)).join("");
+  }
+  // "toggle" does not bubble, so listen in the capture phase
+  box.addEventListener("toggle", (e) => { if (e.target.open && e.target.matches("details.ol-node")) fill(e.target); }, true);
+  box.addEventListener("click", (e) => {
+    const a = e.target.closest("[data-goto]");
+    if (!a) return;
+    e.preventDefault();
+    const target = box.querySelector(`details[data-cid="${CSS.escape(a.dataset.goto)}"]`);
+    if (!target) return;
+    for (let p = target.parentElement; p; p = p.parentElement) if (p.tagName === "DETAILS") p.open = true;
+    target.open = true;
+    target.scrollIntoView({ block: "center", behavior: "smooth" });
+    target.classList.add("flash"); setTimeout(() => target.classList.remove("flash"), 1600);
+  });
+  $(".ol-open", box).addEventListener("click", () => {
+    if (edges.length > 250 && !confirm(`This lineage has ${num(edges.length)} links. Opening every branch may be slow. Continue?`)) return;
+    for (let guard = 0; guard < 60; guard++) {
+      const closed = [...box.querySelectorAll("details.ol-node:not([open])")];
+      if (!closed.length) break;
+      closed.forEach((d) => { d.open = true; fill(d); });
+    }
+  });
+  $(".ol-close", box).addEventListener("click", () => {
+    box.querySelectorAll("details.ol-node").forEach((d, i) => { if (i) d.open = false; });
+  });
+}
+
+function isNarrow() { return window.matchMedia("(max-width: 700px)").matches; }
+
+/** On a phone, fitting the whole graph makes the names unreadable. Fit to width, keep a readable minimum zoom,
+ *  and start at the focus cultivar; the rest is a pan away. */
+function fitGraph(id) {
+  if (!cy) return;
+  cy.fit(undefined, 20);
+  if (!isNarrow()) return;
+  const MIN = 0.55;
+  if (cy.zoom() < MIN) {
+    cy.zoom({ level: MIN, renderedPosition: { x: cy.width() / 2, y: cy.height() / 2 } });
+    const f = cy.getElementById(id);
+    if (f.length) cy.center(f);
+  }
 }
 
 /* ------------------------------------------------------------------ lineage graph */
@@ -487,11 +660,11 @@ function drawGraph(id, up, down) {
   const useDagre = typeof window.dagre !== "undefined";
   cy = cytoscape({
     container, elements: els, wheelSensitivity: 0.3, minZoom: 0.15, maxZoom: 2.5,
-    layout: useDagre ? { name: "dagre", rankDir: "TB", nodeSep: 18, rankSep: 48, padding: 20 } : { name: "breadthfirst", directed: true, padding: 20, spacingFactor: 1.1 },
+    layout: useDagre ? { name: "dagre", rankDir: "TB", nodeSep: isNarrow() ? 10 : 18, rankSep: isNarrow() ? 36 : 48, padding: 20 } : { name: "breadthfirst", directed: true, padding: 20, spacingFactor: 1.1 },
     style: [
       { selector: "node", style: {
           label: "data(label)", "font-size": 12, color: v("--text"), "text-valign": "center", "text-halign": "center",
-          "text-wrap": "wrap", "text-max-width": 110, shape: "round-rectangle", width: "label", height: "label", padding: "8px",
+          "text-wrap": "wrap", "text-max-width": isNarrow() ? 84 : 110, shape: "round-rectangle", width: "label", height: "label", padding: "8px",
           "background-color": v("--node-cultivar"), "border-width": 1, "border-color": v("--node-border") } },
       { selector: 'node[kind="stub"]', style: { "background-color": v("--node-stub"), color: v("--muted"), "font-style": "italic" } },
       { selector: 'node[kind="seedling"]', style: { "background-color": v("--node-seedling") } },
@@ -511,6 +684,10 @@ function drawGraph(id, up, down) {
       { selector: 'edge[certainty != "known"]', style: { opacity: 0.55 } },
     ],
   });
+  if (isNarrow()) {   // dagre lays out synchronously, so the layout is already done here
+    fitGraph(id);
+    requestAnimationFrame(() => { if (cy) { cy.resize(); fitGraph(id); } });   // again once the canvas has its final size
+  }
   cy.on("tap", "node", (evt) => { const nid = evt.target.id(); if (nid !== id && !nid.startsWith("more:")) location.hash = "#/c/" + encodeURIComponent(nid); });
   cy.on("mouseover", "node", () => { container.style.cursor = "pointer"; });
   cy.on("mouseout", "node", () => { container.style.cursor = ""; });
