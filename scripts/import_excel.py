@@ -212,6 +212,27 @@ def load_corrections():
 CORRECTIONS = load_corrections()
 
 
+def load_parent_corrections():
+    """reports/review/parent_corrections.csv (cultivar, role, value, reason): reviewer overrides of a parent
+    cell of the xlsx `Name` sheet. role is `seed` or `pollen`; value is the cell text to use instead (a cell
+    is parsed exactly like a source cell, so it may be a name, "Name (Originator)", "Sport of ..." or a
+    placeholder). Applied before the parentage is built, so the raw text, the parent record and the edge all
+    follow the correction. Keyed by cultivar name."""
+    path = REVIEW / "parent_corrections.csv"
+    out = collections.defaultdict(dict)
+    if path.exists():
+        for _, r in read_review_csv(path).iterrows():
+            role = r["role"].strip().lower()
+            if role in ("seed", "pollen") and r["value"].strip():
+                out[norm(r["cultivar"])][role] = (r["value"].strip(), r["reason"].strip())
+            else:
+                flag("parent_correction_unsupported", r["cultivar"], f"role={r['role']!r} value={r['value']!r}")
+    return out
+
+
+PARENT_CORRECTIONS = load_parent_corrections()
+
+
 def K(name):
     n = norm(name)
     for _ in range(5):
@@ -717,6 +738,24 @@ def build():
                     if fld != "notes" else d["notes"]
                 d[fld] = val
                 n_corr += 1
+    # --- reviewer corrections of parent cells (parent_corrections.csv)
+    n_pcorr, used_pcorr = 0, set()
+    for k, d in out.items():
+        for role, (val, why) in PARENT_CORRECTIONS.get(norm(d["name"]), {}).items():
+            col = "Seed Parent" if role == "seed" else "Pollen Parent"
+            if not d["_x"]:
+                continue  # reported below as unused
+            old = d["_x"][col]
+            if old != val:
+                d["_x"][col] = val
+                d[f"{role}_parent_raw"] = val
+                d["notes"] = (d["notes"] + " " if d["notes"] else "") + f"[{role} parent corrected from {old or 'blank'}: {why}]"
+                n_pcorr += 1
+            used_pcorr.add((norm(d["name"]), role))
+    for nk, roles in PARENT_CORRECTIONS.items():
+        for role in roles:
+            if (nk, role) not in used_pcorr:
+                flag("parent_correction_unused", nk, f"{role}: no xlsx row found for this cultivar")
     # --- registration uniqueness
     byreg = collections.defaultdict(list)
     for k, d in out.items():
@@ -970,7 +1009,7 @@ def build():
             cl.append({"cultivar_id": d["id"], "url": u,
                        "kind": "photos" if "drive.google.com" in u else "web"})
 
-    return dict(n_corr=n_corr, allrec=allrec, parentage=parentage, people=people, hyb=links, links=cl, n_named=n_named,
+    return dict(n_corr=n_corr, n_pcorr=n_pcorr, allrec=allrec, parentage=parentage, people=people, hyb=links, links=cl, n_named=n_named,
                 dropped=dropped, n_new_map=n_new, sq=sq, xl=xl, sp=sp, stubs=stubs, out=out, ml=ml_stats,
                 po=dict(po_stats, review=len(rows_po)), om=o_stats)
 
@@ -1061,6 +1100,7 @@ def main():
              f"- SQLite rows dropped by review decisions: {res['dropped']}",
              f"- new hybridizer strings appended to hybridizer_mapping.csv: {res['n_new_map']}",
              f"- reviewer corrections applied (data_corrections.csv): {res['n_corr']}",
+             f"- parent corrections applied (parent_corrections.csv): {res['n_pcorr']}",
              f"- 1963 Master List: {res['ml']}",
              f"- parents written 'Name (Originator)': {res['po']}",
              f"- originators written as text, now people: {res['om']}",

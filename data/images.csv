@@ -1,4 +1,16 @@
 file,cultivar_id,caption,credit,sort_order,width,height,source_url,added_at,original_sha1
+8e-agam-darshi-1.webp,8e-agam-darshi,,Jenner Miemietz,1,1200,831,,2026-11-11,e03ca388b76bde77692e9c2778180a4c10f9577e
+8e-aristotle-s-lantern-1.webp,8e-aristotle-s-lantern,,Jenner Miemietz,1,900,886,,2026-11-11,31a4c3eb65e49e34baddfe89186c1be0bd704405
+8e-blue-velvet-oxygen-1.webp,8e-blue-velvet-oxygen,,Jenner Miemietz,1,1200,933,,2026-11-11,43c174386c9af05557d6a5c44153deb4a24e3d21
+8e-fryderyk-chopin-1.webp,8e-fryderyk-chopin,,Jenner Miemietz,1,1200,843,,2026-11-11,51647999f6ff4833cf18dc0935dcca546a835091
+8e-gina-1.webp,8e-gina,,Jenner Miemietz,1,1200,914,,2026-11-11,4b6c464ab5c9bab615842472c14c6453be6e8951
+8e-helen-magnus-1.webp,8e-helen-magnus,,Jenner Miemietz,1,1000,744,,2026-11-11,91770546b88a46e87808a1bc53001e99f9dc0637
+8e-hyoga-1.webp,8e-hyoga,,Jenner Miemietz,1,1300,969,,2026-11-11,54814c89926e3abd0233bea3318e9279a5418527
+8e-john-druitt-1.webp,8e-john-druitt,,Jenner Miemietz,1,550,410,,2026-11-11,383ac3458ff1ca3f4da56cc0f28e63ac87ff8670
+8e-napoleon-1.webp,8e-napoleon,,Jenner Miemietz,1,1200,1040,,2026-11-11,71ccc6e0e81a7db97872e437e9b41480000b05d9
+8e-rocky-mountain-spotted-fever-1.webp,8e-rocky-mountain-spotted-fever,,Jenner Miemietz,1,900,675,,2026-11-11,3ac63b735289cca19121ec8ddbe16eb3662b2414
+8e-rocky-mountain-spotted-fever-2.webp,8e-rocky-mountain-spotted-fever,,Jenner Miemietz,2,900,817,,2026-11-11,e7e9371bf2bf11e9d7bc7f9ff4fefbf93bfd3b61
+8e-wesley-1.webp,8e-wesley,,Jenner Miemietz,1,900,842,,2026-11-11,5ebe405108bdcbaade03640a12b155a7bd515def
 aca-s-coral-beauty-1.webp,aca-s-coral-beauty,,Blue Mountain Violets,1,640,480,https://saintpauliaancestry.wordpress.com/2014/10/30/john-brownlies-african-violet-in-photos/,2026-11-10,a718a7c09b8e47faa6378444b7ec006ebeb94bb0
 aca-s-raspberry-rapture-1.webp,aca-s-raspberry-rapture,,Blue Mountain Violets,1,640,480,https://saintpauliaancestry.wordpress.com/2014/10/30/john-brownlies-african-violet-in-photos/,2026-11-10,f63b08ac84c97efbe50a01ce4b7ca2044428a570
 aca-s-red-ember-1.webp,aca-s-red-ember,,Blue Mountain Violets,1,704,528,https://saintpauliaancestry.wordpress.com/2014/10/30/john-brownlies-african-violet-in-photos/,2026-11-10,ec225377d7cbe2c42321f447ab7a099abd7940cf
@@ -49,6 +61,7 @@ corroboree-1.webp,corroboree,,AVAAU,1,700,550,https://saintpauliaancestry.wordpr
 crystal-chicken-paw-1.webp,crystal-chicken-paw,,Leo Lee,1,720,960,https://saintpauliaancestry.wordpress.com/2016/11/25/leo-lee-in-photos/,2026-11-10,157d6911f72b588313231b23096aa420865aa36d
 dark-night-of-the-soul-1.webp,dark-night-of-the-soul,,George McDonald,1,1600,1200,https://saintpauliaancestry.wordpress.com/2014/10/31/george-mcdonald-in-pictures/,2026-11-10,95f4c97e3a95a622f0fac95ea0fd5c40e16c72db
 daydream-1.webp,daydream,,Margaret Taylor,1,462,507,https://saintpauliaancestry.wordpress.com/2015/05/14/margaret-taylor-in-photos/,2026-11-10,f8582a68c5d8432cc72abb0eafab73a48312115b
+definitely-darryl-1.webp,definitely-darryl,,Linn Boa,1,720,960,,2026-11-11,587fc574f1c90226babd5249a50fc47842909b4e
 dream-girl-1.webp,dream-girl,,Leo Lee,1,1600,1600,https://saintpauliaancestry.wordpress.com/2018/04/26/dream-girl-hybridizer-leo-lee/,2026-11-10,2df3a7b89daeeb6844f1e3b40dbe08f0215d872c
 evangeline-1.webp,evangeline,,Blue Mountain Violets,1,1600,1200,https://saintpauliaancestry.wordpress.com/2016/05/11/jeanette-domiano-in-photos/,2026-11-10,ad27c882cd4c7fc2501275559ca7cacb5101a5ee
 fairy-gate-1.webp,fairy-gate,,Margaret Taylor,1,528,393,https://saintpauliaancestry.wordpress.com/2015/05/14/margaret-taylor-in-photos/,2026-11-10,0f7fa1e58440895edf5d1305c97d7bcb6f9b8c85
@@ -96,13 +109,17 @@ hunter-s-twilight-glow-1.webp,hunter-s-twilight-glow,,Ken Muzalewski,1,960,892,h
 hunter-s-vixen-1.webp,hunter-s-vixen,,Ken Muzalewski,1,720,960,https://saintpauliaancestry.wordpress.com/2018/05/23/hunters-hybrids-in-photos/,2026-11-10,5f302e4287ace750f2dd5648dde8b4db677b0020
 imp-s-fortuitous-fancy-1.webp,imp-s-fortuitous-fancy,,Blue Mountain Violets,1,1600,1200,https://saintpauliaancestry.wordpress.com/2016/05/11/jeff-jackson-in-photos/,2026-11-10,2c36f8e7850fb7fdbd8e425835a54c26ee6443ae
 imp-s-fortuitous-fancy-2.webp,imp-s-fortuitous-fancy,,Blue Mountain Violets,2,500,375,https://saintpauliaancestry.wordpress.com/2016/05/11/jeff-jackson-in-photos/,2026-11-10,0930cc2d52cdfd90dce371c9814a74c2787b301a
+imp-s-freon-fallout-1.webp,imp-s-freon-fallout,,Linn Boa,1,960,720,,2026-11-11,9770762ec57082a4b21103b218f5653a56c70052
+imp-s-freon-fallout-2.webp,imp-s-freon-fallout,,Linn Boa,2,960,710,,2026-11-11,e3964dada5eeafcae3a18a6cc626d9f45b710ec0
 jack-of-clubs-1.webp,jack-of-clubs,,Kent Stork,1,540,960,https://saintpauliaancestry.wordpress.com/2014/11/03/optimara-mylove-x-smooch-me-by-kent-stork/,2026-11-10,d9af1ff0f431fbeb6b8337c3f24507de0c35765e
 jazztime-1.webp,jazztime,,Margaret Taylor,1,402,392,https://saintpauliaancestry.wordpress.com/2015/05/14/margaret-taylor-in-photos/,2026-11-10,657539884ec9b7f6220b355861941a0ce55764d6
 jersey-little-devil-1.webp,jersey-little-devil,,Blue Mountain Violets,1,690,518,https://saintpauliaancestry.wordpress.com/2014/10/30/robert-kurzynski-in-photos/,2026-11-10,eac9aca83c8d129812e50a4cf3bd9a0802c92a1c
 jersey-little-devil-2.webp,jersey-little-devil,,Blue Mountain Violets,2,640,480,https://saintpauliaancestry.wordpress.com/2014/10/30/robert-kurzynski-in-photos/,2026-11-10,6dd1b1d6bcb9826a4e1d47e58c4cb5179910d7cf
 jersey-little-devil-3.webp,jersey-little-devil,,Blue Mountain Violets,3,640,480,https://saintpauliaancestry.wordpress.com/2014/10/30/robert-kurzynski-in-photos/,2026-11-10,26f55f4e654f54609aa98181f4cbde3c357e82d6
 jolly-frills-1.webp,jolly-frills,,Hortense Pittman,1,400,299,https://saintpauliaancestry.wordpress.com/2014/11/18/hortense-pittman-in-photos/,2026-11-10,15ce3c36d415752543a955d5dcf5b02b870a09aa
+jolly-frills-2.webp,jolly-frills,,Linn Boa,2,960,720,,2026-11-11,80d7b2950d6a1c584a7cc8767796f0f8601b44c9
 jolly-jubilee-1.webp,jolly-jubilee,,Hortense Pittman,1,500,375,https://saintpauliaancestry.wordpress.com/2014/11/18/hortense-pittman-in-photos/,2026-11-10,8d5d8554e28fb6b4fcaac96daab0d9a087b6c1ed
+jolly-mel-1.webp,jolly-mel,,Linn Boa,1,960,720,,2026-11-11,902ec4b4151a6bdd2d158434eb3df9b25c4ca67f
 k-s-cherry-chip-frosting-1.webp,k-s-cherry-chip-frosting,,Kathy Hajner,1,1600,1436,https://saintpauliaancestry.wordpress.com/2016/10/06/kathy-hajner-in-photos/,2026-11-10,3f5b8f912a647226bf751259dbf1202422d0abd6
 k-s-dancing-spree-1.webp,k-s-dancing-spree,,Kathy Hajner,1,1600,1598,https://saintpauliaancestry.wordpress.com/2016/10/06/kathy-hajner-in-photos/,2026-11-10,d2dbff2eca5c53f347f23fb2cf3e40a5819d8adb
 k-s-dancing-spree-2.webp,k-s-dancing-spree,,Kathy Hajner,2,480,479,https://saintpauliaancestry.wordpress.com/2016/06/02/kathy-hajner-and-frozen-in-time-x-amour-elite/,2026-11-10,fe58e3f280452a5223d48f76d4dfd979ce89536c
@@ -147,6 +164,7 @@ midnight-radiation-3.webp,midnight-radiation,,Barbara Elkin,3,1600,1200,https://
 migaloo-1.webp,migaloo,,Margaret Taylor,1,372,384,https://saintpauliaancestry.wordpress.com/2015/05/14/margaret-taylor-in-photos/,2026-11-10,ea1da098a8d3301e447a953c77a84e9455bbf69d
 milky-way-trail-1.webp,milky-way-trail,,AVAAU,1,680,636,https://saintpauliaancestry.wordpress.com/2016/06/16/julia-stahl-in-photos/,2026-11-10,55d02cedd210b6d19d164b71aacd7447ef420985
 milky-way-trail-2.webp,milky-way-trail,,AVAAU,2,700,569,https://saintpauliaancestry.wordpress.com/2016/06/16/julia-stahl-in-photos/,2026-11-10,47b9542dec7ce05a624cd7d9b846d972d0e5c255
+morgan-s-sumira-1.webp,morgan-s-sumira,,Linn Boa,1,960,720,,2026-11-11,7faea46315aea709766409ec5977a8ea9aebfad4
 mr-tai-hung-1.webp,mr-tai-hung,,Leo Lee,1,960,640,https://saintpauliaancestry.wordpress.com/2016/11/25/leo-lee-in-photos/,2026-11-10,4e95a4d01c92bbe76a799ef65a56cc4215cd9775
 neptune-a-r-1.webp,neptune-a-r,,Blue Mountain Violets,1,1600,1200,https://saintpauliaancestry.wordpress.com/2016/05/12/armacost-royston-in-photos/,2026-11-10,30e0cd3e5143bfd6005b8ff4a8447dfbd093423a
 ness-blue-velvet-1.webp,ness-blue-velvet,,Don Ness,1,533,334,https://saintpauliaancestry.wordpress.com/2014/10/30/ness-african-violets/,2026-11-10,cb0b9b1274f44ab0f5f978a1ee429f20d8b33a1e
@@ -154,6 +172,7 @@ ness-candy-pink-1.webp,ness-candy-pink,,Don Ness,1,640,480,https://saintpauliaan
 ness-crinkle-blue-1.webp,ness-crinkle-blue,,AVAAU,1,650,627,https://saintpauliaancestry.wordpress.com/2014/10/30/ness-african-violets/,2026-11-10,fd9e625b5fff357799fd980a779d2270af9a7ef4
 ness-satin-rose-1.webp,ness-satin-rose,,AVAAU,1,700,502,https://saintpauliaancestry.wordpress.com/2014/10/30/ness-african-violets/,2026-11-10,27332297ec8217469bee101dd5c51ceb6a053d94
 newtown-quiet-resolve-1.webp,newtown-quiet-resolve,,Blue Mountain Violets,1,640,480,https://saintpauliaancestry.wordpress.com/2016/05/12/sharon-holtzman-in-photos/,2026-11-10,8ff1450613e756db2cff5896585694e3fd1f735c
+norton-s-elaine-1.webp,norton-s-elaine,,Linn Boa,1,720,960,,2026-11-11,464cfbb012589ebc861fefe599569e40c1dce069
 nu-er-hong-1.webp,nu-er-hong,,Leo Lee,1,960,732,https://saintpauliaancestry.wordpress.com/2016/11/25/leo-lee-in-photos/,2026-11-10,b6caec8dcf0a63417b380670afd9aacfd89310c5
 oml-sm-1211-1.webp,oml-sm-1211,,Kent Stork,1,540,960,https://saintpauliaancestry.wordpress.com/2014/11/03/optimara-mylove-x-smooch-me-by-kent-stork/,2026-11-10,589e61f8a00abaa8554050009aeba72dd1ce646d
 oml-sm-1211-2.webp,oml-sm-1211,,Kent Stork,2,540,960,https://saintpauliaancestry.wordpress.com/2014/11/03/optimara-mylove-x-smooch-me-by-kent-stork/,2026-11-10,a10771084c732b216995edca780d55fc1bc608d0
@@ -166,6 +185,13 @@ owlsee-jafar-2.webp,owlsee-jafar,,Alcie Maxwell,2,1600,1067,https://saintpauliaa
 party-time-1.webp,party-time,,Margaret Taylor,1,675,591,https://saintpauliaancestry.wordpress.com/2015/05/14/margaret-taylor-in-photos/,2026-11-10,716ce8b173aafe20758522abfc8aa2a7d2b7f330
 petite-blarney-1.webp,petite-blarney,,Hortense Pittman,1,640,480,https://saintpauliaancestry.wordpress.com/2014/11/18/hortense-pittman-in-photos/,2026-11-10,d69efd26b3c24732a5278d29937ee79b4b61208e
 petite-blarney-2.webp,petite-blarney,,Hortense Pittman,2,640,480,https://saintpauliaancestry.wordpress.com/2014/11/18/hortense-pittman-in-photos/,2026-11-10,581716f2f35e631827d2f38cc75a307d99cb591b
+petite-blarney-3.webp,petite-blarney,,Linn Boa,3,720,960,,2026-11-11,ffa48df586dc414ed29f3ba1293dc6bc4c11bb65
+petite-blarney-4.webp,petite-blarney,,Linn Boa,4,720,960,,2026-11-11,925d53642147a7a87369d982b025e19db7a3b301
+petite-blarney-5.webp,petite-blarney,,Linn Boa,5,960,720,,2026-11-11,d23c0a57e242391f84ede7611477158551bb5af3
+petite-blarney-6.webp,petite-blarney,,Linn Boa,6,960,720,,2026-11-11,7b6bf85c3a732e9f83a2095d9ac49f19f12a4a7c
+petite-blarney-7.webp,petite-blarney,,Linn Boa,7,960,720,,2026-11-11,bf7ca65c6358bb7080212b9ae21c7bdd3e3795ed
+petite-blarney-8.webp,petite-blarney,,Linn Boa,8,960,720,,2026-11-11,4f8c7b315e21c2f97c53663c7ed3fe41222bdd64
+petite-jewel-1.webp,petite-jewel,,Linn Boa,1,1200,1600,,2026-11-11,f5e9e8c757a851aea12bbca369a05c5617e72499
 picasso-1.webp,picasso,,Michel Tremblay,1,720,960,https://saintpauliaancestry.wordpress.com/2020/03/11/michel-tremblay-in-photos/,2026-11-10,fb7edb3d48d5732e51651669d41115231b2544c1
 pow-wow-1.webp,pow-wow,,Kent Stork,1,640,480,https://saintpauliaancestry.wordpress.com/2014/11/03/kent-stork-in-photos/,2026-11-10,7cfc5a1d59d113976a70fa8c4e351a4651cdf4d8
 powderworks-1.webp,powderworks,,Margaret Taylor,1,765,603,https://saintpauliaancestry.wordpress.com/2015/05/14/margaret-taylor-in-photos/,2026-11-10,75cd6c80b3471371b440d7009673f3b4c1fb1463
@@ -293,17 +319,31 @@ rivermist-zombie-1.webp,rivermist-zombie,,Joan Baker,1,187,144,,2026-11-10,133d1
 rob-s-antique-rose-1.webp,rob-s-antique-rose,,AVAAU,1,650,644,https://saintpauliaancestry.wordpress.com/2014/11/18/rob-robinson-in-photos/,2026-11-10,8450afca75d13509b5f5fbd1ca779197139e38f6
 rob-s-boogie-woogie-1.webp,rob-s-boogie-woogie,,AVAAU,1,660,605,https://saintpauliaancestry.wordpress.com/2014/11/18/rob-robinson-in-photos/,2026-11-10,8aa319c584c342813298618f2557b62b0b979c9a
 rob-s-boolaroo-1.webp,rob-s-boolaroo,,AVAAU,1,700,597,https://saintpauliaancestry.wordpress.com/2014/11/18/rob-robinson-in-photos/,2026-11-10,70b418285036ea017522c38b6a13acd82dd19d12
+rob-s-boondoggle-1.webp,rob-s-boondoggle,,Linn Boa,1,960,639,,2026-11-11,b631f050fb3fab02164e49c1e7c7ba51c4edeadf
 rob-s-chilly-willy-1.webp,rob-s-chilly-willy,,Ralph Robinson,1,400,338,https://saintpauliaancestry.wordpress.com/2014/11/18/rob-robinson-in-photos/,2026-11-10,b3d9e25ba85b0ec9ae37d857c8912dca600ca420
+rob-s-dandy-lion-1.webp,rob-s-dandy-lion,,Linn Boa,1,960,720,,2026-11-11,baaad1c553da09c1abdcf5f3d825390382c61236
+rob-s-fe-fi-1.webp,rob-s-fe-fi,,Linn Boa,1,960,720,,2026-11-11,c63fe390e41c92cbc2a8debe78dcccfd6dedd958
 rob-s-fuddy-duddy-1.webp,rob-s-fuddy-duddy,,AVAAU,1,650,679,https://saintpauliaancestry.wordpress.com/2014/11/18/rob-robinson-in-photos/,2026-11-10,cb8174e962e13805d3e02cc279eae3b385efb30e
 rob-s-gundaroo-1.webp,rob-s-gundaroo,,Ralph Robinson,1,400,299,https://saintpauliaancestry.wordpress.com/2014/11/18/rob-robinson-in-photos/,2026-11-10,873b2ce856bdcac0cc0c506bb8b4da81abba913d
+rob-s-hopscotch-1.webp,rob-s-hopscotch,,Linn Boa,1,960,720,,2026-11-11,f57908435de7d8bd2c7f787786805e11420a43d3
+rob-s-lucky-number-1.webp,rob-s-lucky-number,,Linn Boa,1,960,720,,2026-11-11,d8da040a9ab1717d92f2cc87d5638aed6b4542a8
+rob-s-lucky-number-2.webp,rob-s-lucky-number,,Linn Boa,2,960,720,,2026-11-11,b195d8a3ea29d4b8745efdcca34b39324d34814c
+rob-s-lucky-penny-1.webp,rob-s-lucky-penny,,Linn Boa,1,1132,1600,,2026-11-11,d991199a5394e3d0c1f55fcf51d37b9af9827982
+rob-s-zinfandel-1.webp,rob-s-zinfandel,,Linn Boa,1,960,720,,2026-11-11,21bb427aad4c692e0d0ba6b1b2fc3c28bdf249c6
 royal-blue-trailer-1.webp,royal-blue-trailer,,Christopher Nagy,1,640,480,https://saintpauliaancestry.wordpress.com/2014/10/21/ramblin-sunshine-trailer-x-royal-blue-trailer-flower-x-genetic-blush-by-christopher-nagy/,2026-11-10,e856dc2990527b4ae2352b1c00d6488189186d6a
 rs-morskaia-printsessa-1.webp,rs-morskaia-printsessa,,Linda Toth,1,1235,968,https://saintpauliaancestry.wordpress.com/2014/10/27/emergency-x-rs-morskaia-printsessa-by-linda-toth/,2026-11-10,31705ecdf780f1f0c21fd0da4408c0c870a9be6d
+sassy-sister-1.webp,sassy-sister,,Linn Boa,1,960,720,,2026-11-11,15cdb0a49fc0088d07b13649b2ab45acd48d9420
 senk-s-blue-heron-formerly-referred-to-as-bfo-301-1.webp,senk-s-blue-heron-formerly-referred-to-as-bfo-301,,David Senk,1,640,480,https://saintpauliaancestry.wordpress.com/2014/11/18/david-senk-in-photos/,2026-11-10,05ca13c7690f00b7eadda2fa1779090d2f2253e5
 senk-s-blue-heron-formerly-referred-to-as-bfo-301-2.webp,senk-s-blue-heron-formerly-referred-to-as-bfo-301,,David Senk,2,1600,1200,https://saintpauliaancestry.wordpress.com/2014/11/18/david-senk-in-photos/,2026-11-10,c4374ef0f9e3d7ae38cc698bbb5b1f7ff9e2f7e4
+senk-s-girl-wasp-1.webp,senk-s-girl-wasp,,Linn Boa,1,960,720,,2026-11-11,d6420d3a25e3de2b08906dba9740ab68ef197382
 senk-s-merlot-1.webp,senk-s-merlot,,David Senk,1,500,375,https://saintpauliaancestry.wordpress.com/2014/11/18/david-senk-in-photos/,2026-11-10,d18bde7b17367dc1b4644e73144996886d4630e6
 senk-s-merlot-2.webp,senk-s-merlot,,David Senk,2,1600,1200,https://saintpauliaancestry.wordpress.com/2014/11/18/david-senk-in-photos/,2026-11-10,63c85495adaa428b23da89acc49441dbb8146ec8
 senk-s-royalty-1.webp,senk-s-royalty,,David Senk,1,500,375,https://saintpauliaancestry.wordpress.com/2014/11/18/david-senk-in-photos/,2026-11-10,54e7adf38f92982b4e32514c376954f579a777eb
 senk-s-royalty-2.webp,senk-s-royalty,,David Senk,2,500,451,https://saintpauliaancestry.wordpress.com/2014/11/18/david-senk-in-photos/,2026-11-10,a23b5bfbe2f4c1d5e3a34bcd255ef679f5437682
+senk-s-say-what-1.webp,senk-s-say-what,,Linn Boa,1,960,720,,2026-11-11,99a8d309037d0a836b984487ab226c3cadc134ba
+senk-s-say-what-2.webp,senk-s-say-what,,Linn Boa,2,1066,1600,,2026-11-11,1133455226e50e42c59bfefa039a4a994d1af55a
+senk-s-the-sorceress-1.webp,senk-s-the-sorceress,,Linn Boa,1,960,720,,2026-11-11,1fcec44ed407e8100ce7fe7aabc919f546b3a57e
+senk-s-vespa-verde-1.webp,senk-s-vespa-verde,,Linn Boa,1,960,720,,2026-11-11,e51672120fdfe45104628325621688933068091d
 shao-mai-1.webp,shao-mai,,Leo Lee,1,640,640,https://saintpauliaancestry.wordpress.com/2016/11/25/leo-lee-in-photos/,2026-11-10,27ae7914142b633571c3c8bcecbf081eb2b05452
 sky-garden-1.webp,sky-garden,,Margaret Taylor,1,579,597,https://saintpauliaancestry.wordpress.com/2015/05/14/margaret-taylor-in-photos/,2026-11-10,8515dcc30ba6e7dc5a881d2ddc70963a26194c5e
 sky-lanterns-1.webp,sky-lanterns,,Leo Lee,1,1600,1600,https://saintpauliaancestry.wordpress.com/2018/04/26/dream-girl-hybridizer-leo-lee/,2026-11-10,c902a927f06259f0b2a4a0b625c2bca3b8ae686a

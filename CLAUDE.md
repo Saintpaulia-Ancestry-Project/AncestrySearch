@@ -195,7 +195,11 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   validates (FKs, integrity, ancestry cycles, query templates) and writes
   site/queries.sql (search, ancestors, descendants, sport family, cultivar page).
 - Pipeline: `import_excel.py` then `build_db.py`. Review inputs live in reports/review/
-  (sqlite_duplicates, hybridizer_mapping, name_near_misses, data_corrections).
+  (sqlite_duplicates, hybridizer_mapping, name_near_misses, data_corrections, parent_corrections).
+  parent_corrections.csv (cultivar, role seed|pollen, value, reason) overrides one parent cell of the xlsx `Name` sheet
+  before the parentage is built (the original cell text is kept in the cultivar's notes). Full pipeline order:
+  import_excel.py -> import_submissions.py apply -> build_db.py -> export_ancestry_xlsx.py (running import_excel.py
+  alone drops the submitted cultivars from data/).
 - data/description_split.csv (ONE-TIME result, reviewed by the user): color / bloom_description / foliage_description
   split out of the 1963 Master List `description` text (description itself unchanged; ~10,600 cultivars). The script
   that made it was deleted, so this file is now hand-maintained data: edit it directly. build_db.py fills those three
@@ -247,7 +251,11 @@ Never push without being asked.
   (2) Derive images for cultivars where possible: match photos to cultivars, then import with
   scripts/add_images.py (credit is REQUIRED per photo; "used with permission" must be confirmed per contributor
   before anything is published). Never publish or quote the CONFIDENTIAL registration applications.
-  Write the index to reports/ or notes/ without copying confidential content into git-tracked files.
+  PRIVATE REPO (decided with the user): reports, indexes and notes about this archive go in the separate LOCAL-ONLY
+  git repo C:\source\AVAncestry-private\ (no remote, never add one; see its README.md; hector-archive/overview.md
+  is the first listing). Do NOT write archive reports into this public repo's reports/ or notes/. Only publishable
+  results (data/images.csv, resized photos) come here, after per-contributor permission is confirmed.
+  The CONFIDENTIAL registration applications folder was empty when downloaded.
 
 ## Contributor submissions (decided with the user; full plan in notes/submission-form-plan.md)
 Custom form `#/submit` (multi-cultivar batches) -> Google Apps Script receiver -> private Google Sheet as review inbox

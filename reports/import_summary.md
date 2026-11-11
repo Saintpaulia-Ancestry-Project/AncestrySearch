@@ -7,6 +7,7 @@
 - SQLite rows dropped by review decisions: 5
 - new hybridizer strings appended to hybridizer_mapping.csv: 0
 - reviewer corrections applied (data_corrections.csv): 12
+- parent corrections applied (parent_corrections.csv): 2
 - 1963 Master List: {'new': 12765, 'joined_auto': 29, 'groups': 12794, 'review': 412}
 - parents written 'Name (Originator)': {'joined: originator agrees': 1, 'separate record with its originator': 2, 'review': 0}
 - originators written as text, now people: {'originators': 507, 'with a proposed link': 43, 'linked by decision': 1}
