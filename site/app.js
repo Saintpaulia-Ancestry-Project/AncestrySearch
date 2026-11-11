@@ -555,6 +555,9 @@ function drawOutline(id, dir, maxDepth, box) {
   });
 }
 
+/** True when the primary input is a mouse: only then is the wheel gated behind a click (touch keeps pinch-zoom). */
+const WHEEL_GATED = window.matchMedia("(pointer: fine)").matches;
+
 function isNarrow() { return window.matchMedia("(max-width: 700px)").matches; }
 
 /** On a phone, fitting the whole graph makes the names unreadable. Fit to width, keep a readable minimum zoom,
@@ -659,7 +662,7 @@ function drawGraph(id, up, down) {
   if (typeof cytoscapeDagre === "function") { try { cytoscape.use(cytoscapeDagre); } catch (e) { /* already registered */ } }
   const useDagre = typeof window.dagre !== "undefined";
   cy = cytoscape({
-    container, elements: els, wheelSensitivity: 0.3, minZoom: 0.15, maxZoom: 2.5,
+    container, elements: els, wheelSensitivity: 0.3, userZoomingEnabled: !WHEEL_GATED, minZoom: 0.15, maxZoom: 2.5,
     layout: useDagre ? { name: "dagre", rankDir: "TB", nodeSep: isNarrow() ? 10 : 18, rankSep: isNarrow() ? 36 : 48, padding: 20 } : { name: "breadthfirst", directed: true, padding: 20, spacingFactor: 1.1 },
     style: [
       { selector: "node", style: {
@@ -689,6 +692,21 @@ function drawGraph(id, up, down) {
     requestAnimationFrame(() => { if (cy) { cy.resize(); fitGraph(id); } });   // again once the canvas has its final size
   }
   cy.on("tap", "node", (evt) => { const nid = evt.target.id(); if (nid !== id && !nid.startsWith("more:")) location.hash = "#/c/" + encodeURIComponent(nid); });
+  if (WHEEL_GATED) {
+    // With a mouse, the wheel scrolls the page until the graph is clicked; leaving the graph (or Esc) hands it back.
+    const hint = document.createElement("div");
+    hint.className = "graph-hint";
+    hint.textContent = "Click the graph to zoom with the mouse wheel";
+    container.appendChild(hint);
+    const setZoom = (on) => { if (!cy) return; cy.userZoomingEnabled(on); hint.hidden = on; };
+    cy.on("tap", (evt) => { if (evt.target === cy) setZoom(true); });
+    cy.on("tap", "node", () => setZoom(true));
+    container.addEventListener("mouseleave", () => setZoom(false));
+    document.addEventListener("keydown", function esc(e) {
+      if (!cy || !container.isConnected) { document.removeEventListener("keydown", esc); return; }
+      if (e.key === "Escape") setZoom(false);
+    });
+  }
   cy.on("mouseover", "node", () => { container.style.cursor = "pointer"; });
   cy.on("mouseout", "node", () => { container.style.cursor = ""; });
 }

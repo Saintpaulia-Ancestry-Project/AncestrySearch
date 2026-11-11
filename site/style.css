@@ -245,3 +245,6 @@ button.linklike { background: none; border: 0; padding: 0; color: var(--link); t
 .ol-section + .ol-section { margin-top: 14px; padding-top: 6px; border-top: 2px solid var(--border); }
 .ol-section > h3 { margin: 4px 0 6px; font-size: 1rem; }
 label[hidden], .gen-word[hidden] { display: none; }
+#graph { position: relative; }
+.graph-hint { position: absolute; right: 8px; bottom: 8px; z-index: 5; pointer-events: none; font-size: 0.8rem; padding: 3px 9px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); opacity: .9; }
+.graph-hint[hidden] { display: none; }
