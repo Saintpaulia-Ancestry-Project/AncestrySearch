@@ -240,7 +240,9 @@ def load_name_corrections():
     - the corrected name is shown everywhere (name, search, parent lists, downloads);
     - BOTH spellings are accepted in every source from now on (a parent cell, a supplement, a submission written with
       either spelling reaches the same record), because the new spelling is registered as an alias;
-    - the record's id stays the same (ids are in links, images.csv and bookmarks, so they never change);
+    - the record's id stays the same (ids are in links, images.csv and bookmarks, so they never change). Optional column
+      `id_from`: the name whose slug is the id, needed when the corrected spelling already exists as its own record
+      (the two records merge and must keep the id the other tables and images.csv already use);
     - the old spelling is kept in the cultivar's notes ("[name corrected from ...]"), which the search index covers.
     Returns {canonical key: (old name, new name, reason)}. Applies to cultivars and to parent-only records."""
     path = REVIEW / "name_corrections.csv"
@@ -261,7 +263,8 @@ def load_name_corrections():
             if nk != ok:
                 ALIAS[nk] = ok
             CANON[ok] = new
-            out[ok] = (old, new, r["reason"].strip())
+            idn = cname(r["id_from"]) if "id_from" in r.index and r["id_from"].strip() else old
+            out[ok] = (old, new, r["reason"].strip(), idn)
     return out
 
 
@@ -776,7 +779,7 @@ def build():
     # --- spelling corrections of names (name_corrections.csv): keep the old spelling in the notes
     for k, d in out.items():
         if k in NAME_CORR:
-            old, new, why = NAME_CORR[k]
+            old, new, why = NAME_CORR[k][:3]
             if norm(old) != norm(d["name"]) or old != d["name"]:
                 d["notes"] = (d["notes"] + " " if d["notes"] else "") + f"[name corrected from {old}" + (f": {why}" if why else "") + "]"
     # --- reviewer corrections of parent cells (parent_corrections.csv)
@@ -946,7 +949,7 @@ def build():
         if nk_ not in allrec:
             flag("name_correction_unused", NAME_CORR[nk_][0], "no record with this name found")
     for k, d in allrec.items():
-        base = slugify(NAME_CORR[k][0] if k in NAME_CORR else d["name"])   # a corrected name keeps its original id
+        base = slugify(NAME_CORR[k][3] if k in NAME_CORR else d["name"])   # a corrected name keeps its original id
         if "|" in k and same_name[norm(d["name"])] > 1:
             # a name used by several plants: records are told apart by their originator
             base = f"{base}-{slugify(d['hybridizer_raw']) if d['hybridizer_raw'] else '1963'}"

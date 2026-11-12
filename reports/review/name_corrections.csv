@@ -1,9 +1,11 @@
-cultivar,new_name,reason
-Hunter's Anaphlaxis,Hunter's Anaphylaxis,spelling used in the hybridizer's own photo file names
-Hunter's Running With Scisors,Hunter's Running With Scissors,spelling used in the hybridizer's own photo file names
-Pink Madonna,Pink Madona,spelling in the AVSA Master Variety List (AVSA #4021); user decision to follow the MLV
-Rhythm Rascal,Rhythym Rascal,spelling in the AVSA Master Variety List (AVSA #4987); user decision to follow the MLV
-Sue Hoffmann,Sue Hoffman,spelling in the AVSA Master Variety List (AVSA #8678); user decision to follow the MLV
-Gentles Persuasion,Gentle Persuasion,spelling in the AVSA Master Variety List (AVSA #7120); user decision to follow the MLV
-Nuclear Fucsian,Nuclear Fuscian,spelling in the AVSA Master Variety List (AVSA #6056); user decision to follow the MLV
-Imp's Shiny Seashell,Imp's Shiny Seashells,spelling in the hybridizer's own 2020 list (user decision)
+cultivar,new_name,reason,id_from
+Hunter's Anaphlaxis,Hunter's Anaphylaxis,spelling used in the hybridizer's own photo file names,
+Hunter's Running With Scisors,Hunter's Running With Scissors,spelling used in the hybridizer's own photo file names,
+Pink Madonna,Pink Madona,spelling in the AVSA Master Variety List (AVSA #4021); user decision to follow the MLV,
+Rhythm Rascal,Rhythym Rascal,spelling in the AVSA Master Variety List (AVSA #4987); user decision to follow the MLV,
+Sue Hoffmann,Sue Hoffman,spelling in the AVSA Master Variety List (AVSA #8678); user decision to follow the MLV,
+Gentles Persuasion,Gentle Persuasion,spelling in the AVSA Master Variety List (AVSA #7120); user decision to follow the MLV,
+Nuclear Fucsian,Nuclear Fuscian,spelling in the AVSA Master Variety List (AVSA #6056); user decision to follow the MLV,
+Imp's Shiny Seashell,Imp's Shiny Seashells,spelling in the hybridizer's own 2020 list (user decision),
+9eptune's Treasure,Neptune's Treasure,OCR error in the supplement (leading 9 for N); the AVSA Master Variety List has Neptune's Treasure by S. Sorano,Neptune's Treasure
+9u'er Hong,Nu'er Hong,OCR error in the supplement (leading 9 for N); Leo Lee's own list gives Nu'er Hong,Nu'er Hong
