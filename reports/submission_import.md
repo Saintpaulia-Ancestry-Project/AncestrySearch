@@ -1,9 +1,9 @@
 # Submission import
 
 - files applied: 1
-- new cultivars: 35; stubs filled in: 1; existing records updated: 35
+- new cultivars: 35; stubs filled in: 0; existing records updated: 35
 - parent stubs created: 3; new people: 0
-- already applied (skipped): 0; HELD: 0; conflicts/ignored values: 24
+- already applied (skipped): 0; HELD: 0; conflicts/ignored values: 25
 - photos to import: 82 (add_images.py; see --photos-dir)
 
 ## Conflicts and ignored values (existing data kept)
@@ -32,16 +32,13 @@
 - Rivermist Venus [rivermist-venus] foliage_description: kept 'Variegated medium green and pink, ovate, quilted, serrated/red back', submission has 'Variegated medium green and pink, ovate, quilted, serrated/red back.' (Rivermist Venus (submission rivermist-baker-2026-04, entry 30))
 - Rivermist Zombie [rivermist-zombie] bloom_description: kept 'Single-semidouble.blue-purple large star/white puff fantasy, dark pink streaks', submission has 'Single-semidouble blue-purple large star/white puff fantasy, dark pink streaks.' (Rivermist Zombie (submission rivermist-baker-2026-04, entry 31))
 - Rivermist Zombie [rivermist-zombie] foliage_description: kept 'Variegated dark green, cream and pink, round, quilted/variable white-spotted red back', submission has 'Variegated dark green, cream and pink, round, quilted/white-spotted red back.' (Rivermist Zombie (submission rivermist-baker-2026-04, entry 31))
+- Blue Lace [blue-lace] hybridizers differ from 'Kahler': submission has ['Goodsell, B.', 'Eyerdom, J.'] (Blue Lace (submission rivermist-baker-2026-04, entry 83))
 
 ## Parent stubs created
 
 - Miss Miyajima (miss-miyajima) for Rivermist Missy (submission rivermist-baker-2026-04, entry 7)
 - Aeka Sport (aeka-sport) for Rivermist Tattoo (submission rivermist-baker-2026-04, entry 12)
 - Tina's April Fantasy (tina-s-april-fantasy) for Rivermist Hailstorm (submission rivermist-baker-2026-04, entry 41)
-
-## Stubs filled in
-
-- Blue Lace (blue-lace) was a stub
 
 ## Existing records updated
 

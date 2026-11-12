@@ -5,13 +5,13 @@
 - split fields identical to the page text: 1088
 - conflicts (page applied): 5
 - page silent on size (database kept): 4
-- unmatched / ambiguous cells: 0 / 7
+- unmatched / ambiguous cells: 0 / 2
 - descriptions carrying an origin tag such as (Russ/Ukr): 8
 
 ## Log entries by kind (reports/review/sports_page_conflicts.csv)
 
-- ambiguous: 7
-- description_replaced: 250
+- ambiguous: 2
+- description_replaced: 251
 - matched_by_registration: 3
 - page_name_trimmed: 2
 - page_repeat_differs: 2

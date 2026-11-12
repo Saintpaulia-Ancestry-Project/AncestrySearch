@@ -291,7 +291,7 @@ scripts/prep_mvl_supplements.py -> data/mvl_supplements.csv (one row per plant),
 reports/review/mvl_spelling.csv (near-misses; `mlv` = use MLV spelling), mvl_regno.csv, mvl_matches.csv (`join`);
 scripts/split_mvl_descriptions.py -> data/mvl_description_split.csv (rule-based color/bloom/foliage; `needs review` rows
 in reports/review/mvl_split_review.csv, fill corrected_* or decision `use`); import_excel.py attach_mvl() joins plants to
-existing records only when name AND hybridizer/reg number agree (others: reports/review/mvl_join_matches.csv, `join`),
+existing records only when name AND hybridizer/reg number agree (others: reports/review/mvl_join_matches.csv = undecided rows only; decided rows are history in mvl_join_matches_decided.csv; `join`),
 fills EMPTY fields only, source token `mvl_supp`, columns registered_mvl + mvl_lists. HELD BACK until reviewed (listed in
 reports/review/mvl_held_back.csv): split needs review, undecided spelling near-miss, same name without hybridizer.
 Decisions (user): not-in-MLV names imported flagged "spelling not checked"; unregistered supplement-only names hidden by

@@ -20,7 +20,7 @@ Parker,171,person,,,Parker
 Brown,168,person,,,Brown
 Fredette,165,person,"Fredette, Irene",,Fredette
 Rector,145,person,,,Rector
-Susan's Violets,143,person,,,Susan's Violets
+Susan's Violets,142,person,,,Susan's Violets
 Haga,126,person,,,Haga
 Baker,113,person,"Baker, Joan | Baker, D.",,Baker
 Kahler,113,person,,,Kahler
@@ -52,12 +52,12 @@ Kolb,75,person,"Kolb, E.",,Kolb
 Luciano,74,person,,,Luciano
 Volkmann Bros.,74,organization,,,Volkmann Bros
 Constantinov,73,person,,,Constantinov
-Jeannette's Jesneriads,69,person,,,Jeannette's Jesneriads
 Hansen,68,person,,,Hansen
 J. Swift,68,person,,,"Swift, J."
 D. Ness,64,person,,,"Ness, D"
 Anderson,62,person,"Anderson, Carol",,Anderson
 Susan's AV,62,person,,,Susan's AV
+Jeannette's Jesneriads,61,person,,"Domiano, Jeanette","Domiano, Jeanette"
 S. Harrison,61,person,,,"Harrison, S."
 Swift's AV,60,person,,,Swift's AV
 West,56,person,,,West
@@ -254,7 +254,6 @@ C. Wilson,13,person,,,C. Wilson
 E. Wasche,13,person,,,E. Wasche
 G. Durand,13,person,,,"Durand, G."
 J. Eyerdom/H. Eyerdom,13,person,,,J. Eyerdom ; H. Eyerdom
-Jeannette's Jes.,13,person,,,Jeannette's Jes
 L. Munk,13,person,,,L. Munk
 Neprash,13,person,,,Neprash
 Rev. C. W. Blades,13,person,,,Rev. C. W. Blades
@@ -284,6 +283,7 @@ E & L Hammond,11,person,,,E ; L Hammond
 Engardt,11,person,,,Engardt
 Grangers/Eyerdom,11,person,,,Grangers ; Eyerdom
 Hughes,11,person,,,Hughes
+Jeannette's Jes.,11,person,,"Domiano, Jeanette","Domiano, Jeanette"
 Jungle,11,person,,,Jungle
 Krogman,11,person,,,Krogman
 Kuhl,11,person,"Kuhl, F.",,Kuhl
@@ -350,7 +350,6 @@ Melzina,8,person,,,Melzina
 Mims,8,person,,,Mims
 Mrs. W. F. Kuhl,8,person,,,Mrs. W. F. Kuhl
 R. Holtkamp,8,person,,,"Holtkamp, R."
-Reinhardt,8,person,,,Reinhardt
 Resser,8,person,,,Resser
 Turner,8,person,"Turner, N.",,Turner
 Westwinds',8,person,,,Westwinds'
@@ -371,7 +370,6 @@ Foltz,7,person,,,Foltz
 G. Beck,7,person,,,G. Beck
 G. Starr,7,person,,,G. Starr
 Gary R. Beck,7,person,,,Gary R. Beck
-Germany,7,person,,,Germany
 Hastings,7,person,,,Hastings
 Hazen,7,person,,,Hazen
 Isla Montgomery,7,person,,,Isla Montgomery
@@ -386,6 +384,7 @@ Niemann,7,person,,,Niemann
 Ozark Club,7,organization,,,Ozark Club
 Pendleton,7,person,,,Pendleton
 R. Scott,7,person,,,R. Scott
+Reinhardt,7,person,,,Reinhardt
 Richter Greenhouse,7,organization,,,Richter Greenhouse
 Rita Luciano,7,person,,,Rita Luciano
 Roehr,7,person,,,Roehr
@@ -407,6 +406,7 @@ Eckhardt,6,person,,,Eckhardt
 F. Richter,6,person,,,F. Richter
 Fuller,6,person,,,Fuller
 Gent,6,person,,,Gent
+Germany,6,person,,,Germany
 Gutridge,6,person,,,Gutridge
 H. Homyer,6,person,,,"Homyer, H."
 Hinkley,6,person,,,Hinkley
@@ -576,7 +576,7 @@ David Buttram,3,person,,,David Buttram
 Davis,3,person,"Davis, T.",,Davis
 Decker,3,person,,,Decker
 Dissinger,3,person,,,Dissinger
-Domiano,3,person,"Domiano, Jeanette",,Domiano
+Domiano,3,person,"Domiano, Jeanette","Domiano, Jeanette","Domiano, Jeanette"
 Dorothy Harris,3,person,,,Dorothy Harris
 Dr. J. B. Jung,3,person,,,Dr. J. B. Jung
 E. Golledge,3,person,,,E. Golledge
@@ -742,7 +742,7 @@ Hutson,2,person,,,Hutson
 Iris Cohen,2,person,,,Iris Cohen
 Isenberg,2,person,,,Isenberg
 J. B. Griffiths,2,person,,,J. B. Griffiths
-J. Domiano,2,person,,,J. Domiano
+J. Domiano,2,person,,"Domiano, Jeanette","Domiano, Jeanette"
 J. Dunbar,2,person,,,J. Dunbar
 J. H. Smith,2,person,,,J. H. Smith
 J. Haag,2,person,,,J. Haag
@@ -1100,7 +1100,6 @@ J. B. Sisk,1,person,,,J. B. Sisk
 J. Benson/Nadeau,1,person,,,J. Benson ; Nadeau
 J. Bethany,1,person,,,J. Bethany
 J. Boer,1,person,,,J. Boer
-J. Brownlic,1,person,,,J. Brownlic
 J. Dates,1,person,,,J. Dates
 J. Donaho,1,person,,,J. Donaho
 J. Fredette,1,person,,,J. Fredette
@@ -1126,7 +1125,7 @@ Jackson,1,person,"Jackson, Jeff",,Jackson
 James,1,person,,,James
 Jane Reed,1,person,,,Jane Reed
 Japaneses,1,person,,,Japaneses
-Jeannetie's Jesneriads,1,person,,,Jeannetie's Jesneriads
+Jeannetie's Jesneriads,1,person,,"Domiano, Jeanette","Domiano, Jeanette"
 Joan A. Westrick,1,person,,,Joan A. Westrick
 Jodi Davis,1,person,,,Jodi Davis
 June,1,person,,,June

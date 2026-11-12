@@ -601,7 +601,12 @@ def attach_masterlist(allrec):
 # separate record, as for the 1963 list. Existing values win: the supplement only fills EMPTY fields.
 # Plants that still need a human (description split, near-miss spelling, same name with an unknown hybridizer) are HELD
 # BACK and listed in reports/review/mvl_held_back.csv; they come in on the run after the review file is filled in.
-MVL_JOIN_REVIEW = REVIEW / "mvl_join_matches.csv"
+MVL_JOIN_REVIEW = REVIEW / "mvl_join_matches.csv"                 # only rows still waiting for a decision
+MVL_JOIN_DECIDED = REVIEW / "mvl_join_matches_decided.csv"        # rows with a decision (join / separate), kept as history
+MVL_JOIN_COLS = ["plant_key", "name", "supplement_hybridizer", "supplement_lists", "supplement_reg",
+                 "supplement_description", "existing_key", "existing_name", "existing_hybridizer",
+                 "existing_reg", "existing_sources", "existing_description", "existing_description_from", "reason",
+                 "decision"]
 MVL_HELD = REVIEW / "mvl_held_back.csv"
 
 
@@ -659,6 +664,7 @@ def apply_mvl(d, pl, existing_reg):
     sp = pl["_split"]
     if not d["description"] and pl["description"]:
         d["description"] = pl["description"]
+        d["_desc_from_mvl"] = True
         # the three parts come from the same text, so they are only taken together with the description
         for f in ("color", "bloom_description", "foliage_description"):
             if not d[f] and sp.get(f):
@@ -693,10 +699,18 @@ def attach_mvl(allrec):
     plants, held = load_mvl()
     if not plants and not held:
         return {"plants": 0}
-    decisions = {}
-    if MVL_JOIN_REVIEW.exists():
-        for r in read_review_csv(MVL_JOIN_REVIEW).to_dict("records"):
-            decisions[(r["plant_key"], r["existing_key"])] = r["decision"].strip().lower()
+    # only `join` and `separate` are decisions; any other text (suggest_join, later, a note) keeps the row in the review file
+    decisions, decided_rows, pending_notes = {}, {}, {}
+    for f_ in (MVL_JOIN_DECIDED, MVL_JOIN_REVIEW):
+        if f_.exists():
+            for r in read_review_csv(f_).to_dict("records"):
+                dec_ = r["decision"].strip()
+                kk_ = (r["plant_key"], r["existing_key"])
+                if dec_.lower() in ("join", "separate"):
+                    decisions[kk_] = dec_.lower()
+                    decided_rows[kk_] = r
+                elif dec_:
+                    pending_notes[kk_] = dec_
     by_name = collections.defaultdict(list)
     for k, d in allrec.items():
         by_name[K(d["name"])].append((k, d))
@@ -754,8 +768,9 @@ def attach_mvl(allrec):
                            "supplement_lists": pl["lists"], "supplement_reg": pl["registration_no"],
                            "supplement_description": pl["description"][:160], "existing_key": k, "existing_name": d["name"],
                            "existing_hybridizer": d["hybridizer_raw"], "existing_reg": d["registration_no"],
-                           "existing_sources": d["sources"], "reason": why,
-                           "decision": decisions.get((pl["plant_key"], k), "")})
+                           "existing_sources": d["sources"], "_d": d,
+                           "reason": why,
+                           "decision": decisions.get((pl["plant_key"], k)) or pending_notes.get((pl["plant_key"], k), "")})
     # cross references -> notes of the target ("Also listed as X in the 1972 Master List supplement.")
     xr = DATA / "mvl_crossrefs.csv"
     if xr.exists():
@@ -768,11 +783,23 @@ def attach_mvl(allrec):
                     stats["crossrefs"] += 1
     order = {"existing record has no known hybridizer": 0, "supplement entry gives no hybridizer": 1,
              "name and hybridizer match several existing records": 2, "hybridizers differ": 3}
+    for r in review:   # description columns are filled now: a later plant may have filled an existing record
+        d_ = r.pop("_d")
+        r["existing_sources"] = d_["sources"]   # as of now (a later plant may have joined the record)
+        r["existing_description"] = d_["description"]
+        r["existing_description_from"] = ("" if not d_["description"] else
+                                          "supplement (filled by another plant)" if d_.get("_desc_from_mvl")
+                                          else "existing source")
     review.sort(key=lambda r: (order[r["reason"]], r["name"].lower()))
-    pd.DataFrame(review, columns=["plant_key", "name", "supplement_hybridizer", "supplement_lists", "supplement_reg",
-                                  "supplement_description", "existing_key", "existing_name", "existing_hybridizer",
-                                  "existing_reg", "existing_sources", "reason", "decision"]).to_csv(
+    # decided rows move to the history file; only undecided rows stay in the review file
+    for r in review:
+        if r["decision"] in ("join", "separate"):
+            decided_rows[(r["plant_key"], r["existing_key"])] = r
+    pd.DataFrame([r for r in review if r["decision"] not in ("join", "separate")], columns=MVL_JOIN_COLS).to_csv(
         MVL_JOIN_REVIEW, index=False, encoding="utf-8-sig")
+    if decided_rows:
+        pd.DataFrame(sorted(decided_rows.values(), key=lambda r: (r["name"].lower(), r["existing_key"])),
+                     columns=MVL_JOIN_COLS).to_csv(MVL_JOIN_DECIDED, index=False, encoding="utf-8-sig")
     stats["plants"], stats["held_back"], stats["review_rows"] = len(plants), len(held), len(review)
     return dict(stats)
 
