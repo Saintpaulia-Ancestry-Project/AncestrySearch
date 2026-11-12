@@ -229,7 +229,7 @@ function renderSearch(app, params) {
         <label><input type="checkbox" name="anc"${state.anc ? " checked" : ""}> Has ancestry</label>
         <label><input type="checkbox" name="desc"${state.desc ? " checked" : ""}> Has description</label>
         <label><input type="checkbox" name="photo"${state.photo ? " checked" : ""}> Has photo</label>
-        <label><input type="checkbox" name="excl63"${state.old ? "" : " checked"}> Exclude old names: those found only in the 1963 Master List, and unregistered names found only in the 1964–2002 supplements</label>
+        <label><input type="checkbox" name="excl63"${state.old ? "" : " checked"}> Exclude old unregistered names</label>
         <label><input type="checkbox" name="all"${state.all ? " checked" : ""}> Include seedlings, species &amp; unlisted parents</label>
       </div>
     </form>

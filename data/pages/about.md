@@ -45,7 +45,7 @@ The outline around a parent's name matches the line drawn from it to its offspri
 - Parentage is what hybridizers recorded. Some is uncertain, some records do not say which parent was seed and which was pollen, and some parents are unknown. These are shown as recorded and are not guessed.
 - A parent recorded as "X Sport" is kept exactly as written. It is not assumed to be any particular registered sport of X.
 - Cultivars from the 1963 Master List are marked **1963 list** and usually have only a name, an originator (as printed, often just a surname or a firm), a short description of the leaves and flowers, and whether they were registered. A few descriptions are missing because the two readings of the book disagreed and they are waiting to be checked against the page.
-- Cultivars from the 1964–2002 supplements that were never registered are hidden from the default search results (untick the *Exclude old names* box to see them). Names marked "spelling not checked" could not be confirmed against the Master Variety List.
+- Cultivars from the 1964–2002 supplements that were never registered are hidden from the default search results (untick the *Exclude old unregistered names* box to see them). Names marked "spelling not checked" could not be confirmed against the Master Variety List.
 - The information is the work of volunteers and published registries, and errors are possible. Please treat it as a reference and not as a guarantee.
 
 ## Using the data yourself
