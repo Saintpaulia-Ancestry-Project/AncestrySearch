@@ -342,7 +342,7 @@ def load_mapping(needed):
 
 # ------------------------------------------------------------------ parents
 PLACEHOLDER = re.compile(
-    r"^(?:[\s?\-—–.]*|n/?a|none|lost|unknown.*|\?.*lost.*|\(?unreadable.*|\(?not listed\)?|"
+    r"^(?:[\s?\-—–.]*|n/?a|none|lost|\(?record lost\)?|unknown.*|\?.*lost.*|\(?unreadable.*|\(?not listed\)?|"
     r"unreadable record|diverse pollent parent|mixed .*seeds?|seeds? from .*|open pollinated)$", re.I)
 SPORT_MARK = re.compile(r"\(\s*(?:sport|spot)(?:\s+of)?\s*\)", re.I)
 SELF_RE = re.compile(r"\s*\(?\bx\s+self\)?\s*$", re.I)

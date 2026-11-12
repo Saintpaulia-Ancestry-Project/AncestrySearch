@@ -3319,8 +3319,8 @@ newtown-ice-kat,milang-skies,seed,known,Milang Skies
 newtown-ice-kat,whisper,pollen,known,Whisper
 newtown-intriga,newtown-james-peel,seed,known,Newtown James Peel
 newtown-intriga,whisper,pollen,known,Whisper
-newtown-james-peel,the-alps,seed,known,The Alps
-newtown-james-peel,victorian-ribbons,pollen,known,Victorian Ribbons
+newtown-james-peel,victorian-ribbons,seed,known,Victorian Ribbons
+newtown-james-peel,the-alps,pollen,known,The Alps
 newtown-linda-diane,ma-s-soiree,seed,known,Ma's Soiree
 newtown-linda-diane,69k,pollen,known,69K
 newtown-lucy-fleur,james-peel,seed,known,James Peel
@@ -3967,7 +3967,7 @@ repeat-performance,ness-orange-pekoe,pollen,known,Ness’ Orange Pekoe
 rhinestone,peak-of-pink,seed,known,Peak of Pink
 rhinestone,seedling,pollen,known,Seedling
 rhona,rosalind,seed,known,Rosalind
-rhona,rosalind,pollen,known,x self
+rhona,the-king,pollen,known,The King
 ribbon-round,ms-pretty,seed,known,Ms. Pretty
 ribbon-round,seedling-193b,pollen,known,Seedling 193B
 ricardo,seedling,seed,known,Seedling
@@ -5078,11 +5078,9 @@ tomahawk,coral-glo,seed,known,Coral Glo
 tomahawk,sedona,pollen,known,Sedona
 tomorrow-s-blue-nova,9-530-b25-x-optimara-manitoba,seed,known,9-530-B25 x Optimara Manitoba
 tomorrow-s-blue-nova,9-530-b25,pollen,known,9-530-B25
-tomorrow-s-friend,record-lost,seed,known,record lost
-tomorrow-s-friend,record-lost,pollen,known,record lost
 tomorrow-s-indigo,9-530-b25,seed,known,9-530-B25
 tomorrow-s-indigo,optimara-manitoba,pollen,known,Optimara Manitoba
-tomorrow-s-pink-ice,131,seed,known,?131
+tomorrow-s-pink-ice,9-530-b25-x-optimara-manitoba,seed,known,9-530-B25 x Optimara Manitoba
 tomorrow-s-pink-ice,9-530-b25,pollen,known,9-530-B25
 tomorrow-s-scepter,9-530-b25,seed,known,9-530-B25
 tomorrow-s-scepter,optimara-manitoba,pollen,known,Optimara Manitoba
@@ -5092,7 +5090,7 @@ tomorrow-s-sunbeam,optimara-colorado-x-ew-7,seed,known,Optimara Colorado x EW-7
 tomorrow-s-sunbeam,optimara-colorado-x-ew-7,pollen,known,Optimara Colorado x EW-7
 tomorrow-s-sunrise,fp8y8-double,seed,known,FP8Y8 double
 tomorrow-s-sunrise,fp8y8-single,pollen,known,FP8Y8 single
-tomorrow-s-teaser,9-530-b25,seed,known,9-530-B25
+tomorrow-s-teaser,9-530-a25,seed,known,9-530-A25
 tomorrow-s-teaser,9-530-b25-x-optimara-manitoba,pollen,known,9-530-B25 x Optimara Manitoba
 tony-s-jennifer,happy-cricket,seed,known,Happy Cricket
 tony-s-jennifer,optimara-new-mexico,pollen,known,Optimara New Mexico
