@@ -11,7 +11,7 @@
 ## Log entries by kind (reports/review/sports_page_conflicts.csv)
 
 - ambiguous: 2
-- description_replaced: 251
+- description_replaced: 252
 - matched_by_registration: 3
 - page_name_trimmed: 2
 - page_repeat_differs: 2

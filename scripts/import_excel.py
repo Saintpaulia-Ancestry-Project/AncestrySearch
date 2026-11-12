@@ -610,11 +610,37 @@ MVL_JOIN_COLS = ["plant_key", "name", "supplement_hybridizer", "supplement_lists
 MVL_HELD = REVIEW / "mvl_held_back.csv"
 
 
-def mvl_hyb_tokens(h):
+_ORIG_SURNAMES = None
+
+
+def mvl_origin_surnames():
+    """originator text -> surname words of the person(s) the originator mapping links it to (typed decision, or the
+    final_person(s) of the last run, e.g. an automatic 'K. Stork' -> 'Stork, K.'). Matching a supplement plant to an
+    existing record uses these, so 'Jeannette's Jesneriads' (= Domiano, Jeanette) agrees with 'Domiano, Jeanette'."""
+    global _ORIG_SURNAMES
+    if _ORIG_SURNAMES is None:
+        _ORIG_SURNAMES = {}
+        if OM_REVIEW.exists():
+            for r in read_review_csv(OM_REVIEW).to_dict("records"):
+                dec = r["decision"].strip()
+                if dec and dec.lower() not in ("link", "yes", "y", "join", "keep", "no", "n", "text"):
+                    names = [x.strip() for x in dec.split(";") if x.strip()]
+                else:
+                    names = [x.strip() for x in r["final_person(s)"].split(";") if x.strip()]
+                if names:
+                    _ORIG_SURNAMES[cname(r["originator"])] = names
+    return _ORIG_SURNAMES
+
+
+def mvl_hyb_tokens(h, mapped=False):
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     from mvl_lib import hyb_tokens
-    return hyb_tokens(h)
+    toks = set(hyb_tokens(h))
+    if mapped:
+        for nm_ in mvl_origin_surnames().get(cname(h), []):
+            toks |= hyb_tokens(nm_.split(",")[0])
+    return toks
 
 
 def load_mvl():
@@ -718,10 +744,11 @@ def attach_mvl(allrec):
     stats, review, pk2rec = collections.Counter(), [], {}
     for pl in plants:
         cands = by_name.get(K(pl["name"]), [])
-        ptoks = mvl_hyb_tokens(pl["hybridizer"])
+        ptoks = mvl_hyb_tokens(pl["hybridizer"], mapped=True)
         agree = [(k, d) for k, d in cands
-                 if (pl["registration_no"] and d["registration_no"] == pl["registration_no"])
-                 or (ptoks and ptoks & mvl_hyb_tokens(d["hybridizer_raw"]))]
+                 if decisions.get((pl["plant_key"], k)) != "separate"       # an explicit `separate` is never overridden
+                 and ((pl["registration_no"] and d["registration_no"] == pl["registration_no"])
+                      or (ptoks and ptoks & mvl_hyb_tokens(d["hybridizer_raw"], mapped=True)))]
         target, how = None, ""
         if len(agree) == 1:
             target, how = agree[0], "joined_auto"
