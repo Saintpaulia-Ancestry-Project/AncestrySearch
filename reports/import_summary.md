@@ -13,7 +13,7 @@
 - originators written as text, now people: {'originators': 507, 'with a proposed link': 43, 'linked by decision': 1}
 - sports linked: 816
 - with registration no.: 2009
-- name near-miss candidates written for review: (file exists; decisions applied: 78)
+- name near-miss candidates written for review: (file exists; decisions applied: 81)
 
 ## Flags by category
 

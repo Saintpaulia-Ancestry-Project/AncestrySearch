@@ -274,6 +274,10 @@ in the browser (JPEG, 1600 px, drops EXIF), POSTs text/plain JSON to the Apps Sc
 receiver's pure validation code in headless Edge. Deployed: SUBMIT_URL in submit.js is the live /exec URL; a live Send test
 (Sheet row, email) passed.
 
+- **Australian/NZ catalogue** (source/AV-Australian catalogue.csv; 725 rows, 520 not in the database): WAITING for permission from the
+  Gesneriad Council of Australia and New Zealand. Do NOT import or publish it until permission is recorded. Plan, field mapping and steps:
+  notes/anz-catalogue-plan.md.
+
 ## Next steps
 1. User review of the prototype; decide look/feel and extra filters.
 2. Local mode: mydata.sqlite for user data (sql.js cannot ATTACH files: plan a second
