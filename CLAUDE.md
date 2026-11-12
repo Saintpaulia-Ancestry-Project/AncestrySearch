@@ -196,7 +196,9 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   site/queries.sql (search, ancestors, descendants, sport family, cultivar page).
 - Pipeline: `import_excel.py` then `build_db.py`. Review inputs live in reports/review/
   (sqlite_duplicates, hybridizer_mapping, name_near_misses, data_corrections, parent_corrections).
-  parent_corrections.csv (cultivar, role seed|pollen, value, reason) overrides one parent cell of the xlsx `Name` sheet
+  name_corrections.csv (cultivar, new_name, reason) corrects a cultivar's SPELLING: the new name is shown, both spellings are
+  accepted in every source from then on, the id never changes, and the old spelling stays in the notes (searchable).
+  Use it whenever a misspelling is reported (add one row; re-run the pipeline). parent_corrections.csv (cultivar, role seed|pollen, value, reason) overrides one parent cell of the xlsx `Name` sheet
   before the parentage is built (the original cell text is kept in the cultivar's notes). Full pipeline order:
   import_excel.py -> import_submissions.py apply -> build_db.py -> export_ancestry_xlsx.py (running import_excel.py
   alone drops the submitted cultivars from data/).

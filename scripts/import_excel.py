@@ -233,6 +233,41 @@ def load_parent_corrections():
 PARENT_CORRECTIONS = load_parent_corrections()
 
 
+def load_name_corrections():
+    """reports/review/name_corrections.csv (cultivar, new_name, reason): spelling corrections of a cultivar's name.
+
+    `cultivar` is the name as it stands now (or the old spelling); `new_name` is the corrected spelling.
+    - the corrected name is shown everywhere (name, search, parent lists, downloads);
+    - BOTH spellings are accepted in every source from now on (a parent cell, a supplement, a submission written with
+      either spelling reaches the same record), because the new spelling is registered as an alias;
+    - the record's id stays the same (ids are in links, images.csv and bookmarks, so they never change);
+    - the old spelling is kept in the cultivar's notes ("[name corrected from ...]"), which the search index covers.
+    Returns {canonical key: (old name, new name, reason)}. Applies to cultivars and to parent-only records."""
+    path = REVIEW / "name_corrections.csv"
+    out = {}
+    if path.exists():
+        for _, r in read_review_csv(path).iterrows():
+            old, new = cname(r["cultivar"]), cname(r["new_name"])
+            if not old or not new:
+                flag("name_correction_unsupported", r["cultivar"], f"new_name={r['new_name']!r}")
+                continue
+            ok = norm(old)
+            for _ in range(5):                      # follow merges decided in name_near_misses.csv
+                nxt = ALIAS.get(ok)
+                if nxt is None or nxt == ok:
+                    break
+                ok = nxt
+            nk = norm(new)
+            if nk != ok:
+                ALIAS[nk] = ok
+            CANON[ok] = new
+            out[ok] = (old, new, r["reason"].strip())
+    return out
+
+
+NAME_CORR = load_name_corrections()
+
+
 def K(name):
     n = norm(name)
     for _ in range(5):
@@ -738,6 +773,12 @@ def build():
                     if fld != "notes" else d["notes"]
                 d[fld] = val
                 n_corr += 1
+    # --- spelling corrections of names (name_corrections.csv): keep the old spelling in the notes
+    for k, d in out.items():
+        if k in NAME_CORR:
+            old, new, why = NAME_CORR[k]
+            if norm(old) != norm(d["name"]) or old != d["name"]:
+                d["notes"] = (d["notes"] + " " if d["notes"] else "") + f"[name corrected from {old}" + (f": {why}" if why else "") + "]"
     # --- reviewer corrections of parent cells (parent_corrections.csv)
     n_pcorr, used_pcorr = 0, set()
     for k, d in out.items():
@@ -901,8 +942,11 @@ def build():
     # ids
     used = {}
     same_name = collections.Counter(norm(d["name"]) for d in allrec.values())
+    for nk_ in NAME_CORR:
+        if nk_ not in allrec:
+            flag("name_correction_unused", NAME_CORR[nk_][0], "no record with this name found")
     for k, d in allrec.items():
-        base = slugify(d["name"])
+        base = slugify(NAME_CORR[k][0] if k in NAME_CORR else d["name"])   # a corrected name keeps its original id
         if "|" in k and same_name[norm(d["name"])] > 1:
             # a name used by several plants: records are told apart by their originator
             base = f"{base}-{slugify(d['hybridizer_raw']) if d['hybridizer_raw'] else '1963'}"
