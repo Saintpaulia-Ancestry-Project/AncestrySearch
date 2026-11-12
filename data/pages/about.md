@@ -14,6 +14,7 @@ The site grew out of the Saintpaulia Ancestry Project, a volunteer-built spreads
 - **Ancestry:** the Saintpaulia Ancestry spreadsheet, which records each cultivar's seed parent, pollen parent, hybridizer and notes.
 - **Descriptions and registrations:** a database of cultivar records, including sports, AVSA registration numbers and dates, size classes, and bloom and foliage descriptions, together with the AVSA Master List supplements.
 - **Older cultivars:** the names, originators, registered flags and descriptions from the AVSA's 1963 Master List, which covers cultivars from 1935 to 1963. The book was read twice, once from the library's text and once from the page images, and a description is shown only where the two readings agree. A link on each cultivar page opens the scanned page.
+- **Supplements 1964–2002:** the cultivars, descriptions and registration data printed in the AVSA Master List supplements in the African Violet Magazine. The printed lists were read by OCR; names, registration numbers and dates were checked against the AVSA Master Variety List, and entries without a description are not included. The color, bloom and foliage fields were cut out of the printed description.
 
 Records from the first two sources are matched by cultivar name. The 1963 Master List reuses many names for different plants, so each entry there is kept as its own record and joins another record only when the originator agrees. Spelling variants and duplicate entries were reviewed by hand, and corrections continue. Where the sources disagree about the parent of a sport, the registry database is used and the spreadsheet's value is kept in the cultivar's notes.
 
@@ -44,6 +45,7 @@ The outline around a parent's name matches the line drawn from it to its offspri
 - Parentage is what hybridizers recorded. Some is uncertain, some records do not say which parent was seed and which was pollen, and some parents are unknown. These are shown as recorded and are not guessed.
 - A parent recorded as "X Sport" is kept exactly as written. It is not assumed to be any particular registered sport of X.
 - Cultivars from the 1963 Master List are marked **1963 list** and usually have only a name, an originator (as printed, often just a surname or a firm), a short description of the leaves and flowers, and whether they were registered. A few descriptions are missing because the two readings of the book disagreed and they are waiting to be checked against the page.
+- Cultivars from the 1964–2002 supplements that were never registered are hidden from the default search results (untick the *Exclude old names* box to see them). Names marked "spelling not checked" could not be confirmed against the Master Variety List.
 - The information is the work of volunteers and published registries, and errors are possible. Please treat it as a reference and not as a guarantee.
 
 ## Using the data yourself

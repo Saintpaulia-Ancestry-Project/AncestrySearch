@@ -30,3 +30,6 @@ cache/
 
 # WordPress blog photos as downloaded (originals; only resized copies are published)
 source/WordPressPhotos/
+
+# Uses MLV.xls from the private Hector Wong archive: local only, never published
+scripts/prep_mvl_supplements.py

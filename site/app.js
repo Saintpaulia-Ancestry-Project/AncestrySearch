@@ -216,7 +216,7 @@ function renderSearch(app, params) {
   const link = (page) => hashFor("/", { q: state.q, size: state.size, all: state.all, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, old: state.old, page: page > 1 ? page : "" });
   app.innerHTML = `
     <h1>African violet cultivars</h1>
-    <p class="lede">${num(st.n)} cultivars${st.old ? ` and ${num(st.old)} older names from the 1963 Master List` : ""} &middot; ${num(st.a)} with ancestry &middot; ${num(st.d)} with descriptions.
+    <p class="lede">${num(st.n)} cultivars${st.old ? ` and ${num(st.old)} older names from the 1963 Master List and the 1964–2002 supplements` : ""} &middot; ${num(st.a)} with ancestry &middot; ${num(st.d)} with descriptions.
       Search by name, hybridizer, color or description, or enter an AVSA registration number.</p>
     <form class="search-form" id="sform" role="search">
       <div class="search-row">
@@ -229,14 +229,14 @@ function renderSearch(app, params) {
         <label><input type="checkbox" name="anc"${state.anc ? " checked" : ""}> Has ancestry</label>
         <label><input type="checkbox" name="desc"${state.desc ? " checked" : ""}> Has description</label>
         <label><input type="checkbox" name="photo"${state.photo ? " checked" : ""}> Has photo</label>
-        <label><input type="checkbox" name="excl63"${state.old ? "" : " checked"}> Exclude names found only in the 1963 Master List</label>
+        <label><input type="checkbox" name="excl63"${state.old ? "" : " checked"}> Exclude old names: those found only in the 1963 Master List, and unregistered names found only in the 1964–2002 supplements</label>
         <label><input type="checkbox" name="all"${state.all ? " checked" : ""}> Include seedlings, species &amp; unlisted parents</label>
       </div>
     </form>
     <p class="stats" role="status">${num(total)} ${total === 1 ? "result" : "results"}${state.q ? ` for “${esc(state.q)}”` : ""}${total > PAGE_SIZE ? ` &middot; page ${state.page} of ${pages}` : ""}</p>
     ${hidden > 0 ? `<p class="note-box">${num(hidden)} more ${hidden === 1 ? "match is a name that appears only as a parent, seedling or species." : "matches are names that appear only as parents, seedlings or species."}
         <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, old: state.old, all: true })}">Include ${hidden === 1 ? "it" : "them"}</a></p>` : ""}
-    ${hidden63 > 0 ? `<p class="note-box">${num(hidden63)} more ${hidden63 === 1 ? "match is a name" : "matches are names"} found only in the 1963 Master List.
+    ${hidden63 > 0 ? `<p class="note-box">${num(hidden63)} more ${hidden63 === 1 ? "match is a name" : "matches are names"} found only in the old Master Lists.
         <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, all: state.all, old: true })}">Include ${hidden63 === 1 ? "it" : "them"}</a></p>` : ""}
     ${rows.length ? `<ul class="results">${rows.map(card).join("")}</ul>` : `<p>No cultivars match. Try fewer words or clear a filter.</p>`}
     ${pages > 1 ? `<div class="pager">
@@ -335,7 +335,7 @@ function renderCultivar(app, id) {
     ["Foliage", esc(c.foliage_description)],
     ["Description", c.description ? `${esc(c.description)}${c.masterlist_1963 ? ` <span class="muted">(1963 Master List)</span>` : ""}` : ""],
     ["AVSA registration", c.registration_no ? `#${esc(c.registration_no)}${c.registered_date ? `, registered ${esc(c.registered_date)}` : ""}`
-      : (c.registered_1963 ? "Registered before 1964 (marked REG. in the 1963 Master List, which gives no number)" : "")],
+      : (c.registered_1963 ? "Registered before 1964 (marked REG. in the 1963 Master List, which gives no number)" : (c.registered_mvl ? "Marked as registered in the AVSA Master List supplements (no number printed)" : ""))],
     ["1963 Master List", c.masterlist_1963 ? `Listed in the 1963 Master List: ${esc(c.masterlist_1963)}${scanLink(c.masterlist_1963)}` : ""],
   ].filter(([, v]) => v);
 
@@ -355,7 +355,7 @@ function renderCultivar(app, id) {
     : `<ul class="plain">${arr.slice(0, n).map(render).join("")}</ul><details><summary>Show all ${arr.length}</summary><ul class="plain">${arr.slice(n).map(render).join("")}</ul></details>`;
 
   const SOURCE_LABEL = { xlsx: "Saintpaulia Ancestry spreadsheet", sqlite: "AVSA registry database", supplement: "AVSA Master List supplements",
-    masterlist1963: "1963 Master List", submission: "contributed by a hybridizer", parent: "named as a parent in other records" };
+    masterlist1963: "1963 Master List", mvl_supp: "AVSA Master List supplements 1964–2002", submission: "contributed by a hybridizer", parent: "named as a parent in other records" };
   const sourceText = (c.sources || "").split("+").map((x) => SOURCE_LABEL[x] || x).join(", ");
   const sources = [c.sources && `Sources: ${esc(sourceText)}`, c.supplement_year && `AVSA Master List supplement ${esc(c.supplement_year)}`, c.source_note && esc(c.source_note)].filter(Boolean);
 

@@ -1,0 +1,918 @@
+alias,target_name,target_plant_key,list_year,resolved_by,raw
+CARMELITA,Richter’s Carmelita,richter-s-carmelita,1964,row,CARMELITA (See Richter’s Carmelita)
+CLEARWATER,Richter’s Clear- water,richter-s-clearwater,1964,row,CLEARWATER (See Richter’s Clear- water)
+DARK BEAUTY,Westwinds Dark Beauty,westwinds-dark-beauty-av-westwind,1964,row,DARK BEAUTY (See Westwinds Dark Beauty)
+DE LEON PINK,Kuhl’s De Leon Pink,kuhl-s-de-leon-pink,1964,row,DE LEON PINK (See Kuhl’s De Leon Pink).
+DELFT LOVELINESS,Westwinds Delft Loveliness,westwinds-delft-loveliness,1964,row,DELFT LOVELINESS (See Westwinds Delft Loveliness)
+DRE STUFF,Westwinds Dream Stuff,westwinds-dream-stuff,1964,row,DRE STUFF (See Westwinds Dream Stuff
+EASTER MORNING,Hollywood Star Easter Morning,hollywood-star-easter-morning,1964,row,EASTER MORNING (See Hollywood Star Easter Morning)
+ENCHANTMENT,Shangri-la En- chantment,shangri-la-enchantment,1964,row,ENCHANTMENT (See Shangri-la En- chantment).
+FANTASY PINK,Westwinds Fant- asy Pink,westwinds-fantasy-pink,1964,row,FANTASY PINK (See Westwinds Fant- asy Pink).
+FIREBRAND,Champion’s Firebrand,champion-s-firebrand,1964,row,FIREBRAND (See Champion’s Firebrand).
+GOLDEN NUGGET,Gold Rush Golden Nugget,gold-rush-golden-nugget,1964,row,GOLDEN NUGGET (See Gold Rush Golden Nugget)
+HIGHLAND BEAU,Richter’s High- land Beau,richter-s-highland-beau,1964,row,HIGHLAND BEAU (See Richter’s High- land Beau).
+MY BOB,Shangri-La My Bob,shangri-la-my-bob,1964,row,MY BOB (See Shangri-La My Bob).
+PEACE,Shangri- La Peace,shangri-la-peace,1964,row,PEACE (See Shangri- La Peace)
+PINK BLUSH,Westwinds Pink Blush,westwinds-pink-blush,1964,row,PINK BLUSH (See Westwinds Pink Blush).
+PINK LACE,Shangri-La Pink Lace,shangri-la-pink-lace,1964,row,PINK LACE (See Shangri-La Pink Lace)
+PINK LINDA,Tinari’s Pink Linda,tinari-s-pink-linda,1964,row,PINK LINDA (See Tinari’s Pink Linda)
+PINK TWIST,Tinari’s Pink Twist,tinari-s-pink-twist,1964,row,PINK TWIST (See Tinari’s Pink Twist)
+PURPLE FRILLS,Westwinds Purple Frills,westwinds-purple-frills,1964,row,PURPLE FRILLS (See Westwinds Purple Frills).
+SHEER INNOCENCE,Westwinds Sheer Innocence,westwinds-sheer-innocence,1964,row,SHEER INNOCENCE (See Westwinds Sheer Innocence)
+SHINING BEAUTY,Westwinds Shining Beauty,westwinds-shining-beauty,1964,row,SHINING BEAUTY (See Westwinds Shining Beauty)
+SNOWY SMILE,Kuhl’s Snowy Smile,kuhl-s-snowy-smile,1964,row,SNOWY SMILE (See Kuhl’s Snowy Smile)
+STRAWBERRY FROSTING,West- winds Strawberry Frosting,westwinds-strawberry-frosting,1964,row,STRAWBERRY FROSTING (See West- winds Strawberry Frosting)
+TINTED CLOUD,Westwinds Tinted Cloud,westwinds-tinted-cloud,1964,row,TINTED CLOUD (See Westwinds Tinted Cloud)
+BEAUTY OF THEBES,Kuhl’s Beauty of Thebes,kuhl-s-beauty-of-thebes,1964,row,BEAUTY OF TilEBES (See Kuhl’ s Beauty Thebes).
+DE LEON PINK,Kuhl’s De Leon Pink,kuhl-s-de-leon-pink,1964,row,"DEEP RIVER BLUES Deep blue double, very dark shiny quilted red reverse foliage. Compact grower."
+SWEET & LOVELY,Westwinds Sweet & Lovely,westwinds-sweet-lovely,1964,row,SWEET & LOVELY - (See Westwinds Sweet & Lovely)
+BLUE BUD,DeLeon Blue Bud,deleon-blue-bud,1965,row,BLUE BUD (See DeLeon Blue Bud)
+BLUE EMPRESS,DeLeon Blue Empress,deleon-blue-empress,1965,row,BLUE EMPRESS (See DeLeon Blue Empress)
+CHEER,Persian Cheer,persian-cheer,1965,row,CHEER (See Persian Cheer)
+CHEERLEADER,Richter’s Cheer- leader,richter-s-cheerleader,1965,row,CHEERLEADER (See Richter’s Cheer- leader)
+COLONY,Pilgrim Colony,pilgrim-colony,1965,row,COLONY (See Pilgrim Colony)
+DARK BEAUTY,Westwind’s Dark Beauty,westwinds-dark-beauty-myrtle-woodward,1965,row,DARK BEAUTY (See Westwind’s Dark Beauty)
+DELECTABLE,Edena Delectable,edena-delectable,1965,row,DELECTABLE (See Edena Delectable)
+DEMURE,Westwind’s Demure,westwinds-demure,1965,row,DEMURE (See Westwind’s Demure)
+DEWDROP,Kentucky Dewdrop,kentucky-dewdrop,1965,row,DEWDROP (See Kentucky Dewdrop)
+DREAM,DeLeon Dream,deleon-dream,1965,row,DREAM (See DeLeon Dream)
+FANTASY PINK,Westwind’s Fan- tasy Pink,westwinds-fantasy-pink,1965,row,FANTASY PINK (See Westwind’s Fan- tasy Pink)
+FLAME,Persian Flame,persian-flame,1965,row,FLAME (See Persian Flame)
+FRENCH FLAIR,Bob’s French Flair,bob-s-french-flair,1965,row,FRENCH FLAIR (See Bob’s French Flair)
+FRIENDSHIP,"P, T. Friendship",p-t-friendship,1965,row,"FRIENDSHIP (See P, T. Friendship)"
+FRILLY TOP,DeLeon Frilly Top,deleon-frilly-top,1965,row,FRILLY TOP (See DeLeon Frilly Top)
+FRIVOLOUS FRILLS,Westwind’s Frivolous Frills,westwinds-frivolous-frills-westwind,1965,row,FRIVOLOUS FRILLS (See Westwind’s Frivolous Frills)
+FROSTY BLUE,DeLeon Frosty Blue,deleon-frosty-blue,1965,row,FROSTY BLUE (See DeLeon Frosty Blue)
+GAY DIVORCEE,Westwind’s Gay Divorcee,westwinds-gay-divorcee,1965,row,GAY DIVORCEE (See Westwind’s Gay Divorcee)
+GREAT SCOTT,Fisher’s Great Scott,fisher-s-great-scott,1965,row,GREAT SCOTT (See Fisher’s Great Scott)
+HERITAGE,Pilgrim Heritage,pilgrim-heritage,1965,row,HERITAGE (See Pilgrim Heritage)
+HOPE,Pilgrim Hope,pilgrim-hope,1965,row,HOPE (See Pilgrim Hope)
+JONES,Kentucky Jones,kentucky-jones,1965,row,JONES (See Kentucky Jones)
+LOU ANN,Keeler’s Lou Ann,keeler-s-lou-ann,1965,row,LOU ANN (See Keeler’s Lou Ann)
+MATCHLESS,Union County Match- less,union-county-matchless,1965,row,MATCHLESS (See Union County Match- less)
+MAYFLOWER,Pilgrim Mayflower,pilgrim-mayflower,1965,row,MAYFLOWER (See Pilgrim Mayflower)
+MEDIUM BLUE,Union County Med- ium Blue,union-county-medium-blue,1965,row,MEDIUM BLUE (See Union County Med- ium Blue)
+MIDNIGHT,Westwind’s Midnight,westwinds-midnight,1965,row,MIDNIGHT (See Westwind’s Midnight)
+MIDNIGHT SERENADE,Evlo Mid- night Serenade,evlo-midnight-serenade,1965,row,MIDNIGHT SERENADE (See Evlo Mid- night Serenade)
+MINUET,Pilgrim Minuet,pilgrim-minuet,1965,row,MINUET (See Pilgrim Minuet)
+MISTER,Kentucky Mister,kentucky-mister,1965,row,MISTER (See Kentucky Mister)
+MOONDUST,Kentucky Moondust,kentucky-moondust,1965,row,MOONDUST (See Kentucky Moondust)
+NOVEMBER SUNSET,Evlo Novem- ber Sunset,evlo-november-sunset,1965,row,NOVEMBER SUNSET (See Evlo Novem- ber Sunset)
+PANSY FACE,DeLeon Pansy Face,deleon-pansy-face,1965,row,PANSY FACE (See DeLeon Pansy Face)
+PEARLY SHELLS,Richter’s Pearly Shells,richter-s-pearly-shells,1965,row,PEARLY SHELLS (See Richter’s Pearly Shells)
+PINK FRILLS,Westwind’s Pink Frills,westwinds-pink-frills,1965,row,PINK FRILLS (See Westwind’s Pink Frills)
+PINK GLOW,Dots Pink Glow,dots-pink-glow,1965,row,PINK GLOW (See Dots Pink Glow)
+PINK MIRACLE,Dots Pink Mira- cle,dots-pink-miracle,1965,row,PINK MIRACLE (See Dots Pink Mira- cle)
+PINK ’N GOLD,Kentucky Pink ’n Gold,kentucky-pink-n-gold,1965,row,PINK ’N GOLD (See Kentucky Pink ’n Gold)
+PIXIE,DeLeon Pixie,deleon-pixie,1965,row,PIXIE (See DeLeon Pixie)
+POSY,DeLeon Posy,deleon-posy,1965,row,POSY (See DeLeon Posy)
+PRETTY PROUD,Richter’s Pretty Proud,richter-s-pretty-proud,1965,row,PRETTY PROUD (See Richter’s Pretty Proud)
+PRIDE-N-JOY,Frathel’s Pride- N-Joy,frathels-pride-n-joy,1965,row,PRIDE-N-JOY (See Frathel’s Pride- N-Joy)
+REMARK,Bob’s Remark,bob-s-remark,1965,row,REMARK (See Bob’s Remark)
+RIPPLE,Pilgrim Ripple,pilgrim-ripple,1965,row,RIPPLE (See Pilgrim Ripple)
+ROSE PUFF,DeLeon Rose Puff) -,deleon-rose-puff,1965,row,ROSE PUFF (See DeLeon Rose Puff) -
+SHOWBOAT,Kentucky Showboat,kentucky-showboat,1965,row,SHOWBOAT (See Kentucky Showboat)
+SPRINGTIME,Pilgrim Springtime,pilgrim-springtime,1965,row,SPRINGTIME (See Pilgrim Springtime)
+TWILIGHT,Westwind’s Twilight,westwinds-twilight,1965,row,TWILIGHT (See Westwind’s Twilight)
+VELVET,Kentucky Velvet,kentucky-velvet,1965,row,VELVET (See Kentucky Velvet)
+WINK,DeLeon Wink,deleon-wink,1965,row,WINK (See DeLeon Wink)
+YULE,Pilgrim Yule,pilgrim-yule,1965,row,YULE (See Pilgrim Yule)
+GLITTER,Kentucky Glitter,kentucky-glitter,1965,row,"GLITTER (Kentucky Glitter) GLORY-BE Reg. (Watts) Ruffled double medium to light maroon, Quilted, scalloped, pointed leaf."
+BLUE ECSTASY,Dot’s Blue Ecstasy,dots-blue-ecstasy,1967,row,BLUE ECSTASY (See Dot’s Blue Ecstasy)
+BLUE REBEL,Dot’s Blue Rebel,dots-blue-rebel,1967,row,BLUE REBEL (See Dot’s Blue Rebel).
+BLUSH,Dot’s Blush,dots-blush,1967,row,BLUSH (See Dot’s Blush)
+CANDY,Kentucky Candy,kentucky-candy,1967,row,CANDY (See Kentucky Candy)
+CANDY FLUFF,Egyptian Candy Fluff,egyptian-candy-fluff,1967,row,CANDY FLUFF (See Egyptian Candy Fluff)
+CHARMER,Egyptian Charmer,egyptian-charmer,1967,row,CHARMER (See Egyptian Charmer)
+FANCY FLAME,Dot’s Fancy Flame,dots-fancy-flame,1967,row,FANCY FLAME (See Dot’s Fancy Flame)
+FIRE,Pilgrim Fire,pilgrim-fire,1967,row,FIRE (See Pilgrim Fire)
+FLAMINGO,Westwinds Flamingo,westwinds-flamingo,1967,row,FLAMINGO (See Westwinds Flamingo)
+FROSTY RED,Kentucky Frosty Red,kentucky-frosty-red,1967,row,FROSTY RED (See Kentucky Frosty Red)
+GLITTERS,Egyptian Glitters,egyptian-glitters,1967,row,GLITTERS (See Egyptian Glitters)
+GLOW,Kentucky Glow,kentucky-glow,1967,row,GLOW (See Kentucky Glow)
+HARVEST,Pilgrim Harvest,pilgrim-harvest,1967,row,HARVEST (See Pilgrim Harvest)
+JAMBOREE,Kentucky Jamboree,kentucky-jamboree,1967,row,JAMBOREE (See Kentucky Jamboree)
+LAMPLIGHTER,Pilgrim Lamplighter,pilgrim-lamplighter,1967,row,LAMPLIGHTER (See Pilgrim Lamplighter)
+LATHARIO,Kentucky Lathario,kentucky-lathario,1967,row,LATHARIO (See Kentucky Lathario)
+LITTLE IMP,Dot’s Little Imp,dots-little-imp,1967,row,LITTLE IMP (See Dot’s Little Imp)
+MARY DELL,Kuhl’s Mary Dell,kuhls-mary-dell,1967,row,MARY DELL (See Kuhl’s Mary Dell)
+MOONRISE,Westwind’s Moonrise,westwinds-moonrise,1967,row,MOONRISE (See Westwind’s Moonrise)
+PAGON FIRE,Westwind’s Pagon Fire) ;,westwinds-pagon-fire,1967,row,PAGON FIRE (See Westwind’s Pagon Fire) ;
+PETITE,Westwind’s Petite,westwinds-petite,1967,row,PETITE (See Westwind’s Petite)
+PINK CREPE,Dot’s Pink crepe,dots-pink-crepe,1967,row,PINK CREPE (See Dot’s Pink crepe)
+PINK DOLL,Dot’s Pink Doll,dots-pink-doll,1967,row,PINK DOLL (See Dot’s Pink Doll)
+PINK ONE,Dot’s Pink One,dots-pink-one,1967,row,PINK ONE (See Dot’s Pink One)
+PINK PAINT,Dot’s Pink Paint,dots-pink-paint,1967,row,PINK PAINT (See Dot’s Pink Paint)
+PINK PROFUSION,Parker’s Pink Profusion,parkers-pink-profusion,1967,row,PINK PROFUSION (See Parker’s Pink Profusion)
+PINK REBEL,Dot’s Pink Rebel,dots-pink-rebel,1967,row,PINK REBEL (See Dot’s Pink Rebel)
+PINK SPLENDOR,Dot’s Pink Splendor,dots-pink-splendor,1967,row,PINK SPLENDOR (See Dot’s Pink Splendor)
+PINK THRILL,Dot’s Pink Thrill,dots-pink-thrill,1967,row,PINK THRILL (See Dot’s Pink Thrill)
+PINK VEIL,Egyptian Pink Veil,egyptian-pink-veil,1967,row,PINK VEIL (See Egyptian Pink Veil)
+PURPLE LACE,Westwind’s Purple Lace,westwinds-purple-lace,1967,row,PURPLE LACE (See Westwind’s Purple Lace)
+PURPLE ONE,Dot’s Purple One,dots-purple-one,1967,row,PURPLE ONE (See Dot’s Purple One)
+RED CHARM,Dot’s Red Charm,dots-red-charm,1967,row,RED CHARM (See Dot’s Red Charm)
+RIPPLE,Pilgrim Ripple,pilgrim-ripple,1967,row,RIPPLE (See Pilgrim Ripple)
+ROYALTY,Kentucky Royalty,kentucky-royalty,1967,row,ROYALTY (See Kentucky Royalty)
+TAPESTRY,Pilgrim Tapestry,pilgrim-tapestry,1967,row,TAPESTRY (See Pilgrim Tapestry)
+TARGET,Egyptian Target,egyptian-target,1967,row,TARGET (See Egyptian Target)
+TREASURE,Dot’s Treasure,dots-treasure,1967,row,TREASURE (See Dot’s Treasure)
+VANITY,Westwind’s Vanity,westwinds-vanity,1967,row,VANITY (See Westwind’s Vanity)
+VILLAGER,Pilgrim Villager,pilgrim-villager,1967,row,VILLAGER (See Pilgrim Villager)
+ARISTROCRAT,Kentucky Aristocrat,kentucky-aristocrat,1967,row,ARISTROCRAT (See Kentucky Aristocrat)
+BLUE ROSES,Kuhl’s Blue Roses,kuhl-s-blue-roses,1967,row,BLUE ROSES (See Kuhl’s Blue Roses)
+CORAL FRILLS,Westwind’s Coral Frills,westwinds-coral-frills-av-westwind,1967,row,CORAL FRILLS (See Westwind’s Coral Frills)
+DARK BEAUTY,Westwinds Dark Beauty,westwinds-dark-beauty-av-westwind,1967,row,DARK BEAUTY (See Westwinds Dark Beauty)
+FLORIDA BELLE,Crystal Florida Belle,crystal-florida-belle,1967,row,FLORIDA BELLE (See Crystal Florida Belle)
+FRILLS,Twin Lakes Frills,twin-lakes-frills,1967,row,FRILLS (See Twin Lakes Frills)
+FRIVOLOUS FRILLS,Westwind’s Frivolous Frills,westwinds-frivolous-frills-woodward,1967,row,FRIVOLOUS FRILLS (See Westwind’s Frivolous Frills)
+MY MAN,Kuhl’s My Man,kuhl-s-my-man,1967,row,MY MAN (See Kuhl’s My Man)
+NEFERTITI,Kuhl’s Nefertiti,kuhl-s-nefertiti,1967,row,NEFERTITI (See Kuhl’s Nefertiti)
+PINK LUCILE,CRYSTAL PINK LUCILE,crystal-pink-lucile,1967,row,PINK LUCILE (See CRYSTAL PINK LUCILE)
+PINK TREASURE,Kuhl’s Pink Treasure,kuhl-s-pink-treasure,1967,row,PINK TREASURE (See Kuhl’s Pink Treasure)
+ROUNDELAY,Kuhl’s Roundelay,kuhl-s-roundelay,1967,row,ROUNDELAY (See Kuhl’s Roundelay)
+TRALEI ROSE,Kuhl’s Tralei Rose,kuhl-s-tralei-rose,1967,row,TRALEI ROSE (See Kuhl’s Tralei Rose)
+AUNTIE MAME,Dot’s Auntie Mame,dots-auntie-mame,1968,row,AUNTIE MAME (See Dot’s Auntie Mame)
+BALAFON,Rose Knoll Balafon,rose-knoll-balafon,1968,row,BALAFON (See Rose Knoll Balafon)
+BELLADRUM,Rose Knoll Belladrum,rose-knoll-belladrum,1968,row,BELLADRUM (See Rose Knoll Belladrum)
+BELLRINGER,Rose Knoll Bellringer,rose-knoll-bellringer,1968,row,BELLRINGER (See Rose Knoll Bellringer)
+CIDER,Pilgrim Cider,pilgrim-cider,1968,row,CIDER (See Pilgrim Cider)
+CONFEDERATE BEAUTY,Union County Confederate Beauty,union-county-confederate-beauty,1968,row,CONFEDERATE BEAUTY (See Union County Confederate Beauty)
+CRYSTAL,Union County Crystal,union-county-crystal,1968,row,CRYSTAL (See Union County Crystal)
+DAYDREAM,Pilgrim Daydream,pilgrim-daydream,1968,row,DAYDREAM (See Pilgrim Daydream)
+DREAM,Westdale Dream,westdale-dream,1968,row,DREAM (See Westdale Dream)
+KATIE,Westdale Katie,westdale-katie,1968,row,KATIE (See Westdale Katie)
+MELODY,Kentucky Melody,kentucky-melody,1968,row,MELODY (See Kentucky Melody)
+PINK TART,Union County Pink Tart,union-county-pink-tart,1968,row,PINK TART (See Union County Pink Tart)
+RAVEN,Westdale Raven,westdale-raven,1968,row,RAVEN (See Westdale Raven)
+REBELLION,Dot’s Rebellion,dots-rebellion,1968,row,REBELLION (See Dot’s Rebellion)
+RED QUEEN,Westwind’s Red Queen,westwinds-red-queen,1968,row,RED QUEEN (See Westwind’s Red Queen)
+ROYAL PURPLE,Westwind’s Royal Purple,westwinds-royal-purple,1968,row,ROYAL PURPLE (See Westwind’s Royal Purple)
+SAMANTHA,Pilgrim Samantha,pilgrim-samantha,1968,row,SAMANTHA (See Pilgrim Samantha)
+TABATHA,Pilgrim Tabatha,pilgrim-tabatha,1968,row,TABATHA (See Pilgrim Tabatha)
+VELVET,Westdale velvet,westdale-velvet,1968,row,VELVET (See Westdale velvet)
+ARDESIA,Kuhl’s Ardesia,kuhl-s-ardesia,1968,row,ARDESIA (See Kuhl’s Ardesia)
+BARBARY COAST,Gold Rush Barbary Coast,gold-rush-barbary-coast,1968,row,BARBARY COAST (See Gold Rush Barbary Coast)
+CRANBERRY,Richter’s Cranberry,richter-s-cranberry,1968,row,CRANBERRY (See Richter’s Cranberry)
+FIRE,Pilgrim Fire,pilgrim-fire,1968,row,FIRE (See Pilgrim Fire)
+FRENCH FLAIR,Bob’s French Flair,bob-s-french-flair,1968,row,FRENCH FLAIR (See Bob’s French Flair)
+FRILLS,Twin Lakes Frills,twin-lakes-frills,1968,row,FRILLS (See Twin Lakes Frills)
+GOLDEN NUGGET,Gold Rush Golden Nugget,gold-rush-golden-nugget,1968,row,GOLDEN NUGGET (See Gold Rush Golden Nugget)
+GROTEI GOES MODERN,Gold Rush Grotei Goes Modern,gold-rush-grotei-goes-modern,1968,row,GROTEI GOES MODERN (See Gold Rush Grotei Goes Modern)
+HARVEST,Pilgrim Harvest,pilgrim-harvest,1968,row,HARVEST (See Pilgrim Harvest)
+LAMPLIGHTER,Pilgrim Lamplighter,pilgrim-lamplighter,1968,row,LAMPLIGHTER (See Pilgrim Lamplighter)
+MEGALITO,Kuhl’s Megalito,kuhl-s-megalito,1968,row,MEGALITO (See Kuhl’s Megalito)
+MY MAN,Kuhl’s My Man,kuhl-s-my-man,1968,row,MY MAN (See Kuhl’s My Man)
+PACEMAKER,Rose Knoll Pacemaker,rose-knoll-pacemaker,1968,row,PACEMAKER (See Rose Knoll Pacemaker)
+PARNASSUS,Kuhl’s Parnassus,kuhl-s-parnassus,1968,row,PARNASSUS (See Kuhl’s Parnassus)
+PINK TREASURE,Kuhl’s Pink Treasure,kuhl-s-pink-treasure,1968,row,PINK TREASURE (See Kuhl’s Pink Treasure)
+QUIET WATERS,Richter’s Quiet Waters,richter-s-quiet-waters,1968,row,QUIET WATERS (See Richter’s Quiet Waters)
+REMARK,Bob’s Remark,bob-s-remark,1968,row,REMARK (See Bob’s Remark)
+RIPPLE,Pilgrim Ripple,pilgrim-ripple,1968,row,RIPPLE (See Pilgrim Ripple)
+RUBY GIRL,Union County Ruby Girl,union-county-ruby-girl,1968,row,RUBY GIRL (See Union County Ruby Girl)
+SNOWBERRY,Richter’s Snowberry,richter-s-snowberry,1968,row,SNOWBERRY (See Richter’s Snowberry)
+TAPESTRY,Pilgrim Tapestry,pilgrim-tapestry,1968,row,TAPESTRY (See Pilgrim Tapestry)
+VILLAGER,Pilgrim Villager,pilgrim-villager,1968,row,VILLAGER (See Pilgrim Villager)
+WANDERLUST,Kuhl’s Wanderlust,kuhl-s-wanderlust,1968,row,WANDERLUST (See Kuhl’s Wanderlust)
+WESTERN SKY,Gold Rush Western Sky,gold-rush-western-sky,1968,row,WESTERN SKY (See Gold Rush Western Sky)
+ANNETTE,Rhapsodie Annette,rhapsodie-annette,1970,row,ANNETTE (See Rhapsodie Annette)
+BLUE DALE,Westdale Blue Dale,westdale-blue-dale,1970,row,BLUE DALE (See Westdale Blue Dale)
+CLOUD CLIFF,Missouri Cloud Cliff,missouri-cloud-cliff,1970,row,CLOUD CLIFF (See Missouri Cloud Cliff)
+COUNTRY CAPERS,Missouri Country Capers.,missouri-country-capers,1970,row,COUNTRY CAPERS (See Missouri Country Capers.)
+COUNTRY MUSIC,Missouri Country Music,missouri-country-music,1970,row,COUNTRY MUSIC See Missouri Country Music)
+DEBBIE,Westwinds’ Debbie,westwinds-debbie,1970,row,DEBBIE (See Westwinds’ Debbie)
+DELIGHT,Westdale Delight,westdale-delight,1970,row,DELIGHT (See Westdale Delight)
+ECLIPSE,(Kramer’s Eclipse,kramer-s-eclipse,1970,row,ECLIPSE (See (Kramer’s Eclipse)
+FAIREST,Aurora’s Fairest,aurora-s-fairest,1970,row,FAIREST (See Aurora’s Fairest)
+FIRST SNOWFALL,Westwinds’ First Snowfall,westwinds-first-snowfall,1970,row,FIRST SNOWFALL (See Westwinds’ First Snowfall)
+FOREVER YOURS,Kramer’s Forever Yours,kramer-s-forever-yours,1970,row,FOREVER YOURS (See Kramer’s Forever Yours)
+GEM DANDY,Kramer’s Gem DAndy,kramer-s-gem-dandy,1970,row,GEM DANDY (See Kramer’s Gem DAndy)
+GENIE,Missouri Genie,missouri-genie,1970,row,GENIE (See Missouri Genie)
+GIGI,Rhapsodie Gigi,rhapsodie-gigi,1970,row,GIGI (See Rhapsodie Gigi)
+HIT OR MISS,Missouri Hit or Miss,missouri-hit-or-miss,1970,row,HIT OR MISS (See Missouri Hit or Miss)
+INNOCENT,Aurora’s Innocent,aurora-s-innocent,1970,row,INNOCENT (See Aurora’s Innocent)
+LADY MINX,Susy’s Lady Minx,susys-lady-minx,1970,row,LADY MINX (See Susy’s Lady Minx)
+LADY SUZETTE,Susy’s Lady Suzette,susys-lady-suzette,1970,row,LADY SUZETTE (See Susy’s Lady Suzette)
+LEWIS AND CLARK,Missouri Lewis and Clark,missouri-lewis-and-clark,1970,row,LEWIS AND CLARK (See Missouri Lewis and Clark)
+LIBERTY BELL,Kramer’s Liberty Bell,kramer-s-liberty-bell,1970,row,LIBERTY BELL (See Kramer’s Liberty Bell)
+LINDA,Westwinds’ Linda,westwinds-linda,1970,row,LINDA (See Westwinds’ Linda)
+MR. LUCKY,Susy’s Mr. Lucky,susys-mr-lucky,1970,row,MR. LUCKY (See Susy’s Mr. Lucky)
+NATURAL BLUSH,Kramer’s Natural Blush,kramer-s-natural-blush,1970,row,NATURAL BLUSH (See Kramer’s Natural Blush)
+OPHELIA,Rhapsodie Ophelia,rhapsodie-ophelia-holtkamp,1970,row,OPHELIA (See Rhapsodie Ophelia)
+PATRICIA,Rhapsodie Patricia,rhapsodie-patricia,1970,row,PATRICIA (See Rhapsodie Patricia)
+PEEK-A-BLUE,Kramer’s Peek-A-Blue,kramer-s-peek-a-blue,1970,row,PEEK-A-BLUE (See Kramer’s Peek-A-Blue)
+PEGGIE SUE,Missouri Peggie Sue,missouri-peggie-sue,1970,row,PEGGIE SUE (See Missouri Peggie Sue)
+PETTI POINT,Kramer’s Petti Point,kramers-petti-point,1970,row,PETTI POINT (See Kramer’s Petti Point)
+PIED PIPER,Granger Garden’s Pied Piper,granger-gardens-pied-piper,1970,row,PIED PIPER (See Granger Garden’s Pied Piper)
+PINK LADY,Aurora’s Pink Lady,aurora-s-pink-lady,1970,row,PINK LADY (See Aurora’s Pink Lady)
+PINK STAR,Missouri Pink Star,missouri-pink-star,1970,row,PINK STAR (See Missouri Pink Star)
+PURPLE MOUNTAIN,Westdale Purple Mountain,westdale-purple-mountain,1970,row,PURPLE MOUNTAIN (See Westdale Purple Mountain)
+QUEEN ANNE,Aurora’s Queen Anne,aurora-s-queen-anne,1970,row,QUEEN ANNE (See Aurora’s Queen Anne)
+RED EYE,Westwinds’ Red Eye,westwinds-red-eye,1970,row,RED EYE (See Westwinds’ Red Eye)
+ROMONA,Rhapsodie Romona,rhapsodie-romona,1970,row,ROMONA (See Rhapsodie Romona)
+SCULPTURED CHARM,Kramer’s Sculptured Charm,kramer-s-sculptured-charm,1970,row,SCULPTURED CHARM (See Kramer’s Sculptured Charm)
+SING ALONG,Missouri Sing Along,missouri-sing-along,1970,row,SING ALONG (See Missouri Sing Along)
+SINGING RAIN,Missouri Singing Rain,missouri-singing-rain,1970,row,SINGING RAIN (See Missouri Singing Rain)
+STAR GLOW,Missouri Star Glow,missouri-star-glow,1970,row,STAR GLOW (See Missouri Star Glow)
+STARRY NIGHT,Missouri Starry Night,missouri-starry-night,1970,row,STARRY NIGHT (See Missouri Starry Night)
+SUMMER SNOW,Westdale Summer Snow,westdale-summer-snow,1970,row,SUMMER SNOW (See Westdale Summer Snow)
+SURPRISE,Missouri Surprise,missouri-surprise,1970,row,SURPRISE (See Missouri Surprise)
+SWEET SUGAR,Westwinds’ Sweet Sugar,westwinds-sweet-sugar,1970,row,SWEET SUGAR (See Westwinds’ Sweet Sugar)
+TWILIGHT,Missouri Twilight,missouri-twilight,1970,row,TWILIGHT (See Missouri Twilight)
+VIOLETTA,Rhapsodie Violetta,rhapsodie-violetta,1970,row,VIOLETTA (See Rhapsodie Violetta)
+WETA,Susy’s Weta,susys-weta,1970,row,WETA
+APPLE BLOSSOM TIME,Westwinds’ Apple Blossom Time,westwinds-appleblossom-time,1971,row,APPLE BLOSSOM TIME (See Westwinds’ Apple Blossom Time)
+AZTEC ART,Swanee Aztec Art,swanee-aztec-art,1971,row,AZTEC ART (See Swanee Aztec Art)
+BABY FACE,Westwinds’ Baby Face,westwinds-baby-face,1971,row,BABY FACE (See Westwinds’ Baby Face)
+BLUE CHIEFTAIN,Westwinds’ Blue Chieftain,westwinds-blue-chieftain,1971,row,BLUE CHIEFTAIN (See Westwinds’ Blue Chieftain)
+BLUE DOT,Aurora’s Blue Dot,auroras-blue-dot,1971,row,BLUE DOT (See Aurora’s Blue Dot)
+BLUE FANCY,Westwinds’ Blue Fancy,westwinds-blue-fancy,1971,row,BLUE FANCY (See Westwinds’ Blue Fancy)
+BLUE JAY,Swanee Blue Jay,swanee-blue-jay,1971,row,BLUE JAY (See Swanee Blue Jay)
+BLUE QUEEN,Val’s Blue Queen,vals-blue-queen,1971,row,BLUE QUEEN (See Val’s Blue Queen)
+BLUE RIPPLES,Swanee Blue Ripples,swanee-blue-ripples,1971,row,BLUE RIPPLES (See Swanee Blue Ripples)
+BLUE SKIES,Westwinds’ Blue Skies,westwinds-blue-skies,1971,row,BLUE SKIES (See Westwinds’ Blue Skies)
+BUBBLES,Swanee Bubbles,swanee-bubbles,1971,row,BUBBLES (See Swanee Bubbles)
+CAMILLIA,Crestwood Camillia,crestwood-camillia,1971,row,CAMILLIA (See Crestwood Camillia)
+CORONET,Aurora’s Coronet,auroras-coronet,1971,row,CORONET (See Aurora’s Coronet)
+DARK CLOUD,Westwinds’ Dark Cloud,westwinds-dark-cloud,1971,row,DARK CLOUD (See Westwinds’ Dark Cloud)
+DAZE,Swanee Daze,swanee-daze,1971,row,DAZE (See Swanee Daze)
+DUSTY ROSE,Westwinds’ Dusty Rose,westwinds-dusty-rose,1971,row,DUSTY ROSE (See Westwinds’ Dusty Rose)
+ECSTASY,Aurora’s Ecstasy,auroras-ecstasy,1971,row,ECSTASY (See Aurora’s Ecstasy)
+ETHEREAL,Westwinds’ Ethereal,westwinds-ethereal-av-westwind,1971,row,ETHEREAL (See Westwinds’ Ethereal)
+FABULOUS,Westwinds’ Fabulous,westwinds-fabulous,1971,row,FABULOUS (See Westwinds’ Fabulous)
+FASCINATION,Westwinds’ Fascination,westwinds-fascination,1971,row,FASCINATION (See Westwinds’ Fascination)
+FRECKLES,Westwinds’ Freckles,westwinds-freckles,1971,row,FRECKLES (See Westwinds’ Freckles)
+FRILLY FLUFF,Westwinds’ Frilly Fluff,westwinds-frilly-fluff,1971,row,FRILLY FLUFF (See Westwinds’ Frilly Fluff)
+FRINGED BEAUTY,Westwinds’ Fringed Beauty,westwinds-fringed-beauty,1971,row,FRINGED BEAUTY (See Westwinds’ Fringed Beauty)
+FUCHSIA GEM,Westwinds’ Fuchsia Gem,westwinds-fuchsia-gem,1971,row,FUCHSIA GEM (See Westwinds’ Fuchsia Gem)
+GEM GEM,Lasswell’s Gem Gem,lasswell-s-gem-gem,1971,row,GEM GEM (See Lasswel!’s Gem Gem)
+GIRL FRIDAY,Lasswell’s Girl Friday,lasswell-s-girl-friday,1971,row,GIRL FRIDAY (See Lasswell’s Girl Friday)
+LONGSPUR,Aurora’s Longspur,auroras-longspur,1971,row,LONGSPUR - (See Aurora’s Longspur)
+MAGIC TORCH,Westwinds’ Magic Torch,westwinds-magic-torch,1971,row,MAGIC TORCH (See Westwinds’ Magic Torch)
+MAIDEN BLUSH,Swanee Maiden Blush,swanee-maiden-blush,1971,row,MAIDEN BLUSH (See Swanee Maiden Blush)
+MR. LUCKY,Suzy’s Mr. Lucky,suzy-s-mr-lucky,1971,row,MR. LUCKY (See Suzy’s Mr. Lucky)
+NANNETTE,Swanee Nannette,swanee-nannette,1971,row,NANNETTE (See Swanee Nannette)
+NEW DAWN,Westwinds’ New Dawn,westwinds-new-dawn,1971,row,NEW DAWN (See Westwinds’ New Dawn)
+NUGGET,Crestwood Nugget,crestwood-nugget,1971,row,NUGGET (See Crestwood Nugget)
+ORCHID DREAM,Westwinds’ Orchid Dream,westwinds-orchid-dream,1971,row,ORCHID DREAM (See Westwinds’ Orchid Dream)
+PEACHERINO,Aurora’s Peacherino,auroras-peacherino,1971,row,PEACHERINO (See Aurora’s Peacherino)
+PINK GIANT,Westwinds’ Pink Giant,westwinds-pink-giant,1971,row,PINK GIANT (See Westwinds’ Pink Giant)
+PINK MIST,Kay’s Pink Mist,kay-s-pink-mist,1971,row,PINK MIST (See Kay’s Pink Mist)
+PINK PUFF,Westwinds’ Pink Puff,westwinds-pink-puff,1971,row,PINK PUFF (See Westwinds’ Pink Puff)
+PURPLE BLISS,Aurora’s Purple Bliss,auroras-purple-bliss,1971,row,PURPLE BLISS (See Aurora’s Purple Bliss)
+PURPLE GIANT,Westwinds’ Purple Giant,westwinds-purple-giant,1971,row,PURPLE GIANT (See Westwinds’ Purple Giant)
+PURPLE MOUNTAIN,Westdale Purple Mountain,westdale-purple-mountain,1971,row,PURPLE MOUNTAIN (See Westdale Purple Mountain)
+REBEL,Westdale Rebel,westdale-rebel,1971,row,REBEL (See Westdale Rebel)
+RED ROSEBUD,Westwinds’ Red Rosebud,westwinds-red-rosebud-av-westwind,1971,row,RED ROSEBUD (See Westwinds’ Red Rosebud)
+ROSE MARIE,Kay’s Rose Marie,kay-s-rose-marie,1971,row,ROSE MARIE (See Kay’s Rose Marie)
+ROYALTY,Aurora’s Royalty,auroras-royalty,1971,row,ROYALTY (See Aurora’s Royalty)
+ROZETTE,Aurora’s Rozette,auroras-rozette,1971,row,ROZETTE (See Aurora’s Rozette)
+SANDY,Westwinds’ Sandy,westwinds-sandy-av-westwind,1971,row,SANDY - (See Westwinds’ Sandy)
+SILVER HONEY,Val’s Silver Honey,vals-silver-honey,1971,row,SILVER HONEY (See Val’s Silver Honey)
+TU-TONE PURPLE,Westwinds’ Tu-Tone Purple,westwinds-tu-tone-purple,1971,row,TU-TONE PURPLE (See Westwinds’ Tu-Tone Purple)
+VELVET IMPROVED,Westdale Velvet Improved,westdale-velvet-improved,1971,row,VELVET IMPROVED (See Westdale Velvet Improved)
+BLUE ROYAL,Granger’s Blue Royal,granger-s-blue-royal,1972,row,BLUE ROYAL (See Granger’s Blue Royal)
+BLUE VELVETEER,Granger’s Blue Velveteer,granger-s-blue-velveteer,1972,row,BLUE VELVETEER (See Granger’s Blue Velveteer)
+CALIFORNIA WINE,Westdale California Wine,westdale-california-wine,1972,row,CALIFORNIA WINE (See Westdale California Wine)
+CAMELOT,Granger’s Camelot,granger-s-camelot,1972,row,CAMELOT (See Granger’s Camelot)
+CAREFREE,Granger’s Carefree,granger-s-carefree,1972,row,CAREFREE (See Granger’s Carefree)
+CAROUSEL,Granger’s Carousel,granger-s-carousel,1972,row,CAROUSEL (See Granger’s Carousel)
+CHATOYANT,Kramer’s Chatoyant,kramer-s-chatoyant,1972,row,CHATOYANT (See Kramer’s Chatoyant)
+CHERRY CORDIAL,Manelta’s Cherry Cordial,manelta-s-cherry-cordial,1972,row,CHERRY CORDIAL (See Manelta’s Cherry Cordial)
+CLEAR HORIZON,Kramer’s Clear Horizon,kramer-s-clear-horizon,1972,row,CLEAR HORIZON (See Kramer’s Clear Horizon)
+COUNTESS,Westwinds’ Countess,westwinds-countess,1972,row,COUNTESS (See Westwinds’ Countess)
+CROWN JEWEL,Utz Crown Jewel,utz-crown-jewel,1972,row,CROWN JEWEL (See Utz Crown Jewel)
+DAINTY MISS,Westwinds’ Dainty Miss,westwinds-dainty-miss,1972,row,DAINTY MISS (See Westwinds’ Dainty Miss)
+DARK KNIGHT,Westwinds’ Dark Knight,westwinds-dark-knight,1972,row,DARK KNIGHT (See Westwinds’ Dark Knight)
+DOUBLE GEM,Crystal Double Gem,crystal-double-gem,1972,row,DOUBLE GEM (See Crystal Double Gem)
+DUSTY ROSE,Westwinds’ Dusty Rose,westwinds-dusty-rose,1972,row,DUSTY ROSE (See Westwinds’ Dusty Rose)
+EASTERLING,Kramer’s Easterling,kramer-s-easterling,1972,row,EASTERLING (See Kramer’s Easterling)
+ETHEREAL,Westwinds’ Ethereal,westwinds-ethereal-woodward,1972,row,ETHEREAL (See Westwinds’ Ethereal)
+EVENTIDE,Westwinds’ Eventide,westwinds-eventide,1972,row,EVENTIDE (See Westwinds’ Eventide)
+FANETTI,Kramer’s Fanetti,kramer-s-fanetti,1972,row,FANETTI (See Kramer’s Fanetti)
+FANFARE,Manelta’s Fanfare,manelta-s-fanfare,1972,row,FANFARE (See Manelta’s Fanfare)
+FASHIONAIRE,Granger’s Fashionaire,granger-s-fashionaire,1972,row,FASHIONAIRE (See Granger’s Fashionaire)
+FESTIVAL,Granger’s Festival,granger-s-festival,1972,row,FESTIVAL (See Granger’s Festival)
+FIRST CHOICE,Westwinds’ First Choice,westwinds-first-choice,1972,row,FIRST CHOICE (See Westwinds’ First Choice)
+FLORIDA BEAUTY,Crystal Florida Beauty,crystal-florida-beauty,1972,row,FLORIDA BEAUTY (See Crystal Florida Beauty)
+FLORIDA SNOWS,Crystal Florida Snows,crystal-florida-snows,1972,row,FLORIDA SNOWS (See Crystal Florida Snows)
+FROSTED ROSE,Manelta’s Frosted Rose,manelta-s-frosted-rose,1972,row,FROSTED ROSE (See Manelta’s Frosted Rose)
+GAY BEN,Lasswell’s Gay Ben,lasswell-s-gay-ben,1972,row,GAY BEN (See Lasswell’s Gay Ben)
+GIANT AMETHYST,Manelta’s Giant Amethyst,manelta-s-giant-amethyst,1972,row,GIANT AMETHYST (See Manelta’s Giant Amethyst)
+GLACIER PEAK,Lasswell’s Glacier Peak,lasswell-s-glacier-peak,1972,row,GLACIER PEAK (See Lasswell’s Glacier Peak)
+GREEN BUD,Westwinds’ Green Bud,westwinds-green-bud,1972,row,GREEN BUD (See Westwinds’ Green Bud)
+JOAN,Westwinds’ Joan,westwinds-joan,1972,row,JOAN (See Westwinds’ Joan)
+LILACTIME,Granger’s Lilactime,granger-s-lilactime,1972,row,LILACTIME (See Granger’s Lilactime)
+LOVE IN BLUE,Kramer’s Love In Blue,kramer-s-love-in-blue,1972,row,LOVE IN BLUE (See Kramer’s Love In Blue)
+LOVERLY,Westwinds’ Loverly)},westwinds-loverly,1972,row,LOVERLY (See Westwinds’ Loverly)}
+MAJESTIC,Granger’s Majestic,granger-s-majestic,1972,row,MAJESTIC (See Granger’s Majestic)
+MOUNTAIN MIST,Westdale Mountain Mist,westdale-mountain-mist,1972,row,MOUNTAIN MIST (See Westdale Mountain Mist)
+"MRS, LUCKY",Suzy’s Mrs. Lucky,suzy-s-mrs-lucky,1972,row,"MRS, LUCKY (See Suzy’s Mrs. Lucky)"
+OLIVE’S SPECIAL,Dixie Olive’s Special,dixie-olives-special,1972,row,OLIVE’S SPECIAL (See Dixie Olive’s Special)
+ORCHID DREAM,Westwinds’ Orchid Dream,westwinds-orchid-dream,1972,row,ORCHID DREAM (See Westwinds’ Orchid Dream)
+ORCHID GIANT,Westwinds’ Orchid Giant,westwinds-orchid-giant,1972,row,ORCHID GIANT (See Westwinds’ Orchid Giant)
+PEPPERMINT,Granger’s Peppermint,granger-s-peppermint,1972,row,PEPPERMINT (See Granger’s Peppermint)
+PINK BALLET,Granger’s Pink Ballet,grangers-pink-ballet,1972,row,PINK BALLET (See Granger’s Pink Ballet)
+PINK JUBILEE,Granger’s Pink Jubilee,granger-s-pink-jubilee,1972,row,PINK JUBILEE (See Granger’s Pink Jubilee)
+PINK STAR,Crystal Pink Star,crystal-pink-star,1972,row,PINK STAR (See Crystal Pink Star)
+PURPLE BOY,Crystal Purple Boy,crystal-purple-boy,1972,row,PURPLE BOY (See Crystal Purple Boy)
+PURPLE KNIGHT,Granger’s Purple Knight,grangers-purple-knight,1972,row,PURPLE KNIGHT (See Granger’s Purple Knight)
+PURPLE MOUNTAIN,Westdale Purple Mountain,westdale-purple-mountain,1972,row,PURPLE MOUNTAIN (See Westdale Purple Mountain)
+PURPLE PUFF,Westwinds’ Purple Puff,westwinds-purple-puff,1972,row,PURPLE PUFF (See Westwinds’ Purple Puff)
+PURPLE TIPS,Westwinds’ Purple Tips,westwinds-purple-tips,1972,row,PURPLE TIPS (See Westwinds’ Purple Tips)
+RED FLAIR,Granger’s Red Flair,granger-s-red-flair,1972,row,RED FLAIR (See Granger’s Red Flair)
+RED LIGHT,Westwinds’ Red Light,westwinds-red-light,1972,row,RED LIGHT (See Westwinds’ Red Light)
+RED ROSEBUD,Westwinds’ Red Rosebud,westwinds-red-rosebud-woodward,1972,row,RED ROSEBUD (See Westwinds’ Red Rosebud)
+ROSE DREAM,Crystal Rose Dream,crystal-rose-dream,1972,row,ROSE DREAM (See Crystal Rose Dream)
+ROSE FROST,Granger’s Rose Frost,granger-s-rose-frost,1972,row,ROSE FROST (See Granger’s Rose Frost)
+ROYAL FRILLS,Westwinds’ Royal Frills,westwinds-royal-frills,1972,row,ROYAL FRILLS (See Westwinds’ Royal Frills)
+SANDY,Westwinds’ Sandy,westwinds-sandy-woodward,1972,row,SANDY (See Westwinds’ Sandy)
+SASSY,Westdale Sassy,westdale-sassy,1972,row,SASSY (See Westdale Sassy)
+SERENADA,Granger’s Serenada,granger-s-serenada,1972,row,SERENADA (See Granger’s Serenada)
+STAR BEAUTY,Crystal Star Beauty,crystal-star-beauty,1972,row,STAR BEAUTY (See Crystal Star Beauty)
+STAR DREAM,Manelta’s Star Dream,manelta-s-star-dream,1972,row,STAR DREAM (See Manelta’s Star Dream)
+SURPRISE,Crystal Surprise,crystal-surprise,1972,row,SURPRISE (See Crystal Surprise)
+SURPRISE SUPREME,Crystal Surprise Supreme,crystal-surprise-supreme,1972,row,SURPRISE SUPREME (See Crystal Surprise Supreme)
+SWEETHEART SUE,Lasswell’s Sweetheart Sue,lasswell-s-sweetheart-sue,1972,row,SWEETHEART SUE (See Lasswell’s Sweetheart Sue)
+TINTED CLOUDS,Manelta’s Tinted Clouds,manelta-s-tinted-clouds,1972,row,TINTED CLOUDS (See Manelta’s Tinted Clouds)
+VELVET IMPROVED,Westdale Velvet Improved,westdale-velvet-improved,1972,row,VELVET IMPROVED (See Westdale Velvet Improved)
+WHITE ANGEL,Utz White Angel,utz-white-angel,1972,row,WHITE ANGEL (See Utz White Angel)
+APPLE BLOSSOM TIME,Westwinds’ Appleblossom Time,westwinds-appleblossom-time,1972,row,"APACHE Light red semidouble bloom, Tailored foliage, Standard, . -. ee nies TIME,- (See Westwinds’ Appleblossom ime a."
+BLUEBELL,Aurora Bluebell,aurora-bluebell,1973,row,BLUEBELL (See Aurora Bluebell)
+BRIGHT SUNSET,Westwinds’ Bright Sunset,westwinds-bright-sunset,1973,row,BRIGHT SUNSET (See Westwinds’ Bright Sunset)
+CHALLENGE,Aurora Challenge,aurora-challenge,1973,row,CHALLENGE (See Aurora Challenge)
+DANDY,Vern’s Dandy,vern-s-dandy,1973,row,DANDY (See Vern’s Dandy)
+DAVEY,Westwinds’ Davey,westwinds-davey,1973,row,DAVEY (See Westwinds’ Davey)
+DREAM,Aurora Dream,aurora-dream,1973,row,DREAM (See Aurora Dream)
+FELICITY,Aurora Felicity,aurora-felicity,1973,row,FELICITY (See Aurora Felicity)
+GIGI,Swanee Gigi,swanee-gigi,1973,row,GIGI (See Swanee Gigi)
+GLIMMER,Aurora Glimmer,aurora-glimmer,1973,row,GLIMMER (See Aurora Glimmer)
+GRANDEUR,Westwinds’ Grandeur,westwinds-grandeur,1973,row,GRANDEUR (See Westwinds’ Grandeur)
+ICE CRYSTAL,Swanee Ice Crystal,swanee-ice-crystal,1973,row,ICE CRYSTAL (See Swanee Ice Crystal)
+LAVENDER BLISS,Aurora Lavender Bliss,aurora-lavender-bliss,1973,row,LAVENDER BLISS (See Aurora Lavender Bliss)
+LUSCIOUS,Westwinds’ Luscious,westwinds-luscious,1973,row,LUSCIOUS (See Westwinds’ Luscious)
+MINI MONTY,Swanee Mini Monty,swanee-mini-monty,1973,row,MINI MONTY (See Swanee Mini Monty)
+ORCHID FLASH,Aurora Orchid Flash,aurora-orchid-flash,1973,row,ORCHID FLASH (See Aurora Orchid Flash))
+PANDORA,Westwinds’ Pandora,westwinds-pandora,1973,row,PANDORA (See Westwinds’ Pandora)
+PLEASURE,Aurora Pleasure,aurora-pleasure,1973,row,PLEASURE (See Aurora Pleasure)
+PLUM DANDY,Aurora Plum Dandy,aurora-plum-dandy,1973,row,PLUM DANDY (See Aurora Plum Dandy)
+PLUM PURTY,Vern’s Plum Purty,vern-s-plum-purty,1973,row,PLUM PURTY (See Vern’s Plum Purty)
+POLLYANNA,Aurora Pollyanna,aurora-pollyanna,1973,row,POLLYANNA (See Aurora Pollyanna)
+PRIDE,Aurora Pride,aurora-pride,1973,row,PRIDE (See Aurora Pride)
+PRINCE CHARMING,Westwinds’ Prince Charming,westwinds-prince-charming,1973,row,PRINCE CHARMING (See Westwinds’ Prince Charming)
+PURPLE DECEIVER,Westwinds’ Purple Deceiver,westwinds-purple-deceiver,1973,row,PURPLE DECEIVER (See Westwinds’ Purple Deceiver)
+PURPLE PRIDE,Aurora Purple Pride,aurora-purple-pride,1973,row,PURPLE PRIDE (See Aurora Purple Pride)
+RED WITCH,Westwinds’ Red Witch,westwinds-red-witch,1973,row,RED WITCH (See Westwinds’ Red Witch)
+ROSE,Aurora Rose,aurora-rose,1973,row,ROSE (See Aurora Rose)
+STARBRIGHT,Vern’s Starbright,vern-s-starbright,1973,row,STARBRIGHT (See Vern’s Starbright)
+STARBRIGHT,Aurora Starbright,aurora-starbright,1973,row,STARBRIGHT (See Aurora Starbright)
+STEP UP,Richter’s Step Up,richter-s-step-up,1973,row,STEP UP (See Richter’s Step Up)
+HOT LINE,Joan Van Zele,joan-van-zele,1973,row,"HOSPITALITY Single purple Star, Plain foliage. Standard. HOT LINE same as Joan Van Zele."
+AUDREY,Richter’s Audrey,richter-s-audrey,1974,row,AUDREY (See Richter’s Audrey)
+BLUE SNOW,Vern’s Blue Snow,vern-s-blue-snow,1974,row,BLUE SNOW (See Vern’s Blue Snow))
+FASHIONAIRE,Vern’s Fashionaire,vern-s-fashionaire,1974,row,FASHIONAIRE (See Vern’s Fashionaire)
+FIREBALL,Vern’s Fireball},vern-s-fireball,1974,row,FIREBALL (See Vern’s Fireball}
+GYPSY,Manelta’s Gypsy,manelta-s-gypsy,1974,row,GYPSY (See Manelta’s Gypsy)
+LILAC LANE,Vern’s Lilac Lane,vern-s-lilac-lane,1974,row,LILAC LANE (See Vern’s Lilac Lane)
+LOVELY LADY,Vern’s Lovely Lady,vern-s-lovely-lady,1974,row,LOVELY LADY (See Vern’s Lovely Lady)
+PINK CLOUD,Vern’s Pink Cloud,vern-s-pink-cloud,1974,row,PINK CLOUD (See Vern’s Pink Cloud)
+PINK SATIN,Vern’s Pink Satin,verns-pink-satin,1974,row,PINK SATIN (See Vern’s Pink Satin)
+SNOWBALL,Vern’s Snowball,verns-snowball,1974,row,SNOWBALL (See Vern’s Snowball)
+SNOWFLAKE,Vern’s Snowflake,verns-snowflake,1974,row,SNOWFLAKE (See Vern’s Snowflake)
+SNOW MAN,Vern’s Snowman,vern-s-snowman,1974,row,SNOW MAN (See Vern’s Snowman)
+STEP UP,Richter’s Step Up,richter-s-step-up,1974,row,STEP UP (See Richter’s Step Up)
+SWINGER,Vern’s Swinger,vern-s-swinger,1974,row,SWINGER (See Vern’s Swinger)
+TORCH,Vern’s Torch,verns-torch,1974,row,TORCH (See Vern’s Torch)
+ANNA,Ballet Anna,ballet-anna-arnold-fischer,1977,row,ANNA (See Ballet Anna)
+APPLE BLOSSOM,Tennessee. Apple Blossom,tennessee-apple-blossom,1977,row,APPLE BLOSSOM (See Tennessee. Apple Blossom)
+BLUE CHIPS,Vern’s Blue Chips,vern-s-blue-chips,1977,row,BLUE CHIPS (See Vern’s Blue Chips)
+BLUE HEAVEN,Vern’s Blue Heaven,vern-s-blue-heaven,1977,row,BLUE HEAVEN (See Vern’s Blue Heaven)
+CAMEO QUEEN,Granger’s Cameo Queen,granger-s-cameo-queen,1977,row,CAMEO QUEEN (See Granger’s Cameo Queen)
+CHERRY MINT,Shomee Cherry Mint,shomee-cherry-mint,1977,row,CHERRY MINT (See Shomee Cherry Mint)
+COURAGE,The Parson’s Courage,the-parson-s-courage,1977,row,COURAGE (See The Parson’s Courage)
+CRISTINA,Ballet Cristina,ballet-cristina,1977,row,CRISTINA (See Ballet Cristina)
+DANNY BOY,Swanee Danny Boy,swanee-danny-boy,1977,row,DANNY BOY (See Swanee Danny Boy)
+DENISE,Rhapsodie Denise,rhapsodie-denise,1977,row,DENISE (See Rhapsodie Denise)
+ERICA,Ballet Erica,ballet-erica,1977,row,ERICA (See Ballet Erica)
+EVA,Ballet Eva,ballet-eva,1977,row,EVA (See Ballet Eva)
+FLAMINGO,Swanee Flamingo,swanee-flamingo,1977,row,FLAMINGO (See Swanee Flamingo)
+FLASH,Vern’s Flash,vern-s-flash,1977,row,FLASH (See Vern’s Flash)
+FRENCH LACE,Vern’s French Lace,vern-s-french-lace,1977,row,FRENCH LACE (See Vern’s French Lace)
+GRANADA,Granger’s Granada,granger-s-granada,1977,row,GRANADA (See Granger’s Granada)
+HEIDI,Ballet Heidi,ballet-heidi-arnold-fischer,1977,row,HEIDI (See Ballet Heidi)
+HONOR,The Parson’s Honor,the-parson-s-honor,1977,row,HONOR (See The Parson’s Honor)
+INGE,Ballet Inge,ballet-inge,1977,row,INGE (See Ballet Inge)
+JIM DANDY,Granger’s Jim Dandy,granger-s-jim-dandy,1977,row,JIM DANDY (See Granger’s Jim Dandy)
+LACE,The Parson’s Lace,the-parson-s-lace,1977,row,LACE (See The Parson’s Lace)
+LAVENDER BELLE,Granger’s Lavender Belle,granger-s-lavender-belle,1977,row,LAVENDER BELLE (See Granger’s Lavender Belle)
+LAVENDER CREAM,Shirlee’s Lavender Cream,shirlee-s-lavender-cream,1977,row,LAVENDER CREAM (See Shirlee’s Lavender Cream)
+LISA,Ballet Lisa,ballet-lisa-arnold-fischer,1977,row,LISA (See Ballet Lisa)
+MARIE,Swanee Marie,swanee-marie,1977,row,MARIE (See Swanee Marie)
+MARTA,Ballet Marta,ballet-marta,1977,row,MARTA (See Ballet Marta)
+MASTERPIECE,Vern’s Masterpiece,vern-s-masterpiece,1977,row,MASTERPIECE (See Vern’s Masterpiece)
+MELODY,The Parson’s Melody,the-parson-s-melody,1977,row,MELODY (See The Parson’s Melody)
+META,Ballet Meta,ballet-meta-arnold-fischer,1977,row,META (See Ballet Meta)
+MINT ROSE,Shomee Mint Rose,shomee-mint-rose,1977,row,MINT ROSE (See Shomee Mint Rose)
+MONACO,Granger’s Monaco,granger-s-monaco,1977,row,MONACO (See Granger’s Monaco)
+MONIQUE,Utz Monique,utz-monique,1977,row,MONIQUE (See Utz Monique)
+MOONBEAN,Vern’s Moonbeam,vern-s-moonbeam,1977,row,MOONBEAN (See Vern’s Moonbeam)
+NONA,Swanee Nona,swanee-nona,1977,row,NONA (See Swanee Nona)
+PARTY PINK,Swanee Party Pink,swanee-party-pink,1977,row,PARTY PINK (See Swanee Party Pink)
+PEACE,The Parson’s Peace,the-parson-s-peace,1977,row,PEACE (See The Parson’s Peace)
+PINAFORE,Tennessee Pinafore,tennessee-pinafore,1977,row,PINAFORE (See Tennessee Pinafore)
+PINK FASHION,Granger’s Pink Fashion,granger-s-pink-fashion,1977,row,PINK FASHION (See Granger’s Pink Fashion)
+PINK MEASURE,Castle’s Pink Measure.,castle-s-pink-measure,1977,row,PINK MEASURE (See Castle’s Pink Measure.)
+PINK MIST,Tennessee Pink Mist,tennessee-pink-mist,1977,row,PINK MIST (See Tennessee Pink Mist)
+PINK NIMBUS,Granger’s Pink Nimbus,granger-s-pink-nimbus,1977,row,PINK NIMBUS (See Granger’s Pink Nimbus)
+PINK STAR,Tennessee Pink Star,tennessee-pink-star,1977,row,PINK STAR (See Tennessee Pink Star)
+PLEASURE,The Parson’s Pleasure,the-parson-s-pleasure,1977,row,PLEASURE (See The Parson’s Pleasure)
+PRAYERS,The Parson’s Prayers,the-parson-s-prayers,1977,row,PRAYERS (See The Parson’s Prayers)
+PRIDE,Gene’s Pride,gene-s-pride,1977,row,PRIDE (See Gene’s Pride)
+RASPBERRY N CREAM,Swanee Raspberry N Cream,swanee-raspberry-n-cream,1977,row,RASPBERRY N CREAM (See Swanee Raspberry N Cream)
+RED FLAME,Granger’s Red Flame,granger-s-red-flame,1977,row,RED FLAME (See Granger’s Red Flame)
+RED GOLD,Granger’s Red Gold,granger-s-red-gold,1977,row,RED GOLD (See Granger’s Red Gold)
+RED KNAVE,Granger’s Red Knave,granger-s-red-knave,1977,row,RED KNAVE (See Granger’s Red Knave)
+RED STONE,Castle’s Red Stone,castle-s-red-stone,1977,row,RED STONE (See Castle’s Red Stone)
+RED VELVET,Vern’s Red Velvet,vern-s-red-velvet,1977,row,RED VELVET (See Vern’s Red Velvet)
+REGALAIRE,Granger’s Regalaire,granger-s-regalaire,1977,row,REGALAIRE (See Granger’s Regalaire)
+RUSTIC CHARM,Castle’s Rustic Charm,castle-s-rustic-charm,1977,row,RUSTIC CHARM (See Castle’s Rustic Charm)
+SONG,The Parson’s Song,the-parson-s-song,1977,row,SONG (See The Parson’s Song)
+STARBURST,Granger’s Starburst,granger-s-starburst,1977,row,STARBURST (See Granger’s Starburst)
+SUGAR BLUES,Fredette’s Sugar Blues,fredette-s-sugar-blues,1977,row,SUGAR BLUES (See Fredette’s Sugar Blues)
+SUMMER SKIES,Vern’s Summer Skies,vern-s-summer-skies,1977,row,SUMMER SKIES (See Vern’s Summer Skies)
+SUNSHINE,The Parson’s Sunshine,the-parson-s-sunshine,1977,row,SUNSHINE (See The Parson’s Sunshine)
+SYLVAN BLUE,Granger’s Sylvan Blue,granger-s-sylvan-blue,1977,row,SYLVAN BLUE (See Granger’s Sylvan Blue)
+THISTLEDOWN,Shomee Thistledown,shomee-thistledown,1977,row,THISTLEDOWN (See Shomee Thistledown)
+TIFFANY,Utz Tiffany,utz-tiffany,1977,row,TIFFANY (See Utz Tiffany)
+TRIBUTE,The Parson’s Tribute,the-parson-s-tribute,1977,row,TRIBUTE (See The Parson’s Tribute)
+TRIUMPH,The Parson’s Triumph,the-parson-s-triumph,1977,row,TRIUMPH (See The Parson’s Triumph)
+ULLI,Ballet Ulli,ballet-ulli,1977,row,ULLI (See Ballet Ulli)
+VARIEGATED GORGEOUS,Maas’ Variegated Gorgeous,maas-variegated-gorgeous,1977,row,VARIEGATED GORGEOUS (See Maas’ Variegated Gorgeous)
+VICTORY,The Parson’s Victory,the-parson-s-victory,1977,row,VICTORY (See The Parson’s Victory)
+WHITE CHEER,Vern’s White Cheer,vern-s-white-cheer,1977,row,WHITE CHEER (See Vern’s White Cheer)
+WHITE KNIGHT,Vern’s White Knight,vern-s-white-knight,1977,row,WHITE KNIGHT (See Vern’s White Knight)
+WILDFIRE,Granger’s Wildfire,granger-s-wildfire,1977,row,WILDFIRE (See Granger’s Wildfire)
+ATLANTIS,Granger's Atlantis,granger-s-atlantis,1978,row,ATLANTIS (See Granger's Atlantis)
+BETTY R.,Suzy’s Betty R,suzy-s-betty-r,1978,row,BETTY R. (See Suzy’s Betty R)
+BLUE NIMBUS,Granger's Blue Nimbus,granger-s-blue-nimbus,1978,row,BLUE NIMBUS (See Granger's Blue Nimbus)
+BLUES,Parson’s Blue's,parsons-blues,1978,row,BLUES (See Parson’s Blue's)
+BLUE SPARKLER,Granger's Blue Sparkler,granger-s-blue-sparkler,1978,row,BLUE SPARKLER (See Granger's Blue Sparkler)
+CARE,Parson's Care,parsons-care,1978,row,CARE (See Parson's Care)
+CHARM,Parson's Charm,parsons-charm,1978,row,CHARM (See Parson's Charm)
+CHARMAINE,Granger's Charmaine,granger-s-charmaine,1978,row,CHARMAINE (See Granger's Charmaine)
+CHEER,Parson’s Cheer,parsons-cheer,1978,row,CHEER (See Parson’s Cheer)
+CLASSIC PINK,Granger's Classic Pink,granger-s-classic-pink,1978,row,CLASSIC PINK (See Granger's Classic Pink)
+CRIMSON GLOW,Tinari’s Crimson Glow,tinari-s-crimson-glow,1978,row,CRIMSON GLOW (See Tinari’s Crimson Glow)
+DEBBIE,Peggy's Debbie,peggy-s-debbie,1978,row,DEBBIE (See Peggy's Debbie)
+DIANE,Peggy's Diane,peggy-s-diane,1978,row,DIANE (See Peggy's Diane)
+DIPPITY DOO,Baker's Dippity Doo,baker-s-dippity-doo,1978,row,DIPPITY DOO (See Baker's Dippity Doo)
+DOLL BABY,Parson's Doll Baby,parsons-doll-baby,1978,row,DOLL BABY (See Parson's Doll Baby)
+EVA SHEA,Suzy’s Eve Shea,suzy-s-eve-shea,1978,row,EVA SHEA (See Suzy’s Eve Shea)
+FAIRY TIDE,Castle's Fairy Tide,castle-s-fairy-tide,1978,row,FAIRY TIDE (See Castle's Fairy Tide)
+FIESTA,Baker’s Fiesta,baker-s-fiesta,1978,row,FIESTA (See Baker’s Fiesta)
+FIRETHORNE,Granger's Firethorne) ‘,granger-s-firethorne,1978,row,FIRETHORNE (See Granger's Firethorne) ‘
+GLADNESS,Parson's Gladness,parsons-gladness,1978,row,GLADNESS (See Parson's Gladness)
+GRENOBLE,Granger's Grenoble,granger-s-grenoble,1978,row,GRENOBLE (See Granger's Grenoble)
+HEARTS DESIRE,Granger's Hearts Desire,granger-s-heart-s-desire,1978,row,HEARTS DESIRE (See Granger's Hearts Desire)
+HOT LIPS,Baker’s Hot Lips,baker-s-hot-lips,1978,row,HOT LIPS (See Baker’s Hot Lips)
+LAVENDER EDGE,Castle’s Lavender Edge,castle-s-lavender-edge,1978,row,LAVENDER EDGE (See Castle’s Lavender Edge)
+LAVENDER PRINCE,Castle’s Lavender Prince,castle-s-lavender-prince,1978,row,LAVENDER PRINCE (See Castle’s Lavender Prince)
+LAVENDER TOUCH,Castle’s Lavender Touch,castle-s-lavender-touch,1978,row,LAVENDER TOUCH (See Castle’s Lavender Touch)
+MARY K,Suzy’s Mary K,suzy-s-mary-k,1978,row,MARY K (See Suzy’s Mary K)
+MASTERPIECE,Parson’s Masterpiece,parsons-masterpiece,1978,row,MASTERPIECE (See Parson’s Masterpiece)
+MAY M,Suzy’s May M,suzy-s-may-m,1978,row,MAY M (See Suzy’s May M)
+MEDALLION BLUE,Granger's Medallion Blue,granger-s-medallion-blue,1978,row,MEDALLION BLUE (See Granger's Medallion Blue)
+MIDNIGHT BLUE,Westdale Midnight Blue,westdale-midnight-blue,1978,row,MIDNIGHT BLUE (See Westdale Midnight Blue)
+MOHAWK,Granger's Mohawk,granger-s-mohawk,1978,row,MOHAWK (See Granger's Mohawk)
+MOON MOTH,Castle’s Moon Moth,castle-s-moon-moth,1978,row,MOON MOTH (See Castle’s Moon Moth)
+MY STEVE,Suzy’s My Steve,suzy-s-my-steve,1978,row,MY STEVE (See Suzy’s My Steve)
+NANCY V.,Suzy’s Nancy V.,suzy-s-nancy-v,1978,row,NANCY V. (See Suzy’s Nancy V.)
+ORCHID,Parson’s Orchid,parsons-orchid,1978,row,ORCHID (See Parson’s Orchid)
+OUR MARY,Suzy’s Our Mary,suzy-s-our-mary,1978,row,OUR MARY (See Suzy’s Our Mary)
+PAIGE S.,Suzy’s Paige S.,suzy-s-paige-s,1978,row,PAIGE S. (See Suzy’s Paige S.)
+PEPPERMINT PATTY,Baker’s Peppermint Patty,baker-s-peppermint-patty,1978,row,PEPPERMINT PATTY (See Baker’s Peppermint Patty)
+PINK SPLENDER,Granger's Pink Splender,granger-s-pink-splender,1978,row,PINK SPLENDER (See Granger's Pink Splender)
+PURPLE CASCADE,Granger's Purple Cascade,granger-s-purple-cascade,1978,row,PURPLE CASCADE (See Granger's Purple Cascade)
+REDHAVEN,Granger’s Redhaven,granger-s-redhaven,1978,row,REDHAVEN (See Granger’s Redhaven)
+RIO RITA,Granger's Rio Rita,granger-s-rio-rita,1978,row,RIO RITA (See Granger's Rio Rita)
+ROBERTA,Granger's Roberta,granger-s-roberta,1978,row,ROBERTA (See Granger's Roberta)
+ROSE EMBER,Granger’s Rose Ember,granger-s-rose-ember,1978,row,ROSE EMBER (See Granger’s Rose Ember)
+RUSTOVER,Peggy's Rustover,peggy-s-rustover,1978,row,RUSTOVER (See Peggy's Rustover)
+RUTH J.,Suzy’s Ruth J.,suzy-s-ruth-j,1978,row,RUTH J. (See Suzy’s Ruth J.)
+SILVER LIGHT,Val’s Silver Light,val-s-silver-light,1978,row,SILVER LIGHT (See Val’s Silver Light)
+STARTLER,Granger's Startler,granger-s-startler,1978,row,STARTLER (See Granger's Startler)
+SWEET DREAM,Val’s Sweet Dream,val-s-sweet-dream,1978,row,SWEET DREAM (See Val’s Sweet Dream)
+TONI,Peggy's Toni,peggy-s-toni,1978,row,TONI (See Peggy's Toni)
+TOP ANGEL,Val’s Top Angel,val-s-top-angel,1978,row,TOP ANGEL (See Val’s Top Angel)
+TRUE LAVENDER,Castle’s True Lavender,castle-s-true-lavender,1978,row,TRUE LAVENDER (See Castle’s True Lavender)
+WHITE COCKATOO,Granger's White Cockatoo,granger-s-white-cockatoo,1978,row,WHITE COCKATOO (See Granger's White Cockatoo)
+WHITE JUBILEE,Granger's White Jubilee,granger-s-white-jubilee,1978,row,WHITE JUBILEE (See Granger's White Jubilee)
+WINSOME PINK,Val’s Winsome Pink,val-s-winsome-pink,1978,row,WINSOME PINK (See Val’s Winsome Pink)
+WONDERLAND,Granger’s Wonderland,granger-s-wonderland,1978,row,WONDERLAND (See Granger’s Wonderland)
+ANGEL,Parson's Angel,parsons-angel,1978,row,added during review
+PINK LEMONADE,Reed's Pink Lemonade,reed-s-pink-lemonade,1979,row,PINK LEMONADE (See Reed's Pink Lemonade)
+ALABASTER.,SKAGIT ALABASTER,skagit-alabaster,1980,row,ALABASTER. See SKAGIT ALABASTER.
+ARISTOCRAT.,SKAGIT ARISTOCRAT,skagit-aristocrat,1980,row,ARISTOCRAT. See SKAGIT ARISTOCRAT.
+BALLET.,TENNESSEE BALLET,tennessee-ballet,1980,row,BALLET. See TENNESSEE BALLET.
+BEAUTY.,SKAGIT BEAUTY,skagit-beauty,1980,row,BEAUTY. See SKAGIT BEAUTY.
+BLESSINGS.,SKAGIT BLESSINGS,skagit-blessings,1980,row,BLESSINGS. See SKAGIT BLESSINGS.
+BLUE BABE.,SKAGIT BLUE BABE,skagit-blue-babe,1980,row,BLUE BABE. See SKAGIT BLUE BABE.
+BLUE BEAUTY.,TENNESSEE BLUE BEAUTY,tennessee-blue-beauty,1980,row,BLUE BEAUTY. See TENNESSEE BLUE BEAUTY.
+BURGUNDY.,SKAGIT BURGUNDY,skagit-burgundy,1980,row,BURGUNDY. See SKAGIT BURGUNDY.
+BONANZA.,SKAGIT BONANZA,skagit-bonanza,1980,row,BONANZA. See SKAGIT BONANZA.
+BRASS MONKEY.,DIB’S BRASS MONKEY,dib-s-brass-monkey,1980,row,BRASS MONKEY. See DIB’S BRASS MONKEY.
+CHAMPION.,SKAGIT CHAMPION,skagit-champion,1980,row,CHAMPION. See SKAGIT CHAMPION.
+CHAMPION.,GREEN VALLEY CHAMPION,green-valley-champion,1980,row,CHAMPION. See GREEN VALLEY CHAMPION.
+CHARISMA.,DIB‘S CHARISMA,dib-s-charisma,1980,row,CHARISMA. See DIB‘S CHARISMA.
+CHARMER.,SKAGIT CHARMER,skagit-charmer,1980,row,CHARMER. See SKAGIT CHARMER.
+CLOUD NINE.,HORTENSE’S CLOUD NINE,hortense-s-cloud-nine,1980,row,CLOUD NINE. See HORTENSE’S CLOUD NINE.
+COLOSSUS.,SKAGIT COLOSSUS,skagit-colossus,1980,row,COLOSSUS. See SKAGIT COLOSSUS.
+COMPASSION.,SKAGIT COMPASSION,skagit-compassion,1980,row,COMPASSION. See SKAGIT COMPASSION.
+COUQUETTE.,SKAGIT COUQUETTE,skagit-couquette,1980,row,COUQUETTE. See SKAGIT COUQUETTE.
+CRYSTAL INNOCENCE.,DIB’S CRYSTAL INNOCENCE,dib-s-crystal-innocence,1980,row,CRYSTAL INNOCENCE. See DIB’S CRYSTAL INNOCENCE.
+DAZZLER.,LYON’S DAZZLER,lyon-s-dazzler,1980,row,DAZZLER. See LYON’S DAZZLER.
+DAZZLER.,SKAGIT DAZZLER,skagit-dazzler,1980,row,DAZZLER. See SKAGIT DAZZLER.
+DEAR JODI.,SKAGIT DEAR JODI,skagit-dear-jodi,1980,row,DEAR JODI. See SKAGIT DEAR JODI.
+DREAM.,GREEN VALLEY DREAM,green-valley-dream,1980,row,DREAM. See GREEN VALLEY DREAM.
+EL CON.,TUCSON’S EL CON,tucson-s-el-con,1980,row,EL CON. See TUCSON’S EL CON.
+FABULOUS.,DIB’S FABULOUS,dib-s-fabulous,1980,row,FABULOUS. See DIB’S FABULOUS.
+FAITH.,SKAGIT FAITH,skagit-faith,1980,row,FAITH. See SKAGIT FAITH.
+FANTASY.,SKAGIT FANTASY,skagit-fantasy,1980,row,FANTASY. See SKAGIT FANTASY.
+FLAMINGO.,SKAGIT FLAMINGO,skagit-flamingo,1980,row,FLAMINGO. See SKAGIT FLAMINGO.
+FRECKLES.,SKAGIT FRECKLES,skagit-freckles,1980,row,FRECKLES. See SKAGIT FRECKLES.
+FRILLS.,GREEN VALLEY FRILLS,green-valley-frills,1980,row,FRILLS. See GREEN VALLEY FRILLS.
+GARNET.,SKAGIT GARNET,skagit-garnet,1980,row,GARNET. See SKAGIT GARNET.
+GENIUS.,SKAGIT GENIUS,skagit-genius,1980,row,GENIUS. See SKAGIT GENIUS.
+GORGEOUS.,SKAGIT GORGEOUS,skagit-gorgeous,1980,row,GORGEOUS. See SKAGIT GORGEOUS.
+GRANDE WILLIE.,HORTENSE’S GRANDE WILLIE,hortense-s-grande-willie,1980,row,GRANDE WILLIE. See HORTENSE’S GRANDE WILLIE.
+GRAPE.,SKAGIT GRAPE,skagit-grape,1980,row,GRAPE. See SKAGIT GRAPE.
+GRIN.,GREEN VALLEY GRIN,green-valley-grin,1980,row,GRIN. See GREEN VALLEY GRIN.
+HIAWATHA.,HORTENSE’S HIAWATHA,hortense-s-hiawatha,1980,row,HIAWATHA. See HORTENSE’S HIAWATHA.
+HONEY.,SKAGIT HONEY,skagit-honey,1980,row,HONEY. See SKAGIT HONEY.
+HOTLIPS.,SKAGIT HOTLIPS,skagit-hotlips,1980,row,HOTLIPS. See SKAGIT HOTLIPS.
+JADE AND BLUE.,DIB’S JADE AND BLUE,dibs-jade-and-blue,1980,row,JADE AND BLUE. See DIB’S JADE AND BLUE.
+JEWEL.,SKAGIT JEWEL,skagit-jewel,1980,row,JEWEL. See SKAGIT JEWEL.
+KING TOOT.,DIB’S KING TOOT,dib-s-king-toot,1980,row,KING TOOT. See DIB’S KING TOOT.
+LIL FILLY.,SKAGIT LIL FILLY,skagit-lil-filly,1980,row,LIL FILLY. See SKAGIT LIL FILLY.
+LULLABY.,SKAGIT LULLABY,skagit-lullaby,1980,row,LULLABY. See SKAGIT LULLABY.
+MARY ANN.,TENNESSEE MARY ANN,tennessee-mary-ann,1980,row,MARY ANN. See TENNESSEE MARY ANN.
+MARY RAE.,DIB‘S MARY RAE,dib-s-mary-rae,1980,row,MARY RAE. See DIB‘S MARY RAE.
+MISS AMERCIA.,HORTENSE’S MISS AMERICA,hortense-s-miss-america,1980,row,MISS AMERCIA. See HORTENSE’S MISS AMERICA.
+MISS BUFFY.,TENNESSEE MISS BUFFY,tennessee-miss-buffy,1980,row,MISS BUFFY. See TENNESSEE MISS BUFFY.
+MY FRED.,DIB‘S MY FRED,dib-s-my-fred,1980,row,MY FRED. See DIB‘S MY FRED.
+MY MICHIGAN.,DIB’S MY MICHIGAN,dib-s-my-michigan,1980,row,MY MICHIGAN. See DIB’S MY MICHIGAN.
+MY OWN.,DIB’S MY OWN,dib-s-my-own,1980,row,MY OWN. See DIB’S MY OWN.
+NOVELLE.,HORTENSE’S NOVELLE,hortense-s-novelle,1980,row,NOVELLE. See HORTENSE’S NOVELLE.
+PANORAMA.,SKAGIT PANORAMA,skagit-panorama,1980,row,PANORAMA. See SKAGIT PANORAMA.
+PERFECTION.,UTZ PERFECTION,utz-perfection,1980,row,PERFECTION. See UTZ PERFECTION.
+PHALA.,HORTENSE’S PHALA,hortense-s-phala,1980,row,PHALA. See HORTENSE’S PHALA.
+PINK DELIGHT.,TENNESSEE PINK DELIGHT,tennessee-pink-delight,1980,row,PINK DELIGHT. See TENNESSEE PINK DELIGHT.
+PINK GAZELLE.,DIB’S PINK GAZELLE,dib-s-pink-gazelle,1980,row,PINK GAZELLE. See DIB’S PINK GAZELLE.
+POLARIS.,GRANGER’S POLARIS,granger-s-polaris,1980,row,POLARIS. See GRANGER’S POLARIS.
+PRINCE.,SKAGIT PRINCE,skagit-prince,1980,row,PRINCE. See SKAGIT PRINCE.
+PURITY.,SKAGIT PURITY,skagit-purity,1980,row,PURITY. See SKAGIT PURITY.
+PURPLE POODLE.,NORMA’S PURPLE POODLE,norma-s-purple-poodle,1980,row,PURPLE POODLE. See NORMA’S PURPLE POODLE.
+RAGGEDY ANN.,TENNESSEE RAGGEDY ANN,tennessee-raggedy-ann,1980,row,RAGGEDY ANN. See TENNESSEE RAGGEDY ANN.
+RASCAL.,SKAGIT RASCAL,skagit-rascal,1980,row,RASCAL. See SKAGIT RASCAL.
+RIO BRAVO.,UTZ RIO BRAVO,utz-rio-bravo,1980,row,RIO BRAVO. See UTZ RIO BRAVO.
+ROSA.,HORTENSE'S ROSA,hortense-s-rosa,1980,row,ROSA. See HORTENSE'S ROSA.
+ROSAMOND.,TENNESSEE ROSAMOND,tennessee-rosamond,1980,row,ROSAMOND. See TENNESSEE ROSAMOND.
+SNOWFIRE.,SKAGIT SNOWFIRE,skagit-snowfire,1980,row,SNOWFIRE. See SKAGIT SNOWFIRE.
+SNOWFLAKE.,SKAGIT SNOWFLAKE,skagit-snowflake,1980,row,SNOWFLAKE. See SKAGIT SNOWFLAKE.
+SNOWS.,GREEN VALLEY SNOWS,green-valley-snows,1980,row,SNOWS. See GREEN VALLEY SNOWS.
+SOFTIE.,SKAGIT SOFTIE,skagit-softie,1980,row,SOFTIE. See SKAGIT SOFTIE.
+SOLARENERGY.,SKAGIT SOLARENERGY,skagit-solar-energy,1980,row,SOLARENERGY. See SKAGIT SOLARENERGY.
+SPRINGTIME.,TENNESSEE SPRINGTIME,tennessee-springtime,1980,row,SPRINGTIME. See TENNESSEE SPRINGTIME.
+STACY.,HORTENSE’S STACY,hortense-s-stacy,1980,row,STACY. See HORTENSE’S STACY.
+SUNBEAM.,SKAGIT SUNBEAM,skagit-sunbeam,1980,row,SUNBEAM. See SKAGIT SUNBEAM.
+SUNRISE.,SKAGIT SUNRISE,skagit-sunrise,1980,row,SUNRISE. See SKAGIT SUNRISE.
+SUNRISE.,GREEN VALLEY SUNRISE,green-valley-sunrise,1980,row,SUNRISE. See GREEN VALLEY SUNRISE.
+SUNSET.,GREEN VALLEY SUNSET,green-valley-sunset,1980,row,SUNSET. See GREEN VALLEY SUNSET.
+SWEET JENNY.,SKAGIT SWEET JENNY,skagit-sweet-jenny,1980,row,SWEET JENNY. See SKAGIT SWEET JENNY.
+SWEETHEART.,SKAGIT SWEETHEART,skagit-sweetheart,1980,row,SWEETHEART. See SKAGIT SWEETHEART.
+TOO MUCH.,DIB’S TOO MUCH,dib-s-too-much,1980,row,TOO MUCH. See DIB’S TOO MUCH.
+TRIUMPH.,SKAGIT TRIUMPH,skagit-triumph,1980,row,TRIUMPH. See SKAGIT TRIUMPH.
+TRUDY.,TENNESSEE TRUDY,tennessee-trudy,1980,row,TRUDY. See TENNESSEE TRUDY.
+TWILIGHT.,HORTENSE’S TWILIGHT,hortense-s-twilight,1980,row,TWILIGHT. See HORTENSE’S TWILIGHT.
+VAGABOND.,SKAGIT VAGABOND,skagit-vagabond,1980,row,VAGABOND. See SKAGIT VAGABOND.
+VERY VARIED.,VEDA’S VERY VARIED,veda-s-very-varied,1980,row,VERY VARIED. See VEDA’S VERY VARIED.
+WHITE SWAN.,TENNESSEE WHITE SWAN,tennessee-white-swan,1980,row,WHITE SWAN. See TENNESSEE WHITE SWAN.
+WHITE AVION.,DIB’S WHITE AVION,dib-s-white-avion,1980,row,WHITE AVION. See DIB’S WHITE AVION.
+WINE.,SKAGIT WINE,skagit-wine,1980,row,WINE. See SKAGIT WINE.
+WISHING.,HORTENSE'S WISHING. ;,hortense-s-wishing,1980,row,WISHING. See HORTENSE'S WISHING. ;
+WONDERLAND.,SKAGIT WONDERLAND,skagit-wonderland,1980,row,WONDERLAND. See SKAGIT WONDERLAND.
+ZAPATA.,HORTENSE’S ZAPATA,hortense-s-zapata,1980,row,ZAPATA. See HORTENSE’S ZAPATA.
+INDIGO BUNTING.,TENNESSEE INDIGO BUNTING,tennessee-indigo-bunting,1980,row,added during review
+AZURE HAVEN,NORTEX’S AZURE HAVEN,nortex-s-azure-haven,1982,row,AZURE HAVEN see NORTEX’S AZURE HAVEN
+AZURE MIST,DIB'S AZURE MIST,dib-s-azure-mist,1982,row,AZURE MIST see DIB'S AZURE MIST
+BIG COUNTRY,WRANGLER’S BIG COUNTRY,wrangler-s-big-country,1982,row,BIG COUNTRY see WRANGLER’S BIG COUNTRY
+BRANDING TIME,WRANGLER’S BRANDING TIME,wrangler-s-branding-time,1982,row,BRANDING TIME see WRANGLER’S BRANDING TIME
+BRYAN’S SONG,WRANGLER’S BRYAN’S SONG,wrangler-s-bryan-s-song,1982,row,BRYAN’S SONG see WRANGLER’S BRYAN’S SONG
+CANDYLAND,WRANGLER’S CANDYLAND,wrangler-s-candyland,1982,row,CANDYLAND see WRANGLER’S CANDYLAND
+CANYON ECHOES,WRANGLER’S CANYON ECHOES,wrangler-s-canyon-echoes,1982,row,CANYON ECHOES see WRANGLER’S CANYON ECHOES
+CAROLYN,MAAS CAROLYN,maas-carolyn,1982,row,CAROLYN see MAAS CAROLYN
+CHALLENGE,DIB’'S CHALLENGE,dib-s-challenge,1982,row,CHALLENGE see DIB’'S CHALLENGE
+CURTAIN CALL,FREDETTE’S CURTAIN CALL,fredette-s-curtain-call,1982,row,CURTAIN CALL see FREDETTE’S CURTAIN CALL
+DEBBIE,MAAS’ DEBBIE,maas-debbie,1982,row,DEBBIE see MAAS’ DEBBIE
+DELTA QUEEN,DIB’S DELTA QUEEN,dib-s-delta-queen,1982,row,DELTA QUEEN see DIB’S DELTA QUEEN
+DESIRE,SKAGIT DESIRE,skagit-desire,1982,row,DESIRE see SKAGIT DESIRE
+DIXIE CELEBRATION,WRANGLER'S DIXIE CELEBRATION,wrangler-s-dixie-celebration,1982,row,DIXIE CELEBRATION see WRANGLER'S DIXIE CELEBRATION
+DOLL,SKAGIT DOLL,skagit-doll,1982,row,DOLL see SKAGIT DOLL
+DORIS,DIB'S DORIS,dib-s-doris,1982,row,DORIS see DIB'S DORIS
+DREAM ON,DIB’S DREAM ON,dib-s-dream-on,1982,row,DREAM ON see DIB’S DREAM ON
+EBBTIDE,SKAGIT EBBTIDE,skagit-ebbtide,1982,row,EBBTIDE see SKAGIT EBBTIDE
+ECTASY,SKAGIT ECTASY,skagit-ectasy,1982,row,ECTASY see SKAGIT ECTASY
+FANTASY HAVEN,NORTEX’S FANTASY HAVEN,nortex-s-fantasy-haven,1982,row,FANTASY HAVEN see NORTEX’S FANTASY HAVEN
+FASCINATION,SKAGIT FASCINATION,skagit-fascination,1982,row,FASCINATION see SKAGIT FASCINATION
+FOXY LADY,WRANGLER’S FOXY LADY,wrangler-s-foxy-lady,1982,row,FOXY LADY see WRANGLER’S FOXY LADY
+FREEDOM,SKAGIT FREEDOM,skagit-freedom,1982,row,FREEDOM see SKAGIT FREEDOM
+FRISCO BABY,MEEK’S FRISCO BABY,meek-s-frisco-baby,1982,row,FRISCO BABY see MEEK’S FRISCO BABY
+GRANDEUR,SKAGIT GRANDEUR,skagit-grandeur,1982,row,GRANDEUR see SKAGIT GRANDEUR
+HALLMARK HAVEN,NORTEX’'S HALLMARK HAVEN,nortex-s-hallmark-haven,1982,row,HALLMARK HAVEN see NORTEX’'S HALLMARK HAVEN
+HOLIDAY HAVEN,NORTEX’S HOLIDAY HAVEN,nortex-s-holiday-haven,1982,row,HOLIDAY HAVEN see NORTEX’S HOLIDAY HAVEN
+HONEYCOMB HAVEN,NORTEX’S HONEYCOMB HAVEN,nortex-s-honeycomb-haven,1982,row,HONEYCOMB HAVEN see NORTEX’S HONEYCOMB HAVEN
+HOTSHOT,SKAGIT HOTSHOT,skagit-hotshot,1982,row,HOTSHOT see SKAGIT HOTSHOT
+JESSICA,MAAS’ JESSICA,maas-jessica,1982,row,JESSICA see MAAS’ JESSICA
+LEONE,FISHER’S LEONE,fisher-s-leone,1982,row,LEONE see FISHER’S LEONE
+LIL BELOVED,SKAGIT LIL BELOVED,skagit-lil-beloved,1982,row,LIL BELOVED see SKAGIT LIL BELOVED
+LIL CAMELOT,SKAGIT LIL CAMELOT,skagit-lil-camelot,1982,row,LIL CAMELOT see SKAGIT LIL CAMELOT
+LIL DREAM,SKAGIT LIL DREAM,skagit-lil-dream,1982,row,LIL DREAM see SKAGIT LIL DREAM
+LIL PEARL,SKAGIT LIL PEARL,skagit-lil-pearl,1982,row,LIL PEARL see SKAGIT LIL PEARL
+LOVEY BABY,MEEK’S LOVEY BABY,meek-s-lovey-baby,1982,row,LOVEY BABY see MEEK’S LOVEY BABY
+MARBLEHEAD,DIB’S MARBLEHEAD,dib-s-marblehead,1982,row,MARBLEHEAD see DIB’S MARBLEHEAD
+VALLIN MARITIME HAVEN,NORTEX’S MARITIME HAVEN,nortex-s-maritime-haven,1982,row,VALLIN MARITIME HAVEN see NORTEX’S MARITIME HAVEN
+MASTERPIECE,SKAGIT MASTERPIECE,skagit-masterpiece,1982,row,MASTERPIECE see SKAGIT MASTERPIECE
+MIMI,FREDETTE’S MIMI,fredette-s-mimi,1982,row,MIMI see FREDETTE’S MIMI
+MIST,SKAGIT MIST,skagit-mist,1982,row,MIST see SKAGIT MIST
+MIZ UNIVERSE,DIB'S MIZ UNIVERSE,dib-s-miz-universe,1982,row,MIZ UNIVERSE see DIB'S MIZ UNIVERSE
+MOLLIE RITCHIE,WRANGLER’S MOLLIE RITCHIE,wrangler-s-mollie-ritchie,1982,row,MOLLIE RITCHIE see WRANGLER’S MOLLIE RITCHIE
+MOONSHINE,WRANGLER’'S MOONSHINE,wrangler-s-moonshine,1982,row,MOONSHINE see WRANGLER’'S MOONSHINE
+OBSESSION,SKAGIT OBSESSION,skagit-obsession,1982,row,OBSESSION see SKAGIT OBSESSION
+PAINTED DESERT,WRANGLER’S PAINTED DESERT,wrangler-s-painted-desert,1982,row,PAINTED DESERT see WRANGLER’S PAINTED DESERT
+PANHANDLER,WRANGLER’S PANHANDLER,wrangler-s-panhandler,1982,row,PANHANDLER see WRANGLER’S PANHANDLER
+PARADISE,SKAGIT PARADISE,skagit-paradise,1982,row,PARADISE see SKAGIT PARADISE
+PARDNER,WRANGLER’S PARDNER,wrangler-s-pardner,1982,row,PARDNER see WRANGLER’S PARDNER
+PETTICOAT HAVEN,NORTEX’S PETTICOAT HAVEN,nortex-s-petticoat-haven,1982,row,PETTICOAT HAVEN see NORTEX’S PETTICOAT HAVEN
+PURPLE MOON,WRANGLER’S PURPLE MOON,wrangler-s-purple-moon,1982,row,PURPLE MOON see WRANGLER’S PURPLE MOON
+RADIANT HAVEN,NORTEX’S RADIANT HAVEN,nortex-s-radiant-haven,1982,row,RADIANT HAVEN see NORTEX’S RADIANT HAVEN
+RED BANDANA,WRANGLER’S RED BANDANA,wrangler-s-red-bandana,1982,row,RED BANDANA see WRANGLER’S RED BANDANA
+RHAPSODY,SKAGIT RHAPSODY,skagit-rhapsody,1982,row,RHAPSODY see SKAGIT RHAPSODY
+ROYAL LADY,MAAS’ ROYAL LADY,maas-royal-lady,1982,row,ROYAL LADY see MAAS’ ROYAL LADY
+SAFARI,SKAGIT SAFARI,skagit-safari,1982,row,SAFARI see SKAGIT SAFARI
+SCULPTURED PETAL,DIB’S SCULPTURED PETAL,dib-s-sculptured-petal,1982,row,SCULPTURED PETAL see DIB’S SCULPTURED PETAL
+SHOWGIRL,BERGEN SHOWGIRL,bergen-showgirl,1982,row,SHOWGIRL see BERGEN SHOWGIRL
+SILVER SPURS,WRANGLER’S SILVER SPURS,wrangler-s-silver-spurs,1982,row,SILVER SPURS see WRANGLER’S SILVER SPURS
+SMALL DIVIDEND,SKAGIT SMALL DIVIDEND,skagit-small-dividend,1982,row,SMALL DIVIDEND see SKAGIT SMALL DIVIDEND
+SMALL FAVORITE,SKAGIT SMALL FAVORITE,skagit-small-favorite,1982,row,SMALL FAVORITE see SKAGIT SMALL FAVORITE
+SMALL MIRACLE,SKAGIT SMALL MIRACLE,skagit-small-miracle,1982,row,SMALL MIRACLE see SKAGIT SMALL MIRACLE
+SMALL SURPRISE,SKAGIT SMALL SURPRISE,skagit-small-surprise,1982,row,SMALL SURPRISE see SKAGIT SMALL SURPRISE
+SMALL-TOOT,DIB'S SMALL-TOOT,dib-s-small-toot,1982,row,SMALL-TOOT see DIB'S SMALL-TOOT
+SMALL TRIBUTE,SKAGIT SMALL TRIBUTE,skagit-small-tribute,1982,row,SMALL TRIBUTE see SKAGIT SMALL TRIBUTE
+SMALL WONDER,SKAGIT SMALL WONDER,skagit-small-wonder,1982,row,SMALL WONDER see SKAGIT SMALL WONDER
+SNO-BIRD,DIB'S SNO-BIRD,dib-s-sno-bird,1982,row,SNO-BIRD see DIB'S SNO-BIRD
+SNUGGLES,DIB’S SNUGGLES,dib-s-snuggles,1982,row,SNUGGLES see DIB’S SNUGGLES
+SOFT TOUCH,DIB’S SOFT TOUCH,dib-s-soft-touch,1982,row,SOFT TOUCH see DIB’S SOFT TOUCH
+SOUTHFORK,WRANGLER’S SOUTHFORK,wrangler-s-southfork,1982,row,SOUTHFORK see WRANGLER’S SOUTHFORK
+SPIFFEE,DIB’S SPIFFEE,dib-s-spiffee,1982,row,SPIFFEE see DIB’S SPIFFEE
+SPRING HAVEN,NORTEX’S SPRING HAVEN,nortex-s-spring-haven,1982,row,SPRING HAVEN see NORTEX’S SPRING HAVEN
+STARLET HAVEN,NORTEX’S STARLET HAVEN,nortex-s-starlet-haven,1982,row,STARLET HAVEN see NORTEX’S STARLET HAVEN
+SUGAREE,DIB'S SUGAREE,dib-s-sugaree,1982,row,SUGAREE see DIB'S SUGAREE
+SUMMER SKIES,BERGEN SUMMER SKIES,bergen-summer-skies,1982,row,SUMMER SKIES see BERGEN SUMMER SKIES
+SUNSET,MAAS’ SUNSET,maas-sunset,1982,row,SUNSET see MAAS’ SUNSET
+SUPER SUE,DIB'S SUPER SUE,dib-s-super-sue,1982,row,SUPER SUE see DIB'S SUPER SUE
+SWISS MISS,DIB’S SWISS MISS,dib-s-swiss-miss,1982,row,SWISS MISS see DIB’S SWISS MISS
+SYRACUSE,DIB'S SYRACUSE,dib-s-syracuse,1982,row,SYRACUSE see DIB'S SYRACUSE
+TOUCHE,DIB'S TOUCHE,dib-s-touche,1982,row,TOUCHE see DIB'S TOUCHE
+TOY WONDER,SKAGIT TOY WONDER,skagit-toy-wonder,1982,row,TOY WONDER see SKAGIT TOY WONDER
+VALENTINE HAVEN,NORTEX’S VALENTINE HAVEN,nortex-s-valentine-haven,1982,row,VALENTINE HAVEN see NORTEX’S VALENTINE HAVEN
+VIBRANT HAVEN,NORTEX’S VIBRANT HAVEN,nortex-s-vibrant-haven,1982,row,VIBRANT HAVEN see NORTEX’S VIBRANT HAVEN
+VIOLET MARSHALL,DIB‘S VIOLET MARSHALL,dib-s-violet-marshall,1982,row,VIOLET MARSHALL see DIB‘S VIOLET MARSHALL
+VOYAGE,SKAGIT VOYAGE,skagit-voyage,1982,row,VOYAGE see SKAGIT VOYAGE
+WEE BABE,SKAGIT WEE BABE,skagit-wee-babe,1982,row,WEE BABE see SKAGIT WEE BABE
+WEE MINX,SKAGIT WEE MINX,skagit-wee-minx,1982,row,WEE MINX see SKAGIT WEE MINX
+WEE NYMPH,SKAGIT WEE NYMPH,skagit-wee-nymph,1982,row,WEE NYMPH see SKAGIT WEE NYMPH
+WHISKEY JUNCTION,WRANGLER’S WHISKEY JUNCTION,wrangler-s-whiskey-junction,1982,row,WHISKEY JUNCTION see WRANGLER’S WHISKEY JUNCTION
+YULETIDE HAVEN,NORTEX'’S YULETIDE HAVEN,nortex-s-yuletide-haven,1982,row,YULETIDE HAVEN see NORTEX'’S YULETIDE HAVEN
+ALMOST HEAVEN,Rainbow’s Almost Heaven,rainbow-s-almost-heaven,1988,row,ALMOST HEAVEN See Rainbow’s Almost Heaven
+ALMOST SINFUL,Rob’s Almost Sinful,rob-s-almost-sinful,1988,row,ALMOST SINFUL See Rob’s Almost Sinful
+ANNA SMITH,Marie’s Anna Smith,marie-s-anna-smith,1988,row,ANNA SMITH See Marie’s Anna Smith
+ARCTIC GOLD,Rainbow’s Arctic Gold,rainbow-s-arctic-gold,1988,row,ARCTIC GOLD See Rainbow’s Arctic Gold
+AUNT MARY,Marie’s Aunt Mary,marie-s-aunt-mary,1988,row,AUNT MARY See Marie’s Aunt Mary
+BALLYHOO BLUE,Ness’s Ballyhoo Blue,nesss-ballyhoo-blue,1988,row,BALLYHOO BLUE See Ness’s Ballyhoo Blue
+BELLEAMI,Ness’s Belleami,nesss-belleami,1988,row,BELLEAMI See Ness’s Belleami
+BLUE BABE,Ness’s Blue Babe,nesss-blue-babe,1988,row,BLUE BABE See Ness’s Blue Babe
+BLUE FLIRT,Ness’s Blue Flirt,nesss-blue-flirt,1988,row,BLUE FLIRT See Ness’s Blue Flirt
+BRIAR ROSE,Yarrow Briar Rose,yarrow-briar-rose,1988,row,BRIAR ROSE See Yarrow Briar Rose
+BURGUNDY BEAU,Ness’s Burgundy Beau,nesss-burgundy-beau,1988,row,BURGUNDY BEAU See Ness’s Burgundy Beau
+CENTER STAGE,Rainbow’s Center Stage,rainbow-s-center-stage,1988,row,CENTER STAGE See Rainbow’s Center Stage
+CLOWN AROUND,Rob’s Clown Around,rob-s-clown-around,1988,row,CLOWN AROUND See Rob’s Clown Around
+CORAL KITTY,Ramona’s Coral Kitty,ramona-s-coral-kitty,1988,row,CORAL KITTY See Ramona’s Coral Kitty
+CRAZY DAZE,Rob’s Crazy Daze,rob-s-crazy-daze,1988,row,CRAZY DAZE See Rob’s Crazy Daze
+CRIMSON KISS,Ness’s Crimson Kiss,nesss-crimson-kiss,1988,row,CRIMSON KISS See Ness’s Crimson Kiss
+CRYSTAL ROSE,Ness’s Crystal Rose,nesss-crystal-rose,1988,row,CRYSTAL ROSE See Ness’s Crystal Rose
+DAWN,Yarrow Dawn,yarrow-dawn,1988,row,DAWN See Yarrow Dawn
+DELIGHT,David’s Delight,david-s-delight,1988,row,DELIGHT See David’s Delight
+DIAMOND CHIPS,Rob’s Diamond Chips,rob-s-diamond-chips,1988,row,DIAMOND CHIPS See Rob’s Diamond Chips
+ENCHANTED GOLD,Rainbow’s En- chanted Gold,rainbow-s-enchanted-gold,1988,row,ENCHANTED GOLD See Rainbow’s En- chanted Gold
+EVA’S ALOHA,Ness’s Eva’s Aloha,nesss-evas-aloha,1988,row,EVA’S ALOHA See Ness’s Eva’s Aloha
+EXTRAVAGANZA,Tony’s Extrava- ganza,tony-s-extravaganza,1988,row,EXTRAVAGANZA See Tony’s Extrava- ganza
+FOOLISHNESS,Rob’s Foolishness,rob-s-foolishness,1988,row,FOOLISHNESS See Rob’s Foolishness
+FRANCES BUFANO,Marie’s Frances Bufano,marie-s-frances-bufano,1988,row,FRANCES BUFANO See Marie’s Frances Bufano
+FRANK BUFANO,Marie’s Frank Bufano,marie-s-frank-bufano,1988,row,FRANK BUFANO See Marie’s Frank Bufano
+FUJI GOLD,Rainbow’s Fuji Gold,rainbow-s-fuji-gold,1988,row,FUJI GOLD See Rainbow’s Fuji Gold
+GALACTIC STARBURST,Rainbow’s Galactic Starburst,rainbow-s-galactic-starburst,1988,row,GALACTIC STARBURST See Rainbow’s Galactic Starburst
+IMPERIAL GOLD,Rainbow’s Imperial Gold,rainbow-s-imperial-gold,1988,row,IMPERIAL GOLD See Rainbow’s Imperial Gold
+JOEY’S PAL,Ness’s Joey’s Pal,nesss-joeys-pal,1988,row,JOEY’S PAL See Ness’s Joey’s Pal
+KENNY BILL,Marie’s Kenny Bill,marie-s-kenny-bill,1988,row,KENNY BILL See Marie’s Kenny Bill
+LITTLE BANDIT,Marie’s Little Bandit,marie-s-little-bandit,1988,row,LITTLE BANDIT See Marie’s Little Bandit
+LOVELY LADY,Cookie’s Lovely Lady,cookie-s-lovely-lady,1988,row,LOVELY LADY See Cookie’s Lovely Lady
+LUNAR JEWELS,Rainbow’s Lunar Jewels,rainbow-s-lunar-jewels,1988,row,LUNAR JEWELS See Rainbow’s Lunar Jewels
+MELANIE,Bud’s Melanie,bud-s-melanie,1988,row,MELANIE See Bud’s Melanie
+MINNESOTA SPLASH,Ness’s Minne- sota Splash,nesss-minnesota-splash,1988,row,MINNESOTA SPLASH See Ness’s Minne- sota Splash
+NEAT NELLIE,Ness’s Neat Nellie,nesss-neat-nellie,1988,row,NEAT NELLIE See Ness’s Neat Nellie
+NEVER NAUGHTY,Rob’s Never Naughty,rob-s-never-naughty,1988,row,NEVER NAUGHTY See Rob’s Never Naughty
+NEW HORIZONS,Rainbow’s New Horizons,rainbow-s-new-horizons,1988,row,NEW HORIZONS See Rainbow’s New Horizons
+PACIFIC SERENADE,Marie’s Pacific Serenade,marie-s-pacific-serenade,1988,row,PACIFIC SERENADE See Marie’s Pacific Serenade
+PINK FLUFF,Ness’s Pink Fluff,nesss-pink-fluff,1988,row,PINK FLUFF See Ness’s Pink Fluff
+PINK RAIN,Flo’s Pink Rain,flo-s-pink-rain,1988,row,PINK RAIN See Flo’s Pink Rain
+POLAR FROST,Rainbow’s Polar Frost,rainbow-s-polar-frost,1988,row,POLAR FROST See Rainbow’s Polar Frost
+PRIDE,Ellen Griffin’s Pride,ellen-griffin-s-pride,1988,row,PRIDE See Ellen Griffin’s Pride
+PURPLE GREMLIN,Ness’s Purple Gremlin,nesss-purple-gremlin,1988,row,PURPLE GREMLIN See Ness’s Purple Gremlin
+PURPLE HEART,Flo’s Purple Heart,flo-s-purple-heart,1988,row,PURPLE HEART See Flo’s Purple Heart
+RAINBOW,Flo’s Rainbow,flo-s-rainbow,1988,row,RAINBOW See Flo’s Rainbow
+RASPBERRY FRENZY,Rainbow’s Raspberry Frenzy,rainbow-s-raspberry-frenzy,1988,row,RASPBERRY FRENZY See Rainbow’s Raspberry Frenzy
+ROMANCER,Rob’s Romancer,rob-s-romancer,1988,row,ROMANCER See Rob’s Romancer
+RUBY LOU,Rainbow’s Ruby Lou,rainbow-s-ruby-lou,1988,row,RUBY LOU See Rainbow’s Ruby Lou
+SHADOW MAGIC,Rob’s Shadow Magic,rob-s-shadow-magic,1988,row,SHADOW MAGIC See Rob’s Shadow Magic
+SHIRLEY’S DELIGHT,Ness’s Shirley’s Delight,nesss-shirleys-delight,1988,row,SHIRLEY’S DELIGHT See Ness’s Shirley’s Delight
+SINCERELY WINSTON,Marie’s Sin- cerely Winston,marie-s-sincerely-winston,1988,row,SINCERELY WINSTON See Marie’s Sin- cerely Winston
+SNOWY DAZE,Ness’s Snowy Daze,nesss-snowy-daze,1988,row,SNOWY DAZE See Ness’s Snowy Daze
+SNOWY GOLD,Rainbow’s Snowy Gold,rainbow-s-snowy-gold,1988,row,SNOWY GOLD See Rainbow’s Snowy Gold
+STAGE LEFT,Rainbow’s Stage Left,rainbow-s-stage-left,1988,row,STAGE LEFT See Rainbow’s Stage Left
+STILLWATER COVE,Marie’s Stillwa- ter Cove,marie-s-stillwater-cove,1988,row,STILLWATER COVE See Marie’s Stillwa- ter Cove
+SUMMIT,Yarrow Summit,yarrow-summit,1988,row,SUMMIT See Yarrow Summit
+TEMPTRESS,Rob’s Temptress,rob-s-temptress,1988,row,TEMPTRESS See Rob’s Temptress
+THREE BELLS,Marie’s Three Bells,marie-s-three-bells,1988,row,THREE BELLS See Marie’s Three Bells
+VIKING QUEEN,Ness’s Viking Queen,nesss-viking-queen,1988,row,VIKING QUEEN See Ness’s Viking Queen
+WHITE SWAN,Flo’s White Swan,flo-s-white-swan,1988,row,WHITE SWAN See Flo’s White Swan
+LILAC TIME,Ness’s Lilac Time,nesss-lilac-time,1988,row,LILAC TIME Sce Ness’s Lilac Time
+SUPERCHARM,Rainbow’s Supercharm,rainbow-s-supercharm,1988,row,SUPERCHARM Rainbow’s Supercharm
+ADAM CHRISTOPHER,MARIE’S ADAM CHRISTOPHER,marie-s-adam-christopher,1989,row,ADAM CHRISTOPHER See MARIE’S ADAM
+ALABAMA II,OPTIMARA®-ALABAMA II,optimara-alabama-ii,1989,row,CHRISTOPHER ALABAMA II See OPTIMARA®-ALABAMA II
+ALAN LEE,MARIE'S ALAN LEE,marie-s-alan-lee,1989,row,ALAN LEE See MARIE'S ALAN LEE
+ALASKA,OPTIMARA®-ALASKA,optimara-alaska,1989,row,ALASKA See OPTIMARA®-ALASKA
+ALICE,RHAPSODIE®-ALICE,rhapsodie-alice,1989,row,ALICE See RHAPSODIE®-ALICE
+ANGELICA,RHAPSODIE®-ANGELICA,rhapsodie-angelica,1989,row,ANGELICA See RHAPSODIE®-ANGELICA
+ANNIE,RHAPSODIE®-ANNIE,rhapsodie-annie,1989,row,ANNIE See RHAPSODIE®-ANNIE
+AQUARIUS,OPTIMARA®-AQUARIUS,optimara-aquarius,1989,row,AQUARIUS See OPTIMARA®-AQUARIUS
+ARTFUL DODGER,ROB’S ARTFUL DODGER,rob-s-artful-dodger,1989,row,ARTFUL DODGER See ROB’S ARTFUL
+ATLANTA II,OPTIMARA®-ATLANTA II,optimara-atlanta-ii,1989,row,DODGER ATLANTA II See OPTIMARA®-ATLANTA II
+BALLYHOO BLUE,NESS’ BALLYHOO BLUE,ness-ballyhoo-blue,1989,row,BALLYHOO BLUE See NESS’ BALLYHOO BLUE
+BARBARA,RHAPSODIE®-BARBARA,rhapsodie-barbara,1989,row,BARBARA See RHAPSODIE®-BARBARA
+BE GOOD,MAGGIE’S BE GOOD,maggie-s-be-good,1989,row,BE GOOD See MAGGIE’S BE GOOD
+BEAUTIFUL DREAMER,ROY’S BEAUTIFUL DREAMER,roy-s-beautiful-dreamer,1989,row,BEAUTIFUL DREAMER See ROY’S BEAUTIFUL
+BEAUTY,APACHE BEAUTY,apache-beauty,1989,row,DREAMER BEAUTY See APACHE BEAUTY
+BETHESDA,FREDETTE’S BETHESDA,fredette-s-bethesda,1989,row,BETHESDA See FREDETTE’S BETHESDA
+BLUE BABE,NESS’ BLUE BABE,ness-blue-babe,1989,row,BLUE BABE See NESS’ BLUE BABE
+BLUE MOON,ROB’S BLUE MOON,rob-s-blue-moon,1989,row,BLUE MOON See ROB’S BLUE MOON
+BLUE SQUIRT,NESS’ BLUE SQUIRT,ness-blue-squirt,1989,row,BLUE SQUIRT See NESS’ BLUE SQUIRT
+BRANDON SHANE,MARIE’S BRANDON SHANE,marie-s-brandon-shane,1989,row,BRANDON SHANE See MARIE’S BRANDON
+CALIFORNIA,OPTIMARA®-CALIFORNIA,optimara-california,1989,row,CALIFORNIA See OPTIMARA®-CALIFORNIA
+CALYPSO GAL,NESS’ CALYPSO GAL,ness-calypso-gal,1989,row,CALYPSO GAL See NESS’ CALYPSO GAL
+CAMEO,PATT’S CAMEO,patt-s-cameo,1989,row,CAMEO See PATT’S CAMEO
+CAMEO PINK,NESS’ CAMEO PINK,ness-cameo-pink,1989,row,CAMEO PINK See NESS’ CAMEO PINK
+CAROLYN,RHAPSODIE®-CAROLYN,rhapsodie-carolyn,1989,row,CAROLYN See RHAPSODIE®-CAROLYN
+CELEBRATION,BIMINI CELEBRATION,bimini-celebration,1989,row,CELEBRATION See BIMINI CELEBRATION
+CHELSEA ANNE,MARIE’S CHELSEA ANNE,marie-s-chelsea-anne,1989,row,CHELSEA ANNE See MARIE’S CHELSEA ANNE
+CHELSEA LOVE,SHERYL’S CHELSEA LOVE,sheryl-s-chelsea-love,1989,row,CHELSEA LOVE See SHERYL’S CHELSEA LOVE
+CHOICE,ZACA’S CHOICE,zaca-s-choice,1989,row,CHOICE See ZACA’S CHOICE
+CHRIS,MAAS’ CHRIS,maas-chris,1989,row,CHRIS See MAAS’ CHRIS
+COLORADO II,OPTIMARA®-COLORADO II,optimara-colorado-ii,1989,row,COLORADO II See OPTIMARA®-COLORADO
+COPPER CAT,ROB’S COPPER CAT,rob-s-copper-cat,1989,row,COPPER CAT See ROB’S COPPER CAT
+CRIMSON KISS,NESS’ CRIMSON KISS,ness-crimson-kiss,1989,row,CRIMSON KISS See NESS’ CRIMSON KISS
+DALLAS,OPTIMARA®-DALLAS,optimara-dallas,1989,row,DALLAS See OPTIMARA®-DALLAS
+DANCER,APACHE DANCER,apache-dancer,1989,row,DANCER See APACHE DANCER
+DARRELL JAMES,MARIE'S DARRELL JAMES,marie-s-darrell-james,1989,row,DARRELL JAMES See MARIE'S DARRELL
+DAWN,BIMINI DAWN,bimini-dawn,1989,row,JAMES DAWN See BIMINI DAWN
+DEBRA ANN,MARIE’S DEBRA ANN,marie-s-debra-ann,1989,row,DEBRA ANN See MARIE’S DEBRA ANN
+DECENNIE,OPTIMARA®-DECENNIE,optimara-decennie,1989,row,DECENNIE See OPTIMARA®-DECENNIE
+DELAWARE,OPTIMARA®-DELAWARE,optimara-delaware,1989,row,DELAWARE See OPTIMARA®-DELAWARE
+DELIGHT,DEBBIE'S DELIGHT,debbie-s-delight,1989,row,DELIGHT See DEBBIE'S DELIGHT
+DELIGHT,NESS’ SHIRLEY’S DELIGHT,ness-shirley-s-delight,1989,row,DELIGHT See NESS’ SHIRLEY’S DELIGHT
+DELIGHT,ROMA’S DELIGHT,roma-s-delight,1989,row,DELIGHT See ROMA’‘S DELIGHT
+DILLY-DALLY,NESS’ DILLY-DALLY,ness-dilly-dally,1989,row,DILLY-DALLY See NESS’ DILLY-DALLY
+DOLLY,RHAPSODIE®-DOLLY,rhapsodie-dolly,1989,row,DOLLY See RHAPSODIE®-DOLLY
+EASTER JOY,FREDETTE’S EASTER JOY,fredette-s-easter-joy,1989,row,EASTER JOY See FREDETTE’S EASTER JOY
+EMBER GLOW,ROB’S EMBER GLOW,rob-s-ember-glow,1989,row,EMBER GLOW See ROB’S EMBER GLOW
+FACE,APACHE FACE,apache-face,1989,row,FACE See APACHE FACE
+FARRAH,RHAPSODIE®-FARRAH,rhapsodie-farrah,1989,row,FARRAH See RHAPSODIE®-FARRAH
+FLORIDA,OPTIMARA®-FLORIDA,optimara-florida,1989,row,FLORIDA See OPTIMARA®-FLORIDA
+FLORIDA II,OPTIMARA®-FLORIDA II,optimara-florida-ii,1989,row,FLORIDA II See OPTIMARA®-FLORIDA II
+GEMINI,OPTIMARA®-GEMINI,optimara-gemini,1989,row,GEMINI See OPTIMARA®-GEMINI
+GEORGIA,OPTIMARA®-GEORGIA,optimara-georgia,1989,row,GEORGIA See OPTIMARA®-GEORGIA
+GLORY,APACHE GLORY,apache-glory,1989,row,GLORY See APACHE GLORY
+HALO,RUTH’S HALO,ruth-s-halo,1989,row,HALO See RUTH’S HALO
+HARLEQUIN,OPTIMARA®-HARLEQUIN,optimara-harlequin,1989,row,HARLEQUIN See OPTIMARA®-HARLEQUIN
+ICE,BIMINI ICE,bimini-ice,1989,row,ICE See BIMINI ICE
+IOWA,OPTIMARA®-IOWA,optimara-iowa,1989,row,IOWA See OPTIMARA®-IOWA
+IRENE,RHAPSODIE®-IRENE,rhapsodie-irene,1989,row,IRENE See RHAPSODIE®-IRENE
+JASON MICHAEL,MARIE’S JASON MICHAEL,marie-s-jason-michael,1989,row,JASON MICHAEL See MARIE’S JASON MICHAEL
+JENNIE,RHAPSODIE®-JENNIE,rhapsodie-jennie,1989,row,JENNIE See RHAPSODIE®-JENNIE
+JO,OPTIMARA®-JO,optimara-jo,1989,row,JO See OPTIMARA®-JO
+JOEY’S PAL,NESS’ JOEY’S PAL,ness-joey-s-pal,1989,row,JOEY’S PAL See NESS’ JOEY’S PAL
+JUD,PAPA’S JUD,papa-s-jud,1989,row,JUD See PAPA’S JUD
+JULIANA,RHAPSODIE®-JULIANA,rhapsodie-juliana,1989,row,JULIANA See RHAPSODIE®-JULIANA
+JUST PINK,NESS’ JUST PINK,ness-just-pink,1989,row,JUST PINK See NESS’ JUST PINK
+KNOXVILLE,OPTIMARA®-KNOXVILLE,optimara-knoxville,1989,row,KNOXVILLE See OPTIMARA®-KNOXVILLE
+LADY LILLIAN,MARIE’S LADY LILLIAN,marie-s-lady-lillian,1989,row,LADY LILLIAN See MARIE’S LADY LILLIAN
+LAND,ZACA-LAND,zaca-land,1989,row,LAND See ZACA-LAND
+LIME,BIMINI LIME,bimini-lime,1989,row,LIME See BIMINI LIME
+LITTLE AMETHYST,OPTIMARA®-LITTLE AMETHYST,optimara-little-amethyst,1989,row,LITTLE AMETHYST See OPTIMARA®-LITTLE
+LITTLE APATITE,OPTIMARA®-LITTLE APATITE,optimara-little-apatite,1989,row,AMETHYST LITTLE APATITE See OPTIMARA®-LITTLE
+LITTLE AQUAMARINE,OPTIMARA®-LITTLE AQUAMARINE,optimara-little-aquamarine,1989,row,APATITE LITTLE AQUAMARINE See OPTIMARA-LITTLE
+LITTLE BLUE TOPAZ,OPTIMARA®-LITTLE BLUE TOPAZ,optimara-little-blue-topaz,1989,row,AQUAMARINE LITTLE BLUE TOPAZ See OPTIMARA-LITTLE
+LITTLE CRYSTAL,OPTIMARA®-LITTLE CRYSTAL,optimara-little-crystal,1989,row,BLUE TOPAZ LITTLE CRYSTAL See OPTIMARA-LITTLE
+LITTLE DIAMOND,OPTIMARA®-LITTLE DIAMOND,optimara-little-diamond,1989,row,CRYSTAL LITTLE DIAMOND See OPTIMARA®-LITTLE
+LITTLE GIRL,MARIE’S LITTLE GIRL,marie-s-little-girl,1989,row,LITTLE GIRL See MARIE’S LITTLE GIRL
+LITTLE JOSEPHINE,ROB’S LITTLE JOSEPHINE,rob-s-little-josephine,1989,row,LITTLE JOSEPHINE See ROB’S LITTLE JOSEPHINE
+LITTLE KUNZITE,OPTIMARA®-LITTLE KUNZITE,optimara-little-kunzite,1989,row,LITTLE KUNZITE See OPTIMARA-LITTLE
+LITTLE MOONSTONE,OPTIMARA®-LITTLE MOONSTONE,optimara-little-moonstone,1989,row,LITTLE MOONSTONE See OPTIMARA-LITTLE
+LITTLE OPAL,OPTIMARA®-LITTLE OPAL,optimara-little-opal,1989,row,MOONSTONE LITTLE OPAL See OPTIMARA®-LITTLE OPAL
+LITTLE PEARL,OPTIMARA®-LITTLE PEARL,optimara-little-pearl,1989,row,LITTLE PEARL See OPTIMARA®-LITTLE
+LITTLE RUBY,OPTIMARA®-LITTLE RUBY,optimara-little-ruby,1989,row,PEARL LITTLE RUBY See OPTIMARA®-LITTLE RUBY
+LITTLE TOURMALINE,OPTIMARA®-LITTLE TOURMALINE,optimara-little-tourmaline,1989,row,LITTLE TOURMALINE See OPTIMARA-LITTLE
+LOS ANGELES,OPTIMARA®-LOS ANGELES,optimara-los-angeles,1989,row,LOS ANGELES See OPTIMARA®-LOS ANGE-
+LOUISIANA II,OPTIMARA®-LOUISIANA II,optimara-louisiana-ii,1989,row,LOUISIANA II See OPTIMARA®-LOUISIANA
+MAGNETIC FIELD,ROB’S MAGNETIC FIELD,rob-s-magnetic-field,1989,row,MAGNETIC FIELD See ROB’S MAGNETIC
+MANITOBA II,OPTIMARA®-MANITOBA II,optimara-manitoba-ii,1989,row,FIELD MANITOBA II See OPTIMARA®-MANITOBAII
+MARTINIQUE,OPTIMARA®-MARTINIQUE,optimara-martinique,1989,row,MARTINIQUE See OPTIMARA®-MARTINIQUE
+MARYLAND,OPTIMARA®-MARYLAND,optimara-maryland,1989,row,MARYLAND See OPTIMARA®-MARYLAND
+MATTHEW MANUEL,MARIE’S MATTHEW MANUEL,marie-s-matthew-manuel,1989,row,MATTHEW MANUEL See MARIE’S MATTHEW
+MEG,RHAPSODIE®-MEG,rhapsodie-meg,1989,row,MEG See RHAPSODIE®-MEG
+MICHAEL ALAN,MARIE’S MICHAEL ALAN,marie-s-michael-alan,1989,row,MICHAEL ALAN See MARIE’S MICHAEL ALAN
+MINNESOTA SPLASH,NESS’ MINNESOTA SPLASH,ness-minnesota-splash,1989,row,MINNESOTA SPLASH See NESS’ MINNESOTA
+MISCHIEVOUS,ROB’S MISCHIEVOUS,rob-s-mischievous,1989,row,MISCHIEVOUS See ROB’S MISCHIEVOUS
+MISSY FANTASY,SHIRLEY’S MISSY FANTASY,shirley-s-missy-fantasy,1989,row,MISSY FANTASY See SHIRLEY’S MISSY FANTASY
+MONIQUE,RHAPSODIE®-MONIQUE,rhapsodie-monique-holtkamp,1989,row,MONIQUE See RHAPSODIE®-MONIQUE
+NANCY,RHAPSODIE®-NANCY,rhapsodie-nancy,1989,row,NANCY See RHAPSODIE®-NANCY
+NEAT NELLIE,NESS’ NEAT NELLIE,ness-neat-nellie,1989,row,NEAT NELLIE See NESS’ NEAT NELLIE
+NEVADA,OPTIMARA®-NEVADA,optimara-nevada,1989,row,NEVADA See OPTIMARA®-NEVADA
+NEW JERSEY,OPTIMARA®-NEW JERSEY,optimara-new-jersey,1989,row,NEW JERSEY See OPTIMARA®-NEW JERSEY
+NEW JERSEY II,OPTIMARA®-NEW JERSEY II,optimara-new-jersey-ii,1989,row,NEW JERSEY II See OPTIMARA®-NEW JERSEY
+NIGHT LIFE,NESS’ NIGHT LIFE,ness-night-life,1989,row,NIGHT LIFE See NESS’ NIGHT LIF
+NITE BLOOMERS,PAPA’S NITE BLOOMERS,papa-s-nite-bloomers,1989,row,NITE BLOOMERS See PAPA’S NITE BLOOMERS
+NORTH CAROLINA II,OPTIMARA®- NORTH CAROLINA II,optimara-north-carolina-ii,1989,row,NORTH CAROLINA II See OPTIMARA®-
+OKLAHOMA,OPTIMARA®-OKLAHOMA,optimara-oklahoma,1989,row,OKLAHOMA See OPTIMARA®-OKLAHOMA
+PACIFIC SUNRISE,MARIE’S PACIFIC SUNRISE,marie-s-pacific-sunrise,1989,row,PACIFIC SUNRISE See MARIE’S PACIFIC SUNRISE
+PAL PAUL,ROB’S PAL PAUL,rob-s-pal-paul,1989,row,PAL PAUL See ROB’S PAL PAUL
+PAMELA,PAPA’S PAMELA,papa-s-pamela,1989,row,PAMELA See PAPA’S PAMELA
+PAMELA ANN,MARIE’S PAMELA ANN,marie-s-pamela-ann,1989,row,PAMELA ANN See MARIE’S PAMELA ANN
+PAMELA,RHAPSODIE®-PAMELA,rhapsodie-pamela,1989,row,PAMELA See RHAPSODIE®-PAMELA
+PEACE,APACHE PEACE,apache-peace,1989,row,PEACE See APACHE PEACE
+PEACH FLUFF,NESS’ PEACH FLUFF,ness-peach-fluff,1989,row,PEACH FLUFF See NESS’ PEACH FLUFF
+PENNSYLVANIA,OPTIMARA®-PENNSYLVANIA,optimara-pennsylvania,1989,row,PENNSYLVANIA See OPTIMARA®-PENNSYLVANIA
+PINK SATIN,ROB’S PINK SATIN,rob-s-pink-satin,1989,row,PINK SATIN See ROB’S PINK SATIN
+PINK SQUIRT,NESS’ PINK SQUIRT,ness-pink-squirt,1989,row,PINK SQUIRT See NESS’ PINK SQUIRT
+PINK SWIRL,DEEJAY’S PINK SWIRL,deejay-s-pink-swirl,1989,row,PINK SWIRL See DEEJAY’S PINK SWIRL
+PINKY WINKY,ROB’S PINKY WINKY,rob-s-pinky-winky,1989,row,PINKY WINKY See ROB’S PINKY WINKY
+PRETTY CORINNE,MARIE’S PRETTY CORINNE,maries-pretty-corinne,1989,row,PRETTY CORINNE See MARIE’S PRETTY
+PRINCESS,PAPA’S PRINCESS,papa-s-princess,1989,row,PRINCESS See PAPA’S PRINCESS
+PROMISE,PASSION’S PROMISE,passion-s-promise-domiano,1989,row,PROMISE See PASSION’S PROMISE
+REWARD,PASSION’S REWARD,passion-s-reward-domiano,1989,row,REWARD See PASSION’S REWARD
+RIDGE,APACHE RIDGE,apache-ridge,1989,row,RIDGE See APACHE RIDGE
+RISEN STAR,FREDETTE’S RISEN STAR,fredette-s-risen-star,1989,row,RISEN STAR See FREDETTE’S RISEN STAR
+ROONIE,ZACA-ROONIE,zaca-roonie,1989,row,ROONIE See ZACA-ROONIE
+ROSE QUARTZ,OPTIMARA®-ROSE QUARTZ,optimara-rose-quartz,1989,row,ROSE QUARTZ See OPTIMARA®-ROSE
+SABRINA,RHAPSODIE®-SABRINA,rhapsodie-sabrina,1989,row,SABRINA See RHAPSODIE®-SABRINA
+SAINT LOUIS,OPTIMARA®-SAINT LOUIS,optimara-saint-louis,1989,row,SAINT LOUIS See OPTIMARA®-SAINT LOUIS
+SAN FRANCISCO,OPTIMARA®-SAN FRANCISCO,optimara-san-francisco,1989,row,SAN FRANCISCO See OPTIMARA®-SAN
+SANDSTORM,ROB’S SANDSTORM,rob-s-sandstorm,1989,row,FRANCISCO SANDSTORM See ROB’S SANDSTORM
+SASHAH,MAAS’ SASHAH,maas-sashah,1989,row,SASHAH See MAAS’ SASHAH
+SATIN RUFFLES,NESS’ SATIN RUFFLES,ness-satin-ruffles,1989,row,SATIN RUFFLES See NESS’ SATIN RUFFLES
+SCARLET,RHAPSODIE®-SCARLET,rhapsodie-scarlet,1989,row,SCARLET See RHAPSODIE®-SCARLET
+SCORPIO,OPTIMARA®-SCORPIO,optimara-scorpio,1989,row,SCORPIO See OPTIMARA®-SCORPIO
+SECRET,APACHE SECRET,apache-secret,1989,row,SECRET See APACHE SECRET
+SHANNON PAUL,MARIE’S SHANNON PAUL,marie-s-shannon-paul,1989,row,SHANNON PAUL See MARIE’S SHANNON
+SHENANDOAH,OPTIMARA®-SHENANDOAH,optimara-shenandoah,1989,row,SHENANDOAH See OPTIMARA®-SHENANDOAH
+SILVER SPOOK,ROB’S SILVER SPOOK,rob-s-silver-spook,1989,row,SILVER SPOOK See ROB’S SILVER SPOOK
+SLASHED WONDER,DEEJAY’S SLASHED WONDER,deejay-s-slashed-wonder,1989,row,SLASHED WONDER See DEEJAY’S SLASHED
+SNOWY DAZE,NESS’ SNOWY DAZE,ness-snowy-daze,1989,row,SNOWY DAZE See NESS’ SNOWY DAZE
+SONJA,RHAPSODIE®-SONJA,rhapsodie-sonja,1989,row,SONJA See RHAPSODIE®-SONJA
+SPIRIT,APACHE SPIRIT,apache-spirit,1989,row,SPIRIT See APACHE SPIRIT
+SPRING,APACHE SPRING,apache-spring,1989,row,SPRING See APACHE SPRING
+SUMMER,APACHE SUMMER,apache-summer,1989,row,SUMMER See APACHE SUMMER
+TAURUS,OPTIMARA®-TAURUS,optimara-taurus,1989,row,TAURUS See OPTIMARA® ~ TAURUS
+TIL-TIL,ZACA’S TIL-TIL,zaca-s-til-til,1989,row,TIL-TIL See ZACA’S TIL-TIL
+TREASURE,APACHE TREASURE,apache-treasure,1989,row,TREASURE See APACHE TREASURE
+VANILLA PINK,ROB’S VANILLA PINK,rob-s-vanilla-pink,1989,row,VANILLA PINK See ROB’S VANILLA PINK
+VIKING BABE,NESS’ VIKING BABE,ness-viking-babe,1989,row,VIKING BABE See NESS’ VIKING BABE
+VIKING KING,NESS’ VIKING KING,ness-viking-king,1989,row,VIKING KING See NESS’ VIKING KING
+VIKING MAIDEN,NESS’ VIKING MAIDEN,ness-viking-maiden,1989,row,VIKING MAIDEN See NESS’ VIKING MAIDEN
+VIOLET SAPPHIRE,OPTIMARA®-VIOLET SAPPHIRE,optimara-violet-sapphire,1989,row,VIOLET SAPPHIRE See OPTIMARA-VIOLET
+VIRGINIA,OPTIMARA®-VIRGINIA,optimara-virginia,1989,row,SAPPHIRE VIRGINIA See OPTIMARA®-VIRGINIA
+VIRGO,OPTIMARA®-VIRGO,optimara-virgo,1989,row,VIRGO See OPTIMARA®-VIRGO
+WEST VIRGINIA,OPTIMARA®-WEST VIRGINIA,optimara-west-virginia,1989,row,WEST VIRGINIA See OPTIMARA®-WEST VIRGINIA
+WHIMSICAL,ROB’S WHIMSICAL,rob-s-whimsical,1989,row,WHIMSICAL See ROB’S WHIMSICAL
+WHOOPIE,ROB’S WHOOPIE,rob-s-whoopie,1989,row,WHOOPIE See ROB’S WHOOPIE
+ZEE,ZACA’S ZEE,zaca-s-zee,1989,row,ZEE See ZACA’S ZEE
+COLORADO,OPTIMARA®-COLORADO,optimara-colorado,1989,row,COLORADO Se OPTIMARA®-COLORADO
+GEORGIA II,OPTIMARA®-GEORGIA II,optimara-georgia-ii,1989,row,GEORGIA II See OPTIMARA®-GEORGIA II

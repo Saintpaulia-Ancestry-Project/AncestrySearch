@@ -1,0 +1,287 @@
+"""Split the MVL-supplement descriptions into color / bloom_description / foliage_description.
+
+Input : data/mvl_supplements.csv (scripts/prep_mvl_supplements.py)
+Output: data/mvl_description_split.csv   plant_key, color, bloom_description, foliage_description, split_status
+        reports/review/mvl_split_review.csv   the rows needing a human (status `needs review`), with the proposal
+Rules (rule-based, no guessing):
+  * `description` itself is never changed; the three parts are cut out of it, except that a trailing size word
+    (Standard, Large, ...) is dropped from the parts (it is the size class) and a "(no mention of foliage)" remark too.
+  * Each sentence is classified as foliage or bloom from word cues. A sentence with strong cues for both, or with no
+    usable cue, makes the whole description `needs review` (those are held back from the live site until reviewed).
+  * Statuses: ok | bloom only | foliage only | needs review | species (not split) | human (from the review file).
+  * Review file (re-runnable): fill corrected_color / corrected_bloom / corrected_foliage (any may stay empty = no part),
+    or decision `use` to accept the proposal as is; the row then gets status `human` and is released.
+Usage: .venv\\Scripts\\python scripts\\split_mvl_descriptions.py
+"""
+import csv
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+DATA = ROOT / "data"
+REVIEW = ROOT / "reports" / "review" / "mvl_split_review.csv"
+
+SIZE_WORDS = r"(?:small standard|semi-?miniature|miniature|standard|large|trailer|trailing)(?:\s+(?:trailer|trailing|standard|miniature))?"
+SIZE_TAIL = re.compile(r"(?i)(?:^|[.;,]\s*|\s)(" + SIZE_WORDS + r")\s*\.?\s*$")
+NO_FOLIAGE = re.compile(r"(?i)\s*\((?:no|not)\s+(?:mention|description)[^)]*\)\.?")
+
+STRONG_F = re.compile(r"(?i)\b(foliage|foilage|leaf|leaves|leaved|longifolia|variegated|variegation|reverse|red backs?|red backed)\b")
+CORE_F = re.compile(r"(?i)\b(quilted|serrated|tailored|pointed|glossy|scalloped|spooned|girl|boy|heart-shaped|ovate|pebbled)\b")
+STRONG_B = re.compile(r"(?i)\b(blossoms?|blooms?|bloomer|flowers?|flowered|petals?|singles?|doubles?|semi-?doubles?|stars?|pansy|"
+                      r"pansies|fantasy|chimera|sticktite|stick-tite|corolla|stripes?|striped|blossomed)\b")
+WEAK_F = re.compile(r"(?i)\b(quilted|serrated|tailored|plain|pointed|girl|boy|glossy|spooned|scalloped|hairy|heart-shaped|ovate|"
+                    r"pebbled|crinkled|rippled|wavy|bustle|mosaic|supreme|thick|fleshy|bronze|green|round|waxy|dentate|"
+                    r"crenate|plush|plushy|lanceolate|notched|curled|cupped|veined|bumpy|crested)\b")
+WEAK_B = re.compile(r"(?i)\b(fringed|frilled|ruffled|edge|edged|eye|center|centre|two-?tone|bicolor|bi-color|shaded|splashed|"
+                    r"markings?|rays?|sport|blushed|picotee|overlay|streaked|speckled|dotted|ruffle)\b")
+
+COLORS = ("white pink blue red purple lavender orchid violet lilac fuchsia wine rose magenta plum mauve cerise coral peach "
+          "salmon burgundy maroon amethyst wisteria heliotrope raspberry cranberry cherry garnet orange yellow cream ivory "
+          "black brown lemon chartreuse periwinkle navy cobalt sky royal cerulean grape strawberry apricot tan gold "
+          "pastel slate silver gray grey rust bronze copper amber wedgwood").split()
+COLOR_RE = re.compile(r"(?i)^(?:(?:" + "|".join(COLORS) + r")(?:ish)?|redviolet|bluish|pinkish|purplish|whitish|reddish)$")
+COLOR_MOD = {"light", "dark", "deep", "pale", "medium", "bright", "soft", "hot", "pastel", "rich", "vivid", "true", "clear",
+             "intense", "electric", "lightest", "darkest", "very", "pure", "dusty", "warm", "cool", "baby"}
+FORM = {"single", "singles", "double", "doubles", "semidouble", "semi-double", "full", "huge", "large", "giant", "ruffled",
+        "fringed", "frilled", "wavy", "heavily", "heavy", "big", "small", "tiny", "extra", "very", "many", "and", "to", "or",
+        "semi", "variable", "medium", "light", "dark", "deep", "pale", "bright", "soft", "hot", "rich", "pastel", "a", "an",
+        "the", "with", "of", "fluted", "round", "star", "flat", "crisp", "lightly", "slightly", "bold"}
+
+
+SIZE_REMARK = re.compile(r"(?i)^(?:(?:very|medium|small|large|standard|miniature|micro-?miniature|semi-?miniature|big|tiny)[\s-]*)+"
+                         r"(?:(?:size|sized|grower|growing|plant|trailer|trailing|growth|habit)[\s-]*)*[.]?$")
+DESC_WORDS = (set(FORM) | COLOR_MOD | set(COLORS) | {"plain", "quilted", "serrated", "tailored", "pointed", "girl", "boy", "glossy",
+              "variegated", "scalloped", "thick", "shiny", "hairy", "dark", "red", "green"})
+DESC_RE = re.compile(r"(?:" + "|".join(sorted(DESC_WORDS, key=len, reverse=True)) + r")$")
+
+
+GROWS = re.compile(r"(?i)^(?:grows?|growing|regular|average|normal|a)\s+(?:\w+\s+){0,2}(?:size|sized|large|small|standard|miniature|grower|plant)\W*$")
+
+
+SIZE_VOCAB = {"very", "medium", "small", "large", "standard", "miniature", "micro", "microminiature", "semiminiature", "semi",
+              "big", "tiny", "to", "and", "or", "size", "sized", "grower", "growing", "grows", "plant", "trailer", "trailing",
+              "growth", "habit", "compact", "regular", "average", "normal", "a", "is", "plants", "type", "sized", "variety"}
+
+
+def size_only(sent):
+    words = re.findall(r"[a-z]+", sent.lower().replace("-", ""))
+    return bool(words) and all(w in SIZE_VOCAB for w in words)
+
+
+def split_sentences(t):
+    t = re.sub(r"\b(Mrs|Mr|Dr|St|vs|approx|var|sp|ca)\.\s", lambda m: m.group(1) + "\u0001 ", t)
+    parts = re.split(r"(?<=[.!?])\s+(?=[A-Z(“\"'])", t)
+    out = []
+    for p in parts:
+        # OCR style "Double deep red, Plain, pointed foliage": a capital after a comma that starts a descriptor
+        pieces = re.split(r",\s+(?=[A-Z][a-z-]*\b)", p)
+        cur = pieces[0]
+        for nxt in pieces[1:]:
+            w = re.match(r"[A-Za-z-]+", nxt).group(0).lower()
+            if DESC_RE.match(w):
+                out.append(cur + ".")
+                cur = nxt
+            else:
+                cur += ", " + nxt
+        out.append(cur)
+    return [p.replace("\u0001", ".").strip() for p in out if p.strip()]
+
+
+FOL_TAIL = re.compile(r"^(.*?)(?:[,;]|\s+(?:on|with|and|over))\s+((?:[\w'-]+\s+){0,6}?(?:foliage|leaves|leaf|variegation))\W*$", re.I)
+FOL_HEAD = re.compile(r"^((?:[\w'-]+\s+){0,6}?(?:foliage|leaves|leaf))\s*[,;]?\s+(.+)$", re.I)
+
+
+def split_mixed(s):
+    """'Deep pink stars on plain quilted foliage' -> (bloom part, foliage part); None when it is not that simple"""
+    m = FOL_TAIL.match(s)
+    if m and classify(m.group(1)) == "B":
+        return m.group(1).strip(" ,;") + ".", m.group(2).strip().capitalize() + "."
+    m = FOL_HEAD.match(s)
+    if m and classify(m.group(2)) == "B" and not STRONG_F.search(m.group(2)):
+        return m.group(2).strip(), m.group(1).strip().capitalize() + "."
+    # "Dark orchid two-tone single, quilted": trailing comma clauses made only of leaf words
+    clauses = [c.strip() for c in re.split(r"\s*[,;]\s*", s.strip(" .")) if c.strip()]
+    for k in range(1, len(clauses)):
+        tail = clauses[k:]
+        if all(pure_foliage(c) for c in tail) and not any(pure_foliage(c) or classify(c) == "F" for c in clauses[:k]):
+            head = ", ".join(clauses[:k])
+            if classify(head) == "B":
+                return head + ".", (", ".join(tail)).capitalize() + "."
+    return None
+
+
+def pure_foliage(c):
+    return bool((CORE_F.search(c) or STRONG_F.search(c)) and not STRONG_B.search(c) and not WEAK_B.search(c)
+                and not re.search(r"(?i)(?<![A-Za-z])(white|pink|blue|red|purple|lavender|orchid|violet|rose|wine|fuchsia|lilac|orange|yellow|peach|coral|salmon)(?![A-Za-z])", c))
+
+
+def strip_size(t):
+    t = NO_FOLIAGE.sub("", t).strip()
+    m = SIZE_TAIL.search(t)
+    if m and (m.start() > 0 or True):
+        head = t[: m.start(1)].rstrip(" ,;")
+        if head:
+            t = head
+            if not t.endswith("."):
+                t += "."
+    return t
+
+
+def classify(s):
+    f_strong, b_strong = len(STRONG_F.findall(s)), len(STRONG_B.findall(s))
+    f_weak, b_weak = len(WEAK_F.findall(s)), len(WEAK_B.findall(s))
+    words = re.findall(r"[A-Za-z]+(?:-[A-Za-z]+)*", s)
+    b_weak += sum(1 for w in words if COLOR_RE.match(w.split("-")[0]) and w.lower() not in ("green", "bronze"))
+    f_weak -= sum(1 for w in words if w.lower() == "green" and False)
+    if f_strong and b_strong:
+        return "mixed"
+    if f_strong:
+        # a "foliage" sentence that also names a non-green color before any foliage word is probably mixed
+        return "F"
+    if b_strong:
+        return "mixed" if CORE_F.search(s) else "B"
+    if f_weak > b_weak:
+        return "F"
+    if b_weak > f_weak:
+        return "mixed" if CORE_F.search(s) else "B"
+    return "?"
+
+
+COLOR_STOP = {"with", "edge", "edged", "center", "centre", "eye", "tips", "tipped", "throughout", "on", "in", "trimmed", "margin",
+              "band", "stripe", "overlay"}
+GREENISH = re.compile(r"(?i)^(lime|green|sea|foam|olive|chartreuse)$")
+
+
+def find_color(bloom):
+    toks = re.findall(r"[A-Za-z]+(?:-[A-Za-z]+)*|[/,;.]", bloom)
+    out, started, i = [], False, 0
+    first_clause_end = None
+    while i < len(toks):
+        w = toks[i]
+        wl = w.lower()
+        base = wl.split("-")
+        is_color = all(COLOR_RE.match(b) or b in COLOR_MOD or GREENISH.match(b) for b in base) and any(COLOR_RE.match(b) or GREENISH.match(b) for b in base)
+        if is_color:
+            out.append(w)
+            started = True
+        elif started and all(b in COLOR_MOD for b in base):
+            break
+        elif started and wl in ("/",) and i + 1 < len(toks) and (COLOR_RE.match(toks[i + 1].lower().split("-")[0]) or toks[i + 1].lower() in COLOR_MOD):
+            out.append("/")
+        elif started and wl == "and" and i + 1 < len(toks) and (COLOR_RE.match(toks[i + 1].lower().split("-")[0]) or toks[i + 1].lower() in COLOR_MOD):
+            out.append("/")
+        elif not started and all(b in COLOR_MOD for b in base):
+            out.append(w)       # leading modifier, kept only if a color follows
+            pending = True
+        elif started:
+            break
+        else:
+            if wl in (",", ";", ".") or wl in COLOR_STOP:
+                break
+            if wl not in FORM and wl not in COLOR_MOD:
+                if out:
+                    out = []
+                # unknown word before any color: keep scanning a little (e.g. "Heavily fringed white")
+            else:
+                out = []
+        i += 1
+    # a leading modifier without any color word is not a color
+    if not any(COLOR_RE.match(x.lower().split("-")[0]) or GREENISH.match(x.lower().split("-")[0]) for x in out if x != "/"):
+        return ""
+    txt = ""
+    for x in out:
+        txt += x if x == "/" else (("" if txt.endswith("/") or not txt else " ") + x)
+    txt = txt.strip()
+    return txt[:1].upper() + txt[1:].lower() if txt else ""
+
+
+TRAIL = re.compile(r"(?i)[,;]?\s*(?:grows?\s+(?:\w+\s+)?(?:large|standard|small|miniature)|(?:very\s+)?(?:small|large|medium)\s+grower|"
+                   r"window sill size)\W*$")
+
+
+def trim_size(t):
+    t2 = TRAIL.sub("", t).rstrip(" ,;")
+    if t2 != t and t2 and not t2.endswith("."):
+        t2 += "."
+    return t2 if t2 else t
+
+
+def split_one(desc, kind):
+    if kind == "species":
+        return "", "", "", "species (not split)", ""
+    text = strip_size(desc)
+    sents = split_sentences(text)
+    sents = [x for x in sents if not (SIZE_REMARK.match(x.strip(" ,")) or GROWS.match(x.strip(" ,")) or size_only(x))]
+    cls = [classify(s) for s in sents]
+    new_s, new_c = [], []
+    for s_, c_ in zip(sents, cls):
+        if c_ == "mixed":
+            sp = split_mixed(s_)
+            if sp:
+                new_s += [sp[0], sp[1]]
+                new_c += ["B", "F"]
+                continue
+        new_s.append(s_)
+        new_c.append(c_)
+    sents, cls = new_s, new_c
+    reason = ""
+    if "mixed" in cls:
+        reason = "a sentence mixes bloom and foliage words"
+    elif "?" in cls:
+        if len(sents) == 1 and re.search(r"(?i)\b(" + "|".join(COLORS) + r")\b", sents[0]):
+            cls = ["B"]
+        else:
+            reason = "a sentence has no usable cue"
+    bloom = trim_size(" ".join(s for s, c in zip(sents, cls) if c == "B"))
+    foliage = trim_size(" ".join(s for s, c in zip(sents, cls) if c == "F"))
+    color = find_color(bloom) if bloom else ""
+    if reason:
+        return color, bloom, foliage, "needs review", reason
+    if bloom and foliage:
+        return color, bloom, foliage, "ok", ""
+    if bloom:
+        return color, bloom, "", "bloom only", ""
+    if foliage:
+        bloom_color = re.search(r"(?i)(?<![A-Za-z])(white|pink|blue|red|purple|lavender|orchid|violet|rose|wine|fuchsia|lilac|orange|yellow|peach|coral|salmon)(?![A-Za-z])", foliage)
+        if bloom_color:
+            return "", "", foliage, "needs review", "foliage only but names a bloom color"
+        return "", "", foliage, "foliage only", ""
+    return "", "", "", "needs review", "nothing left after removing the size"
+
+
+def main():
+    rows = list(csv.DictReader(open(DATA / "mvl_supplements.csv", encoding="utf-8", newline="")))
+    human = {}
+    if REVIEW.exists():
+        for r in csv.DictReader(open(REVIEW, encoding="utf-8-sig", newline="")):
+            human[r["plant_key"]] = r
+    out, review, counts = [], [], {}
+    for r in rows:
+        color, bloom, foliage, status, reason = split_one(r["description"], r["kind"])
+        h = human.get(r["plant_key"])
+        if h and status == "needs review":
+            c = [h.get("corrected_color", "").strip(), h.get("corrected_bloom", "").strip(), h.get("corrected_foliage", "").strip()]
+            if any(c):
+                color, bloom, foliage, status = c[0], c[1], c[2], "human"
+            elif h.get("decision", "").strip().lower() == "use":
+                status = "human"
+        counts[status] = counts.get(status, 0) + 1
+        out.append({"plant_key": r["plant_key"], "color": color, "bloom_description": bloom, "foliage_description": foliage,
+                    "split_status": status})
+        if status == "needs review":
+            review.append({"plant_key": r["plant_key"], "name": r["name"], "description": r["description"], "reason": reason,
+                           "proposed_color": color, "proposed_bloom": bloom, "proposed_foliage": foliage,
+                           "corrected_color": "", "corrected_bloom": "", "corrected_foliage": "", "decision": ""})
+    for path, data, cols in (
+        (DATA / "mvl_description_split.csv", out, ["plant_key", "color", "bloom_description", "foliage_description", "split_status"]),
+        (REVIEW, review, ["plant_key", "name", "description", "reason", "proposed_color", "proposed_bloom", "proposed_foliage",
+                          "corrected_color", "corrected_bloom", "corrected_foliage", "decision"])):
+        with open(path, "w", encoding="utf-8", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=cols)
+            w.writeheader()
+            w.writerows(data)
+    print(counts)
+
+
+if __name__ == "__main__":
+    main()

@@ -592,6 +592,191 @@ def attach_masterlist(allrec):
     return dict(stats)
 
 
+
+# ------------------------------------------------------------------ AVSA Master List supplements 1964-2002
+# data/mvl_supplements.csv (scripts/prep_mvl_supplements.py; spelling, registration number/date and size already checked
+# against MLV.xls) + data/mvl_description_split.csv (scripts/split_mvl_descriptions.py). Plan: notes/mvl-supplements-plan.md.
+# A plant joins an existing record automatically only when the name AND (the hybridizer or the registration number)
+# agree; every other name match is listed in reports/review/mvl_join_matches.csv (decision `join`) and is meanwhile a
+# separate record, as for the 1963 list. Existing values win: the supplement only fills EMPTY fields.
+# Plants that still need a human (description split, near-miss spelling, same name with an unknown hybridizer) are HELD
+# BACK and listed in reports/review/mvl_held_back.csv; they come in on the run after the review file is filled in.
+MVL_JOIN_REVIEW = REVIEW / "mvl_join_matches.csv"
+MVL_HELD = REVIEW / "mvl_held_back.csv"
+
+
+def mvl_hyb_tokens(h):
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from mvl_lib import hyb_tokens
+    return hyb_tokens(h)
+
+
+def load_mvl():
+    path, spath = DATA / "mvl_supplements.csv", DATA / "mvl_description_split.csv"
+    if not path.exists() or not spath.exists():
+        return [], []
+    plants = read_review_csv(path).to_dict("records")
+    split = {r["plant_key"]: r for r in read_review_csv(spath).to_dict("records")}
+    spell_open = set()
+    if (REVIEW / "mvl_spelling.csv").exists():
+        for r in read_review_csv(REVIEW / "mvl_spelling.csv").to_dict("records"):
+            if not r["decision"].strip():
+                spell_open.add(r["supplement_key"])
+    match_open = set()
+    if (REVIEW / "mvl_matches.csv").exists():
+        for r in read_review_csv(REVIEW / "mvl_matches.csv").to_dict("records"):
+            if not r["decision"].strip() and not r["hybridizer"].strip():
+                match_open.add(r["plant_key"])
+    keep, held = [], []
+    for pl in plants:
+        sp = split.get(pl["plant_key"], {})
+        pl["_split"] = sp
+        reasons = []
+        if sp.get("split_status", "needs review") == "needs review":
+            reasons.append("description split needs review")
+        if norm(pl["supplement_spelling"] or pl["name"]) in spell_open:
+            reasons.append("spelling: near-miss of an MLV name, undecided")
+        if pl["plant_key"] in match_open:
+            reasons.append("same name as another plant and no hybridizer, undecided")
+        if reasons:
+            held.append({"plant_key": pl["plant_key"], "name": pl["name"], "hybridizer": pl["hybridizer"], "lists": pl["lists"],
+                         "reasons": "; ".join(reasons), "description": pl["description"]})
+        else:
+            keep.append(pl)
+    pd.DataFrame(held, columns=["plant_key", "name", "hybridizer", "lists", "reasons", "description"]).to_csv(
+        MVL_HELD, index=False, encoding="utf-8-sig")
+    return keep, held
+
+
+def mvl_listing(pl):
+    ys = [y for y in pl["lists"].split(";") if y]
+    return "AVSA Master List supplement" + ("s " if len(ys) > 1 else " ") + ", ".join(ys)
+
+
+def apply_mvl(d, pl, existing_reg):
+    """Fill the empty fields of record d from MVL plant pl."""
+    sp = pl["_split"]
+    if not d["description"] and pl["description"]:
+        d["description"] = pl["description"]
+        # the three parts come from the same text, so they are only taken together with the description
+        for f in ("color", "bloom_description", "foliage_description"):
+            if not d[f] and sp.get(f):
+                d[f] = sp[f]
+    if not d["size_class"] and pl["size_class"]:
+        d["size_class"] = pl["size_class"]
+    reg = pl["registration_no"]
+    if reg:
+        if not d["registration_no"]:
+            if reg in existing_reg and existing_reg[reg] is not d:
+                flag("mvl_registration_taken", d["name"], f"#{reg} already belongs to {existing_reg[reg]['name']}; not set")
+            else:
+                d["registration_no"] = reg
+                existing_reg[reg] = d
+                if pl["registered_date"] and not d["registered_date"]:
+                    d["registered_date"] = pl["registered_date"]
+        elif d["registration_no"] != reg:
+            flag("mvl_registration_conflict", d["name"], f"kept #{d['registration_no']}; supplements/MLV say #{reg}")
+    if pl["registered"] == "yes":
+        d["registered_mvl"] = 1
+    if not d["hybridizer_raw"] and pl["hybridizer"]:
+        d["hybridizer_raw"] = pl["hybridizer"]
+        d["_text_hyb"] = True
+    if "mvl_supp" not in d["sources"].split("+"):
+        d["sources"] = (d["sources"] + "+" if d["sources"] else "") + "mvl_supp"
+    d["mvl_lists"] = ", ".join(dict.fromkeys(filter(None, [d.get("mvl_lists", ""), pl["lists"].replace(";", ", ")])))
+    if d["kind"] == "stub":
+        d["kind"] = "cultivar"
+
+
+def attach_mvl(allrec):
+    plants, held = load_mvl()
+    if not plants and not held:
+        return {"plants": 0}
+    decisions = {}
+    if MVL_JOIN_REVIEW.exists():
+        for r in read_review_csv(MVL_JOIN_REVIEW).to_dict("records"):
+            decisions[(r["plant_key"], r["existing_key"])] = r["decision"].strip().lower()
+    by_name = collections.defaultdict(list)
+    for k, d in allrec.items():
+        by_name[K(d["name"])].append((k, d))
+    existing_reg = {d["registration_no"]: d for d in allrec.values() if d["registration_no"]}
+    stats, review, pk2rec = collections.Counter(), [], {}
+    for pl in plants:
+        cands = by_name.get(K(pl["name"]), [])
+        ptoks = mvl_hyb_tokens(pl["hybridizer"])
+        agree = [(k, d) for k, d in cands
+                 if (pl["registration_no"] and d["registration_no"] == pl["registration_no"])
+                 or (ptoks and ptoks & mvl_hyb_tokens(d["hybridizer_raw"]))]
+        target, how = None, ""
+        if len(agree) == 1:
+            target, how = agree[0], "joined_auto"
+        else:
+            for k, d in cands:
+                if decisions.get((pl["plant_key"], k)) == "join":
+                    target, how = (k, d), "joined_decision"
+                    break
+        if target:
+            apply_mvl(target[1], pl, existing_reg)
+            pk2rec[pl["plant_key"]] = target[1]
+            stats[how] += 1
+        else:
+            kind = pl["kind"] if pl["kind"] in ("species",) else (
+                "seedling" if (SEEDLING_CODE.match(pl["name"]) or re.match(r"(?i)^seedling\b", pl["name"])) else "cultivar")
+            rec = {"id": "", "name": cname(pl["name"]), "kind": kind, "sport_of": "", "sport_xlsx": "", "size_class": "",
+                   "color": "", "bloom_description": "", "foliage_description": "", "registration_no": "",
+                   "registered_date": "", "description": "", "notes": "", "sources": "", "source_row": "",
+                   "added_at": "", "seed_parent_raw": "", "pollen_parent_raw": "", "hybridizer_raw": "",
+                   "source_note": "", "supplement_year": "", "_q": None, "_x": None, "uses": 0}
+            rec["_key"] = "mvl|" + pl["plant_key"]
+            apply_mvl(rec, pl, existing_reg)
+            allrec[rec["_key"]] = rec
+            pk2rec[pl["plant_key"]] = rec
+            stats["new"] += 1
+        rec_ = pk2rec[pl["plant_key"]]
+        note = mvl_listing(pl)
+        rec_["source_note"] = "; ".join(dict.fromkeys(filter(None, [rec_.get("source_note", ""), note])))
+        if pl["spelling"] == "spelling_unchecked":
+            stats["spelling_unchecked"] += 1
+            rec_["source_note"] += "; spelling not checked against the AVSA Master Variety List"
+        for k, d in cands:
+            if target and target[0] == k:
+                continue
+            if not target and (k, d) in agree:
+                why = "name and hybridizer match several existing records"
+            elif not ptoks:
+                why = "supplement entry gives no hybridizer"
+            elif not d["hybridizer_raw"]:
+                why = "existing record has no known hybridizer"
+            else:
+                why = "hybridizers differ"
+            review.append({"plant_key": pl["plant_key"], "name": pl["name"], "supplement_hybridizer": pl["hybridizer"],
+                           "supplement_lists": pl["lists"], "supplement_reg": pl["registration_no"],
+                           "supplement_description": pl["description"][:160], "existing_key": k, "existing_name": d["name"],
+                           "existing_hybridizer": d["hybridizer_raw"], "existing_reg": d["registration_no"],
+                           "existing_sources": d["sources"], "reason": why,
+                           "decision": decisions.get((pl["plant_key"], k), "")})
+    # cross references -> notes of the target ("Also listed as X in the 1972 Master List supplement.")
+    xr = DATA / "mvl_crossrefs.csv"
+    if xr.exists():
+        for r in read_review_csv(xr).to_dict("records"):
+            rec_ = pk2rec.get(r["target_plant_key"])
+            if rec_ is not None:
+                line = f"Also listed as {cname(r['alias'])} in the {r['list_year']} Master List supplement."
+                if line not in rec_["notes"]:
+                    rec_["notes"] = (rec_["notes"] + " " if rec_["notes"] else "") + line
+                    stats["crossrefs"] += 1
+    order = {"existing record has no known hybridizer": 0, "supplement entry gives no hybridizer": 1,
+             "name and hybridizer match several existing records": 2, "hybridizers differ": 3}
+    review.sort(key=lambda r: (order[r["reason"]], r["name"].lower()))
+    pd.DataFrame(review, columns=["plant_key", "name", "supplement_hybridizer", "supplement_lists", "supplement_reg",
+                                  "supplement_description", "existing_key", "existing_name", "existing_hybridizer",
+                                  "existing_reg", "existing_sources", "reason", "decision"]).to_csv(
+        MVL_JOIN_REVIEW, index=False, encoding="utf-8-sig")
+    stats["plants"], stats["held_back"], stats["review_rows"] = len(plants), len(held), len(review)
+    return dict(stats)
+
+
 # ------------------------------------------------------------------ originators given as text
 PO_REVIEW = REVIEW / "parent_originator_matches.csv"
 OM_REVIEW = REVIEW / "originator_mapping.csv"
@@ -611,6 +796,17 @@ def own_names(text):
     return [x.strip().rstrip(".").strip() for x in ORIG_SPLIT.split(text) if x.strip().rstrip(".").strip()]
 
 
+INITIALS_FIRST = re.compile(r"^((?:[A-Z]\.\s*)+)([A-Z][\w'’-]+(?:\s[A-Z][\w'’-]+)*)$")
+
+
+def mvl_auto_person(orig, by_norm):
+    """'K. Stork' -> the existing person 'Stork, K.' (exact surname and initials only; decided with the user)."""
+    m = INITIALS_FIRST.match(orig.strip())
+    if not m:
+        return ""
+    return by_norm.get(norm(m.group(2) + m.group(1)), "")
+
+
 def load_originator_mapping(needed, base_people):
     """reports/review/originator_mapping.csv: every originator written only as text, with a proposed link to an
     existing person where the surname matches exactly one. NOTHING is linked unless `decision` says `link`,
@@ -626,6 +822,8 @@ def load_originator_mapping(needed, base_people):
             old[r["originator"]] = r
     rows, mapping, kinds, linked_n = [], {}, {}, 0
     existing_norm = {norm(nm_) for nm_ in base_people}
+    by_norm = {norm(nm_): nm_ for nm_ in base_people}
+    auto_n = 0
     for orig, uses in sorted(needed.items(), key=lambda kv: (-kv[1], kv[0])):
         parts = [orig.strip().rstrip(".")] if norm(orig) in existing_norm else own_names(orig)
         cands = sur.get(norm(parts[0]), []) if len(parts) == 1 else []
@@ -634,6 +832,9 @@ def load_originator_mapping(needed, base_people):
         if dec.lower() in ("link", "yes", "y", "join") and len(cands) == 1:
             final = [cands[0]]
             linked_n += 1
+        elif not dec and mvl_auto_person(orig, by_norm):
+            final = [mvl_auto_person(orig, by_norm)]
+            auto_n += 1
         elif dec and dec.lower() not in ("link", "yes", "y", "join", "keep", "no", "n", "text"):
             final = [x.strip() for x in dec.split(";") if x.strip()]
             linked_n += 1
@@ -650,7 +851,7 @@ def load_originator_mapping(needed, base_people):
     pd.DataFrame(rows, columns=["originator", "uses", "kind", "proposed_link", "decision", "final_person(s)"]).to_csv(
         OM_REVIEW, index=False, encoding="utf-8-sig")
     return mapping, kinds, {"originators": len(rows), "with a proposed link": sum(1 for r in rows if r["proposed_link"]),
-                     "linked by decision": linked_n}
+                     "linked by decision": linked_n, "auto-linked (I. Surname = Surname, I.)": auto_n}
 
 
 FIELD_MAP = [("Variety", "size_class"), ("Colour", "color"), ("Bloom", "bloom_description"),
@@ -942,6 +1143,7 @@ def build():
 
     allrec = collections.OrderedDict(list(out.items()) + list(stubs.items()))
     ml_stats = attach_masterlist(allrec)
+    mvl_stats = attach_mvl(allrec)
     # ids
     used = {}
     same_name = collections.Counter(norm(d["name"]) for d in allrec.values())
@@ -1057,7 +1259,7 @@ def build():
                        "kind": "photos" if "drive.google.com" in u else "web"})
 
     return dict(n_corr=n_corr, n_pcorr=n_pcorr, allrec=allrec, parentage=parentage, people=people, hyb=links, links=cl, n_named=n_named,
-                dropped=dropped, n_new_map=n_new, sq=sq, xl=xl, sp=sp, stubs=stubs, out=out, ml=ml_stats,
+                dropped=dropped, n_new_map=n_new, mvl=mvl_stats, sq=sq, xl=xl, sp=sp, stubs=stubs, out=out, ml=ml_stats,
                 po=dict(po_stats, review=len(rows_po)), om=o_stats)
 
 
@@ -1110,7 +1312,7 @@ def write_all(res):
     cols = ["id", "name", "kind", "sport_of_id", "size_class", "color", "bloom_description", "foliage_description",
             "registration_no", "registered_year", "registered_date", "description", "notes", "sources", "source_row",
             "added_at", "seed_parent_raw", "pollen_parent_raw", "hybridizer_raw", "source_note", "supplement_year",
-            "registered_1963", "masterlist_1963"]
+            "registered_1963", "masterlist_1963", "registered_mvl", "mvl_lists"]
     rows = []
     for d in allrec.values():
         r = {c: d.get(c, "") for c in cols}
@@ -1149,6 +1351,7 @@ def main():
              f"- reviewer corrections applied (data_corrections.csv): {res['n_corr']}",
              f"- parent corrections applied (parent_corrections.csv): {res['n_pcorr']}",
              f"- 1963 Master List: {res['ml']}",
+             f"- Master List supplements 1964-2002: {res['mvl']}",
              f"- parents written 'Name (Originator)': {res['po']}",
              f"- originators written as text, now people: {res['om']}",
              f"- sports linked: {sum(1 for d in allrec.values() if d['sport_of'])}",

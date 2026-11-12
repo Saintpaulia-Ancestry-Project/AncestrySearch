@@ -61,6 +61,8 @@ CREATE TABLE cultivars (
   supplement_year     INTEGER,
   registered_1963     INTEGER NOT NULL DEFAULT 0,  -- 1 = flagged REG. in the 1963 AVSA Master List
   masterlist_1963     TEXT,                        -- where the 1963 Master List lists it, e.g. "main list p. 14"
+  registered_mvl      INTEGER NOT NULL DEFAULT 0,  -- 1 = marked registered in an AVSA Master List supplement 1964-2002
+  mvl_lists           TEXT,                        -- supplement years that list it, e.g. "1964, 1972"
   CHECK (sport_of_id IS NULL OR sport_of_id <> id)
 );
 
@@ -142,7 +144,9 @@ CREATE VIEW v_cultivar_list AS
   SELECT c.id, c.name, c.kind, c.size_class, c.color, c.registration_no, c.registered_year,
          coalesce(h.hybridizers, c.hybridizer_raw) AS hybridizers,
          (c.masterlist_1963 IS NOT NULL) AS in_masterlist_1963,
-         (c.sources = 'masterlist1963') AS only_1963,
+         (c.sources = 'masterlist1963'
+            OR (c.sources IN ('mvl_supp', 'masterlist1963+mvl_supp') AND c.registration_no IS NULL
+                AND c.registered_mvl = 0 AND c.registered_1963 = 0)) AS only_1963,
          c.registered_1963,
          (c.sport_of_id IS NOT NULL
             OR EXISTS (SELECT 1 FROM cultivars s WHERE s.sport_of_id = c.id)) AS is_sport_family,
@@ -350,10 +354,10 @@ def main():
         # parents first is not required (FKs are checked at commit, deferred below)
         con.execute("PRAGMA defer_foreign_keys = ON")
         cols = list(cultivars[0].keys())
-        int_cols = {"registration_no", "registered_year", "source_row", "supplement_year", "registered_1963"}
+        int_cols = {"registration_no", "registered_year", "source_row", "supplement_year", "registered_1963", "registered_mvl"}
         con.executemany(
             f"INSERT INTO cultivars ({','.join(cols)}) VALUES ({','.join('?' * len(cols))})",
-            [tuple((to_int(c[k]) or 0) if k == "registered_1963" else (to_int(c[k]) if k in int_cols else nz(c[k]))
+            [tuple((to_int(c[k]) or 0) if k in ("registered_1963", "registered_mvl") else (to_int(c[k]) if k in int_cols else nz(c[k]))
                    for k in cols) for c in cultivars])
         con.executemany("INSERT INTO cultivar_hybridizers VALUES (?,?,?)",
                         [(r["cultivar_id"], r["person_id"], int(r["position"])) for r in ch])

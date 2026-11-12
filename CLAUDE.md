@@ -283,3 +283,22 @@ receiver's pure validation code in headless Edge. Deployed: SUBMIT_URL in submit
 2. Local mode: mydata.sqlite for user data (sql.js cannot ATTACH files: plan a second
    in-memory DB and merge in JS, or load user CSVs).
 3. Deploy to GitHub Pages; images via jsDelivr.
+
+## MVL supplements 1964-2002 (plan: notes/mvl-supplements-plan.md)
+Source source/MVL_Supplements_cultivars.xlsx (OCR of the AVSA Master List supplements; MLV.xls in the private Hector
+archive is the PRIMARY CHECK of spelling/number/date/size, nothing is imported from MLV-only rows). Pipeline:
+scripts/prep_mvl_supplements.py -> data/mvl_supplements.csv (one row per plant), mvl_crossrefs.csv, review files
+reports/review/mvl_spelling.csv (near-misses; `mlv` = use MLV spelling), mvl_regno.csv, mvl_matches.csv (`join`);
+scripts/split_mvl_descriptions.py -> data/mvl_description_split.csv (rule-based color/bloom/foliage; `needs review` rows
+in reports/review/mvl_split_review.csv, fill corrected_* or decision `use`); import_excel.py attach_mvl() joins plants to
+existing records only when name AND hybridizer/reg number agree (others: reports/review/mvl_join_matches.csv, `join`),
+fills EMPTY fields only, source token `mvl_supp`, columns registered_mvl + mvl_lists. HELD BACK until reviewed (listed in
+reports/review/mvl_held_back.csv): split needs review, undecided spelling near-miss, same name without hybridizer.
+Decisions (user): not-in-MLV names imported flagged "spelling not checked"; unregistered supplement-only names hidden by
+the search checkbox "Exclude old names" (view column only_1963 now covers both); cross refs go into notes; "I. Surname"
+auto-links to an existing "Surname, I." person. After editing a review file re-run: prep -> split -> import_excel ->
+import_submissions apply -> import_sports_page -> build_db -> export_ancestry_xlsx. Needs xlrd (in .venv).
+LOCAL ONLY: scripts/prep_mvl_supplements.py reads MLV.xls (private Hector archive) and is git-ignored: never commit or push it. Its
+outputs (data/mvl_*.csv, reports/review/mvl_*.csv) and source/MVL_Supplements_cultivars.xlsx ARE committed; the Pages
+workflow (build_db.py + export only) and import_excel.py never need MLV.xls (shared helper: scripts/mvl_lib.py). Back up
+the script from the private repo side if needed; it is not in git.
