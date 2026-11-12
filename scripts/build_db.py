@@ -144,9 +144,10 @@ CREATE VIEW v_cultivar_list AS
   SELECT c.id, c.name, c.kind, c.size_class, c.color, c.registration_no, c.registered_year,
          coalesce(h.hybridizers, c.hybridizer_raw) AS hybridizers,
          (c.masterlist_1963 IS NOT NULL) AS in_masterlist_1963,
-         (c.sources = 'masterlist1963'
-            OR (c.sources IN ('mvl_supp', 'masterlist1963+mvl_supp') AND c.registration_no IS NULL
-                AND c.registered_mvl = 0 AND c.registered_1963 = 0)) AS only_1963,
+         (c.sources = 'masterlist1963') AS only_1963,
+         -- old unregistered names found only in the 1964-2002 supplements (alone or joined to a 1963 entry)
+         (c.sources IN ('mvl_supp', 'masterlist1963+mvl_supp') AND c.registration_no IS NULL
+            AND c.registered_mvl = 0 AND c.registered_1963 = 0) AS only_supp_unreg,
          c.registered_1963,
          (c.sport_of_id IS NOT NULL
             OR EXISTS (SELECT 1 FROM cultivars s WHERE s.sport_of_id = c.id)) AS is_sport_family,

@@ -163,6 +163,7 @@ function renderSearch(app, params) {
     desc: params.get("desc") === "1",
     photo: params.get("photo") === "1",
     old: params.get("old") === "1", // include names found only in the 1963 Master List (hidden by default)
+    supp: params.get("supp") === "1", // include old unregistered names found only in the 1964-2002 supplements (hidden by default)
     page: Math.max(1, parseInt(params.get("page") || "1", 10) || 1),
   };
   const where = [];
@@ -174,6 +175,7 @@ function renderSearch(app, params) {
   if (state.desc) where.push("l.has_description = 1");
   if (state.photo) where.push("l.has_photo = 1");
   if (!state.old) where.push("l.only_1963 = 0");
+  if (!state.supp) where.push("l.only_supp_unreg = 0");
 
   let from, order, orderBind = {};
   const words = searchWords(state.q);
@@ -206,17 +208,24 @@ function renderSearch(app, params) {
     const w3 = where.filter((x) => x !== "l.only_1963 = 0");
     hidden63 = q1(`SELECT count(*) AS n FROM ${from} ${w3.length ? "WHERE " + w3.join(" AND ") : ""}`, bind).n - total;
   }
+  // old unregistered names found only in the 1964-2002 supplements: also hidden by default
+  let hiddenSupp = 0;
+  if (!state.supp && (ftsq || reg)) {
+    const w4 = where.filter((x) => x !== "l.only_supp_unreg = 0");
+    hiddenSupp = q1(`SELECT count(*) AS n FROM ${from} ${w4.length ? "WHERE " + w4.join(" AND ") : ""}`, bind).n - total;
+  }
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const sizes = q("SELECT DISTINCT size_class AS s FROM cultivars WHERE size_class IS NOT NULL ORDER BY 1").map((r) => r.s);
-  const st = q1(`SELECT (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0) AS n,
+  const st = q1(`SELECT (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0) AS n,
                         (SELECT count(*) FROM v_cultivar_list WHERE only_1963 = 1) AS old,
-                        (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0 AND has_ancestry) AS a,
-                        (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0 AND has_description) AS d`);
+                        (SELECT count(*) FROM v_cultivar_list WHERE only_supp_unreg = 1) AS supp,
+                        (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0 AND has_ancestry) AS a,
+                        (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0 AND has_description) AS d`);
 
-  const link = (page) => hashFor("/", { q: state.q, size: state.size, all: state.all, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, old: state.old, page: page > 1 ? page : "" });
+  const link = (page) => hashFor("/", { q: state.q, size: state.size, all: state.all, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, old: state.old, supp: state.supp, page: page > 1 ? page : "" });
   app.innerHTML = `
     <h1>African violet cultivars</h1>
-    <p class="lede">${num(st.n)} cultivars${st.old ? ` and ${num(st.old)} older names from the 1963 Master List and the 1964–2002 supplements` : ""} &middot; ${num(st.a)} with ancestry &middot; ${num(st.d)} with descriptions.
+    <p class="lede">${num(st.n)} cultivars${st.old ? ` and ${num(st.old)} older names from the 1963 Master List` : ""}${st.supp ? `${st.old ? " and" : " and"} ${num(st.supp)} old unregistered names from the 1964–2002 supplements` : ""} &middot; ${num(st.a)} with ancestry &middot; ${num(st.d)} with descriptions.
       Search by name, hybridizer, color or description, or enter an AVSA registration number.</p>
     <form class="search-form" id="sform" role="search">
       <div class="search-row">
@@ -229,15 +238,18 @@ function renderSearch(app, params) {
         <label><input type="checkbox" name="anc"${state.anc ? " checked" : ""}> Has ancestry</label>
         <label><input type="checkbox" name="desc"${state.desc ? " checked" : ""}> Has description</label>
         <label><input type="checkbox" name="photo"${state.photo ? " checked" : ""}> Has photo</label>
-        <label><input type="checkbox" name="excl63"${state.old ? "" : " checked"}> Exclude old unregistered names</label>
+        <label><input type="checkbox" name="excl63"${state.old ? "" : " checked"}> Exclude names found only in the 1963 Master List</label>
+        <label><input type="checkbox" name="exclsupp"${state.supp ? "" : " checked"}> Exclude old unregistered names</label>
         <label><input type="checkbox" name="all"${state.all ? " checked" : ""}> Include seedlings, species &amp; unlisted parents</label>
       </div>
     </form>
     <p class="stats" role="status">${num(total)} ${total === 1 ? "result" : "results"}${state.q ? ` for “${esc(state.q)}”` : ""}${total > PAGE_SIZE ? ` &middot; page ${state.page} of ${pages}` : ""}</p>
     ${hidden > 0 ? `<p class="note-box">${num(hidden)} more ${hidden === 1 ? "match is a name that appears only as a parent, seedling or species." : "matches are names that appear only as parents, seedlings or species."}
-        <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, old: state.old, all: true })}">Include ${hidden === 1 ? "it" : "them"}</a></p>` : ""}
-    ${hidden63 > 0 ? `<p class="note-box">${num(hidden63)} more ${hidden63 === 1 ? "match is a name" : "matches are names"} found only in the old Master Lists.
-        <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, all: state.all, old: true })}">Include ${hidden63 === 1 ? "it" : "them"}</a></p>` : ""}
+        <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, old: state.old, supp: state.supp, all: true })}">Include ${hidden === 1 ? "it" : "them"}</a></p>` : ""}
+    ${hidden63 > 0 ? `<p class="note-box">${num(hidden63)} more ${hidden63 === 1 ? "match is a name" : "matches are names"} found only in the 1963 Master List.
+        <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, all: state.all, supp: state.supp, old: true })}">Include ${hidden63 === 1 ? "it" : "them"}</a></p>` : ""}
+    ${hiddenSupp > 0 ? `<p class="note-box">${num(hiddenSupp)} more ${hiddenSupp === 1 ? "match is an old unregistered name" : "matches are old unregistered names"} found only in the 1964–2002 supplements.
+        <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, all: state.all, old: state.old, supp: true })}">Include ${hiddenSupp === 1 ? "it" : "them"}</a></p>` : ""}
     ${rows.length ? `<ul class="results">${rows.map(card).join("")}</ul>` : `<p>No cultivars match. Try fewer words or clear a filter.</p>`}
     ${pages > 1 ? `<div class="pager">
         <a class="btn secondary" ${state.page > 1 ? `href="${link(state.page - 1)}"` : 'aria-disabled="true" style="visibility:hidden"'}>&larr; Previous</a>
@@ -247,7 +259,7 @@ function renderSearch(app, params) {
   $("#sform").addEventListener("submit", (e) => {
     e.preventDefault();
     const f = new FormData(e.target);
-    location.hash = hashFor("/", { q: (f.get("q") || "").trim(), size: f.get("size"), sport: !!f.get("sport"), anc: !!f.get("anc"), desc: !!f.get("desc"), photo: !!f.get("photo"), all: !!f.get("all"), old: f.get("excl63") ? "" : "1" });
+    location.hash = hashFor("/", { q: (f.get("q") || "").trim(), size: f.get("size"), sport: !!f.get("sport"), anc: !!f.get("anc"), desc: !!f.get("desc"), photo: !!f.get("photo"), all: !!f.get("all"), old: f.get("excl63") ? "" : "1", supp: f.get("exclsupp") ? "" : "1" });
   });
   $("#sform").addEventListener("change", (e) => { if (e.target.type !== "search") $("#sform").requestSubmit(); });
 }
