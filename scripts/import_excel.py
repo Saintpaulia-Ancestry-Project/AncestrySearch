@@ -663,6 +663,8 @@ def load_mvl():
     for pl in plants:
         sp = split.get(pl["plant_key"], {})
         pl["_split"] = sp
+        if sp.get("split_status") == "deleted":      # reviewer decision `delete` in mvl_split_review.csv: not imported
+            continue
         reasons = []
         if sp.get("split_status", "needs review") == "needs review":
             reasons.append("description split needs review")

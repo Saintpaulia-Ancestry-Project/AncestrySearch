@@ -15,6 +15,8 @@ Rules (rule-based, no guessing):
   * Statuses: ok | bloom only | foliage only | needs review | species (not split) | human (from the review file).
   * Review file (re-runnable): fill corrected_color / corrected_bloom / corrected_foliage (any may stay empty = no part),
     or decision `use` to accept the proposal as is; the row then gets status `human` and is released.
+    Claude's reviewed proposals sit in claude_color / claude_bloom / claude_foliage (decision `proposed_correction`, still held);
+    set decision `accept` to release a row with those values; `delete` = never import this plant (status `deleted`).
 Usage: .venv\\Scripts\\python scripts\\split_mvl_descriptions.py
 """
 import csv
@@ -371,29 +373,40 @@ def main():
         h = human.get(r["plant_key"])
         if h and status == "needs review":
             c = [h.get("corrected_color", "").strip(), h.get("corrected_bloom", "").strip(), h.get("corrected_foliage", "").strip()]
-            if any(c):
+            if h.get("decision", "").strip().lower() == "delete":
+                color = bloom = foliage = ""   # reviewer: do not add this cultivar to the database
+                status = "deleted"
+            elif any(c):
                 color, bloom, foliage, status = c[0], c[1], c[2], "human"
             elif h.get("decision", "").strip().lower() == "use":
                 status = "human"
-        decided = bool(h) and status == "human"
+            elif h.get("decision", "").strip().lower() == "accept":     # take the proposed_correction (claude_*) as written
+                c = [h.get("claude_color", "").strip(), h.get("claude_bloom", "").strip(), h.get("claude_foliage", "").strip()]
+                if any(c):
+                    color, bloom, foliage, status = c[0], c[1], c[2], "human"
+        decided = bool(h) and status in ("human", "deleted")
         counts[status] = counts.get(status, 0) + 1
         out.append({"plant_key": r["plant_key"], "color": color, "bloom_description": bloom, "foliage_description": foliage,
                     "split_status": status})
         if decided:                  # keep decided rows in the file, otherwise the next run would forget the decision
             review.append({**{k: h.get(k, "") for k in ("plant_key", "name", "hybridizer", "lists", "row_ids", "description", "reason",
                               "proposed_color", "proposed_bloom", "proposed_foliage", "corrected_color", "corrected_bloom",
-                              "corrected_foliage", "decision")},
+                              "corrected_foliage", "decision", "claude_color", "claude_bloom", "claude_foliage", "claude_note")},
                            "name": r["name"], "hybridizer": r["hybridizer"], "lists": r["lists"], "row_ids": r["row_ids"],
                            "description": r["description"]})
         elif status == "needs review":
             review.append({"plant_key": r["plant_key"], "name": r["name"], "hybridizer": r["hybridizer"],
                            "lists": r["lists"], "row_ids": r["row_ids"], "description": r["description"], "reason": reason,
                            "proposed_color": color, "proposed_bloom": bloom, "proposed_foliage": foliage,
-                           "corrected_color": "", "corrected_bloom": "", "corrected_foliage": "", "decision": ""})
+                           "corrected_color": "", "corrected_bloom": "", "corrected_foliage": "",
+                           "decision": (h or {}).get("decision", ""), "claude_color": (h or {}).get("claude_color", ""),
+                           "claude_bloom": (h or {}).get("claude_bloom", ""), "claude_foliage": (h or {}).get("claude_foliage", ""),
+                           "claude_note": (h or {}).get("claude_note", "")})
     for path, data, cols in (
         (DATA / "mvl_description_split.csv", out, ["plant_key", "color", "bloom_description", "foliage_description", "split_status"]),
         (REVIEW, review, ["plant_key", "name", "hybridizer", "lists", "row_ids", "description", "reason", "proposed_color", "proposed_bloom", "proposed_foliage",
-                          "corrected_color", "corrected_bloom", "corrected_foliage", "decision"])):
+                          "corrected_color", "corrected_bloom", "corrected_foliage", "decision", "claude_color", "claude_bloom",
+                          "claude_foliage", "claude_note"])):
         with open(path, "w", encoding="utf-8", newline="") as f:
             w = csv.DictWriter(f, fieldnames=cols)
             w.writeheader()

@@ -5465,7 +5465,7 @@ aufelda,coryell,1
 augusta,behnke,1
 aunt-ellen,rose,1
 aunt-june,price,1
-aunt-polly,griffen,1
+aunt-polly-griffen,griffen,1
 aunt-selma,price,1
 aurora-fischer,fischer,1
 aurora-ulery,ulery,1
@@ -5480,7 +5480,7 @@ ave-maria,sappenfield,1
 avalon-tonkadale,tonkadale,1
 avalon-tonkadale-2,tonkadale,1
 avalon-rector,rector,1
-aztec,tonkadale,1
+aztec-tonkadale,tonkadale,1
 aztec-maiden,caldon,1
 azu-likit,caldon,1
 azure-beauty-ulery,ulery,1
@@ -5653,7 +5653,7 @@ blue-beauty-furnish,furnish,1
 blue-beauty-odom,odom,1
 blue-beauty-ulery,ulery,1
 blue-beauty-double-girl,reichert,1
-blue-begonia,merkel,1
+blue-begonia-merkel,merkel,1
 blue-belle-fischer,fischer,1
 blue-belle-ulery,ulery,1
 blue-belle-supreme,fischer,1
@@ -6153,7 +6153,7 @@ cherry-song,hasenyager,1
 cherry-velvet-vallin,vallin,1
 cherry-velvet-vallin-2,vallin,1
 cherry-wine,lyon,1
-cherub,hendrix,1
+cherub-hendrix,hendrix,1
 cherubim,edena,1
 chevron,tonkadale,1
 chicapee,cole,1
@@ -6327,7 +6327,7 @@ cresta-blanca-fairoaks,fairoaks,1
 crested-beauty-hull,hull,1
 crested-girl,nelson,1
 crimson-challenge,granger,1
-crimson-glory,nelson,1
+crimson-glory-nelson,nelson,1
 crimson-glow-buynak,buynak,1
 crimson-halo,human,1
 crimson-lake,roehrs,1
@@ -6520,7 +6520,7 @@ denver-wi-mi-ko,riese,1
 desert-dawn-hammond,hammond,1
 desert-dusk-hammond,hammond,1
 desert-glow-hammond,hammond,1
-desert-rose,reichert,1
+desert-rose-reichert,reichert,1
 desert-shadows,wilson,1
 desert-star-rector,rector,1
 desert-star-hammond,hammond,1
@@ -7332,7 +7332,7 @@ grand-duchess-buynak,buynak,1
 grand-duke,buynak,1
 grand-lady-behnke,behnke,1
 grand-pacific,niemann,1
-grandeur,granger,1
+grandeur-granger,granger,1
 grandma-moses,rand,1
 grape-wine,av-nook,1
 great-dane,brown,1
@@ -7503,7 +7503,7 @@ honey-bouquet,vallin,1
 honey-bud,lyon,1
 honey-bug,reichert,1
 honey-bun-sappenfield,sappenfield,1
-honey-chile,sappenfield,1
+honey-chile-sappenfield,sappenfield,1
 honey-comb-tonkadale,tonkadale,1
 honeycomb-tonkadale,tonkadale,1
 honey-comb-madison,madison,1
@@ -8315,7 +8315,7 @@ mona-lou,or-monalou,1
 monarch,engardt,1
 monita,mona-allen,1
 monterey-tonkadale,tonkadale,1
-montreal,tonkadale,1
+montreal-tonkadale,tonkadale,1
 moonbeam-rivenburg,rivenburg,1
 moonbeam-hansen,hansen,1
 moonbeam-ulery,ulery,1
@@ -8542,7 +8542,7 @@ old-fashion-lyon,lyon,1
 old-lace-brown,brown,1
 old-rose-odom,odom,1
 old-rose-bouquet,tinari,1
-old-smoky,anderson,1
+old-smoky-anderson,anderson,1
 olive,oppen,1
 olivia-tonkadale,tonkadale,1
 omar-rose,edena,1
@@ -8589,7 +8589,7 @@ orchid-magic-hinkley,hinkley,1
 orchid-pink,mulford,1
 orchid-prince,fischer,1
 orchid-queen,decker,1
-orchid-ripples,baker,1
+orchid-ripples-baker,baker,1
 orchid-silk,morris,1
 orchid-smoke,naomi,1
 orchid-star-hinkley,hinkley,1
@@ -8952,8 +8952,8 @@ pink-ric-rac,vallin,1
 pink-ripples,rose,1
 pink-rock,peters,1
 pink-rocket,tonkadale,1
-pink-ruffles,perdue,1
-pink-satin,reichert,1
+pink-ruffles-perdue,perdue,1
+pink-satin-reichert,reichert,1
 pink-sea-shell,fischer,1
 pink-sequin,fischer,1
 pink-shasta,fischer,1
@@ -9027,7 +9027,7 @@ plum-glory,wilcox,1
 plum-pretty-bruce,bruce,1
 plum-satin,tinari,1
 plum-saucy,scully,1
-pocahontas,coleman,1
+pocahontas-coleman,coleman,1
 pogey,straitiff,1
 polar-ice-tonkadale,tonkadale,1
 polar-ice-fischer,fischer,1
@@ -9042,7 +9042,7 @@ pomponette,madison,1
 poncho,thalheimer,1
 popcorn-hutchens,hutchens,1
 popcorn-fischer,fischer,1
-pop-eye,price,1
+pop-eye-price,price,1
 portland-girl,baker,1
 portland-rose,baker,1
 portola,rector,1
@@ -10414,7 +10414,7 @@ w-s-sport,meeds,1
 wunda,edena,1
 wynken,parker,1
 wyoming-ten-hagen,ten-hagen,1
-xanadu,hansen,1
+xanadu-hansen,hansen,1
 yakima-beauty,france,1
 yana,stanley,1
 yankee-lass,sappenfield,1
@@ -10534,7 +10534,7 @@ counterpoint,lyon,1
 cradle-blue,frathel,1
 crater-lake,baker,1
 crew-cut,haga,1
-cricket,rector,1
+cricket-rector,rector,1
 crimped-blue,rienhardt,1
 crusader-fischer,fischer,1
 crystal-mint,fischer,1
@@ -11032,7 +11032,7 @@ ann-spencer,granger,1
 apollo-hi-hill,hi-hill,1
 applause-fritz,fritz,1
 april-glamour,manelta,1
-arabian-blue,madison,1
+arabian-blue-madison,madison,1
 arcadia-tonkadale,tonkadale,1
 aristocrat-fischer,fischer,1
 arloa,tonkadale,1
@@ -11329,7 +11329,7 @@ heldie,granger,1
 helen-s-dupont,coryell,1
 high-fashion-west,west,1
 high-fever-west,west,1
-hi-jinks,luciano,1
+hi-jinks-luciano,luciano,1
 highland-lassie-turner,turner,1
 hit-parade,luciano,1
 hoe-down,luciano,1
@@ -11781,7 +11781,7 @@ valley-girl,wilson-bros,1
 variegated-breathless,vallin,1
 vassar-girl,edena,1
 velvet-ball,lyon,1
-velvet-glow,madison,1
+velvet-glow-madison,madison,1
 venetian-blue,madison,1
 venetian-lace-coniber,coniber,1
 venetian-love,luciano,1
@@ -11865,7 +11865,7 @@ black-taffeta,frathel,1
 blue-banana,young,1
 bluebird-blue,frathel,1
 blue-comet,madison,1
-blue-denim,luciano,1
+blue-denim-luciano,luciano,1
 blue-flora,granger,1
 blue-giant,lyon,1
 blue-glendora,madison,1
@@ -12153,7 +12153,7 @@ midnight-seas,granger,1
 mighty-lak-a-rose,granger,1
 mike-meese,meese,1
 mint-frappe,luciano,1
-miracle-strawberry,manelta,1
+miracle-strawberry-manelta,manelta,1
 mirage-constantinov,constantinov,1
 mischief-arndt,arndt,1
 miss-montclair,palmer,1
@@ -12574,8 +12574,10 @@ adirondack-trail,lyon,1
 admiration-frathel,frathel,1
 admiration-rienhardt,rienhardt,1
 adorable-swifts-av,swift-s-av,1
-adoration,frathel,1
+adoration-frathel,frathel,1
+adoration-lyon,lyon,1
 aegean,hi-hill,1
+aeolian-wasp,dates,1
 aesop,storytella,1
 affection,i-fredette,1
 affectionate,r-g-anderson,1
@@ -12604,6 +12606,7 @@ aileen,volkmann,1
 ain-t-she-sweet,baker-s,1
 ainsi-beau,frathel,1
 ain-t-misbehaving,susan-s-v,1
+air-borne,edena,1
 ajax,richter,1
 ajewel,doris,1
 al-yoki,horikoshi,1
@@ -12660,6 +12663,7 @@ alamo-splendor,h-pittman,1
 alamo-treasure,h-pittman,1
 alamode,swifts,1
 alan-roy,c-d-martin,1
+alan-s-fallen-angel,murphy,1
 alan-s-showy-snowy,murphy-a,1
 alayne,nw,1
 albany-sunset,b-britt,1
@@ -12674,9 +12678,12 @@ alfred,swift-s-av,1
 aliane,campbell,1
 alice,c-powers,1
 alice-ann,maas,1
+alice-blue,lyon,1
 alice-charles,violets-atlanta,1
 alice-marie,volkmann-bros,1
 alice-watters,mrs-norman-patterson,1
+alice-yawger,j,1
+alice-yawger,b-sisk,2
 aliegiance,v-lorenzen-park-n,1
 alinor,campbell,1
 alinor-lou,d-thomas,1
@@ -12688,6 +12695,7 @@ all-pink-lanigan,lanigan,1
 all-ready-red,r-russell,1
 all-roses,house-of-violets,1
 all-smiles,mrs-john-nielson,1
+all-star,mary-ray,1
 allatia,foote-t,1
 allegheny-moon,the-house-of-violets,1
 allegro-c-akemann,c-akemann,1
@@ -12749,6 +12757,7 @@ american-mayfair,dr-s-c-reed,1
 americana-granger,granger,1
 amethyst-bouquet,fisher-e,1
 amethyst-flame,hollyce-smith,1
+amethyst-fountain-i-fredette,i-fredette,1
 amethyst-moire,arndt,1
 amethyst-sunshine,k-stork,1
 amethystland,griffiths,1
@@ -12769,7 +12778,9 @@ andrea,michel,1
 andrew,f-a-tinari,1
 andromeda-i,lyn-d-robinson,1
 andrus,utz,1
+andy-griffiths,griffiths,1
 angel-face-annalee-v,annalee-v,1
+angel-face-baker-s,baker-s,1
 angel-face-frathel,frathel,1
 angel-face-lyon-sorano,lyon,1
 angel-face-lyon-sorano,sorano,2
@@ -12783,6 +12794,7 @@ angel-lace-lyon-sorano,sorano,2
 angel-lace-candy-phillips,candy-phillips,1
 angel-love,lyon,1
 angel-love,sorano,2
+angel-mine,swifts-violets,1
 angel-of-joy,johnston-n,1
 angel-pink-e-fisher,fisher-e,1
 angel-pink-volkmann,volkmann,1
@@ -12801,6 +12813,7 @@ angel-s-petticoats-mrs-w-f-anderson,mrs-w-f-anderson,1
 angel-s-star,mrs-p-w-kiesling,1
 angel-n-trouble,lyon,1
 angel-n-trouble,sorano,2
+angela-love,hightower,1
 angela-marie-d-croteau,d-croteau,1
 angela-marie-e-fisher,fisher-e,1
 angela-mia,c-dedera,1
@@ -12821,6 +12834,7 @@ anna-fischer,fischer,1
 anna-kreeck,e-trent,1
 anna-therese,g-beck,1
 annabelle-k-stork,k-stork,1
+annabelle-hart,wasmund-r,1
 annchen,doris-intel,1
 anne-s-favorite,tinari-gh,1
 anne-s-favorite-sport,f-tinari,1
@@ -12860,6 +12874,7 @@ apache-cutie,ness-d,1
 apache-dancer,munk-jc,1
 apache-daydream,j-munk,1
 apache-delight,j-munk,1
+apache-diamond,j-c-munk,1
 apache-eagle,j-munk,1
 apache-face,munk-jc,1
 apache-fanfare,j-munk,1
@@ -12913,6 +12928,7 @@ apache-warpath,j-munk,1
 apache-warrior,munk-jc,1
 apache-winter,j-c-munk,1
 apex,burton,1
+apocalypse,swift,1
 apollo-pink,tinari-gh,1
 appassionata,baker,1
 appeal,annalee,1
@@ -12924,6 +12940,7 @@ apricot-honey,frathel,1
 apricot-silk,fisher-e,1
 april-e-fisher,fisher-e,1
 april-allure,swift-s-av,1
+april-breeze,fischer,1
 april-dancer,lyon,1
 april-dawn,howard-utz,1
 april-doll,edena,1
@@ -12938,6 +12955,7 @@ april-violet,fredette,1
 aquarius,harry-r-albro,1
 aquilla,reed,1
 arabella-arndt,arndt,1
+arabian-blue-sierk,sierk,1
 arabian-princess,arndt,1
 arabian-purple,dennee,1
 arbutus-pink,r-o-dennee,1
@@ -13009,11 +13027,13 @@ august-glow,swift,1
 august-moon,volkmann,1
 august-skies,lyon-gh,1
 august-skies,sorano,2
+aunt-clara,e-j-imhoff,1
 aunt-frances,i-lineberg,1
 aunt-georgia,k-stork,1
 aunt-goldie,miller-s-av,1
 aunt-irene,k-stork,1
 aunt-marie,k-stork,1
+aunt-polly-mrs-c-h-heard,mrs-c-h-heard,1
 aunt-thyra,b-foster,1
 auntie-em,gross,1
 auraria,mrs-p-w-kiesling,1
@@ -13076,6 +13096,7 @@ autumn-splendor,edena,1
 autumn-sunset-lyon-gh-sorano,lyon-gh,1
 autumn-sunset-lyon-gh-sorano,sorano,2
 autumn-sunset-hammond,hammond,1
+autumn-wonderland,violets-atlanta,1
 autumn-s-little-priss,groeneman,1
 avalanche-b-bryant,b-bryant,1
 avalon-granger-gardens,granger-gardens,1
@@ -13083,6 +13104,7 @@ avalon-pink,fritz,1
 avalon-white,kartuz,1
 aventure,tremblay,1
 avis,m-lanigan,1
+awe-inspiring,swift-j,1
 ayako,eyerdom,1
 aye-jay,pat-tracey,1
 ayer-s-rock,dr-5-crawcour,1
@@ -13090,6 +13112,7 @@ ayesha,adams-a-e,1
 aylesha-nicole,fisher-s-av,1
 azalea,house-of-violets,1
 azalia,fisher-e,1
+aztec-h-eyerdom,eyerdom-h,1
 aztec-trail,ruth-bronson,1
 azure-blue-tinari,tinari,1
 azure-butterfly,arndt,1
@@ -13100,6 +13123,7 @@ b-man-s-etna,b-curcuruto,1
 b-man-s-milazzo,b-curcuruto,1
 b-man-s-palermo,b-curcuruto,1
 babe-ron-nadeau,ron-nadeau,1
+babette,robert-kramer,1
 babs-a-l-carter,a-l-carter,1
 baby-ann,j-dunbar,1
 baby-blue-arndt,arndt,1
@@ -13214,6 +13238,7 @@ barbara-s-christie,mrs-chas-w-parks,1
 barbara-s-cajun-delight,j,1
 barbara-s-cajun-delight,b-sick,2
 barbie-l-hale,l-hale,1
+barbie-s-dream,b-miller-morris,1
 barette,richter,1
 baritone,k-stork,1
 barnabas,reed,1
@@ -13226,6 +13251,7 @@ basy-love,domiano-jeanette,1
 bat-man,lyon,1
 batchler-button,vallin,1
 batgirl,lyon,1
+baton-rouge,sisk,1
 bay-bridge,richter,1
 bay-stater,harry-albro,1
 bayou-baby,violets-c,1
@@ -13249,6 +13275,7 @@ beauregard,fredette,1
 beautiful-swifts,swifts,1
 beautique,richter,1
 beauty-spot,bob-kramer,1
+because,swifts-av,1
 beca-s-botswana,c-beca,1
 beca-s-zimbabwe,c-beca,1
 becky-union-county-chapter-avsa,union-county-chapter-avsa,1
@@ -13266,21 +13293,26 @@ beguiling-swifts,swifts,1
 behold-madison,madison,1
 beignet,reeds,1
 believer,robert-anderson,1
+belinda-ray,r-scott,1
 bell-ringing-fool,mrs-h-j-hebert,1
 bella-donna-nelly-levine,nelly-levine,1
 bellaire,maas,1
 bellefleur,elkin,1
 bellringer-mrs-c-s-hawley,mrs-c-s-hawley,1
 beloved-dorothy-harris,dorothy-harris,1
+ben-hur,madison,1
 bengal-beauty,v-lorenzen-park-nursery,1
 benjamin,wiesner,1
 beret,meese,1
 bergen-charmin-lois,union-county-chapter-avsa,1
 bergen-county-godmother,muriel-t-kaiser,1
+bergen-county-strawberry-sherbert,rita-luciano,1
 bergen-hilda-schulz,muriel-t-kaiser,1
 bergen-lila-baxter,muriel-t-kaiser,1
 bergen-lucille-loughlin,kaiser,1
 bergen-shorty-kohler,muriel-t-kaiser,1
+bergen-showgirl,kaiser,1
+bergen-summer-skies,kaiser,1
 berlin-beauty,volkmann-bros,1
 bermuda-bell,j-bell,1
 bermuda-high,s-leary-williams,1
@@ -13316,6 +13348,7 @@ betty-brook,mrs-blanch-tucker,1
 betty-bryant,b-foster,1
 betty-cobb,clarissa-harris,1
 betty-howell,volkmann,1
+betty-lafleur,lanigan,1
 betty-miller-morris,p-stacy,1
 betty-nelson,lanigan,1
 betty-nipp,v-l-lorenzen,1
@@ -13439,6 +13472,7 @@ blanche-holt-jeannettes-jes,jeannette-s-jes,1
 blanco,swift-s,1
 blane,burton,1
 blaze-star,adams-a-e,1
+blazing-beauty,vallin,1
 bleeding-heart-mrs-p-w-kiesling,mrs-p-w-kiesling,1
 bleu-lorraine,eyerdom-j,1
 bleu-rouge,lanigan,1
@@ -13465,11 +13499,13 @@ blue-baffle,mrs,1
 blue-beacon-pittman,pittman,1
 blue-beacon-s-sorano,sorano-s,1
 blue-beard-lyon,lyon,1
+blue-begonia-e-fisher,fisher-e,1
 blue-belle-annalee,annalee,1
 blue-bender,howard-utz,1
 blue-bingo,r-russell,1
 blue-blood,fredette,1
 blue-bonnet-white-cloud,white-cloud,1
+blue-border-lyon,lyon,1
 blue-border-rienhart,rienhart,1
 blue-bounty,lyndon-lyon,1
 blue-bouquet,mrs-h-r-stine,1
@@ -13490,6 +13526,7 @@ blue-cushion-granger,granger,1
 blue-dancer,don-wilson,1
 blue-danube-volkmann-bros,volkmann-bros,1
 blue-danube-rienhardt,rienhardt,1
+blue-denim-v-lorenzen-park-n,v-lorenzen-park-n,1
 blue-diamonds,sorano-s,1
 blue-dogwood-marie-dattalo,marie-dattalo,1
 blue-dolphin,lanigan,1
@@ -13538,9 +13575,11 @@ blue-indigo,adams-a-e,1
 blue-is-blue,sorano-s,1
 blue-isle,swifts,1
 blue-jay-volkmann,volkmann,1
+blue-jeans-baby,sorano-s,1
 blue-kilarney,madison,1
 blue-krinkles,tony-foote,1
 blue-lagoon-white-cloud,white-cloud,1
+blue-lagoon-lyon,lyon,1
 blue-lagoon-susans-violets,susan-s-violets,1
 blue-light-cook,cook,1
 blue-lightning,susan-s-av,1
@@ -13569,6 +13608,7 @@ blue-monday-v-lorenzen-park-nursery,v-lorenzen-park-nursery,1
 blue-mood,c,1
 blue-mood,r-reed,2
 blue-moon-lyndon-lyon,lyndon-lyon,1
+blue-n-green,lyndon-lyon,1
 blue-nightengale,madison,1
 blue-nile-b-bryant,b-bryant,1
 blue-nile-fredette,fredette,1
@@ -13675,6 +13715,8 @@ blushing-ivory,sorano-s,1
 blushing-jewel,rose-knoll,1
 blushing-mermaid,kolb,1
 blushing-miss,frathel,1
+blushing-rozette,granger,1
+blushing-trail,b-elkin,1
 blushings,utz,1
 blustery-trail-lyndon-lyon-gmhses,lyndon-lyon-gmhses,1
 blythe,madison,1
@@ -13713,6 +13755,7 @@ bold-stroke,house-of-violets,1
 bolero-kartuz,kartuz,1
 bom-free,susan-s-violets,1
 bombay-red,howard-utz,1
+bon-fire-parker,parker,1
 bon-jour,lanigan,1
 bon-ton-belle,granger-gardens,1
 bonanza-fischer-greenhouse,fischer-greenhouse,1
@@ -13747,6 +13790,7 @@ bonus-babe,frank-tinari,1
 boo-man,sorano-s,1
 boogaloo,charlyne-c-reed,1
 boogie-nights,lyon,1
+boom-boom,parker,1
 borderline,fredette,1
 boreal-rose,dennee,1
 born-free,susan-s-violets,1
@@ -13768,6 +13812,7 @@ bradley,fisher-e,1
 bradshaw-s-choice,fisher-e,1
 braggart,hawley,1
 brahms,volkmann,1
+brandi-jolene,b-elkin,1
 brandi-lauren,b-foster,1
 brandy-flame,marian-magee,1
 brandywine-white-cloud,white-cloud,1
@@ -13799,10 +13844,12 @@ bridal-pink,k-stork,1
 bridal-trail,fisher-e,1
 bridal-white,m-burns,1
 brides-delight,doris,1
+bridette,doris-intel,1
 bride-s-bouquet-madison,madison,1
 bright-angel-fredette,fredette,1
 bright-dancer,sorano-s,1
 bright-eye-volkmann,volkmann,1
+bright-eyes-lyon,lyon,1
 bright-eyes-j-b-sisk,j,1
 bright-eyes-j-b-sisk,b-sisk,2
 bright-feather,swifts,1
@@ -13945,11 +13992,13 @@ cameroon,arndt,1
 camille-granger-gardens,granger-gardens,1
 camille-lanigan,lanigan,1
 camillia-frills,arndt,1
+camouflage,gordon-boone,1
 camp,meese,1
 camp-fire-girl-m-gall,gall-m,1
 campfire-arndt,arndt,1
 campus-queen,madison,1
 can-can-doris,doris,1
+canada-rose,fisher-e,1
 canada-rose-supreme,fisher-e,1
 canadiana-67,fisher-e,1
 candace,richter,1
@@ -14053,6 +14102,7 @@ carol-s-little-star,nadeau,2
 carol-lee,madison-g,1
 carole,tinari,1
 carolina-lady,volkmann,1
+carolina-morn,ronn-nadeau,1
 carolina-ruby,volkmann-bros,1
 caroline-annalee,annalee,1
 caroline-madison-g,madison-g,1
@@ -14183,6 +14233,7 @@ charming-heart,sorano,2
 chartreuse-wonder-d-harrington,d-harrington,1
 chasing-sunshine,sorano-s,1
 chastity,l-hale,1
+chateaugay,m-lanigan,1
 chatter-trail,sorano-p2dcs-m,1
 chatterbox-v-lorenzen,v-lorenzen,1
 chatterbox-lyon-sorano,lyon,1
@@ -14200,6 +14251,7 @@ cherokee-fire,lyndon-lyon,1
 cherokee-rose,m-mason,1
 cherokee-sunrise,s-groeneman,1
 cherokee-trail-linda-ray,linda-ray,1
+cherries,swifts,1
 cherries-n-cream,sorano-s,1
 cherry,lyndon-lyon,1
 cherry-bells,arndt,1
@@ -14216,6 +14268,7 @@ cherry-dazzle,madison,1
 cherry-dots,fredette,1
 cherry-dumplin,sorano-s,1
 cherry-flip-maas,maas,1
+cherry-frosting,fredette,1
 cherry-glo,lalanne-j,1
 cherry-heart-lanigan,lanigan,1
 cherry-hill,r-yerman,1
@@ -14245,6 +14298,7 @@ cherry-tart-l-ray,ray-l,1
 cherry-tips,lyon,1
 cherry-topping,lyon-gh,1
 cherry-topping,sorano,2
+cherry-vanilla,susan-s-violets,1
 cherry-watercolor,joan-a-westrick,1
 cherub-cheeks,j-donaho,1
 cherubini,barnard,1
@@ -14264,12 +14318,15 @@ chiffon-jewel-m-lanigan-rose-knoll-gardens,rose-knoll-gardens,2
 chiffon-moonmoth,neumann,1
 chiffon-moonmoth,hill,2
 chiffon-print,i-fredette,1
+chiffon-wisp,sierk,1
 chikki,fisher-e,1
+child-bride,richter,1
 chili-peach,susan-s-violets,1
 china-blue-lanigan,lanigan,1
 china-rose,volkmann,1
 china-skies,maas,1
 china-star,v-lorenzen-park-n,1
+chinese-cherries,frathel,1
 chinese-dawn,christine-leppard,1
 chinese-midnight,christine-leppard,1
 chip,fisher-e,1
@@ -14277,6 +14334,7 @@ chipper-fischer-gh,fischer-gh,1
 chipper-volkmann,volkmann,1
 chippewa-k-stork,k-stork,1
 chips-patches,sandy-lang,1
+chirstmas-island,doris-intel,1
 chisholm-trail,linda-ray,1
 chitter-chatter,v-ballirano,1
 chity-chity-bang-bang,bob-kramer,1
@@ -14318,7 +14376,8 @@ christopher-james,fisher-e,1
 christopher-robin,fisher-e,1
 chu-tu,mrs-c-s-hawley,1
 chuckles-parker,parker,1
-cimarron,volkmann,1
+cimarron-v-constantinov,v-constantinov,1
+cimarron-volkmann,volkmann,1
 cinderella-storytella,storytella,1
 cinderella-s-dress,fisher-e,1
 cindy-darlene,betty-miller-morris,1
@@ -14339,6 +14398,7 @@ circus-circus,r,1
 circus-circus,d-mendoza,2
 circus-clown-r-d-mendoza,r,1
 circus-clown-r-d-mendoza,d-mendoza,2
+circus-clown-sorano,sorano,1
 circus-time,swift-j,1
 cirelda,pat-tracey,1
 cisco,parker,1
@@ -14346,6 +14406,8 @@ citadin,d-croteau,1
 citation-m-lanigan,m-lanigan,1
 city-gal,easterbrook,1
 city-girl,frathel,1
+claire-roberts,b,1
+claire-roberts,j-african-violet,2
 clamatis,sandy-weyland,1
 clara-mae,b-miller-morris,1
 claret-baker-s,baker-s,1
@@ -14395,6 +14457,7 @@ coast-line,v-constantinov,1
 cobalt-halo,boone,1
 cochana,dorothy-harris,1
 cochise,lyon,1
+cockatoo-granger,granger,1
 coco-plum,sandra-leary,1
 cocoamo-jack,s-groeneman,1
 coconut-fluff,madison-g,1
@@ -14402,7 +14465,9 @@ coconut-frost,sandra-williams,1
 cocr-scomb,lyon,1
 cody,pat-tuminello,1
 coffey-cream,r-cox,1
+coleman-s-conquest,coleman,1
 coleman-s-special,coleman,1
+colibri,irene-fredette,1
 colleen-a-e-adams,adams-a-e,1
 colleen-madison-g,madison-g,1
 collene,kolb,1
@@ -14412,6 +14477,7 @@ colonial-belle,house-of-violets,1
 colonial-queen,granger-gardens,1
 color-carnival,lanigan,1
 color-flash,eyerdom,1
+color-glow,lanigan,1
 color-magic-s-sorano,sorano-s,1
 color-me-blue,irene-fredette,1
 color-spree,v-lorenzen-park-n,1
@@ -14437,6 +14503,7 @@ command-performance-susans-av,susan-s-av,1
 commandeur,d-croteau,1
 commando-lyon,lyon,1
 commando-volkmann,volkmann,1
+common-sense,susan-s-violets,1
 comox,harborcrest,1
 concert-artist,arndt,1
 concolor-lace,d-g-boone,1
@@ -14468,6 +14535,8 @@ contraband-granger-garden,granger-garden,1
 contrary-mary-d-thornburg,d-thornburg,1
 cookie-jar,richter,1
 cookie-man,sorano-s,1
+cookie-trail,lyon,1
+cookie-trail,sorano,2
 cookie-s-lovely-lady,sisk-b,1
 cool-breeze,d-g-boone,1
 cool-contender,adams-a-e,1
@@ -14500,8 +14569,11 @@ coral-crunch,sorano-s,1
 coral-dream-fantasy,johnston-n,1
 coral-fantasy-n-hudson,hudson-n,1
 coral-fantasy-eyerdom,eyerdom,1
+coral-fire,f-tinari,1
 coral-flame,f-tinari,1
 coral-halo,boone,1
+coral-ice,lyon,1
+coral-ice,sorano,2
 coral-lee,maas,1
 coral-magic,b-johnson,1
 coral-moon,tinari-greenhouses,1
@@ -14517,6 +14589,7 @@ coral-reef-sport,tinari,1
 coral-rose,house-of-violets,1
 coral-satin,tinari,1
 coral-sea-k-stork,k-stork,1
+coral-silk,violets-atlanta,1
 coral-sparkler,r-cox,1
 coral-spider,dates,1
 coral-splendor,b-johnson,1
@@ -14527,6 +14600,7 @@ coral-sunset-granger-g,granger-g,1
 coral-sunset-sport,japanese,1
 coral-tide,lyon,1
 coral-tide,sorano,2
+coral-trail,lyon,1
 coralaire,granger-g,1
 coralie,richter-s-gh,1
 cordelia,lyon,1
@@ -14556,6 +14630,7 @@ costa-brava-annalee-violetry,annalee-violetry,1
 cotillion-granger-gardens,granger-gardens,1
 cottage-rose,gehr-j,1
 cotton-balls,fredette,1
+cotton-bowl,swifts-av,1
 cotton-candy-c-reed,c-reed,1
 cotton-candy-e-snyder,e-snyder,1
 cotton-candy-sorano,sorano,1
@@ -14579,6 +14654,7 @@ country-moonlight,sorano-s,1
 country-mouse,storytella,1
 country-music,irene-fredette,1
 country-quilt,sorano-s,1
+country-scene,hawley,1
 country-sunset,l-munk,1
 country-sunshine,sorano-s,1
 country-town,mrs-c-s-hawley,1
@@ -14612,6 +14688,7 @@ cream-puff-fredette,fredette,1
 cream-puff-lanigan,lanigan,1
 creamsicle,david-lass,1
 creamy-dewdrop,fritz,1
+creekside-moonbeams,mills,1
 creole-belle,c-c-read,1
 creole-queen-sandra-leary,sandra-leary,1
 creole-royale,o-cookie,1
@@ -14629,11 +14706,13 @@ crested-wave,b-johnson,1
 crestline-utz,utz,1
 crestwood-camillia,button,1
 crestwood-nugget,button,1
+cricket-frathels,frathels,1
 crimson-autumn,mrs,1
 crimson-beauty,granger-gardens,1
 crimson-charm,granger,1
 crimson-frost-granger-gardens,granger-gardens,1
 crimson-frost-frilled,granger-g,1
+crimson-glory-granger,granger,1
 crimson-moon,sidney,1
 crimson-moon,paul-sorano,2
 crimson-queen,granger-s,1
@@ -14704,6 +14783,7 @@ crystal-waters-fischer-greenhouse,fischer-greenhouse,1
 crystal-waters-susans-violets,susan-s-violets,1
 cuckoo,swift-s-av,1
 cupcake-susan-s-violets,susan-s-violets,1
+cupcake-trail,sotkiewicz,1
 cupid-storytella,storytella,1
 cupid-blue,swifts,1
 cupid-lavender,swifts,1
@@ -14727,6 +14807,8 @@ cyclops-vernon-estes,vernon-estes,1
 cynthia-fisher-s-av,fisher-s-av,1
 cynthia-spirit-of-76-1921-r-p-3-s-d-s-1-6-69-tinari-greenhouses,spirit-of-76-1921-r-p-3-s-d-s-1-6-69-tinari-greenhouses,1
 cypress-knees,easterbrook,1
+cypress-swamp,j,1
+cypress-swamp,b-sisk,2
 czarina,lanigan,1
 dabble,violets-by-cort,1
 daddy-dear,irma-wyatt,1
@@ -14764,6 +14846,7 @@ dallas-mister-ed,peggy-kreska,1
 dallas-pride,susan-s-violets,1
 dalliance,fredette,1
 damask-rose,granger-gardens,1
+dan,j-bethany,1
 dance-fever,sorano,1
 dance-magic,sorano-s,1
 dancer-richter,richter,1
@@ -14778,6 +14861,8 @@ dancin-pink,lyon,1
 dancin-pink,sorano,2
 dancin-spots,lyon,1
 dancin-spots,sorano,2
+dancin-trail-sorano-lyons,sorano,1
+dancin-trail-sorano-lyons,lyons,2
 dancing-butterfly-hightowers-violet-nook,hightower-s-violet-nook,1
 dancing-dana,j-s-miller,1
 dancing-dandy,lyndon-lyon,1
@@ -14809,6 +14894,7 @@ daria,sorano-s,1
 daring,raskopf,1
 daring-debs,b-foster,1
 daring-red,susan-s-violets,1
+dark-angel,granger,1
 dark-beauty-volkmann-bros,volkmann-bros,1
 dark-eyes-d-g-boone,d-g-boone,1
 dark-eyes-maude-cook,maude-cook,1
@@ -14991,14 +15077,19 @@ delaware-r-holtkamp,holtkamp-r,1
 delby-mrs-wm-baschnagel,mrs-wm-baschnagel,1
 delby-mrs-a-c-moore,mrs-a-c-moore,1
 deleon-blue-bud,kuhl,1
+deleon-blue-empress,kuhl,1
+deleon-frilly-top,kuhl,1
 deleon-frosty-blue,kuhl,1
 deleon-mary-dell,kuhl,1
 deleon-pansy-face,kuhl,1
 deleon-pixie,kuhl,1
+deleon-posy,kuhl,1
 deleon-rose-puff,kuhl,1
 deleon-wink,kuhl,1
 delft,j-hill,1
+delft-blue,maas,1
 delft-nocturne,granger-gardens,1
+delft-rozette,granger,1
 delia-greene,rose-knoll,1
 deliberate,parker,1
 delicado,russell-c,1
@@ -15009,6 +15100,7 @@ delight-volkmann-bros,volkmann-bros,1
 delightful-mrs-ledley-cox,mrs-ledley-cox,1
 delightful-j-swift,swift-j,1
 delish,c-reed-house-of-violets,1
+della,richter,1
 delly,david-k-feeter,1
 delona,b-foster,1
 delphi,hi-hill,1
@@ -15031,6 +15123,7 @@ desert-dusk-lyon-sorano,lyon,1
 desert-dusk-lyon-sorano,sorano,2
 desert-night,susan-s-av,1
 desert-prince,doris,1
+desert-rose-granger,granger,1
 desert-sky,fredette,1
 desert-sun,susan-s-violets,1
 desert-sunset-lyon-sorano,lyon,1
@@ -15073,11 +15166,14 @@ diana-purple,englert,1
 diana-red-pink,englert,1
 diana-ross,gary-r-beck,1
 diana-single-blue,englert,1
+diane-marie,m-lanigan,1
 dib-s-azure-mist,d-i-bearman,1
 dib-s-bay-valley,d-i-bearman,1
 dib-s-big-foote,d-i-bearman,1
+dib-s-blarnie,d-i-bearman,1
 dib-s-bleu-bridge,d-i-bearman,1
 dib-s-bluewater-country,d-i-bearman,1
+dib-s-brass-monkey,doris-i-bearman,1
 dib-s-carrie-ann,doris-bearman,1
 dib-s-challenge,d-i-bearman,1
 dib-s-champayne-mist,doris-bearman,1
@@ -15088,6 +15184,7 @@ dib-s-cudlie-kitten,d-i-bearman,1
 dib-s-deep-purr,d-i-bearman,1
 dib-s-delta-queen,d-i-bearman,1
 dib-s-doris,d-i-bearman,1
+dib-s-dream-on,d-i-bearman,1
 dib-s-fabulous,doris-bearman,1
 dib-s-fork-s-festival,doris-bearman,1
 dib-s-fragelistic,d-i-bearman,1
@@ -15116,6 +15213,7 @@ dib-s-milky-way,d-i-bearman,1
 dib-s-milwaukee,d-i-bearman,1
 dib-s-ming-blue,doris-bearman,1
 dib-s-miz-universe,d-i-bearman,1
+dib-s-musicale,d-i-bearman,1
 dib-s-my-fred,doris-bearman,1
 dib-s-my-michigan,doris-bearman,1
 dib-s-my-own,doris-bearman,1
@@ -15135,14 +15233,18 @@ dib-s-soft-touch,d-i-bearman,1
 dib-s-spiffee,d-i-bearman,1
 dib-s-staccato,d-i-bearman,1
 dib-s-stille-nacht,doris-bearman,1
+dib-s-sugaree,d-i-bearman,1
 dib-s-super-sue,d-i-bearman,1
 dib-s-sweet-kiss,bearman,1
+dib-s-swiss-miss,d-i-bearman,1
 dib-s-syracuse,d-i-bearman,1
+dib-s-thrill,d-i-bearman,1
 dib-s-topohoney,doris-bearman,1
 dib-s-touche,d-i-bearman,1
 dib-s-trilogy,d-i-bearman,1
 dib-s-violet-marshall,d-i-bearman,1
 dib-s-vivacious-vicky,d-i-bearman,1
+dib-s-whimsie,d-i-bearman,1
 dib-s-white-avion,doris-bearman,1
 dib-s-winky-tink,d-i-bearman,1
 dib-s-bunch-o-honey,doris-i-bearman,1
@@ -15158,6 +15260,7 @@ dina-mo,tinari-greenhouses,1
 ding-bat,lyon,1
 ding-a-ling,volkart,1
 diplomacy,v-lorenzen-park-n,1
+dipsy-blue,lyon,1
 dirty-face,kolb-s-gh,1
 disco-dancin,lyon,1
 disco-dancing-sport,japanese,1
@@ -15187,6 +15290,7 @@ dixie-jewel-volkmann,volkmann,1
 dixie-joy,reed,1
 dixie-love,house-of-violets,1
 dixie-magic,haga,1
+dixie-mist,mrs-r-a-brown,1
 dixie-modiste,mrs-f-h-trimble,1
 dixie-modiste-supreme,mrs-t-h-trimble,1
 dixie-mr-ed,brown,1
@@ -15217,7 +15321,9 @@ dolled-up,lyon,1
 dolled-up,sorano,2
 dolli-ette,parker,1
 dolly-fredette,fredette,1
+dolly-mary-ray,mary-ray,1
 dolly-gay,doris,1
+dolly-s-bouquet,violets-atlanta,1
 dolores-raskopf,raskopf,1
 dolores-antoinette,d-harrington,1
 dolores-frank,d-harrington,1
@@ -15238,6 +15344,7 @@ donna-jean,susan-s-violets,1
 donna-lee-g-r-beck,g-r-beck,1
 donna-lynn-martha-tucker,martha-tucker,1
 donna-marie-j-bell,j-bell,1
+donna-s-duster,s-lang,1
 donnie-dear,butler,1
 donnie-joe,volkart,1
 doodle-pink,lyon,1
@@ -15285,11 +15392,13 @@ dot-s-blue-rebel,brackin,1
 dot-s-blush,brackin,1
 dot-s-companion,d-brackin,1
 dot-s-ecstasy,brackin,1
+dot-s-fancy-flame,brackin,1
 dot-s-jade-mist,brackin,1
 dot-s-kentucky-colonel,brackin,1
 dot-s-kentucky-miss,d-brackin,1
 dot-s-kentucky-pink-and-green-crepe,brackin,1
 dot-s-kentucky-silk,brackin,1
+dot-s-little-imp,brackin,1
 dot-s-peachglo,brackin,1
 dot-s-pink-ballet,d-brackin,1
 dot-s-pink-crepe,brackin,1
@@ -15307,6 +15416,7 @@ dot-s-purple-one,brackin,1
 dot-s-rebellion,brackin,1
 dot-s-red-charm,brackin,1
 dot-s-treasure,brackin,1
+dot-s-tri-color,brackin,1
 dot-s-very-own,brackin,1
 dot-s-white-dart,brackin,1
 double-blue-fairy-fairoaks,fairoaks,1
@@ -15323,6 +15433,7 @@ double-diamond,lyon,1
 double-dilly,lyon-gh,1
 double-dilly,sorano,2
 double-dip-s-sorano,sorano-s,1
+double-duty,l-munk,1
 double-fantasy-supreme,wilson,1
 double-george,maas,1
 double-green,lyon,1
@@ -15363,8 +15474,10 @@ dramatic,parker,1
 dream-away,m-lanigan,1
 dream-lover,sidney-sorano,1
 dream-magic,sorano-s,1
+dream-maker-parker,parker,1
 dream-of-love,arndt,1
-dream-on,pittman,1
+dream-on-pittman,pittman,1
+dream-on-susans-violets,susan-s-violets,1
 dream-stuff-a-e-adams,adams-a-e,1
 dream-time-v-lorenzen-park-n,v-lorenzen-park-n,1
 dream-weaver-lyon,lyon,1
@@ -15382,6 +15495,7 @@ dreamy-dream,frathel,1
 dreamy-frills,volkart,1
 dreamy-jewel,lanigan,1
 dresden-china-fredette,fredette,1
+dress-blues,boone-g,1
 dress-parade-frathel,frathel,1
 dressed-in-blue,sorano-s,1
 dressed-in-pink,sorano-s,1
@@ -15437,9 +15551,11 @@ early-show,parker,1
 early-spring,c-c-reed,1
 early-sunrise,sorano-s,1
 earth-angel,harry-r-albro,1
+east-coast-sunrise,sorano-s,1
 easter-bunny-swifts-av,swifts-av,1
 easter-candy,sorano-s,1
 easter-corsage,madison-g,1
+easter-egg-lyon,lyon,1
 easter-girl,robert-anderson,1
 easter-hymn,arndt,1
 easter-joy,arndt,1
@@ -15455,9 +15571,12 @@ easter-trail,fisher-s-av,1
 easy-living,h-c-parker,1
 easy-street,harris-d,1
 easy-sunday-mornin-nadeau,nadeau,1
+ebb,deborah-j-good,1
 ebony-jewel,doris-intel,1
 ebony-pearl,doris-intel,1
 echo-red,parker,1
+echo-star,elkin,1
+echoes-of-pink,lyon,1
 eclair,fredette,1
 eclipse-evlo,evlo,1
 ed,maiorana,1
@@ -15485,6 +15604,7 @@ edge-of-night-travis-violets,travis-violets,1
 edgy,v-lorenzen-park-n,1
 edith-ozark-club,ozark-club,1
 edith-flory,m-lanigan,1
+edith-wingate,seth-paull,1
 edith-s-toy-lyon,lyon,1
 edith-s-toy-ozark-club,ozark-club,1
 edna-fischer-improved,fischer-gh,1
@@ -15505,6 +15625,7 @@ egyptian-dreamland,lanigan,1
 egyptian-fancy,m-lanigan,1
 egyptian-glitters,mae-s,1
 egyptian-glitters,lanigan,2
+egyptian-lace,m-lanigan,1
 egyptian-pink,m-lanigan,1
 egyptian-pink-veil,mae-s,1
 egyptian-pink-veil,lanigan,2
@@ -15553,12 +15674,15 @@ elizabethan-ruffle,n-platnick,1
 ella-ree,mrs-c-a-pair-jr,1
 ella-s-apple-blossom,e-kiesling,1
 ella-s-endless-love,e-kiesling,1
+ella-s-grand-slam,e-kiesling,1
 ella-s-orchid,e-kiesling,1
 ella-s-pink-pillow,e-kiesling,1
+ella-s-velvet-rose,e-kiesling,1
 ellen-griffin-s-pride,j-munk,1
 ellie,lyon,1
 ellie-gardner,patt-harris,1
 ellie-mae,eleanore-hull,1
+ellyn,lanigan,1
 eloquence,c-c-reed,1
 elsie-marie,l-munk,1
 elsie-rose,fisher-e,1
@@ -15572,6 +15696,7 @@ elysian-fields,sisk-b,1
 ember-flame,lyon,1
 emberlite,tomara,1
 emberlite,tompkin,2
+embers-swifts,swifts,1
 emblem,richter,1
 embraceable-blue,lyon,1
 embraceable-blue,sorano,2
@@ -15583,6 +15708,7 @@ emerald-ice,e-reichenback,2
 emerald-rainbow,frathel,1
 emeraude-arndt,arndt,1
 emiko,eyerdom,1
+emilie-savage,eyerdom,1
 emily-fisher-s-av,fisher-s-av,1
 emily-m-burns,m-burns,1
 emily-diane,j-garrison,1
@@ -15590,6 +15716,7 @@ emily-eleanor,dennee,1
 emily-griffith,e-kiesling,1
 emily-plasse,starr,1
 emma-lahr,isla-montgomery,1
+emmy,lanigan,1
 emperor,r-j-taylor,1
 emperor-s-crown,swifts-av,1
 empress-r-taylor,r-taylor,1
@@ -15605,6 +15732,7 @@ end-of-day,boone,1
 endless-love,travis-violets,1
 engaged,swifts-av,1
 english-beauty,adams-a-e,1
+ens,rector,1
 epicurean-wine,joan-westrick,1
 epitome,robert-anderson,1
 eric,union-county-ch,1
@@ -15621,6 +15749,7 @@ erzsike,fisher-e,1
 escapade-lanigan,lanigan,1
 escapade-m-tremblay,m-tremblay,1
 esmerelda,b-elkin,1
+especially-rosy,swifts,1
 esquire-volkmann,volkmann,1
 estelle-richter,richter,1
 estelle-s-legacy,nancy-johnston,1
@@ -15663,6 +15792,7 @@ evlo-november-sunset,edena,1
 exceptionable,r-g-anderson,1
 exotic-delight,arndt,1
 explorer-r-g-anderson,r-g-anderson,1
+exposition,volkmann,1
 exquisite-r-g-anderson,r-g-anderson,1
 extra-terrestrial,susan-s-violets,1
 extraordinary,swift-j,1
@@ -15682,6 +15812,7 @@ faire-king,storytella,1
 faire-queen,storytella,1
 fairlight,d-wilson,1
 fairy-bells,dennee,1
+fairy-chimes,violets-atlanta,1
 fairy-kiss,arndt,1
 fairy-pink-dennee,dennee,1
 fairy-pink-volkmann,volkmann,1
@@ -15811,6 +15942,7 @@ fickle-fantasy,sorano,2
 fickle-lady,c-k-powers,1
 fiddler,fredette,1
 fidella,robert-anderson,1
+fiery-feather,parker,1
 fiery-fiesta,arndt,1
 fiery-sunset,lyon,1
 fiesta-flambeau,pittman,1
@@ -15836,6 +15968,8 @@ fire-hazard,lyon,1
 fire-mountain-sidney-paul-sorano,sidney,1
 fire-mountain-sidney-paul-sorano,paul-sorano,2
 fire-pink,swifts-av,1
+fire-princess,lyon,1
+fire-princess,sorano,2
 fire-wasp,dates,1
 firebird-granger-gardens,granger-gardens,1
 firebrand-granger-gardens,granger-gardens,1
@@ -15880,11 +16014,13 @@ flag-blue,tinari-greenhouses,1
 flagstaff,volkmann-bros-greenhouses,1
 flambeau,c-c-reed,1
 flamboyant-susan-s-violets,susan-s-violets,1
+flamboyant-f-tinari,f-tinari,1
 flamenco,annalee-nw,1
 flaming-beauty,lanigan,1
 flaming-lady,arndt,1
 flaming-orbit,lanigan,1
-flaming-star,baker-s,1
+flaming-star-baker-s,baker-s,1
+flaming-star-e-fisher,fisher-e,1
 flamingo-union-county-chapter-avsa,union-county-chapter-avsa,1
 flamingo-feather,arndt,1
 flamingo-queen-granger-gardens,granger-gardens,1
@@ -15922,6 +16058,7 @@ flirtatious-pink,sidney,1
 flirtatious-pink,paul-sorano,2
 flirtatious-rose,lyon-gh,1
 flirtatious-rose,sorano,2
+flirty-doll,parker,1
 flirty-eyes,parker,1
 flirty-gerty,parker,1
 flirty-violet,reigning-violets,1
@@ -15983,6 +16120,7 @@ forever-amber,frathel,1
 forever-wine,dennee,1
 forget-me-not-susan-s-violets,susan-s-violets,1
 forrest-flame,lyon,1
+fort-vancouver,arndt,1
 fort-worth,volkmann-bros,1
 fort-worth-s-first,susan-s-violets,1
 fortune-volkmann-bros,volkmann-bros,1
@@ -16001,6 +16139,7 @@ foxy-wilson-bros,wilson-bros,1
 foxy-robert-anderson,robert-anderson,1
 foxy-lady,m-burns,1
 foxy-lou,rienhardt,1
+fragile-dreams,jackie-muster,1
 fragrant-clouds,frathel,1
 fralee,madison,1
 fran-dr-j-b-jung,dr-j-b-jung,1
@@ -16079,6 +16218,7 @@ fringed-pink-frills,kahler,1
 fringed-pink-swan,fisher-e,1
 fringed-rainbow,vallin,1
 fringed-raspberry-tinari,tinari,1
+fringed-raspberry-sup,kahler,1
 fringed-white-swan,fisher-e,1
 fritzy,steinman,1
 frivolity,v-lorenzen-park-n,1
@@ -16099,6 +16239,7 @@ frosted-lilac,fisher-e,1
 frosted-midnight,sorano-s,1
 frosted-plum-constantinov,constantinov,1
 frosted-plum-hammond,hammond,1
+frosted-redhead,violets-atlanta,1
 frosted-rose,lanigan,1
 frosted-sherry,sidney-sorano,1
 frosted-strawberry,i-lineberg,1
@@ -16107,6 +16248,7 @@ frosting,frathel,1
 frosty-volkmann,volkmann,1
 frosty-blue,lyon,1
 frosty-folly-baker-s,baker-s,1
+frosty-jewels,lyon,1
 frosty-magic,swift-j,1
 frosty-morning,mrs-r-d-tompkin,1
 frosty-morning-star,howell-j,1
@@ -16121,6 +16263,7 @@ frosty-wine,swifts,1
 frozen-ghost,gehr-j,1
 fruit-salad,r-cox,1
 fuchsia-babe,madison-g,1
+fuchsia-beauty,mrs-a-grasso,1
 fuchsia-berry,reinhardt,1
 fuchsia-dream,granger-gardens,1
 fuchsia-goddess,swift-j,1
@@ -16273,8 +16416,10 @@ ghina-pink,fredette,1
 giant-harborcrest,harborcrest,1
 giant-george,maas,1
 giant-pink-crest,rose-knoll-gardens,1
+giant-step,tinari,1
 giddy-girl,lyon,1
 giddy-up-go,ozark-club,1
+gidget,parker,1
 gift-of-love,arndt,1
 gift-wrapped-blansit,blansit,1
 gigantic,lyon,1
@@ -16359,6 +16504,7 @@ go-getter,r-g-anderson,1
 goin-coconuts,baker-s,1
 goin-dancing,d-harrington,1
 goin-jessie,susan-s-violets,1
+going-places,h-c-parker,1
 gold-coins,sorano-s,1
 gold-rush-s-sorano,sorano-s,1
 gold-rush-barbary-coast,constantinov,1
@@ -16409,6 +16555,7 @@ gorgeous-jewel,rose-knoll,1
 gorgeous-jewel,lanigan,2
 gorgeous-one,lanigan,1
 gosh,lyndon-lyon,1
+got-involved,s-lang,1
 gotcha,lyon,1
 governor-knowles,lyndon-lyon,1
 governor-pryor,house-of-v,1
@@ -16434,11 +16581,14 @@ grand-finale,fredette,1
 grand-fluff,kramer,1
 grand-illusion,groeneman,1
 grand-lady-sidney-sorano,sidney-sorano,1
+grand-performance,e-snyder,1
 grand-prize,easterbrook,1
 grand-slam-d-g-boone,d-g-boone,1
 grand-slam-frathel,frathel,1
+grand-waltz,vern-lorenzen,1
 grand-son,a-f-hill,1
 granddad,wanda-mcpeters,1
+grandeur-eyerdom,eyerdom,1
 grandma-ginny,swift-j,1
 grandma-s-pink,j-haag,1
 grandma-s-zach,ann-england,1
@@ -16638,6 +16788,7 @@ gypsy-red,swifts,1
 gypsy-rose-frathel,frathel,1
 gypsy-rose-lyon-sorano,lyon,1
 gypsy-rose-lyon-sorano,sorano,2
+gypsy-strip,kahler,1
 gypsy-trail,lyon,1
 gypsy-trance,s-leary-williams,1
 haida-princess,doreen-jamieson,1
@@ -16648,6 +16799,7 @@ half-half,champion-s-av,1
 half-moon-bay,g-r-beck,1
 half-pint-lyon,lyon,1
 half-pint-p-tracey,tracey-p,1
+half-time,richter,1
 hall-of-fame,house-of-violets,1
 hallmark,r-g-anderson,1
 halo-sparks,b-elkin,1
@@ -16659,6 +16811,7 @@ hanka-chief,lyon,1
 hanky,parker,1
 hanky-panky-lyon,lyon,1
 hanky-panky-volkmann,volkmann,1
+hannah,egenites,1
 hans-brinker-storytella,storytella,1
 hansel,storytella,1
 hapatica,frank-a-tinari,1
@@ -16701,9 +16854,12 @@ harlan-s-dream,all-seasons-avc,1
 harlan-s-dream,h-montgomery,2
 harlequin-granger,granger,1
 harmony-swifts-violets,swifts-violets,1
+harmony-volkmann,volkmann,1
 harold,fisher-e,1
 harriet-s-christmas-rose,h,1
 harriet-s-christmas-rose,e-richenbach,2
+hart-s-snow-white-a-hart,hart-a,1
+harvest-blue,susan-s-violets,1
 harvest-moon-baker-s,baker-s,1
 harvest-moon-rector,rector,1
 harvest-time,fischer,1
@@ -16769,6 +16925,7 @@ heidi-storytella,storytella,1
 heidi-volkmann,volkmann,1
 heigh-ho,swifts,1
 heir-apparent,boone,1
+heirloom-g-boone,boone-g,1
 heirloom-jewelry,k-stork,1
 heirloom-lace,sorano-s,1
 heki-yoki,horikoshi,1
@@ -16806,6 +16963,7 @@ hessel,susan-s-violets,1
 hey-lookie,lyon,1
 hey-there,swifts,1
 hi-blush,haga,1
+hi-dee,haga,1
 hi-fashion,parker,1
 hi-fi,richter,1
 hi-fi-blues,parker,1
@@ -16816,6 +16974,8 @@ hi-ho,volkmann,1
 hi-ho-silver,parker,1
 hi-hopes-fringed,lyon,1
 hi-hopes-supreme,wilson,1
+hi-jinks-dr-crawcour,dr-crawcour,1
+hi-score,kahler,1
 hi-society,h-c-parker,1
 hi-valley,parker,1
 hi-y-all,h-pittman,1
@@ -16830,6 +16990,7 @@ high-class,swift-s-av,1
 high-echelon,violets-are-blue,1
 high-fashion-fischer,fischer,1
 high-flyer,r-g-anderson,1
+high-heels,richter,1
 high-praise,v-lorenzen,1
 high-rise-trail,d-wilson,1
 high-roller,susan-s-violets,1
@@ -16851,12 +17012,14 @@ his-angel,c-raskopf,1
 his-choice,c-raskopf,1
 his-delight-violets-by-cort,violets-by-cort,1
 his-dream,c-raskopf,1
+his-fancy,violets-by-cort,1
 his-glory,promersberger,1
 his-lady,violets-by-cort,1
 his-margie,a-hummer,1
 his-presence,b-promersberger,1
 his-triumph,promersberger,1
 hit-lovely,lyon,1
+hlted-heiress,gordon-boone,1
 hocus-pocus,baker-s,1
 holder-newt,parker,1
 holiday-candle,arndt,1
@@ -16887,6 +17050,7 @@ honey-lanigan,lanigan,1
 honey-bells-swifts,swifts,1
 honey-bun-swifts,swifts,1
 honey-child,frathel,1
+honey-chile-parker,parker,1
 honey-ginger,e-wasche,1
 honey-girl-mrs-p-w-kiesling,mrs-p-w-kiesling,1
 honey-glow,lyon,1
@@ -16942,6 +17106,7 @@ hot-tips,russell-c,1
 hot-toddy-fredette,fredette,1
 hot-toddy-lyon-sorano,lyon,1
 hot-toddy-lyon-sorano,sorano,2
+hotsy-totsy,swifts,1
 houdini-baker-s,baker-s,1
 house-party,h-c-parker,1
 houston,billie-golla,1
@@ -16970,7 +17135,8 @@ humungous,d-harrington,1
 hunky-dory,swifts,1
 huntsman,richter,1
 hurdy-gurdy,d-parker,1
-huron,granger-garden,1
+huron-eyerdom,eyerdom,1
+huron-granger-garden,granger-garden,1
 hush-blue,eyerdom,1
 husky,mrs-chas-s-hawley,1
 hustler,robert-anderson,1
@@ -17001,6 +17167,7 @@ hyla-s-puppy-love,hyla,1
 hyla-s-tuffy,hyla,1
 hyman,maas,1
 hymphrey-s-white-peak,susan-s-violets,1
+i-am-woman-nadeau,nadeau,1
 i-do,bradel,1
 i-feel-pretty,k-stork,1
 i-love-you,travis-violets,1
@@ -17033,7 +17200,9 @@ icy-sunset,sorano-s,1
 icy-trail,lyon,1
 ida-hays,arndt,1
 ideal-volkmann-bros,volkmann-bros,1
+idiot-s-delight,gordon-boone,1
 if,swifts-violets,1
+iffie-face,m-a-corrigan,1
 ilean,violets-by-cort,1
 illina-breeze,rose-knoll,1
 illina-chimes,rose-knoll,1
@@ -17071,6 +17240,7 @@ imperial-lace,g-gay,1
 impression,j-garrison,1
 impressive,kramer,1
 impulsive,sorano-s,1
+in-love-again,patt-s-avs,1
 in-style,richter,1
 in-the-chips,baker-s,1
 ina-loree,diann-r-beck,1
@@ -17100,6 +17270,7 @@ intensity-r-g-anderson,r-g-anderson,1
 intensity-arndt,arndt,1
 interlude-granger-gardens,granger-gardens,1
 intriguing,fischer-greenhouse,1
+intrique,d-croteau,1
 invicta,b-elkin,1
 invitation,r-g-anderson,1
 ione,g-sorrell,1
@@ -17112,6 +17283,7 @@ iris-bouquet,swifts,1
 irish-angel-annalee-av,annalee-av,1
 irish-blue-eyes,k-stork,1
 irish-castles,sorano-s,1
+irish-cream,sorano-s,1
 irish-crochet,richter,1
 irish-dimples,sorano-s,1
 irish-dude,kolb-s-gh,1
@@ -17126,6 +17298,7 @@ irish-lace-lanigan,lanigan,1
 irish-maiden,sidney-sorano,1
 irish-pearl,sidney,1
 irish-pearl,paul-sorano,2
+irish-spring-lyndon-lyon,lyndon-lyon,1
 irish-sprite,sorano-s,1
 irish-touch,sorano-s,1
 irish-treasure,sorano-s,1
@@ -17154,11 +17327,13 @@ its-wonderful,parker,1
 itsa,jackie-johnson,1
 itsuko,eyerdom-j,1
 itsy,pittman,1
+itty-bitty,frathel,1
 itza-peach,durand-g,1
 ivory-clouds,granger-g,1
 ivory-coast,constantinov,1
 ivory-shadows,sorano-s,1
 ivory-trinket,e-champion,1
+ivory-venus,constantinov,1
 izumi,nadeau,1
 i-m-so-blue,j-b-griffiths,1
 jack,swifts-av,1
@@ -17170,6 +17345,8 @@ jack-sprat,storytella,1
 jack-swift,house-of-violets,1
 jackie-pan-american-p-co,pan-american-p-co,1
 jackie-smith,pat-tuminello,1
+jackie-s-rosemary,jackie-muster,1
+jackpot-b-j-african-violets,b-j-african-violets,1
 jackpot-tinari,tinari,1
 jacolyn,a-w-dougharty,1
 jacolyn,nadeau,2
@@ -17219,7 +17396,8 @@ jays-candy-gal,white-j,1
 jays-elizabeth-rose,white-j,1
 jazz-band,marie-dattalo,1
 jazz-city,c-c-reed,1
-jazz-fest,frathel,1
+jazz-fest-frathel,frathel,1
+jazz-fest-j-b-sisk,j-b-sisk,1
 jazz-it-up,l-munk,1
 jazzberry,lyon,1
 jazzbo,mrs-c-hawley,1
@@ -17228,6 +17406,8 @@ jealous-halo,boone-g,1
 jealous-pink,donald-baker,1
 jean-hilton-dahlia-farm,hilton-dahlia-farm,1
 jean-victoria,gordon-r-coon,1
+jean-s-jem,griffith-s,1
+jeanie-bezz,e-adams,1
 jeanmarie,tinari-greenhouses,1
 jeanne-volkmann,volkmann,1
 jeanne-bohn,e-kiesling,1
@@ -17249,10 +17429,12 @@ jenny-bee,h-o-burns,1
 jenny-marie,e-kiesling,1
 jenny-s-cricket,e-wasche,1
 jersey-devil,fischer-gh,1
+jersey-jubilee,fischer-greenhouse,1
 jessica-bryant,bryant,1
 jessica-e-fisher,fisher-e,1
 jet-action,parker,1
 jet-age,parker,1
+jet-fire,parker,1
 jet-set-baker-s,baker-s,1
 jet-set-lyon,lyon,1
 jet-star,frank-tinari,1
@@ -17274,7 +17456,9 @@ jeweltone-lanigan,lanigan,1
 jez-z-belle,hightower,1
 jezebell,baker-s,1
 jillian,pat-tracey,1
+jilted-heiress,gordon-boone,1
 jiminey-crickets,harry-r-albro,1
+jimmie-crack-corn,date-s-violetry,1
 jimmy,fischer-gh,1
 jimmy-carter,ronn-nadeau,1
 jimmy-watson,kienzle,1
@@ -17379,6 +17563,8 @@ jus-dan,b-foster,1
 just-checking,k-stork,1
 just-fun,travis-davis,1
 just-janice,b-foster,1
+just-marge,james-smith,1
+just-right,frathel,1
 just-so-f-richter,f-richter,1
 just-a-pink,egenites-l,1
 justine,l-hale,1
@@ -17439,6 +17625,7 @@ keilor-plains,fisher-e,1
 keith-james,fisher-e,1
 kelley-pink,madison,1
 kellington,naomi,1
+ken-star,j-muster,1
 kenola,cox-g,1
 kent-s-big-deal,k-stork,1
 kentucky-angel,brackin,1
@@ -17477,6 +17664,7 @@ kentucky-velvet,brackin,1
 kewpie-doll-mrs-p-w-kiesling,mrs-p-w-kiesling,1
 key-west,sandra-leary,1
 kialoa,s-leary-williams,1
+kicky-blue,lyon,1
 killinton,naomi-weeks,1
 kim-cook,cook,1
 kim-linda-ray,linda-ray,1
@@ -17576,6 +17764,7 @@ kuhl-s-roundelay,w-f-kuhl,1
 kuhl-s-snowy-smile,kuhl,1
 kuhl-s-tralei-rose,mrs-w-f-kuhl,1
 kuhl-s-wanderlust,mrs-w-f-kuhl,1
+kuhl-s-mary-dell,kuhl,1
 kum-sum,golden-heart-doris-intel,1
 kumiko,hugh-eyerdom,1
 kunzite-little-mermaid,sorano,1
@@ -17637,7 +17826,9 @@ ladybug,haywood,1
 ladylike,frathels,1
 lake-geneva,gehr-j,1
 lake-luzerne,i-fredette,1
+lakeland,richter-s-gh,1
 lakeshore-silver,j-brownlie,1
+lakeshore-southern-belle,brownlie,1
 lakeshore-star,brownlie,1
 lambs-ears,sotkiewicz-c,1
 lancelot-s-lady,granger,1
@@ -17704,9 +17895,13 @@ lavender-lady-lanigan,lanigan,1
 lavender-lassie-lyon,lyon,1
 lavender-lily,swift-s-av,1
 lavender-lou,c-reed-house-of-violets,1
+lavender-loveliness,feddersen,1
+lavender-lovely,hale-s-house-of-violets,1
+lavender-midget,c-harris,1
 lavender-mist,fisher-e,1
 lavender-peak,ronn-nadeau,1
 lavender-pompon,fischer-greenhouse,1
+lavender-prince-m-burns,m-burns,1
 lavender-rain,m-burs,1
 lavender-ruffles-n-johnston,johnston-n,1
 lavender-sachet-rienhardt,rienhardt,1
@@ -17758,6 +17953,7 @@ ledley-cox,mrs-j-g-barnhill-jr,1
 lee,maas,1
 lee-belle,parker,1
 lee-s-lou,hyla,1
+lee-s-love,violets-atlanta,1
 legend,white-cloud,1
 legend-of-love,house-of-violets,1
 lehigh-valley,g-suter,1
@@ -17770,6 +17966,7 @@ lemon-cream,sorano-s,1
 lemon-eyes,swifts-violets,1
 lemon-ice,sorano-s,1
 lemon-kisses,sorano-s,1
+lemon-lime,fisher-e,1
 lena,maude-cook,1
 leola,mrs-j-j-kreska,1
 leona-herres,hollyce-smith,1
@@ -17924,6 +18121,8 @@ little-cup-cake,m-lanigan,1
 little-darling-parker,parker,1
 little-deano,carr,1
 little-dear,parker,1
+little-debbie,fritz,1
+little-dipper,arndt,1
 little-dogwood,lyon,1
 little-doll,lyon-gh,1
 little-doll,sorano,2
@@ -17935,6 +18134,7 @@ little-egypt,p-stacy,1
 little-eskimo,armstrong,1
 little-eva-mae,mae,1
 little-finesse,sorano,1
+little-flame,lanigan,1
 little-giant-white,fisher-e,1
 little-harp,pittman,1
 little-hopi-ii,holtkamp,1
@@ -17978,6 +18178,7 @@ little-pinkie,j-s-miller,1
 little-polar-bear,sorano-s,1
 little-prince-lyon-gh-sorano,lyon-gh,1
 little-prince-lyon-gh-sorano,sorano,2
+little-prince-c-russell,russell-c,1
 little-princess-lyon-sorano,lyon,1
 little-princess-lyon-sorano,sorano,2
 little-princess-c-russell,russell-c,1
@@ -18001,6 +18202,7 @@ little-snowbunny,sorano-s,1
 little-socialite,johnston-n,1
 little-softie,mrs-l-e-strange,1
 little-sparkles,lyon,1
+little-star,champion,1
 little-star-fire,nancy-johnston,1
 little-stormy,sorano,1
 little-sundrop,lyon,1
@@ -18036,8 +18238,10 @@ lollipop-j-gehr,gehr-j,1
 lollipop-watts,watts,1
 lollipop-kid,sorano-s,1
 lone-star-haga,haga,1
+lone-star-m-maas,maas-m,1
 lone-star-susan-s-violets,susan-s-violets,1
 lone-star-lil,susan-s-violets,1
+lonely-heart,swift-j,1
 lonely-trail,b-elkin,1
 long-john-silver,p-thomas,1
 longing,lyon,1
@@ -18046,6 +18250,7 @@ look-smart,lyon,1
 look-twice,parker,1
 looker,sorano-s,1
 looking-glass,sorano-s,1
+loose-screw,foote-t,1
 lora-lyon,lyon,1
 lora-utz,utz,1
 lord-byron,b-bryant,1
@@ -18054,11 +18259,13 @@ lorella,arndt,1
 loretta-lynn,vern-lorenzen,1
 lori-sue,granger,1
 los-angeles-p-harris,harris-p,1
+lotta-bloom,parker,1
 lotta-color,parker,1
 louanne,l-nelson,1
 loud-talk,parker,1
 louiman-sequo,f-pilon,1
 louise-black,griffiths,1
+louisiana-lullaby-s-sorauo,s-sorauo,1
 loupy-lou,lalanne-j,1
 lovable-doll,parker,1
 lovable-double,mrs,1
@@ -18088,6 +18295,7 @@ love-song-b-sisk,sisk-b,1
 love-stripes,lyon-gh,1
 love-stripes,sorano,2
 love-talks,travis-davis,1
+love-that-red,susan-s-violets,1
 love-s-charm,l-lyon,1
 love-s-eleanor,f-senna,1
 love-s-match,lyon,1
@@ -18104,6 +18312,7 @@ lovely-laura,p-brenner,1
 lovely-linda,p-brenner,1
 lovely-one-swifts-av,swifts-av,1
 lovely-one-c-harris,c-harris,1
+lovely-treasa,hart-a,1
 lover,mary-ray,1
 lover-s-kiss,frathel,1
 lovey-dove,gehr-j,1
@@ -18210,6 +18419,7 @@ lyon-s-spring-dancer,lyon,1
 lyon-s-spring-snow,sorano-s,1
 lyon-s-tranquility,sorano-s,1
 lyon-s-tropical-sunset,sorano-s,1
+lyon-s-unpredictable,sorano-s,1
 lyon-s-victorian-valentine,sorano-s,1
 lyon-s-white-feathers,sorano-s,1
 lyon-s-wild-card,sorano-s,1
@@ -18283,6 +18493,7 @@ madelaine,richter-s-gh,1
 madly-mauve,lyon,1
 madras-blue,violets-atlanta,1
 madrid,plants-n-things,1
+mae-s-peppermint,kahler,1
 magenta-beauty,kolb,1
 magenta-magic,b-britt,1
 magenta-mist,baker-s,1
@@ -18301,22 +18512,26 @@ magic-crest,wilson,1
 magic-dragon,gehr-j,1
 magic-flute,white-cloud,1
 magic-fountain,i-fredette,1
+magic-glow,lyon,1
 magic-halo,boone,1
 magic-kettle,storytella,1
 magic-lady,m-burns,1
 magic-man,susan-s-violets,1
-magic-moment,p-barnhart,1
+magic-moment-p-barnhart,p-barnhart,1
+magic-moment-doreen-jamieson,doreen-jamieson,1
 magic-mood,h-pittman,1
 magic-music,arndt,1
 magic-pink,lyon,1
 magic-potion,sorano-s,1
 magic-splendor,l-lyon,1
+magic-sun,swift-j,1
 magician,volkmann-bros,1
 magicolor,arndt,1
 magnifica,lyon,1
 magnolia-arndt,arndt,1
 magnolia-m-burns-nadeau,m-burns,1
 magnolia-m-burns-nadeau,nadeau,2
+magungensis,lyon,1
 mahogany-belle,granger,1
 mai-tai,gehr-j,1
 mai-yoki,horikoshi,1
@@ -18333,6 +18548,7 @@ maiden-mist,lyon,1
 maiden-mist,sorano,2
 maiden-voyage,sandra-leary,1
 main-event,susan-s-violets,1
+maine-dawn,hawley,1
 maine-event,mrs-c-s-hawley,1
 maine-mist,c-hawley,1
 maine-moonlight,mrs-c-s-hawley,1
@@ -18360,6 +18576,7 @@ mama-s-mystery,r-cox,1
 mama-s-powder-puff,r-cox,1
 mama-s-roses,ruby-cox,1
 mama-s-winter-memories,r-cox,1
+mammy,susan-s-violets,1
 man-about-town,arndt,1
 mandan-dandy,k-stork,1
 mandikins,dates,1
@@ -18479,12 +18696,15 @@ maroon-lou,ronn-nadeau,1
 maroon-velvet,granger,1
 marquee,h-c-parker,1
 mars-volkmann-bros,volkmann-bros,1
+marshlands,j,1
+marshlands,b-sisk,2
 martha-louise,gary-beck,1
 martha-martha,dori-macomber,1
 martha-mia,harris-d,1
 martha-payne,capital-city-avs,1
 martha-payne,nadeau,2
 martha-s-magic,b-foster,1
+martian,lyndon-lyon,1
 martian-spring,hawley,1
 marvelous-myrtle,b-foster,1
 mary-albee,d-parker,1
@@ -18541,6 +18761,7 @@ mattie-mae,swift,1
 maty,d-harrington,1
 maude-cook,pat-tuminello,1
 mauna-kea,granger,1
+mauna-loa,granger-gardens,1
 maureen-volkmann-bros,volkmann-bros,1
 mauve-eyes,l-sebastion,1
 mauve-memories,pittman,1
@@ -18551,6 +18772,7 @@ maverick-s-summer-love,w-smith,1
 maverick-s-tight-jeans,w-smith,1
 maximo-moorings,s-leary-williams,1
 maxine-susans-violets,susan-s-violets,1
+max-s-pride,margaret-persson,1
 may-dance-fredette,fredette,1
 may-maize,mrs-c-s-hawley,1
 may-morn-c-reed-house-of-violets,c-reed-house-of-violets,1
@@ -18561,6 +18783,7 @@ may-queen-volkmann,volkmann,1
 may-wind,mrs-c-s-hawley,1
 mayan-magic,s-leary-williams,1
 maybelle-raskopf,raskopf,1
+mayerling,arndt,1
 mayfair-fredette,fredette,1
 mayhem,l-hale,1
 maypole,swift-s-av,1
@@ -18611,6 +18834,7 @@ melissa-edna-mccawley,edna-mccawley,1
 melissa-lanigan,lanigan,1
 melissa-ann,v-rader,1
 mello-pink,kolb,1
+melloglow,lanigan,1
 mellow-fellow,durand-g,1
 mellow-glov,frathel,1
 mellow-magic,eyerdom-j,1
@@ -18639,12 +18863,14 @@ melodie-melissa,sunnyside,1
 melodie-mia,sunnyside,1
 melodie-rhonda,sunnyside-levy,1
 melodie-sheila,sunnyside-levy,1
+melodie-valerie,sunnyside,1
 melody-volkmann,volkmann,1
 melody-angie,sunnyside,1
 melody-ann,sunnyside,1
 melody-diane,sunnyside,1
 melody-kathy,sunnyside-n,1
 melody-mary,sunnyside,1
+melody-mitzi,sunnyside-n,1
 melody-paula,sunnyside,1
 melody-pearl,sunnyside,1
 melody-ranch,parker,1
@@ -18691,6 +18917,7 @@ meteor-showers,sorano-s,1
 mexico,volkmann-bros,1
 miami-maid-f-burton,f-burton,1
 miami-maid-elkin,elkin,1
+miami-sails,madison-g,1
 michael-a-butler,butler,1
 michael-andrew,fisher-e,1
 michael-joseph,c-cohen,1
@@ -18712,15 +18939,18 @@ midnight-aurora,h-eyerdom,2
 midnight-blue-c-raskopf,c-raskopf,1
 midnight-comet,travis-davis,1
 midnight-echo,manelta-lanigan,1
-midnight-frost,capital-city-avs,1
+midnight-frost-capital-city-avs,capital-city-avs,1
+midnight-frost-edith-e-coleman,edith-e-coleman,1
 midnight-jewel,lanigan,1
 midnight-jewel,rose-knoll,2
 midnight-kiss,mrs-c-s-hawley,1
 midnight-lace-g-gay,g-gay,1
+midnight-lady-g-boone,boone-g,1
 midnight-love,sorano-s,1
 midnight-madness,kolb-s-gh,1
 midnight-magic-sidney-sorano,sidney-sorano,1
-midnight-melody,elley,1
+midnight-melody-elley,elley,1
+midnight-melody-granger-gardens,granger-gardens,1
 midnight-model,adams-a-e,1
 midnight-moon-violets-by-cort,violets-by-cort,1
 midnight-oasis-nadeau,nadeau,1
@@ -18760,6 +18990,7 @@ mighty-mini-dorothy-adams,dorothy-adams,1
 mighty-mini-parker,parker,1
 mighty-nice,parker,1
 mighty-ruff,swifts-violets,1
+mignon-s-moment,r-scott,1
 mikado-red,granger-s,1
 mikado-red,eyerdom,2
 mike-mrs-j-c-harris,mrs-j-c-harris,1
@@ -18768,6 +18999,7 @@ milady-candy-russell,candy-russell,1
 mildly-meek,j-brownlie,1
 mildred-lusk,c-m-hawley,1
 mildred-williams,susan-s-violets,1
+mile-high,e-kiesling,1
 milk-and-honey,doris-intel,1
 milky-way-volkmann,volkmann,1
 millicoma,arndt,1
@@ -18809,10 +19041,12 @@ mini-skirt,richter,1
 mini-ha-ha-annalee-violetry,annalee-violetry,1
 mini-mum-annalee-violetry,annalee-violetry,1
 miniature-gay-confetti,fischer,1
+miniature-pink-puff,fischer,1
 miniature-wanton-red,lyndon-lyon,1
 minneapolis-d-harrington,d-harrington,1
 minnesota-debute,ness,1
 minnesota-viking,v-lorenzen-park-n,1
+minnie,lyon,1
 minnie-mae,hale-s-house-of-violets,1
 minnie-mine,a-adams,1
 minnie-the-mooch,stokes-j,1
@@ -18829,6 +19063,7 @@ minty-momo,eileen-nelson,1
 minute-man,lyon,1
 mirabella,sandra-leary,1
 miracle-rosette,kl,1
+miracle-strawberry-m-lanigan,m-lanigan,1
 miracle-strip-star,miracle-strip-avs,1
 mirage-s-sorano,sorano-s,1
 miramanee,wilkening,1
@@ -18843,6 +19078,7 @@ miss-amity,susans-v,1
 miss-amy-harris,harris-d,1
 miss-arkansas,ozark-avs-club,1
 miss-baton-rouge,mimi,1
+miss-behavin,hale-s-house-of-violets,1
 miss-blue-volkmann,volkmann,1
 miss-bo-peep,lanigan,1
 miss-buffy,hawley,1
@@ -18859,7 +19095,9 @@ miss-ginny,domiano-jeanette,1
 miss-ida,pat-tuminello,1
 miss-jill,susan-s-violets,1
 miss-kitty,house-of-violets,1
+miss-liz-susans-violets,susan-s-violets,1
 miss-lonely-heart,fredette,1
+miss-marcis,susan-s-violets,1
 miss-memphis,mimi-s,1
 miss-mildred,susan-s-violets,1
 miss-minnesota-v-lorenzen-park-n,v-lorenzen-park-n,1
@@ -18991,6 +19229,7 @@ monseigneur,d-croteau,1
 monstar,ronn-nadeau,1
 montara,gary-beck,1
 montego-bay,sandra-williams,1
+monterey-kartuz,kartuz,1
 monterey-granger-gardens,granger-gardens,1
 monterey-sunset,e,1
 monterey-sunset,l-hammond,2
@@ -18998,11 +19237,13 @@ montgomery-belle-montgomery-avs,montgomery-avs,1
 montgomery-belle-mrs-e-fuller,mrs-e-fuller,1
 montgomery-silver-frost,eyerdom,1
 monticello,fredette,1
+montreal-y-decelles,decelles-y,1
 mood-changer,c-akemann,1
 mood-indigo-white-cloud,white-cloud,1
 mood-indigo-susan-s-violets,susan-s-violets,1
 moodie,parker,1
-moody-blues,david-buttram,1
+moody-blues-david-buttram,david-buttram,1
+moody-blues-lyon,lyon,1
 moon-born,maas,1
 moon-crater,taylor,1
 moon-crest,volkman,1
@@ -19041,6 +19282,7 @@ moonsilk,sorano-s,1
 moonstone-simpsons-av,simpson-s-av,1
 moonstruck,simpson-s-av,1
 moontide,swifts,1
+moonview,burton,1
 more-fury,kolb,1
 morning-delight,ronn-nadeau,1
 morning-dew-arndt,arndt,1
@@ -19059,6 +19301,7 @@ morning-thunder,lyon-gh,1
 morning-thunder,sorano,2
 moromont,utz,1
 mosaic-plum,lanigan,1
+mosaic-rose,v-lorenzen-park-n,1
 mosaica,frank-tinari,1
 mosaica-plum,lanigan,1
 mosaica-rose,lanigan,1
@@ -19094,6 +19337,7 @@ mr-cordelia,lyon,1
 mr-joy,easterbrook,1
 mr-midnight,fischer-greenhouse,1
 mr-r,richter,1
+mr-wizard,parker,1
 mrs-billie,volkmann,1
 mrs-greg,v-lorenzen-park-nursery,1
 mrs-ike,house-of-violets,1
@@ -19114,6 +19358,7 @@ muffet,pittman,1
 muffy-kolb,kolb,1
 muffy-s-sorano,sorano-s,1
 mulberry-swifts-african-violets,swifts-african-violets,1
+mulberry-jazz,sorano-p,1
 mulberry-mist,swift-s-av,1
 mulberry-rose,volkmann,1
 mumbo-jumbo,simpson-s-av,1
@@ -19158,17 +19403,21 @@ my-love-c-r-reed,c,1
 my-love-c-r-reed,r-reed,2
 my-mac,e-mccawley,1
 my-molly,b-foster,1
+my-morning-glory,p-maness,1
 my-prayer,house-of-violets,1
 my-sarah,mrs,1
 my-shanna,t-weber,1
 my-snowgirl,p-maness,1
+my-sparkling-wine,p-maness,1
 my-spoon,wilson-bros,1
 my-stars-house-of-violets,house-of-violets,1
 my-stars-m-lanigan,m-lanigan,1
+my-stars-madison-gardens,madison-gardens,1
 my-sue,s-sanders,1
 my-sue,r-brenton,2
 my-sugar-pink,swifts,1
 my-sweetie-pie,mrs-a-c-moore,1
+my-treat,violets-by-cort,1
 my-true-love,johnston-n,1
 my-valentine-baker-s,baker-s,1
 my-valentine-house-of-violets,house-of-violets,1
@@ -19259,6 +19508,7 @@ ness-cool-breeze,ness-d,1
 ness-coral-bliss,ness-d,1
 ness-coral-dawn,ness-d,1
 ness-coral-luster,ness-d,1
+ness-cozy-quilts,ness-d,1
 ness-cranberry-lace,ness-d,1
 ness-creme-puff,ness-d,1
 ness-dancing-belle,ness-d,1
@@ -19314,6 +19564,7 @@ nettie-lee,utz,1
 network,mrs-barbara-elkin,1
 neutron-star,gehr-j,1
 neva,larry-j-hale,1
+neva-fern,hale-s-house-of-violets,1
 nevada-sport,japanese,1
 new-amsterdam,easterbrook,1
 new-dawn-david-buttram,david-buttram,1
@@ -19328,6 +19579,7 @@ new-love,helen-kelley,1
 new-moon,volkmann-bros,1
 new-prague,d-harrington,1
 new-tiffany,parker,1
+new-x,parker,1
 new-year-s-day,d-r-maness,1
 new-year-s-eve,lyon,1
 new-york,holtkamp-r,1
@@ -19350,6 +19602,7 @@ nicole-fredette,fredette,1
 nifty,swifts,1
 nifty-pink,lyon,1
 night-day,baker-s,1
+night-eyes,spann-s,1
 night-fever-s-scrano,s-scrano,1
 night-fever-s-sorano,sorano-s,1
 night-life-baker-s,baker-s,1
@@ -19358,11 +19611,13 @@ night-moods,lyons,1
 night-moth,sandra-leary,1
 night-music,mrs-j-wiesner,1
 night-owl,v-lorenzen-park-n,1
+night-purple,c-harris,1
 night-rider-granger,granger,1
 night-rider-raymond-scott,raymond-scott,1
 night-secrets,sorano-s,1
 night-shadows,frathel,1
 night-stalker,lyon-gh,1
+night-walker,susan-s-violets,1
 nightfall-j-swift,swift-j,1
 nightflair,granger,1
 nightflower,kolb,1
@@ -19374,8 +19629,10 @@ nightwing,karter-g-wilkening,1
 nigrette,arndt,1
 niki,richter,1
 nimbus-lyon,lyon,1
+nina-noll,nina-noll-deceased,1
 nisqually-warrior,arndt,1
 nite-beat,pittman,1
+nite-cap,boone-g,1
 no-fibbin,d-parker,1
 no-how,v-lorenzen-park-n,1
 no-kiddn,easterbrook,1
@@ -19466,13 +19723,15 @@ oceanside,sorano-s,1
 octa-faye,house-of-violets,1
 octavia,b-foster,1
 october,raynor,1
+october-moon,helenkelley,1
 october-pink,madison-gardens,1
 october-seas,sotkiewicz-c,1
 october-sunset,constantinov,1
 octoberfest,arndt,1
 odessa,volkmann-bros-greenhouses,1
 odie,s-lang,1
-odyssey,foote-t,1
+odyssey-t-foote,foote-t,1
+odyssey-j-rainey,j-rainey,1
 of-interest,e-kiesling,1
 officer-krupke,k-stork,1
 oh-boy,swift-s-av,1
@@ -19489,6 +19748,7 @@ oh-so-nice,parker,1
 oh-sugar,house-of-violets,1
 oh-susannah-irene-fredette,irene-fredette,1
 oh-that-pink,sorano-s,1
+oh-gi-gi,frathel,1
 ohilaila,baker-s,1
 ohio-heritage,r-cox,1
 ohio-spring,neumann,1
@@ -19519,6 +19779,7 @@ old-master,volkmann,1
 old-organdy,easterbrook,1
 old-rose-e-fisher,fisher-e,1
 old-smokey,lyndon-lyon,1
+old-smoky-fritz,fritz,1
 old-smoky-girl,fritz,1
 old-spanish-trail,pittman,1
 old-style,richter-greenhouse,1
@@ -19547,6 +19808,7 @@ one-and-only,swifts,1
 one-desire,v-lorenzen-park-n,1
 one-hundred-ways-jeannettes-jes,jeannette-s-jes,1
 one-mo-time,violets-do-cookie,1
+one-on-one-nadeau,nadeau,1
 one-fourteen,ronn-nadeau,1
 onward,r-g-anderson,1
 oodles-of-blue,peck,1
@@ -19555,6 +19817,7 @@ op-art,richter,1
 opal-e-fisher,fisher-e,1
 opal-lyon,lyon,1
 opal-surprise-house-of-violets,house-of-violets,1
+opal-s-joy,mrs-j-e-rodriques,1
 open-arms,ronn-nadeau,1
 open-face,richter,1
 open-sky,parker,1
@@ -19621,6 +19884,7 @@ optimara-helsinki,holtkamp,1
 optimara-hiroshige,holtkamp,1
 optimara-hokey-pokey,holtkamp,1
 optimara-hula-hula,holtkamp,1
+optimara-idaho-ii,holtkamp,1
 optimara-illinois,holtkamp,1
 optimara-indiana-ii,holtkamp,1
 optimara-jitterbug,holtkamp,1
@@ -19688,6 +19952,7 @@ optimara-new-jersey-ii,holtkamp,1
 optimara-north-carolina-ii,holtkamp,1
 optimara-north-carolina-sport,japanese,1
 optimara-north-dakota,holtkamp,1
+optimara-north-dakota-ii,holtkamp,1
 optimara-ohio,holtkamp,1
 optimara-oklahoma,holtkamp,1
 optimara-omita,holtkamp,1
@@ -19804,9 +20069,12 @@ our-gal-sal,frathel,1
 our-hope,reed,1
 our-karol,h-pittman,1
 our-maid-marion,elkin,1
+our-naked-joy-nadeau,nadeau,1
 our-nancy,griffiths,1
 our-norma,rienhardt,1
+our-rosalee,boone-g,1
 out-love,b-elkin,1
+out-of-africa,w-lalanne,1
 outburst,baker-s,1
 outer-space-easterbrook,easterbrook,1
 outer-space-satellite-red-11-19-68,satellite-red-11-19-68,1
@@ -19815,6 +20083,7 @@ outrageous-s-sorano,sorano-s,1
 outrageous-j-swift,swift-j,1
 over-the-rainbow-yg,yg,1
 overtone,swifts,1
+overture-susans-violets,susan-s-violets,1
 ozark-blue,e-floyd,1
 ozark-gal,cox,1
 ozark-queen,ozark-club,1
@@ -19840,6 +20109,7 @@ pagan-star,m-lanigan,1
 pagoda-pink,johnston-n,1
 paige,mrs,1
 painted-beauty,lanigan,1
+painted-face,tinari,1
 painted-heart,travis-violets,1
 painted-jewel,rose-knoll,1
 painted-lady-j-eyerdom,eyerdom-j,1
@@ -19932,6 +20202,7 @@ pastorale,c-powers,1
 pat-nixon,volkart,1
 pat-red-elk,john-brownlie,1
 pat-s-big-john,pat-s-abc-s,1
+pat-s-goldie-locks,p-maness,1
 pat-s-helen-april,p-maness,1
 pat-s-henry-s-dream,pat-s-abc-s,1
 pat-s-just-judy,pat-s-abc-s,1
@@ -19977,6 +20248,7 @@ paul-philip,fisher-e,1
 paul-shawna,eyerdom,1
 paul-william,e-kiesling,1
 paul-s-pizzazz,d-j-good,1
+paula-foster,b-j-bryant,1
 paula-s-pet,b-foster,1
 paulena,b-bryant,1
 paulette,lloyds,1
@@ -20027,6 +20299,7 @@ peacock-lyon,lyon,1
 peacock-blue,madison,1
 peacock-fancy,volkart,1
 peacock-strut,volkart,1
+pearl-moon,mrs-irene-haseltine,1
 pearl-white-grangers-eyerdom,grangers,1
 pearl-white-grangers-eyerdom,eyerdom,2
 pearl-white-e-fisher,fisher-e,1
@@ -20036,6 +20309,7 @@ pearly-pink,tinari-greenhouses,1
 pearly-princess,adams-a-e,1
 pearly-shells,richter-greenhouse,1
 pearly-sparkles,susan-s-av,1
+pebble-pink,susan-s-violets,1
 pecks-of-pink,lyon,1
 pecos,volkmann-bros-greenhouses,1
 pee-wee-purple,h-pittman,1
@@ -20139,6 +20413,7 @@ persian-lace,sorano-s,1
 persian-lilac-swanson,swanson,1
 persian-lullaby,sorano-s,1
 persian-melon,bob-kramer,1
+persian-miracle,lanigan,1
 persian-pansy,lanigan,1
 persian-radiance,lanigan,1
 persian-sensation,manelta-lanigan,1
@@ -20185,6 +20460,7 @@ picardy-lanigan,lanigan,1
 pichaninny,watts,1
 pick-a-dilly,house-of-violets,1
 pick-a-lily,the-house-of-violets,1
+pick-me,susan-s-violets,1
 picotee-petticoat,wilson,1
 picture-perfect-eyerdom,eyerdom,1
 picture-perfect-frathel,frathel,1
@@ -20196,7 +20472,9 @@ picturesque-susans-violets,susan-s-violets,1
 pied-piper-doris-intel,doris-intel,1
 piggy-back,arndt,1
 pikes-peak-parker,parker,1
+pilgrim-cheerio,nelson-farm,1
 pilgrim-cider,nelson-farm,1
+pilgrim-colony,nelson,1
 pilgrim-daydream,nelson-farm,1
 pilgrim-fire,nelson-farm,1
 pilgrim-harvest,nelson-farm,1
@@ -20207,6 +20485,7 @@ pilgrim-mayflower,nelson,1
 pilgrim-minuet,nelson,1
 pilgrim-ripple,nelson,1
 pilgrim-samantha,nelson-farm,1
+pilgrim-sentry,m-lanigan,1
 pilgrim-sheerluv,m-lanigan,1
 pilgrim-springtime,nelson,1
 pilgrim-tabatha,nelson-farm,1
@@ -20226,6 +20505,7 @@ ping-a-ling,volkmann,1
 ping-pong,lyon,1
 pink-a-roo,lyon,1
 pink-action,swanson,1
+pink-affair,susan-s-violets,1
 pink-aglow,buttram,1
 pink-ahoy,the-house-of-violets,1
 pink-amiss-j-eyerdom,eyerdom-j,1
@@ -20241,6 +20521,7 @@ pink-beads,clarissa-harris,1
 pink-betty,mass,1
 pink-blueberry-kartuz,kartuz,1
 pink-blueberry-tinari-greenhouses,tinari-greenhouses,1
+pink-blush,r-e-scott,1
 pink-bonnie,madison-gardens,1
 pink-botik,doris,1
 pink-bunny,lyndon-lyon,1
@@ -20248,6 +20529,7 @@ pink-bunyan,kahler,1
 pink-buttercup-hawley,hawley,1
 pink-buttercup-nancy-johnston,nancy-johnston,1
 pink-buttonaire,eyerdom,1
+pink-cadillac,susan-s-violets,1
 pink-camelia,tinari-gh,1
 pink-cameo-lyon,lyon,1
 pink-camisole,cox,1
@@ -20286,7 +20568,8 @@ pink-corsage,hammond,1
 pink-crepe-brackin,brackin,1
 pink-crest,west-s-g-h,1
 pink-crouchet,g-crouchet,1
-pink-crush,sorano-s,1
+pink-crush-lyndon-lyon,lyndon-lyon,1
+pink-crush-s-sorano,sorano-s,1
 pink-crystal-s-sorano,sorano-s,1
 pink-cup,fisher-e,1
 pink-dale,lyon,1
@@ -20297,6 +20580,7 @@ pink-demo,hale-s-house-of-violets,1
 pink-dewdrops,swift-j,1
 pink-diamond-tinari,tinari,1
 pink-diamonds,sorano-s,1
+pink-divinity,frathel,1
 pink-dogwood-hales-house-of-violets,hale-s-house-of-violets,1
 pink-dolly-ronn-nadeau,ronn-nadeau,1
 pink-dove-s-sorano,sorano-s,1
@@ -20316,6 +20600,7 @@ pink-endive,fredette,1
 pink-energy,ronn-nadeau,1
 pink-eye,j-b-griffiths,1
 pink-fantastic,mrs-f-weyland,1
+pink-fawn,tinari-gh,1
 pink-feathers,sorano-s,1
 pink-finesse-fischer-greenhouse,fischer-greenhouse,1
 pink-fire-tinari,tinari,1
@@ -20337,6 +20622,7 @@ pink-giant-haga,haga,1
 pink-giraffe,swifts-violets,1
 pink-glory-lanigan,lanigan,1
 pink-glow-e-fisher,fisher-e,1
+pink-gold,hale-s-house-of-violets,1
 pink-goliath,granger-gardens,1
 pink-gondelier,madison-g,1
 pink-granada,granger-gardens,1
@@ -20376,6 +20662,7 @@ pink-love-birds,frathel,1
 pink-lucky-locket,lyon,1
 pink-magic-mrs-h-r-tiedeman,mrs-h-r-tiedeman,1
 pink-magic-volkmann,volkmann,1
+pink-magnolia,fischer-greenhouse,1
 pink-marble-tinari,tinari,1
 pink-masterpiece,v-lorenzen-park-n,1
 pink-may,madison-g,1
@@ -20383,13 +20670,16 @@ pink-medallion,granger,1
 pink-medley,granger,1
 pink-meringue,grace-bradley,1
 pink-mink,mr-gene-thiel,1
+pink-mint-lyon-gh-sorano,lyon-gh,1
+pink-mint-lyon-gh-sorano,sorano,2
 pink-minx,mrs-c-s-hawley,1
 pink-mist-e-fisher,fisher-e,1
 pink-mist-utz,utz,1
 pink-mist-volkmann,volkmann,1
 pink-model,lyon,1
-pink-moon,sidney,1
-pink-moon,paul-sorano,2
+pink-moon-lyndon-lyon,lyndon-lyon,1
+pink-moon-sidney-paul-sorano,sidney,1
+pink-moon-sidney-paul-sorano,paul-sorano,2
 pink-morn,volkmann,1
 pink-mornstar,ronn-nadeau,1
 pink-mountain,tinari,1
@@ -20421,6 +20711,7 @@ pink-piano,tinari,1
 pink-picturesque,eyerdom,1
 pink-pinafore,ronn-nadeau,1
 pink-pinwheel,fischer-greenhouse,1
+pink-pipe-dream,mrs-j-b-griffiths,1
 pink-pippin,lyon,1
 pink-pique,lyon,1
 pink-pirate,kartuz,1
@@ -20445,7 +20736,8 @@ pink-puff-select,select,1
 pink-purri,mrs-h-van-zele,1
 pink-pussycat-lanigan,lanigan,1
 pink-pussycat-s-sorano,sorano-s,1
-pink-quilt,sorano-s,1
+pink-quilt-lyon,lyon,1
+pink-quilt-s-sorano,sorano-s,1
 pink-radiance-hugh-eyerdom,hugh-eyerdom,1
 pink-raphosidie,maas,1
 pink-rayed,lyon,1
@@ -20461,8 +20753,10 @@ pink-roses-madison,madison,1
 pink-rosette,l-munk,1
 pink-rouge-frank-tinari,frank-tinari,1
 pink-rouge-v-l-lorenzen,v-l-lorenzen,1
+pink-ruffles-susan-s-violets,susan-s-violets,1
 pink-rumba,sorano-s,1
 pink-sally,madison,1
+pink-satin-mims,mims,1
 pink-satin-sheets-nadeau,nadeau,1
 pink-shadows,parker,1
 pink-sherry,madison,1
@@ -20492,15 +20786,18 @@ pink-tangier,granger-gardens,1
 pink-tassle,pittman,1
 pink-tease-lyon-sorano,lyon,1
 pink-tease-lyon-sorano,sorano,2
+pink-temptation,eyerdom,1
 pink-tillie,kolb,1
 pink-top-susans-violets,susan-s-violets,1
 pink-treasure-sierk,sierk,1
 pink-treasure-volkmann,volkmann,1
+pink-trumpet,fisher-e,1
 pink-up,lyon,1
 pink-valentine-volkmann-bros,volkmann-bros,1
 pink-veil,madison-gardens,1
 pink-velvet-h-eyerdom,eyerdom-h,1
 pink-velvet-lanigan,lanigan,1
+pink-verona,tinari,1
 pink-victoria-volkmann,volkmann,1
 pink-vision,swift,1
 pink-volcano,kartuz,1
@@ -20541,6 +20838,7 @@ pippin-fredette,fredette,1
 pippin-pink,parker,1
 pippit,pat-tracey,1
 pique-pink,lyon,1
+pique-pixie,lyon,1
 pirate-s-alley,the-house-of-violets,1
 pirate-s-gold,sorano-s,1
 pirate-s-ransom,s-leary-williams,1
@@ -20565,11 +20863,15 @@ pixie-stardust,sorano-s,1
 pixie-storm,sorano-s,1
 pixie-treasure,sidney,1
 pixie-treasure,paul-sorano,2
+pixie-white,joanne-steffen,1
 pizzaz,lyon,1
 pizzazz,mr-gene-thiel,1
 plain-fancy,champion-s-av,1
 plain-jane,mrs-c-s-hawley,1
+plantation-oak,j,1
+plantation-oak,b-sisk,2
 platinum,richter,1
+platinum-blonde,arndt,1
 platinum-blue,swift-s-av,1
 platinum-blush,susan-s-violets,1
 platinum-lavender,swift-s-av,1
@@ -20623,6 +20925,7 @@ plum-velvet,lalanne,1
 plumificent,baker,1
 plush,meese,1
 plush-n-pretty,ed-s-smith,1
+pocahontas-t-b-mckneely,t-b-mckneely,1
 pocatella,arndt,1
 pocona-lynn,desandis,1
 pocona-mountain,desandis,1
@@ -20640,6 +20943,7 @@ polar-queen,granger,1
 polar-white,madison-g,1
 polaris-max-maas,max-maas,1
 polka-parade,arndt,1
+polly-martha-husted,martha-husted,1
 polly-doodle,fredette,1
 polly-flinders,fisher-e,1
 polly-put-on,c,1
@@ -20656,6 +20960,7 @@ pop-art-lyon,lyon,1
 pop-art-shaw,shaw,1
 pop-music,susan-s-av,1
 popcorn-lyon,lyon,1
+popeye-lyon,lyon,1
 poppin-hot,lyon-s-greenhouse,1
 poppin-white,lyon,1
 poppy-trail,harris-p,1
@@ -20672,6 +20977,7 @@ postmark,k-stork,1
 posy,swift,1
 pot-luck,fredette,1
 pot-o-gold-susan-s-violets,susan-s-violets,1
+potomac-blue,granger,1
 potpourri-simpsons-av,simpson-s-av,1
 powder-blues,pat-s-flowerland,1
 powder-pink,arndt,1
@@ -20689,6 +20995,7 @@ prairie-petunia,hightower,1
 prairie-pink-m-gall,gall-m,1
 prairie-pixie,l-stickney,1
 prairie-primrose,gall-m,1
+prairie-rose,lyon,1
 prairie-sinkhole,l-stickney,1
 prairie-song,l-stickney,1
 prairie-spring-awakening,l-stickney,1
@@ -20700,6 +21007,7 @@ prairie-wildfire,l-stickney,1
 prairie-winemaker,l-stickney,1
 precious-e-kolb,kolb-e,1
 precious-cargo,s-leary-williams,1
+precious-lace,granger,1
 precious-memory,hollyce-smith,1
 precious-moments,lyon,1
 precious-peach,lyon-gh,1
@@ -20724,6 +21032,8 @@ pretty-baby-h-heard,h-heard,1
 pretty-bird,d-harrington,1
 pretty-debbie,mable-white,1
 pretty-debbie,nadeau,2
+pretty-eyes,j,1
+pretty-eyes,b-sisk,2
 pretty-kitty,swift-s-av,1
 pretty-lady,house-of-violets,1
 pretty-mama,cox,1
@@ -20745,6 +21055,7 @@ pride-of-enterprise,avs-wiregrass,1
 pride-of-enterprise,fredette,2
 pride-of-williamette,arndt,1
 pride-of-wisconsin,mrs-e-kramer,1
+pride-s-pink-trail,sotkiewicz,1
 prima-donna-v-l-lorenzen,v-l-lorenzen,1
 prima-pink,volkmann,1
 primrose-wilson-bros,wilson-bros,1
@@ -20804,12 +21115,14 @@ pure-glucose,ronn-nadeau,1
 pure-hexane,ronn-nadeau,1
 pure-innocence,granger-gardens,1
 pure-methanol,ronn-nadeau,1
+pure-pearl,susan-s-violets,1
 pure-pleasure,baker-s,1
 pure-sucrose,ronn-nadeau,1
 pure-water,ronn-nadeau,1
 purely-stunning,joan-a-westrick,1
 purple-alligator,r-nadeau,1
 purple-beauty-madison-g,madison-g,1
+purple-blush,hale-s-house-of-violets,1
 purple-boy,fisher-e,1
 purple-boys,madison-g,1
 purple-calico,haga,1
@@ -20823,6 +21136,7 @@ purple-cluster-lyndon-lyon,lyndon-lyon,1
 purple-coon-valley,wilson-bros,1
 purple-cow,j-s-miller,1
 purple-crinkles,lyon,1
+purple-dance,fisher-e,1
 purple-dream,susans-av,1
 purple-durple,p-stacy,1
 purple-dust,g-suter,1
@@ -20907,6 +21221,8 @@ quartz-royal-crest,elkin,1
 quasar,l-hale,1
 queen-bea,d-l-thomas,1
 queen-bee,storytelia,1
+queen-helen,frank-a-tinari,1
+queen-of-angels,clarissa-harris,1
 queen-of-hearts-bakers,bakers,1
 queen-of-hearts-parker,parker,1
 queen-of-night,arndt,1
@@ -20937,6 +21253,7 @@ radiant-star-pittman,pittman,1
 radiant-trail,lyndon-lyon,1
 rag-doll-j-gehr,gehr-j,1
 rag-doll-p-stacy,p-stacy,1
+rags-to-riches,swift-s-av,1
 ragusa-special,nadeau,1
 rain-beau,fredette,1
 rain-dance-buttons,buttons,1
@@ -20951,6 +21268,7 @@ rainbow-s-berry-dazzle,wasmund-r,1
 rainbow-s-blue-aura,wasmund-r,1
 rainbow-s-blue-ythan,wasmund-r,1
 rainbow-s-blush-glory,wasmund-r,1
+rainbow-s-capodimonte,wasmund-r,1
 rainbow-s-celeste,d-s-hirt,1
 rainbow-s-cherry-flambe,wasmund-r,1
 rainbow-s-cherry-splash,wasmund-r,1
@@ -21004,6 +21322,8 @@ ramblin-dream,sorano,1
 ramblin-firedance,e-champion,1
 ramblin-lace,lyon,1
 ramblin-lace,sorano,2
+ramblin-lullaby,lyon-gh,1
+ramblin-lullaby,sorano,2
 ramblin-magic-sidney-paul-sorano,sidney,1
 ramblin-magic-sidney-paul-sorano,paul-sorano,2
 ramblin-maytime,e-champion,1
@@ -21062,6 +21382,7 @@ raspberry-rampage,sorano-s,1
 raspberry-reflections,sorano-p,1
 raspberry-reunion,bill-johnson,1
 raspberry-revel-amdt,amdt,1
+raspberry-revel-arndt,arndt,1
 raspberry-ribbon,lanigan,1
 raspberry-rose,granger-s,1
 raspberry-rose,eyerdom,2
@@ -21152,6 +21473,7 @@ red-bluff,constantinov,1
 red-calico,haga,1
 red-cardinal,frathel,1
 red-carpet,nw,1
+red-cavalier-lyon,lyon,1
 red-charm-granger-gardens,granger-gardens,1
 red-cherry,volkmann,1
 red-choice,lyon,1
@@ -21177,6 +21499,7 @@ red-flare,fisher-e,1
 red-flicker,lyon,1
 red-fling,lyon,1
 red-flush,lyndon-lyon,1
+red-garland,fischer,1
 red-glory-eyerdom,eyerdom,1
 red-hat,tinari-greenhouses,1
 red-honey-lyon,lyon,1
@@ -21202,10 +21525,12 @@ red-pepper-e-champion,e-champion,1
 red-petticoats,sorano,1
 red-pinwheel,epps,1
 red-premier,granger,1
+red-pugny,parker,1
 red-pygmy,parker,1
 red-rain,lanigan,1
 red-rated,lyon,1
-red-rebel,granger,1
+red-rebel-granger,granger,1
+red-rebel-lyon,lyon,1
 red-rich,fisher-e,1
 red-rider-trail,ray-l,1
 red-ringer,lyon-gh,1
@@ -21235,6 +21560,7 @@ red-sunrise,granger-s,1
 red-sunset-star,tinari-gmhses,1
 red-tape,swift-s-av,1
 red-tepee,lyon,1
+red-tiger,lyon,1
 red-topper,fisher-e,1
 red-tornado,lyon,1
 red-trinket,lyon,1
@@ -21258,6 +21584,7 @@ redlegs,meese,1
 redondo,d-g-boone,1
 reed-s-dixie-moonbeam,the-house-of-violets,1
 reed-s-fancifrill,house-of-violets,1
+reed-s-jackpot,b-j-african-violets,1
 reed-s-pink-lemonade,house-of-violets,1
 reed-s-moonbeam,c-c-reed,1
 reflection-lyon,lyon,1
@@ -21273,11 +21600,13 @@ regina-grangers,granger-s,1
 reigning-beauty,swift-j,1
 rema,the-house-of-violets,1
 remember,frathel,1
+remember-when,susan-s-av,1
 renaissance-rose,j-muster,1
 rendezvous,simpson,1
 reno,parker,1
 renown,volkmann-bros,1
 reny-s-ruffles,brackin,1
+replica,swifts-violets,1
 restless-ribbon,p-stacy,1
 retrospect,k-stork,1
 reuben,innis-violets,1
@@ -21364,6 +21693,8 @@ rhapsody-linda,holkamp,1
 rhinestone-cowboy,susan-whitaker,1
 rhinestone-sparkle,swift-s-av,1
 rhoda,fredette,1
+rhoda-binner,e-kiesling,1
+rhookie,swifts,1
 rhythm-n-blues,durand-g,1
 richter-s-audrey,richter,1
 richter-s-betty,claire-byerly,1
@@ -21375,8 +21706,11 @@ richter-s-dorothy,connie-romanow,1
 richter-s-far-star,connie-romanow,1
 richter-s-first-lady,rosemarie-burback,1
 richter-s-hara,claire-byerly,1
+richter-s-highland-beau,richter,1
 richter-s-irish-crochet,richter,1
 richter-s-liberty-lady,rosemarie-burback,1
+richter-s-pearly-shells,richter,1
+richter-s-pretty-proud,richter,1
 richter-s-quiet-waters,richter,1
 richter-s-snowberry,richter,1
 richter-s-step-up,richter,1
@@ -21458,6 +21792,7 @@ robin-lynne,j-feeney,1
 roblee,richter,1
 robyn,pat-s-flowerland,1
 rob-s-loose-noodie,r-robinson,1
+rob-s-silver-spook-leila-egenites,leila-egenites,1
 rochelle-s-paisley-princess,r-armstrong,1
 rochelle-s-ruby-sparkler,r-armstrong,1
 rochelle-s-temptor,r-armstrong,1
@@ -21476,6 +21811,7 @@ rodeo-pioneer,j-munk,1
 rodeo-queen,arndt,1
 rodney,house-of-violets,1
 roe-ann,r-h-roe,1
+roehrs-kenya-violet,roehr,1
 roehrs-spring-blossom,roehr,1
 roehrs-wine-velvet,roehr,1
 roehr-s-delight,roehr,1
@@ -21514,6 +21850,7 @@ rose-charm,lanigan,1
 rose-cherub,sidney,1
 rose-cherub,paul-sorano,2
 rose-chip,parker,1
+rose-crest,granger-gardens,1
 rose-dusk,granger-g,1
 rose-dust-granger-gardens,granger-gardens,1
 rose-dust-e-wasche,e-wasche,1
@@ -21580,6 +21917,7 @@ rosemarie-volkmann,volkmann,1
 rosemont,lanigan,1
 roseneath,fisher-e,1
 rosetop-girl,lanigan,1
+rosewine-susan-s-violets,susan-s-violets,1
 rose-n-star,rose-knoll,1
 rose-s-star,rose-knoll,1
 rosie-c-harris,c-harris,1
@@ -21630,7 +21968,8 @@ royal-dream,w-g-hartley,1
 royal-elegance,m-lanigan,1
 royal-fawn,naomi,1
 royal-flair,sorano-s,1
-royal-flush,fischer,1
+royal-flush-charles-hawley,charles-hawley,1
+royal-flush-fischer,fischer,1
 royal-garden,swifts,1
 royal-garnet-wilson-bros,wilson-bros,1
 royal-gem-swifts,swifts,1
@@ -21658,6 +21997,7 @@ royal-romance,sorano,2
 royal-rosebud,j-feeney,1
 royal-ruby,lyon-gh,1
 royal-star-lyn-d-robinson,lyn-d-robinson,1
+royal-surprise,sue-spann,1
 royal-tapestry-swifts-av,swifts-av,1
 royal-tapestry-vern-lorenzen,vern-lorenzen,1
 royal-tizzy,betty-bryant,1
@@ -21672,6 +22012,7 @@ rozell,volkmann,1
 rubient,m-lanigan,1
 ruby-lyon,lyon,1
 ruby-volkmann,volkmann,1
+ruby-eichelberger,mrs-c-j-donald,1
 ruby-glow-granger,granger,1
 ruby-lovelace,h-pittman,1
 ruby-presley-fritz,fritz,1
@@ -21716,6 +22057,7 @@ ruth-goodwin,rose-knoll-gardens,1
 ruth-hazel,gary-r-beck,1
 ruth-s-girl,ruth-bronson,1
 ruth-s-halo,boone,1
+ruth-s-lady,ruth-bronson,1
 ruthie-gee,d-wilson,1
 ruthie-tee,david-lass,1
 ruthie-s-bell,elkin,1
@@ -21754,6 +22096,7 @@ sailor-s-dance,lyon-gh,1
 sailor-s-dance,sorano,2
 saint-mary-s,donald-maness,1
 saint-moritz,naomi,1
+saintpaulia-rupicola,a-b-graf,1
 sakura,annalee,1
 salem-s-cleo,oppen,1
 sally-ann-butler,butler,1
@@ -21789,6 +22132,7 @@ sandy-louise,v-ballirano,1
 sangria,rienhardt,1
 sangria-wine,susan-s-av,1
 sanibel,sandra-leary,1
+sansoucy-candide,p-sansoucy,1
 sansoucy-celeste,p-sansoucy,1
 sansoucy-coco,p-sansoucy,1
 sansoucy-courtoise,p-sansoucy,1
@@ -21814,11 +22158,13 @@ sapphire-kisses,sorano-s,1
 sapphire-surf,arndt,1
 sapporo,r,1
 sapporo,k-nadeau,2
+sara,b-elkin,1
 sara-beth,betty-moss,1
 sara-lou,montgomery-avs,1
 sara-lynne,howard-utz,1
 sara-rose,volkmann,1
 sarah-elizabeth,fisher-e,1
+sarah-ellen,kahler,1
 sarah-jane,e-fisher-av,1
 sarasota-volkmann-bros,volkmann-bros,1
 sarasota-s-leary-williams,s-leary-williams,1
@@ -21869,6 +22215,7 @@ say-yes,house-of-violets,1
 sayonara-b-elkin,b-elkin,1
 scandal,sorano-s,1
 scarlet,intile,1
+scarlet-gem,doris-intel,1
 scarlet-macaw,gehr-j,1
 scarlet-o-hara-hammond,hammond,1
 scarlet-o-hara-maes,maes,1
@@ -21879,11 +22226,13 @@ scooby-doo,lyon-gh,1
 scorch,grangers,1
 scorch,eyerdom,2
 scottie,baker-s,1
+screamin-demon,j-aubuchon,1
 scribbles,sorano,1
 scruples,d-croteau,1
 scuba-diver,egenites-l,1
 sea-baby,lanigan,1
 sea-breeze-granger-gardens,granger-gardens,1
+sea-breeze-union-country-ch,union-country-ch,1
 sea-coral,sorano-s,1
 sea-dawn,s-leary-williams,1
 sea-gull,f-richter,1
@@ -21952,7 +22301,9 @@ shadow-mountain,p-stacy,1
 shadow-play,s-groeneman,1
 shadow-waltz-gordon-boone,gordon-boone,1
 shadowlyn,barbara-elkin,1
+shadows-watts,watts,1
 shaina,volkmann,1
+shalimar-arndt,arndt,1
 shalimar-hilton-dahlia-farm,hilton-dahlia-farm,1
 shan,b-johnson,1
 shane-bridal-lace,fredette,1
@@ -22110,6 +22461,7 @@ silver-dollar-baker-s,baker-s,1
 silver-holly,swift-j,1
 silver-jubilee,e-e-hammond,1
 silver-lace,c-harris,1
+silver-lilac,susan-s-violets,1
 silver-memory-trail,sotkiewicz-c,1
 silver-milestone-linda-a-neumann,linda-a-neumann,1
 silver-mink,e,1
@@ -22129,6 +22481,7 @@ silver-tarpon,williams-s,1
 silver-wings-lyon-sorano,lyon,1
 silver-wings-lyon-sorano,sorano,2
 silverado-tinari-greenhouses,tinari-greenhouses,1
+silvered-rose,susan-s-violets,1
 silverglade-antiques,harrison-s,1
 silverglade-bangles,harrison-s,1
 silverglade-baubles,harrison-s,1
@@ -22227,6 +22580,7 @@ sissy-one,swift-s-av,1
 sister-ancilla,george-crouchet,1
 sitting-pretty,lyon,1
 six-pack,dr-j-b-jung,1
+six-pence,elkin,1
 sixty-minutes,e-kiesling,1
 sizzle-lyon,lyon,1
 sizzle-violets-by-cort,violets-by-cort,1
@@ -22291,6 +22645,7 @@ skagit-genius,wayne-lindstrom,1
 skagit-glory,wayne-lindstrom,1
 skagit-glow,wayne-lindstrom,1
 skagit-good-news,lindstrom-w,1
+skagit-goodness,lindstrom-w,1
 skagit-gorgeous,wayne-lindstrom,1
 skagit-grandeur,lindstrom,1
 skagit-grape,wayne-lindstrom,1
@@ -22305,9 +22660,11 @@ skagit-innocence,wayne-lindstrom,1
 skagit-jennifer-s-glory,wayne-lindstrom,1
 skagit-jewel,wayne-lindstrom,1
 skagit-joyful,wayne-lindstrom,1
+skagit-kindness,lindstrom,1
 skagit-king,wayne-lindstrom,1
 skagit-konnichi-wa,wayne-lindstrom,1
 skagit-legacy,wayne-lindstrom,1
+skagit-lil-beloved,lindstrom,1
 skagit-lil-bonus,wayne-lindstrom,1
 skagit-lil-camelot,lindstrom,1
 skagit-lil-devil,wayne-lindstrom,1
@@ -22316,6 +22673,7 @@ skagit-lil-dream,lindstrom,1
 skagit-lil-dumplin,wayne-lindstrom,1
 skagit-lil-filly,wayne-lindstrom,1
 skagit-lil-gem,wayne-lindstrom,1
+skagit-lil-keepsake,lindstrom-w,1
 skagit-lil-pal,wayne-lindstrom,1
 skagit-lil-peach,wayne-lindstrom,1
 skagit-lil-pearl,lindstrom,1
@@ -22347,6 +22705,7 @@ skagit-pixie-appeal,lindstrom-w,1
 skagit-pixie-delight,wayne-lindstrom,1
 skagit-pixie-hero,wayne-lindstrom,1
 skagit-pixie-trails,lindstrom-w,1
+skagit-popularity,lindstrom,1
 skagit-prince,wayne-lindstrom,1
 skagit-princess,wayne-lindstrom,1
 skagit-promenade,wayne-lindstrom,1
@@ -22375,6 +22734,7 @@ skagit-small-fry,wayne-lindstrom,1
 skagit-small-illusion,wayne-lindstrom,1
 skagit-small-impressions,wayne-lindstrom,1
 skagit-small-miracle,lindstrom,1
+skagit-small-package,wayne-lindstrom,1
 skagit-small-surprise,lindstrom,1
 skagit-small-tribute,lindstrom,1
 skagit-small-wonder,lindstrom,1
@@ -22450,6 +22810,7 @@ slumber-rose,mrs-a-c-moore,1
 small-change,lyon,1
 small-talk-lyon,lyon,1
 small-town-gal,sandy-weynand,1
+small-wonder,baker-s,1
 small-world,lyndon-lyon,1
 smart-stuff,v-lorenzen,1
 smartie,e-janosick,1
@@ -22478,6 +22839,7 @@ smurff,pittman,1
 snappy,richter,1
 snappy-blue,lyon,1
 snappy-red,lyon,1
+snappy-sue,kahler,1
 snip,meese,1
 sno-cap-trail,b,1
 sno-cap-trail,84-lyon-greenhouses,2
@@ -22513,6 +22875,7 @@ snow-jewel-granger,granger,1
 snow-job,raymond-e-scott,1
 snow-kist,doris-intel,1
 snow-like,naomi,1
+snow-lilac,susan-s-violets,1
 snow-magic,gehr-j,1
 snow-maiden-cook,cook,1
 snow-mint,arndt,1
@@ -22528,6 +22891,7 @@ snow-sprite,fischer-greenhouse,1
 snow-spun,granger-gardens,1
 snow-star-d-j-good,d-j-good,1
 snow-star-lyon,lyon,1
+snow-storm-e-fisher,fisher-e,1
 snow-tips,johnston-n,1
 snow-violet-madison,madison,1
 snow-wasp,dates,1
@@ -22556,6 +22920,7 @@ snowy,mae,1
 snowy-lavender,annabelle-hart,1
 snowy-sky,durand-g,1
 snowy-smile,kuhl,1
+snowy-trail-lyon,lyon,1
 snuggle-bear,ray-l,1
 snuggle-bunny,sorano,1
 snuggles-angel,sidney-sorano,1
@@ -22596,6 +22961,9 @@ society-matron,easterbrook,1
 society-redder-n-red,easterbrook,1
 sockeye,k-stork,1
 soda-pop,susan-s-violets,1
+soft-gleam,swift-j,1
+soft-heather,robert-kramer,1
+soft-places-nadeau,nadeau,1
 soft-spoken,ronn-nadeau,1
 soft-thunder,swifts,1
 soft-tint,granger,1
@@ -22685,6 +23053,7 @@ southern-charm,b-sisk,2
 southern-comfort-baker-s,baker-s,1
 southern-comfort-b-sisk,sisk-b,1
 southern-cross-dr-s-crawcour,dr-s-crawcour,1
+southern-gentleman,j-b-sisk,1
 southern-nights-b-sisk,sisk-b,1
 southern-nights-susans-violets,susan-s-violets,1
 southern-pacific,constantinov,1
@@ -22741,6 +23110,7 @@ spice-frost,lyon,1
 spice-frost,sorano,2
 spiced-burgundy,mrs-paul-w-kiesling,1
 spiced-peach,baker-s,1
+spiced-wine,s-lang,1
 spicy-mama,cox,1
 spiffy,hawley,1
 spiffy-pink,swift,1
@@ -22761,10 +23131,12 @@ splish-splash,lalanne-j,1
 spook,k,1
 spook,r-nadeau,2
 spooned-boy-pink,madison,1
+sport-of-luke,hi-hill,1
 sport-of-sapphire,m-lanigan,1
 sportin-life,baker-s,1
 spots-n-dots,lyon,1
 spots-n-dots,sorano,2
+spreckles,fischer-greenhouse,1
 spring-bouquet-elizabeth-cassidy,elizabeth-cassidy,1
 spring-breeze,frathel,1
 spring-crocus,durand-g,1
@@ -22773,6 +23145,8 @@ spring-dawn,h-pittman,1
 spring-deb,eyerdom-h,1
 spring-fancy,lyon-gh,1
 spring-fancy,sorano,2
+spring-fashion,c,1
+spring-fashion,r-reed,2
 spring-fever-harry-r-albro,harry-r-albro,1
 spring-fever-lanigan,lanigan,1
 spring-fiesta,c-c-reed,1
@@ -22785,6 +23159,7 @@ spring-lilac,fisher-e,1
 spring-magic,violets-atlanta,1
 spring-mist,sorano-s,1
 spring-romance,sorano-s,1
+spring-serenade,m-burns,1
 spring-song-volkmann-bros,volkmann-bros,1
 spring-song-lyon-sorano,lyon,1
 spring-song-lyon-sorano,sorano,2
@@ -22793,6 +23168,9 @@ spring-valley-frathel,frathel,1
 spring-water,house-of-violets,1
 spring-witchery,arndt,1
 springfield-beauty-maas,maas,1
+springfield-blue,maas,1
+springfire,lyons,1
+springfire,sorano,2
 springtime-pink,sorano-s,1
 springtime-sweetheart,swift,1
 sprinkles,lyndon-lyon-gmhses,1
@@ -22802,6 +23180,7 @@ spry,v-lorenzen,1
 spun-sugar-q-swift,q-swift,1
 spunky,lyon,1
 spunsugar-pink,susan-s-violets,1
+square-dancer,harris-d,1
 squarerigger,sandra-leary,1
 squaw-valley-naomi,naomi,1
 stacy-j-s-miller,j-s-miller,1
@@ -22812,6 +23191,7 @@ stage-struck,k-stork,1
 stained-glass-e-wasche,e-wasche,1
 standing-ovation-g-boone,boone-g,1
 standing-ovation-v-frathel,v-frathel,1
+stanley,s-vogler,1
 star-attraction,lanigan,1
 star-bits,adams-a-e,1
 star-boarder-dennee,dennee,1
@@ -22845,6 +23225,7 @@ star-light-storytella,storytella,1
 star-magic,kolb,1
 star-mammoth,fisher-e,1
 star-mist,fisher-e,1
+star-of-burgundy,arndt,1
 star-of-eve,ernest-fisher,1
 star-of-india,cook,1
 star-of-san-carlo,granger,1
@@ -22920,6 +23301,7 @@ stonewall,sandra-leary,1
 stonewall-peach,sandra-leary,1
 storm-warning,mrs-p-w-kiesling,1
 stormy-blue,lyon,1
+stormy-monday,sorano-s,1
 stormy-rage,lyon,1
 stormy-rogue,deloach,1
 stormy-rogue,s-g-sorano,2
@@ -22953,10 +23335,12 @@ strawberry-red-lyon,lyon,1
 strawberry-ripple-baker-s,baker-s,1
 strawberry-shake,k-stork,1
 strawberry-shortcake,taylor,1
+strawberry-shortcake-supreme,taylor,1
 strawberry-sprite,hightower,1
 strawberry-sundae,smith-g-t,1
 strawberry-swirl,r-russell,1
 strawberry-topping,swifts,1
+strawberry-trails,russell-c,1
 strawberry-violet,fisher-e,1
 strawberry-wave,sorano-s,1
 streaker,domiano-jeanette,1
@@ -23066,6 +23450,7 @@ suncoast-candy-clouds,williams-s,1
 suncoast-candy-frost,williams-s,1
 suncoast-candy-lace,williams-s,1
 suncoast-candy-splash,williams-s,1
+suncoast-chiffon,williams-s,1
 suncoast-christmas-sparkler,williams-s,1
 suncoast-cinnamon,williams-s,1
 suncoast-crazy-quilt,williams-s,1
@@ -23099,6 +23484,7 @@ suncoast-orchid-gold,williams-s,1
 suncoast-orchid-ruffles,williams-s,1
 suncoast-painted-radiance,williams-s,1
 suncoast-painted-silk,williams-s,1
+suncoast-parfait,williams-s,1
 suncoast-pastel-lace,williams-s,1
 suncoast-peach-float,williams-s,1
 suncoast-perfect-love,williams-s,1
@@ -23124,6 +23510,7 @@ suncoast-sharon,williams-s,1
 suncoast-silvercrest,williams-s,1
 suncoast-skylark,williams-s,1
 suncoast-soft-illusions,williams-s,1
+suncoast-souvenir,williams-s,1
 suncoast-special,sandra-williams,1
 suncoast-spectacular,williams-s,1
 suncoast-splendor,williams-s,1
@@ -23135,6 +23522,7 @@ suncoast-strawberry-sparkle,williams-s,1
 suncoast-summer-madness,williams-s,1
 suncoast-summer-rose,williams-s,1
 suncoast-sundowner,williams-s,1
+suncoast-sunset,williams-s,1
 suncoast-sweet-sophistication,williams-s,1
 suncoast-sweetness-n-light,williams-s,1
 suncoast-tricky-splashes,williams-s,1
@@ -23162,6 +23550,7 @@ sunflare,sorano,1
 sunkissed-lyon-sorano,lyon,1
 sunkissed-lyon-sorano,sorano,2
 sunkist,frathel,1
+sunlit-sugar-plum-r-e-scott,r-e-scott,1
 sunlit-trinket,e-champion,1
 sunlit-velvet,sorano-s,1
 sunny-volkmann,volkmann,1
@@ -23177,6 +23566,7 @@ sunrise-serenade-constantinov,constantinov,1
 sunrise-serenade-cook,cook,1
 sunrise-trail,marie-maas,1
 sunrise-waltz,sorano-s,1
+sunset-australis,shirley-farnsworth,1
 sunset-beach,sorano-s,1
 sunset-moon,travis-violets,1
 sunset-pink-don-wilson,don-wilson,1
@@ -23192,6 +23582,7 @@ super-chief,v-constantinov,1
 super-dooper,sorano-s,1
 super-pink,granger-g,1
 super-red,granger-gardens,1
+super-sport,c-d-martin,1
 super-star-tinari-gh,tinari-gh,1
 super-stars,reed,1
 superba-h-eyerdom,eyerdom-h,1
@@ -23233,6 +23624,7 @@ susy-s-lady-minx,johnson,1
 susy-s-morrish-blue,johnson,1
 susy-s-weta,johnson,1
 suter-s-gold,g-suter,1
+suzanne-lee,violets-atlanta,1
 suzette,fredette,1
 suzy-q,fuller,1
 suzy-s-beau-philip,mrs-h-s-johnson,1
@@ -23368,11 +23760,14 @@ swift-s-husky-blue,swift-j,1
 swifty-bonanza,swifts,1
 swifty-charmer,swifts,1
 swifty-delicate,swifts,1
+swifty-delight,swifts,1
 swifty-dream,swifts,1
 swifty-echo,swifts,1
 swifty-fashion,swifts,1
 swifty-fringe,swifts,1
+swifty-halo,swifts,1
 swifty-harlequin,swifts,1
+swifty-icicle,swifts,1
 swifty-jewel,swifts,1
 swifty-lace,swifts,1
 swifty-lilac,swifts,1
@@ -23388,14 +23783,17 @@ swifty-sunshine,swifts,1
 swifty-swirl,swifts,1
 swifty-thriller,swifts,1
 swifty-wish,swifts,1
+swifty-wonder,swifts,1
 swing-kid,sorano-s,1
 swinger-lyon,lyon,1
 swinger-richter,richter,1
 swingin-pink,kolb-s-gh,1
 swingin-safari,baker-s,1
 swinging-star,tinari-gh,1
+swirlaway,hale-s-house-of-violets,1
 swirling-embroidery,frathel,1
 swirling-waters,e-champion,1
+swirlybird,hale-s-house-of-violets,1
 swiss-ballet,granger-gardens,1
 swiss-charm,frathels,1
 swiss-lad,c,1
@@ -23404,6 +23802,7 @@ sybil,b-bryant,1
 sylvia-hilton-dahlia-farm,hilton-dahlia-farm,1
 sylvia-saalmans,j-brownlie,1
 sylvia-s-choice,brownlie,1
+symmetry-in-blue,m-burns,1
 symphonette-v-lorenzen-park-n,v-lorenzen-park-n,1
 symphony-volkmann-bros,volkmann-bros,1
 symphony-atlanta,fredette,1
@@ -23511,6 +23910,7 @@ tempting,parker,1
 ten-strike,hammond,1
 tender-love,lyndon-lyon,1
 tender-loving-care,jane-reed,1
+tenderness,fischer-greenhouse,1
 tenn-kandy-kane,mrs-fritz,1
 tenn-moonbeam,mrs-fritz,1
 tennessee-apple-blossom,mrs-t-c-fritz,1
@@ -23552,6 +23952,7 @@ terrylin,rainbow,1
 teton,volkmann-bros,1
 texan-white-cloud,white-cloud,1
 texan-volkmann,volkmann,1
+texan-cowboy,foote-t,1
 texarkana-baby,swifts-av,1
 texas,b-bryant,1
 texas-barb,b-foster,1
@@ -23618,6 +24019,7 @@ the-madam,harris-p,1
 the-mountaineer,ozark-club,1
 the-musician,rev-l-e-collins,1
 the-musician-s-blues,l-e-collins,1
+the-parson,rev-c-blades,1
 the-parson-s-courage,rev-c-w-blades,1
 the-parson-s-honor,rev-c-w-blades,1
 the-parson-s-lace,rev-c-w-blades,1
@@ -23687,6 +24089,7 @@ tickled-pink-v-lorenzen-park-n,v-lorenzen-park-n,1
 tickled-pink-lyon,lyon,1
 tickled-silly,harry-albro,1
 tiddly-winks,susan-s-av,1
+tidy-trail,pat-s-flowerland,1
 tie-dyed,dates,1
 tiffany-fischer,fischer,1
 tiffany-volkmann,volkmann,1
@@ -23739,6 +24142,7 @@ tinted-frills,lyndon-lyon,1
 tinted-jewel,rose-knoll,1
 tinted-ruffles,lyon,1
 tiny-blue-bells,lyon,1
+tiny-bubbles-frathel,frathel,1
 tiny-dora,v-lorenzen-park-n,1
 tiny-ellie,lyon,1
 tiny-gypsy-lyndon-lyon,lyndon-lyon,1
@@ -23763,6 +24167,7 @@ tiona-eyerdom,eyerdom,1
 tippecanoe,richter,1
 tipped-off,smith-g-t,1
 tippy,lyon,1
+tippy-pink,lyon,1
 tippy-tim,lyndon-lyon,1
 tippy-toes-swifts,swifts,1
 tipsy,rainbow,1
@@ -23784,6 +24189,7 @@ tokyo,r,1
 tokyo,k-nadeau,2
 tom-edward,house-of-violets,1
 tom-lawson,swift-j,1
+tom-thumb-fischer,fischer,1
 tom-thumb-pats-flowerland,pat-s-flowerland,1
 tom-thumb-storytella,storytella,1
 tom-tom,merilees,1
@@ -23827,6 +24233,7 @@ topliner,lyon,1
 topnotch-g-durand,durand-g,1
 topper-ronn-nadeau,ronn-nadeau,1
 tops,swift-j,1
+topscore,volkmann,1
 torch-glow,fisher-e,1
 torch-song-v-lorenzen-park-nursery,v-lorenzen-park-nursery,1
 torchi,tinari-gmhses,1
@@ -24086,6 +24493,7 @@ uncle-dutch,tf,1
 uncle-dutch,f-clark,2
 undecided,susan-s-violets,1
 unforgettable,swift-s,1
+union-county-confederate-beauty,maas,1
 union-county-crystal,maas,1
 union-county-frills,maas,1
 union-county-merry-blue,maas,1
@@ -24116,11 +24524,13 @@ val-s-silver-light,vallin,1
 val-s-sweet-dream,gertrude-pesson,1
 val-s-top-angel,gertrude-pesson,1
 val-s-winsome-pink,gertrude-pesson,1
+val-o-vaille,button,1
 valarie-lynn,s-l-brown,1
 valencia-lanigan,lanigan,1
 valentina-fredette,fredette,1
 valentine-v-lorenzen,v-lorenzen,1
 valentine-candy,hightower-s-vn,1
+valentine-lace,violets-atlanta,1
 valentine-trail,baker-s,1
 valeria,house-of-violets,1
 valerie-union-county-chapter-avsa,union-county-chapter-avsa,1
@@ -24133,6 +24543,7 @@ valley-echo,lanigan,1
 valley-purple,tinari,1
 vals-blue-honey,vallin,1
 vals-delight,vallin,1
+vals-velvet,vallin,1
 valse-brilliante,arndt,1
 val-s-blue-queen,vallin,1
 val-s-blue-rose,vallin,1
@@ -24145,12 +24556,14 @@ van-mills,j-bell,1
 vancouver-debut,simpson-s-av,1
 vancouver-s-centennial-glory,wayne-lindstrom,1
 vancouver-s-centennial-vision,wayne-lindstrom,1
+vanessa-blue,madison,1
 vanilla-i-fredette,i-fredette,1
 vanilla-drops,madison,1
 vanilla-orchid,susan-s-violets,1
 vanilla-white,madison-g,1
 variation-blue,granger-gardens,1
 variegated-fair-elaine,mrs-h-w-folger,1
+variegated-fantasy-frathel,frathel,1
 variegated-luke,maas,1
 variegated-mist,frathel,1
 variegated-orchid,mrs-a-grasso,1
@@ -24158,6 +24571,7 @@ variegated-peachy-pink,ulery,1
 variegated-peak-of-pink,cerri-flowers,1
 variegated-pin-up,lyon,1
 variegated-pink-buttons,frathel,1
+variegated-racy-red,lyndon-lyon,1
 veda-s-very-varied,veda-h-quimby,1
 vegas-doll,j-brownlie,1
 vegas-dream,j-brownlie,1
@@ -24175,6 +24589,7 @@ velvet-dusk-h,h,1
 velvet-frost,sidney,1
 velvet-frost,paul-sorano,2
 velvet-gem-kolb,kolb,1
+velvet-glow-lanigan,lanigan,1
 velvet-halo-boone,boone,1
 velvet-halo-s-sorano,sorano-s,1
 velvet-pansies,fredette,1
@@ -24239,6 +24654,7 @@ veronique,arndt,1
 vertigo,b-elkin,1
 very-berry,sorano-s,1
 very-blueberry,house-of-violets,1
+very-cherry,baker,1
 very-gay,fisher-e,1
 very-grape,house-of-violets,1
 very-latest,frathel,1
@@ -24261,6 +24677,7 @@ victoria-volkmann-bros,volkmann-bros,1
 victoria-utz,utz,1
 victorian-angel,sorano-s,1
 victorian-charm,sorano-s,1
+victorian-jewels,sorano-s,1
 victorian-lady,sorano-s,1
 victorian-petticoats,sorano-s,1
 victorian-print,sorano-s,1
@@ -24281,6 +24698,7 @@ vintage-gown,sorano-s,1
 vintage-wine-arndt,arndt,1
 viola-rays,hawley,1
 viola-tucker,granger-g,1
+violet-carey,lyon,1
 violet-carr,e-kiesling,1
 violet-charm,ernest-fisher,1
 violet-dawson,j-eyerdom,1
@@ -24305,9 +24723,12 @@ virgo,rienhardt,1
 virtuose,d-croteau,1
 vision,volkmann,1
 vista-purple,swifts,1
+viva,violets-atlanta,1
+viva,sue-spann,2
 vivaldi,barnard,1
 vivianna,elkin,1
 vivid-beauty,c-harris,1
+vivid-trail,rienhardt,1
 vogue-white-cloud-farm,white-cloud-farm,1
 volcano-arndt,arndt,1
 volcano-swifts,swifts,1
@@ -24328,7 +24749,8 @@ voodoo-magic,sorano-s,1
 voyageur,granger-gardens,1
 vulcan-hammond,hammond,1
 vulcan-lyon,lyon,1
-vulcan-queen,granger-garden,1
+vulcan-queen-eyerdom,eyerdom,1
+vulcan-queen-granger-garden,granger-garden,1
 vulcan-rex,v-lorenzen,1
 w-t-d,lyon,1
 wabash-moon,parker,1
@@ -24344,6 +24766,7 @@ wang-bang,dates-violetry,1
 wanted,lyon,1
 warbonnet,arndt,1
 warlock,r-scott,1
+warpaint-fischer,fischer,1
 warren-tee,swifts-av,1
 washington-pink,madison,1
 watch-it,v-lorenzen,1
@@ -24376,6 +24799,7 @@ wee-dreamer,ronn-nadeau,1
 wee-laddie-joanne-steffen,joanne-steffen,1
 wee-lass,lyon,1
 wee-love,lyon,1
+wee-rose,lyon,1
 wee-willie-winkie,fredette,1
 wee-wonder-e-fisher,fisher-e,1
 weeping-wonder,pat-s-flowerland,1
@@ -24404,6 +24828,7 @@ westdale-midnight-blue,irene-haseltine,1
 westdale-mountain-mist,irene-haseltine,1
 westdale-purple-mountain,irene-haseltine,1
 westdale-raven,haseltine,1
+westdale-rebel,haseltine,1
 westdale-sassy,irene-haseltine,1
 westdale-spectacular,i-haseltine,1
 westdale-summer-snow,mrs-i-haseltine,1
@@ -24450,6 +24875,7 @@ westwinds-sweet-sugar,m-woodward,1
 westwind-s-coral-frills-westwinds-av,westwind-s-av,1
 westwind-s-dark-beauty-westwinds-av,westwind-s-av,1
 westwind-s-delft-loveliness,westwind,1
+westwind-s-demure,westwind,1
 westwind-s-dream-stuff,westwind,1
 westwind-s-enchantment,westwind-s,1
 westwind-s-fantasy-pink,westwind,1
@@ -24524,6 +24950,7 @@ white-ginger,volkmann,1
 white-gleam,c-n-mallette,1
 white-halo,swifts-violets,1
 white-heritage,tinari,1
+white-holly-lyon,lyon,1
 white-hot,baker-s,1
 white-hurricane,utz,1
 white-joy-don-wilson,don-wilson,1
@@ -24536,6 +24963,7 @@ white-magic,volkmann,1
 white-majesty,granger-gardens,1
 white-moon,f-tinari,1
 white-morganna,elkin,1
+white-nite,kahler,1
 white-peacock,manelta-lanigan,1
 white-picotee,e-kiesling,1
 white-poodle,tinari,1
@@ -24550,6 +24978,8 @@ white-treasure,sierk,1
 white-tribute,pittman,1
 white-verona,tinari,1
 white-wedgewood,f-tinari,1
+white-whisper,lyon,1
+white-whisper,sorano,2
 white-wisteria,f-tinari,1
 who-cares,parker,1
 who-sez,easterbrook,1
@@ -24561,7 +24991,8 @@ wichita-connection,k-stork,1
 wichita-mary,b-foster,1
 wide-awake-e-kiesling,e-kiesling,1
 wild-berry,susan-s-violets,1
-wild-blue-yonder,i-fredette,1
+wild-blue-yonder-b-j-bryant,b-j-bryant,1
+wild-blue-yonder-i-fredette,i-fredette,1
 wild-card,boone-g,1
 wild-cargo,doris,1
 wild-charm,lyon,1
@@ -24575,7 +25006,8 @@ wild-grape-richter,richter,1
 wild-honey,lyon-s-greenhouse,1
 wild-lemon,kolb,1
 wild-one,r-cox,1
-wild-plum,susan-s-violets,1
+wild-plum-sierk,sierk,1
+wild-plum-susans-violets,susan-s-violets,1
 wild-red,d-harrington,1
 wild-strawberry,reigning-violets,1
 wild-swans,storytella,1
@@ -24619,6 +25051,7 @@ wineberry,fredette,1
 winekin,swifts,1
 winged-flirt,e-wasche,1
 winged-goddess,h-b-kelley,1
+winkle,baker,1
 winky-lyon-sorano,lyon,1
 winky-lyon-sorano,sorano,2
 winner-s-circle,easterbrook,1
@@ -24714,6 +25147,7 @@ wrangler-s-gosh-gertrude,w-smith,1
 wrangler-s-gunslinger,w-smith,1
 wrangler-s-gunsmoke,w-smith,1
 wrangler-s-hayride,w-smith,1
+wrangler-s-high-jumper,w-smith,1
 wrangler-s-high-sierras,w-smith,1
 wrangler-s-high-stakes,w-smith,1
 wrangler-s-hitching-post,w-smith,1
@@ -24726,6 +25160,7 @@ wrangler-s-lady-vallin,w-smith,1
 wrangler-s-lavender-lasso,w-smith,1
 wrangler-s-line-shack,w-smith,1
 wrangler-s-luv-texas,w-smith,1
+wrangler-s-margaret-vallin,w-smith,1
 wrangler-s-masked-outlaw,w-smith,1
 wrangler-s-masked-rider,w-smith,1
 wrangler-s-mollie-ritchie,w-smith,1
@@ -24744,6 +25179,7 @@ wrangler-s-pink-bandit,w-smith,1
 wrangler-s-pink-patches,w-smith,1
 wrangler-s-purple-moon,w-smith,1
 wrangler-s-ragtime-cowboy,w-smith,1
+wrangler-s-red-bandana,w-smith,1
 wrangler-s-red-river,w-smith,1
 wrangler-s-ricochet-romance,w-smith,1
 wrangler-s-ridin-tall,w-smith,1
@@ -24757,6 +25193,7 @@ wrangler-s-sioux-nation,w-smith,1
 wrangler-s-sky-dancer,w-smith,1
 wrangler-s-snowfields,w-smith,1
 wrangler-s-sonuvagun,w-smith,1
+wrangler-s-southfork,w-smith,1
 wrangler-s-spanish-cavalier,w-smith,1
 wrangler-s-stalking-moon,w-smith,1
 wrangler-s-stampede,w-smith,1
@@ -24784,9 +25221,11 @@ wunnerful,adams-a-e,1
 wy-east,arndt,1
 x-y-z-yuletide-candle,arndt,1
 x-y-z-yosemite-trail,patt-s-avs,1
+xanadu-aubuchon,aubuchon,1
 xlant,parker,1
 xtra-new,parker,1
 yakima-peach,arndt,1
+yankee-clipper,lanigan,1
 yankee-doodle,storytella,1
 yankee-lad,lanigan,1
 yankee-wife,j-winfield,1
@@ -24827,8 +25266,10 @@ zapped,sorano-s,1
 zara-arndt,arndt,1
 zara-v-lorenzen,v-lorenzen,1
 zats-it,parker,1
+zee-red-star,parker,1
 zee-zee,utz,1
 zelda,fisher-s-av,1
+zella,volkmann,1
 zelma-ransone,ransone,1
 zephyr,wilson-bros,1
 zero,violet-fun,1
@@ -24837,6 +25278,7 @@ zeta-union-county-chapter-avsa,union-county-chapter-avsa,1
 zig-zag,susan-s-av,1
 zip-code,lyon,1
 zippity,h-c-parker,1
+zippo,swifts,1
 zippy,baker-s,1
 zona-rosa,sandra-leary,1
 zora,arndt,1
