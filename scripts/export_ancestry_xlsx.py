@@ -113,6 +113,11 @@ def main():
         ("Sports sheet", f"{len(sports)} sports"),
         ("License", "This data is exported under the Creative Commons Attribution 4.0 International "
                     "license (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/"),
+        ("Exception", "Some registration details and notes come from the AVSA Master List supplements in the "
+                      "African Violet Magazine (https://www.biodiversitylibrary.org/bibliography/146187, curated by the "
+                      "Biodiversity Heritage Library). The online collection of the magazine is made available under "
+                      "CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/), and that content stays "
+                      "under those terms."),
         ("Credit", "Saintpaulia Ancestry Project, https://github.com/Saintpaulia-Ancestry-Project"),
         (None, None),
         ("Column", "Meaning"),
