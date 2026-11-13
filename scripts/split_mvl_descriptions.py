@@ -3,6 +3,10 @@
 Input : data/mvl_supplements.csv (scripts/prep_mvl_supplements.py)
 Output: data/mvl_description_split.csv   plant_key, color, bloom_description, foliage_description, split_status
         reports/review/mvl_split_review.csv   the rows needing a human (status `needs review`), with the proposal
+Plants whose description was decoded from the printed AVSA registration code (desc_source = code; 1969-1985 lists, see
+notes/mvl-supplements-recent-plan.md) are NOT split by sentence: color / bloom / foliage are built from the code columns
+(code_color, code_flower, code_leaf) in short plain English (status `code`, no review needed). Where a plant has a written
+description AND a code, the prose wins and the code only fills a part the prose split left empty (status `ok+code`).
 Rules (rule-based, no guessing):
   * `description` itself is never changed; the three parts are cut out of it, except that a trailing size word
     (Standard, Large, ...) is dropped from the parts (it is the size class) and a "(no mention of foliage)" remark too.
@@ -249,6 +253,96 @@ def split_one(desc, kind):
     return "", "", "", "needs review", "nothing left after removing the size"
 
 
+# ---- decoded AVSA code -> short plain English (user decision 2026-11-13)
+FAMILY = {"blue": "blue", "fuchsia": "fuchsia", "green": "green", "yellow": "yellow", "orchid/mauve/lavender": "orchid",
+          "pink/rose/coral/peach": "pink", "red/maroon/plum/burgundy/wine": "red", "violet/purple": "purple",
+          "white/cream/blush": "white", "multicolor (2 or more colors)": "multicolor",
+          "two-tone (2 hues of the same color)": "two-tone"}
+MODIFIERS = {"dark", "light", "medium"}
+LEAF = {"plain/tailored": "plain", "quilted": "quilted", "pointed": "pointed", "variegated": "variegated", "supreme": "supreme",
+        "girl/semigirl": "girl", "ruffled/fringed/wavy/fluted": "ruffled/wavy", "spooned/ovate/cupped up": "spooned/ovate",
+        "longifolia/spider": "longifolia", "compound/piggyback": "piggyback"}
+FLOWER = {"star shape": "star-shaped", "bell shape": "bell-shaped"}
+
+
+def _color_word(t):
+    """one colour token, possibly joined by 'and'/'or' (a '&' in the printed code): 'pink/... and blue' -> 'pink and blue'"""
+    t = t.replace("multicolor (2 or more colors)", "multicolor").replace("two-tone (2 hues of the same color)", "two-tone")
+    for k, v in sorted(FAMILY.items(), key=lambda kv: -len(kv[0])):
+        t = t.replace(k, v)
+    return t
+
+
+def code_color_text(code):
+    """'dark + red + white + edge' -> 'Dark red, white edge'. A dark/light/medium letter belongs to the colour after it (to the edge
+    when it comes right before `edge` with no colour of its own). `multicolor` (C) is shown as a remark."""
+    parts = [p.strip() for p in code.split(" + ") if p.strip()]
+    if not parts:
+        return ""
+    items, pend, edge, multi, twotone = [], "", False, False, False
+    for p in parts:
+        w = _color_word(p)
+        if p in MODIFIERS:
+            pend = p
+        elif p == "edge":
+            edge = True
+            if pend:                       # modifier with no colour of its own, e.g. P-D-E: a dark edge
+                items.append((pend, ""))
+                pend = ""
+        elif w.startswith("multicolor"):
+            multi = True
+        elif w.startswith("two-tone"):
+            twotone = True
+        else:
+            items.append((pend, w))
+            pend = ""
+    words = [f"{m} {c}".strip() for m, c in items]
+    if edge and len(words) >= 2:
+        base = words[0] if items[0][1] else ""
+        text = (base + ", " if base else "") + " and ".join(words[1:]) + " edge"
+    elif edge and len(words) == 1:
+        text = words[0] + " edge"
+    elif len(words) > 1:
+        text = "/".join(words) if not any(" and " in w or " or " in w for w in words) else ", ".join(words)
+    else:
+        text = words[0] if words else ""
+    if twotone:
+        text = (text + " two-tone").strip()
+    if multi:
+        text = f"{text}, multicolor" if edge else (f"multicolor ({', '.join(words)})" if words else "multicolor")
+    return (text[:1].upper() + text[1:]) if text else ""
+
+
+def color_needs_check(text):
+    """composite colours from a '&' in the printed code that read oddly (white and white, white and dark ...)"""
+    words = re.findall(r"[a-z]+", text.lower())
+    for k in range(len(words) - 2):
+        if words[k + 1] in ("and", "or") and (words[k] == words[k + 2] or words[k + 2] in MODIFIERS):
+            return True
+    return "or" in words
+
+
+
+def code_bloom_text(code):
+    parts = [p.strip() for p in code.split(",") if p.strip()]
+    parts = [FLOWER.get(p, p) for p in parts]
+    parts.sort(key=lambda p: 0 if re.match(r"(single|double|semidouble)", p) else 1)      # petal count first
+    return (", ".join(parts)[:1].upper() + ", ".join(parts)[1:] + ".") if parts else ""
+
+
+def code_foliage_text(code):
+    parts = [LEAF.get(p.strip(), p.strip()) for p in code.split(",") if p.strip()]
+    if not parts:
+        return ""
+    t = ", ".join(parts)
+    return t[:1].upper() + t[1:] + " foliage."
+
+
+def from_code(r):
+    return (code_color_text(r.get("code_color", "")), code_bloom_text(r.get("code_flower", "")),
+            code_foliage_text(r.get("code_leaf", "")))
+
+
 def main():
     rows = list(csv.DictReader(open(DATA / "mvl_supplements.csv", encoding="utf-8", newline="")))
     human = {}
@@ -257,7 +351,23 @@ def main():
             human[r["plant_key"]] = r
     out, review, counts = [], [], {}
     for r in rows:
-        color, bloom, foliage, status, reason = split_one(r["description"], r["kind"])
+        if r.get("desc_source") == "code" and r["kind"] != "species":
+            color, bloom, foliage = from_code(r)
+            status = "code" if (color and bloom and foliage) else ("code (partial)" if (color or bloom or foliage) else "needs review")
+            if status == "code" and color_needs_check(color):
+                status = "code (check color)"
+            reason = "" if status != "needs review" else "decoded code gave no color, bloom or foliage"
+        else:
+            color, bloom, foliage, status, reason = split_one(r["description"], r["kind"])
+            if r.get("code") and status in ("ok", "bloom only", "foliage only"):
+                cc, cb, cf = from_code(r)
+                filled = [(not color and cc), (not bloom and cb), (not foliage and cf)]
+                if any(filled):
+                    color, bloom, foliage = color or cc, bloom or cb, foliage or cf
+                    status = "ok+code"
+            elif r.get("code") and status == "needs review":
+                cc, cb, cf = from_code(r)
+                color, bloom, foliage = color or cc, bloom or cb, foliage or cf     # proposals only; the row stays held
         h = human.get(r["plant_key"])
         if h and status == "needs review":
             c = [h.get("corrected_color", "").strip(), h.get("corrected_bloom", "").strip(), h.get("corrected_foliage", "").strip()]
@@ -265,16 +375,24 @@ def main():
                 color, bloom, foliage, status = c[0], c[1], c[2], "human"
             elif h.get("decision", "").strip().lower() == "use":
                 status = "human"
+        decided = bool(h) and status == "human"
         counts[status] = counts.get(status, 0) + 1
         out.append({"plant_key": r["plant_key"], "color": color, "bloom_description": bloom, "foliage_description": foliage,
                     "split_status": status})
-        if status == "needs review":
-            review.append({"plant_key": r["plant_key"], "name": r["name"], "description": r["description"], "reason": reason,
+        if decided:                  # keep decided rows in the file, otherwise the next run would forget the decision
+            review.append({**{k: h.get(k, "") for k in ("plant_key", "name", "hybridizer", "lists", "row_ids", "description", "reason",
+                              "proposed_color", "proposed_bloom", "proposed_foliage", "corrected_color", "corrected_bloom",
+                              "corrected_foliage", "decision")},
+                           "name": r["name"], "hybridizer": r["hybridizer"], "lists": r["lists"], "row_ids": r["row_ids"],
+                           "description": r["description"]})
+        elif status == "needs review":
+            review.append({"plant_key": r["plant_key"], "name": r["name"], "hybridizer": r["hybridizer"],
+                           "lists": r["lists"], "row_ids": r["row_ids"], "description": r["description"], "reason": reason,
                            "proposed_color": color, "proposed_bloom": bloom, "proposed_foliage": foliage,
                            "corrected_color": "", "corrected_bloom": "", "corrected_foliage": "", "decision": ""})
     for path, data, cols in (
         (DATA / "mvl_description_split.csv", out, ["plant_key", "color", "bloom_description", "foliage_description", "split_status"]),
-        (REVIEW, review, ["plant_key", "name", "description", "reason", "proposed_color", "proposed_bloom", "proposed_foliage",
+        (REVIEW, review, ["plant_key", "name", "hybridizer", "lists", "row_ids", "description", "reason", "proposed_color", "proposed_bloom", "proposed_foliage",
                           "corrected_color", "corrected_bloom", "corrected_foliage", "decision"])):
         with open(path, "w", encoding="utf-8", newline="") as f:
             w = csv.DictWriter(f, fieldnames=cols)

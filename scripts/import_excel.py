@@ -670,6 +670,8 @@ def load_mvl():
             reasons.append("spelling: near-miss of an MLV name, undecided")
         if pl["plant_key"] in match_open:
             reasons.append("same name as another plant and no hybridizer, undecided")
+        if pl.get("hold_reason"):
+            reasons.append(pl["hold_reason"])
         if reasons:
             held.append({"plant_key": pl["plant_key"], "name": pl["name"], "hybridizer": pl["hybridizer"], "lists": pl["lists"],
                          "reasons": "; ".join(reasons), "description": pl["description"]})

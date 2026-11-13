@@ -298,6 +298,11 @@ Decisions (user): not-in-MLV names imported flagged "spelling not checked"; unre
 the search checkbox "Exclude old names" (view column only_1963 now covers both); cross refs go into notes; "I. Surname"
 auto-links to an existing "Surname, I." person. After editing a review file re-run: prep -> split -> import_excel ->
 import_submissions apply -> import_sports_page -> build_db -> export_ancestry_xlsx. Needs xlrd (in .venv).
+RECENT ADDITIONS (plan + status: notes/mvl-supplements-recent-plan.md): source/MVL_Supplements_recent.xlsx (1969, 1975, 1976, 1981, 1983, 1985,
+1990, 1993, 2003; read together with the main file by prep_mvl_supplements.py). 1969-1985 have NO prose: description = text decoded from the
+AVSA registration code (desc_source `code`); split_mvl_descriptions.py builds color/bloom/foliage from the code columns; prose always beats code.
+A plant with rows in the recent file whose registration number/date differs from MLV is NOT imported until a decision is recorded in
+reports/review/mvl_recent_conflicts.csv (`mlv` | `supplement` | `custom` + final_reg/final_date). Plant keys of earlier runs are kept.
 LOCAL ONLY: scripts/prep_mvl_supplements.py reads MLV.xls (private Hector archive) and is git-ignored: never commit or push it. Its
 outputs (data/mvl_*.csv, reports/review/mvl_*.csv) and source/MVL_Supplements_cultivars.xlsx ARE committed; the Pages
 workflow (build_db.py + export only) and import_excel.py never need MLV.xls (shared helper: scripts/mvl_lib.py). Back up
