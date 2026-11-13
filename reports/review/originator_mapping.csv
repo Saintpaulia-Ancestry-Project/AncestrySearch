@@ -1,5 +1,5 @@
 ﻿originator,uses,kind,proposed_link,decision,final_person(s)
-Lyon,872,person,"Lyon, Lyndon",,Lyon
+Lyon,873,person,"Lyon, Lyndon",,Lyon
 Granger,483,person,,,Granger
 S. Sorano,425,person,,,"Sorano, S."
 Frathel,364,person,,,Frathel
@@ -10,26 +10,26 @@ Madison,282,person,,,Madison
 Richter,256,person,,,Richter
 Holtkamp,251,person,"Holtkamp, M. | Holtkamp | Holtkamp, R. Sr. | Holtkamp, R.",,Holtkamp
 Volkmann,235,person,Volkmann,,Volkmann
-E. Fisher,207,person,,,"Fisher, E."
+E. Fisher,208,person,,,"Fisher, E."
 Hammond,199,person,,,Hammond
-Tinari,198,person,"Tinari, Frank | Tinari",,Tinari
+Tinari,199,person,"Tinari, Frank | Tinari",,Tinari
 Edena,181,person,,,Edena
 Ulery,181,person,"Ulery, C.",,Ulery
 Lanigan,171,person,,,Lanigan
 Parker,171,person,,,Parker
 Brown,168,person,,,Brown
-Fredette,159,person,"Fredette, Irene",,Fredette
+Fredette,162,person,"Fredette, Irene",,Fredette
 Susan's Violets,153,person,,,Susan's Violets
 Rector,145,person,,,Rector
-Granger Gardens,134,organization,,,Granger Gardens
-Wayne Lindstrom,131,person,,,Wayne Lindstrom
+Granger Gardens,135,organization,,,Granger Gardens
+Wayne Lindstrom,132,person,,,Wayne Lindstrom
 Haga,126,person,,,Haga
+House of Violets,114,person,,,House of Violets
 Baker,113,person,"Baker, Joan | Baker, D.",,Baker
 Kahler,113,person,,,Kahler
 H. Pittman,112,person,H. Pittman,,H. Pittman
 Meeds,112,person,,,Meeds
 Sappenfield,112,person,,,Sappenfield
-House of Violets,111,person,,,House of Violets
 Naomi,111,person,,,Naomi
 S. Williams,104,person,,,"Williams, S."
 Baker's,102,person,,,Baker's
@@ -45,7 +45,7 @@ Reed,86,person,,,Reed
 Vallin,85,person,,,Vallin
 Brackin,84,person,,,Brackin
 Storytella,83,person,,,Storytella
-Swifts',81,person,,,Swifts'
+Swifts',82,person,,,Swifts'
 Swifts,79,person,,,Swifts
 Volkmann Bros.,79,organization,,,Volkmann Bros
 Hasenyager,78,person,,,Hasenyager
@@ -56,17 +56,17 @@ D. Ness,70,person,,,"Ness, D"
 Hansen,68,person,,,Hansen
 J. Swift,68,person,,,"Swift, J."
 Kolb,67,person,"Kolb, E.",,Kolb
+Granger G,65,person,,,Granger G
 Swift's AV,65,person,,,Swift's AV
-Granger G,64,person,,,Granger G
 Anderson,62,person,"Anderson, Carol",,Anderson
 Constantinov,62,person,,,Constantinov
 Eyerdom,62,person,"Eyerdom | Eyerdom, H. | Eyerdom, J.",,Eyerdom
+Susan's AV,62,person,,,Susan's AV
 S. Harrison,61,person,,,"Harrison, S."
-Susan's AV,61,person,,,Susan's AV
 West,56,person,,,West
 Coryell,55,person,,,Coryell
 Oppen,55,person,,,Oppen
-V. Lorenzen,54,person,,,V. Lorenzen
+V. Lorenzen,55,person,,,V. Lorenzen
 Ronn Nadeau,53,person,,,Ronn Nadeau
 B. Foster,52,person,,,B. Foster
 Manelta,52,person,,,Manelta
@@ -88,14 +88,14 @@ Sorano,45,person,"Sorano, S. | Sorano, P. | Sorano | Sorano, K.",,Sorano
 Buynak,44,person,Buynak,,Buynak
 E. Champion,44,person,,,E. Champion
 E. Kiesling,43,person,,,E. Kiesling
+B. Elkin,42,person,,,B. Elkin
 D. I. Bearman,42,person,,,D. I. Bearman
-J. Brownlie,42,person,,,J. Brownlie
 Nadeau,42,person,"Nadeau, Ronn",,Nadeau
 Pittman,42,person,"Pittman, Hortense",,Pittman
 Wills,42,person,,,Wills
-B. Elkin,41,person,,,B. Elkin
 Coleman,41,person,"Coleman, C Craig",,Coleman
 F. Tinari,41,person,,,F. Tinari
+J. Brownlie,41,person,,,J. Brownlie
 R. Bann,40,person,,,R. Bann
 Fischer Greenhouse,39,organization,,,Fischer Greenhouse
 Stanley,39,person,,,Stanley
@@ -109,6 +109,7 @@ I. Fredette,37,person,,,I. Fredette
 Kuntz,37,person,,,Kuntz
 Sandra Leary,37,person,,,Sandra Leary
 Volkart,37,person,,,Volkart
+Irene Fredette,36,person,,,Irene Fredette
 G. Boone,35,person,,,"Boone, G."
 Mrs. P. W. Kiesling,35,person,,,Mrs. P. W. Kiesling
 Rose Knoll,35,person,,,Rose Knoll
@@ -124,13 +125,13 @@ Peters,33,person,,,Peters
 R. G. Anderson,33,person,,,R. G. Anderson
 Doris,32,person,,,Doris
 Doris Intel,32,person,,,Doris Intel
-Irene Fredette,32,person,,,Irene Fredette
 Mills,32,person,,,Mills
+Mrs. C. S. Hawley,32,person,,,Mrs. C. S. Hawley
 Peterson,32,person,,,Peterson
 R. Cox,32,person,,,R. Cox
+Tinari Greenhouses,32,organization,,,Tinari Greenhouses
 B. Borck,31,person,,,B. Borck
 Cook,31,person,"Cook, B.",,Cook
-Mrs. C. S. Hawley,31,person,,,Mrs. C. S. Hawley
 R. Wasmund,31,person,,,"Wasmund, R."
 Utz,31,person,"Utz, H.",,Utz
 A.E. Adams,30,person,,,"Adams, A. E."
@@ -139,7 +140,6 @@ D. Croteau,30,person,,,D. Croteau
 Kellar,30,person,,,Kellar
 Lindstrom,30,person,"Lindstrom, W.",,Lindstrom
 Swift,30,person,"Swift, J.",,Swift
-Tinari Greenhouses,30,organization,,,Tinari Greenhouses
 Harris,29,person,"Harris, P. | Harris, D. | Harris",,Harris
 Perdue,29,person,,,Perdue
 Sidney Sorano,29,person,,,Sidney Sorano
@@ -152,6 +152,7 @@ B. Sisk,27,person,,,"Sisk, B."
 Dates,27,person,"Dates, Jimmy",,Dates
 Doris Bearman,27,person,,,Doris Bearman
 Fisher's AV,27,person,,,Fisher's AV
+Howard Utz,27,person,,,Howard Utz
 Jensen,27,person,,,Jensen
 Sidney & Paul Sorano,27,person,,,Sidney ; Paul Sorano
 B. Bryant,26,person,,,B. Bryant
@@ -161,7 +162,6 @@ Tinari GH,26,person,,,Tinari GH
 W. Lindstrom,26,person,,,"Lindstrom, W."
 Gammell,25,person,,,Gammell
 H. Eyerdom,25,person,,,"Eyerdom, H."
-Howard Utz,25,person,,,Howard Utz
 Mahr,25,person,,,Mahr
 R. Robinson,25,person,,,R. Robinson
 Violets Atlanta,25,person,,,Violets Atlanta
@@ -202,6 +202,7 @@ Vern Lorenzen,20,person,,,Vern Lorenzen
 Vlk,20,person,,,Vlk
 Watts,20,person,,,Watts
 Hi Hill,19,person,,,Hi Hill
+Kolb's GH,19,person,,,Kolb's GH
 Kramer,19,person,,,Kramer
 Krause,19,person,,,Krause
 L. Stickney,19,person,,,L. Stickney
@@ -220,7 +221,6 @@ Elkin,18,person,"Elkin, Barbara",,Elkin
 Houdyshel,18,person,,,Houdyshel
 Hyla,18,person,,,Hyla
 J. C. Munk,18,person,,,"Munk, JC"
-Kolb's GH,18,person,,,Kolb's GH
 P. Harris,18,person,,,"Harris, P."
 P. Sorano,18,person,,,"Sorano, P."
 Swanson,18,person,,,Swanson
@@ -229,6 +229,7 @@ Bradley,17,person,,,Bradley
 Gordon Boone,17,person,,,Gordon Boone
 Hawley,17,person,,,Hawley
 Hines,17,person,,,Hines
+Hugh Eyerdom,17,person,,,Hugh Eyerdom
 Johnson,17,person,"Johnson, Bill",,Johnson
 Linda Ray,17,person,,,Linda Ray
 Madison Gardens,17,organization,,,Madison Gardens
@@ -239,9 +240,9 @@ E. Janosick,16,person,,,E. Janosick
 E. Wasche,16,person,,,E. Wasche
 Elderkin,16,person,,,Elderkin
 Ernest Fisher,16,person,,,Ernest Fisher
-Granger Garden,16,organization,,,Granger Garden
 Granger's/Eyerdom,16,person,,,Granger's ; Eyerdom
 J. Bell,16,person,,,J. Bell
+Lyon's Greenhouse,16,organization,,,Lyon's Greenhouse
 Nichols,16,person,Nichols,,Nichols
 Roehrs,16,person,,,Roehrs
 Select,16,person,,,Select
@@ -253,27 +254,28 @@ Chris Huebscher,15,person,,,Chris Huebscher
 D. Parker,15,person,,,D. Parker
 E. Kolb,15,person,,,"Kolb, E."
 Furnish,15,person,,,Furnish
+Granger Garden,15,organization,,,Granger Garden
 J. Stokes,15,person,,,"Stokes, J."
-Lyon's Greenhouse,15,organization,,,Lyon's Greenhouse
 Maude Cook,15,person,,,Maude Cook
 McIntosh,15,person,,,McIntosh
 Merkel,15,person,,,Merkel
 Mrs,15,person,,,Mrs
 NW,15,person,,,NW
 P. Davidson,15,person,,,"Davidson, P."
+S. Groeneman,15,person,,,S. Groeneman
 SVH,15,person,,,SVH
+Union County Chapter AVSA,15,person,,,Union County Chapter AVSA
 D. Harris,14,person,,,"Harris, D."
 Frank Tinari,14,person,,,Frank Tinari
 Green Circle/B. Johnson,14,person,,,Green Circle ; B. Johnson
 L. Lyon,14,person,,,L. Lyon
 L. Munk,14,person,,,L. Munk
 Mason,14,person,,,Mason
-S. Groeneman,14,person,,,S. Groeneman
-Union County Chapter AVSA,14,person,,,Union County Chapter AVSA
 Westside,14,person,,,Westside
 Young,14,person,,,Young
 "C. Reed, House of Violets",13,person,,,"C. Reed, House of Violets"
 Candy Russell,13,person,,,Candy Russell
+Geo. J. Ball Inc.,13,person,,,Geo. J. Ball Inc
 J. Eyerdom/H. Eyerdom,13,person,,,J. Eyerdom ; H. Eyerdom
 Lyons,13,person,Lyons,,Lyons
 Mrs. O. F. Magee,13,person,,,Mrs. O. F. Magee
@@ -287,7 +289,6 @@ C. Hobbs/H. Hobbs,12,person,,,C. Hobbs ; H. Hobbs
 C. Wilson,12,person,,,C. Wilson
 Candy Phillips,12,person,,,Candy Phillips
 Frathels,12,person,,,Frathels
-Geo. J. Ball Inc.,12,person,,,Geo. J. Ball Inc
 Harry R. Albro,12,person,,,Harry R. Albro
 Hightower,12,person,"Hightower, G.",,Hightower
 Japanese,12,person,Japanese,,Japanese
@@ -302,6 +303,7 @@ Pat Tracey,12,person,,,Pat Tracey
 Pease,12,person,,,Pease
 Pochurek,12,person,,,Pochurek
 Ritchhart,12,person,,,Ritchhart
+Alene King,11,person,,,Alene King
 C. Russell,11,person,,,"Russell, C."
 Champion,11,person,"Champion, Ethel",,Champion
 E & L Hammond,11,person,,,E ; L Hammond
@@ -318,8 +320,8 @@ Pat's ABC's,11,person,,,Pat's ABC's
 Rockey,11,person,,,Rockey
 Sierk,11,person,,,Sierk
 Thalheimer,11,person,,,Thalheimer
-Alene King,10,person,,,Alene King
 Botsford,10,person,,,Botsford
+C. Raskopf,10,person,,,C. Raskopf
 Donald Baker,10,person,,,Donald Baker
 Edward Janosick,10,person,,,Edward Janosick
 Elmer Swanson,10,person,,,Elmer Swanson
@@ -339,29 +341,31 @@ Stork/Boone,10,person,,,Stork/Boone
 Susan's V,10,person,,,Susan's V
 T. Davis,10,person,,,"Davis, T."
 T. Foote,10,person,,,"Foote, T."
+V. Fuhlrodt,10,person,,,V. Fuhlrodt
 Westwinds,10,person,,,Westwinds
 Williams,10,person,"Williams, H. | Williams, D. | Williams, S.",,Williams
 A&R,9,organization,,Armacost & Royston,Armacost & Royston
 Alan Murphy,9,person,,,Alan Murphy
 Button,9,person,,,Button
 C. Akemann,9,person,,,C. Akemann
-C. Raskopf,9,person,,,C. Raskopf
 Elizabeth,9,person,,,Elizabeth
 G. Gay,9,person,,,G. Gay
 Gordon R. Coon,9,person,,,Gordon R. Coon
 Gross,9,person,,,Gross
 Intile,9,person,,,Intile
 J. Lalanne,9,person,,,"Lalanne, J."
+Kiesling,9,person,,,Kiesling
 McFarland,9,person,,,McFarland
 Merilees,9,person,,,Merilees
 Nelson Farm,9,organization,,,Nelson Farm
 Neuenschwander,9,person,,,Neuenschwander
 Norma Buttler,9,person,,,Norma Buttler
 R. & K. Nadeau,9,person,,,R ; K. Nadeau
+Raskopf,9,person,,,Raskopf
 Rose Knoll Gardens,9,organization,,,Rose Knoll Gardens
 Straitiff,9,person,,,Straitiff
 Tinari Greenhouse,9,organization,,,Tinari Greenhouse
-V. Fuhlrodt,9,person,,,V. Fuhlrodt
+Travis Davis,9,person,,,Travis Davis
 VTH,9,person,,,VTH
 Violets Are Blue,9,person,,,Violets Are Blue
 Westwind's,9,person,,,Westwind's
@@ -374,6 +378,7 @@ E. Fisher AV,8,person,,,E. Fisher AV
 G. Beck,8,person,,,G. Beck
 G. R. Beck,8,person,,,G. R. Beck
 Griffiths,8,person,,,Griffiths
+Haseltine,8,person,,,Haseltine
 Hortense Pittman,8,person,,,Hortense Pittman
 J & B Sisk,8,person,,,J ; B Sisk
 Jim Wright,8,person,,,Jim Wright
@@ -381,7 +386,6 @@ Joan A. Westrick,8,person,,,Joan A. Westrick
 John Brownlie,8,person,,,John Brownlie
 K. Hobbs-Gregg,8,person,,,K. Hobbs-Gregg
 Kehl,8,person,,,Kehl
-Kiesling,8,person,,,Kiesling
 Martha Tucker,8,person,,,Martha Tucker
 Melzina,8,person,,,Melzina
 Mims,8,person,,,Mims
@@ -401,7 +405,9 @@ B. Miller-Morris,7,person,,,B. Miller-Morris
 Barnard,7,person,,,Barnard
 Blansit,7,person,,,Blansit
 C & R Reed,7,person,,,C ; R Reed
+C. D. Martin,7,person,,,C. D. Martin
 D. Wilson,7,person,,,D. Wilson
+David Buttram,7,person,,,David Buttram
 Dori Macomber,7,person,,,Dori Macomber
 E. Adams,7,person,,,E. Adams
 Englert,7,person,,,Englert
@@ -409,7 +415,6 @@ Ffoulkes,7,person,,,Ffoulkes
 Foltz,7,person,,,Foltz
 G. Starr,7,person,,,G. Starr
 Hale's House of Violets,7,person,,,Hale's House of Violets
-Haseltine,7,person,,,Haseltine
 Hastings,7,person,,,Hastings
 Hazen,7,person,,,Hazen
 Hightower's Violet Nook,7,person,,,Hightower's Violet Nook
@@ -426,7 +431,6 @@ Ness,7,person,"Ness, D",,Ness
 Niemann,7,person,,,Niemann
 Ozark Club,7,organization,,,Ozark Club
 Pendleton,7,person,,,Pendleton
-Raskopf,7,person,,,Raskopf
 Reinhardt,7,person,,,Reinhardt
 Richter Greenhouse,7,organization,,,Richter Greenhouse
 Rita Luciano,7,person,,,Rita Luciano
@@ -440,11 +444,9 @@ B. Curcuruto,6,person,,,B. Curcuruto
 B. Werness,6,person,,,"Werness, B."
 Betty Bryant,6,person,,,Betty Bryant
 C. Cornibe,6,person,,,"Cornibe, C."
-C. D. Martin,6,person,,,C. D. Martin
 C. Dedera,6,person,,,C. Dedera
 C. Reed,6,person,,,C. Reed
 Craig,6,person,,,Craig
-David Buttram,6,person,,,David Buttram
 Deborah Good,6,person,,,Deborah Good
 Dorothy Harris,6,person,,,Dorothy Harris
 Eckhardt,6,person,,,Eckhardt
@@ -456,7 +458,6 @@ Germany,6,person,,,Germany
 Gutridge,6,person,,,Gutridge
 H. Homyer,6,person,,,"Homyer, H."
 Hinkley,6,person,,,Hinkley
-Hugh Eyerdom,6,person,,,Hugh Eyerdom
 Ireland,6,person,,,Ireland
 Isla Montgomery,6,person,,,Isla Montgomery
 J. Feeney,6,person,,,J. Feeney
@@ -468,6 +469,7 @@ Lorenzen,6,person,,,Lorenzen
 Lyon's GH,6,person,,,Lyon's GH
 Mae,6,person,,,Mae
 Marian Magee,6,person,,,Marian Magee
+Marie Dattalo,6,person,,,Marie Dattalo
 Mrs. R. A. Brown,6,person,,,Mrs. R. A. Brown
 Nortex Wholesale Greenhouses,6,organization,,,Nortex Wholesale Greenhouses
 Nortex Wholesale Grnhse.,6,person,,,Nortex Wholesale Grnhse
@@ -484,7 +486,6 @@ W. Ott/M. Maas,6,person,,,W. Ott ; M. Maas
 Wood's AV,6,person,,,Wood's AV
 A. Droege,5,person,,,"Droege, A."
 A. F. Hill,5,person,,,A. F. Hill
-Annalee AV,5,person,,,Annalee AV
 B. Fuller,5,person,,,B. Fuller
 Bill Foster,5,person,,,Bill Foster
 Brunner,5,person,,,Brunner
@@ -511,6 +512,7 @@ Jack Cochran,5,person,,,Jack Cochran
 Janicek,5,person,,,Janicek
 Jones,5,person,"Jones, Sharlene",,Jones
 Kienzle,5,person,,,Kienzle
+L. Sebastion,5,person,,,L. Sebastion
 Lyons/Sorano,5,person,,,Lyons ; Sorano
 M. Gall,5,person,,,"Gall, M."
 M. Tremblay,5,person,,,M. Tremblay
@@ -545,6 +547,7 @@ Wonder,5,person,,,Wonder
 Woodley,5,person,,,Woodley
 o Cookie,5,person,,,o Cookie
 A. Hummer,4,person,,,A. Hummer
+Annalee AV,4,person,,,Annalee AV
 Barnhill,4,person,,,Barnhill
 Blanchard,4,person,,,Blanchard
 Buttons,4,person,,,Buttons
@@ -580,7 +583,6 @@ J. Cochran,4,person,,,J. Cochran
 J. Stromborg,4,person,,,J. Stromborg
 Jeanie Bell,4,person,,,Jeanie Bell
 Jones & Mueller,4,person,,,Jones ; Mueller
-L. Sebastion,4,person,,,L. Sebastion
 Linda A. Neumann,4,person,,,Linda A. Neumann
 Lyn D. Robinson,4,person,,,Lyn D. Robinson
 Mackey,4,person,,,Mackey
@@ -593,6 +595,7 @@ Mrs. J. B. Griffiths,4,person,,,Mrs. J. B. Griffiths
 Mrs. J. H. Pitts,4,person,,,Mrs. J. H. Pitts
 Mrs. P. Kiesling,4,person,,,Mrs. P. Kiesling
 Mrs. Wm. Baschnagel,4,person,,,Mrs. Wm. Baschnagel
+Muriel T. Kaiser,4,person,,,Muriel T. Kaiser
 N. Hudson,4,person,,,"Hudson, N."
 Nortex's Wholesale Grnhse.,4,person,,,Nortex's Wholesale Grnhse
 Orchard,4,person,,,Orchard
@@ -629,6 +632,7 @@ A. Hart,3,person,,,"Hart, A."
 A. L. Carter,3,person,,,A. L. Carter
 A. Murphy,3,person,,,"Murphy, A."
 AVS,3,person,,,AVS
+Barbara Cook,3,person,,,Barbara Cook
 Beck,3,person,,,Beck
 Bee,3,person,,,Bee
 Betty Bryant. 24519 Rolling Meadows,3,person,,,Betty Bryant. 24519 Rolling Meadows
@@ -647,6 +651,7 @@ Davis,3,person,"Davis, T.",,Davis
 Decker,3,person,,,Decker
 Dissinger,3,person,,,Dissinger
 Domiano,3,person,"Domiano, Jeanette","Domiano, Jeanette","Domiano, Jeanette"
+Dottie Wilson,3,person,,,Dottie Wilson
 Dr. J. B. Jung,3,person,,,Dr. J. B. Jung
 E. Golledge,3,person,,,E. Golledge
 E. McCawley,3,person,,,E. McCawley
@@ -695,7 +700,6 @@ M. Dubois,3,person,,,M. Dubois
 Mallette,3,person,,,Mallette
 Marcia Boer,3,person,,,Marcia Boer
 Marie Burns,3,person,,,Marie Burns
-Marie Dattalo,3,person,,,Marie Dattalo
 Mary Mahen,3,person,,,Mary Mahen
 Maybach,3,person,,,Maybach
 McBride,3,person,,,McBride
@@ -768,7 +772,6 @@ B. Elkin/Constantinov,2,person,,,B. Elkin ; Constantinov
 B. Mills,2,person,,,B. Mills
 B. Moss,2,person,,,B. Moss
 Bakers,2,person,,,Bakers
-Barbara Cook,2,person,,,Barbara Cook
 Baylor,2,person,,,Baylor
 Berggren,2,person,,,Berggren
 Bertie Jackson,2,person,,,Bertie Jackson
@@ -790,8 +793,10 @@ Carey,2,person,,,Carey
 Champion's AV,2,person,,,Champion's AV
 Charles Dedera,2,person,,,Charles Dedera
 Charlyne Reed,2,person,,,Charlyne Reed
+Christine Leppard,2,person,,,Christine Leppard
 Claire Byerly,2,person,,,Claire Byerly
 Connie Romanow,2,person,,,Connie Romanow
+Constance R. Koch,2,person,,,Constance R. Koch
 Cornibe,2,person,"Cornibe, C.",,Cornibe
 D. Allen,2,person,,,D. Allen
 D. Ferguson,2,person,,,D. Ferguson
@@ -799,6 +804,7 @@ D. Lass,2,person,,,D. Lass
 Dates Violetry,2,person,,,Dates Violetry
 Donald M. Palmer,2,person,,,Donald M. Palmer
 "Dr. 5, Crawcour",2,person,,,"Dr. 5, Crawcour"
+Dr. S. Crawcour,2,person,,,Dr. S. Crawcour
 E. E. Hammond,2,person,,,E. E. Hammond
 E. H. Adams,2,person,,,E. H. Adams
 E. Rourke,2,person,,,E. Rourke
@@ -888,7 +894,9 @@ Mrs. C. J. Grasso,2,person,,,Mrs. C. J. Grasso
 Mrs. Ednah Daw,2,person,,,Mrs. Ednah Daw
 Mrs. Elmer Kramer,2,person,,,Mrs. Elmer Kramer
 Mrs. F. S. Huebscher,2,person,,,Mrs. F. S. Huebscher
+Mrs. H. R. Tiedeman,2,person,,,Mrs. H. R. Tiedeman
 Mrs. Hays,2,person,,,Mrs. Hays
+Mrs. Irene Haseltine,2,person,,,Mrs. Irene Haseltine
 Mrs. J. B. Rainey,2,person,,,Mrs. J. B. Rainey
 Mrs. J. Boer 3d,2,person,,,Mrs. J. Boer 3d
 Mrs. J. C. Harris,2,person,,,Mrs. J. C. Harris
@@ -919,6 +927,7 @@ Promersberger,2,person,,,Promersberger
 Q. Brownlie,2,person,,,Q. Brownlie
 Q. Swift,2,person,,,Q. Swift
 Quality,2,person,,,Quality
+R & D Mendoza,2,person,,,R ; D Mendoza
 R. Breden,2,person,,,"Breden, R."
 R. E. Scott,2,person,,,R. E. Scott
 R. Hamilton,2,person,,,"Hamilton, R."
@@ -940,6 +949,7 @@ Rosenbaum,2,person,,,Rosenbaum
 Rumbaugh,2,person,,,Rumbaugh
 S. Scrano,2,person,,,S. Scrano
 S. Whitaker,2,person,,,"Whitaker, S."
+Sandy Lang,2,person,,,Sandy Lang
 Schafer,2,person,,,Schafer
 Shangle,2,person,,,Shangle
 Shaw,2,person,"Shaw, S.",,Shaw
@@ -963,6 +973,7 @@ V. Harris,2,person,,,V. Harris
 V. Lorenzen Park N.,2,person,,,V. Lorenzen Park N
 V. M. Ozimek,2,person,,,V. M. Ozimek
 Violet Garden's,2,organization,,,Violet Garden's
+Volkmann Bros,2,organization,,,Volkmann Bros
 W. F. Kuhl,2,person,,,W. F. Kuhl
 W. W. Wewer,2,person,,,W. W. Wewer
 Wadenstorer,2,person,,,Wadenstorer
@@ -980,7 +991,6 @@ YG,2,person,,,YG
 duPont,2,person,,,duPont
 . Robinson,1,person,"Robinson, Olive Ma | Robinson, Ralph",,. Robinson
 . Tinari,1,person,"Tinari, Frank | Tinari",,. Tinari
-A. C. Bollar,1,person,,,A. C. Bollar
 A. Jantzen,1,person,,,A. Jantzen
 A. Jantzen/G. Crouchet,1,person,,,A. Jantzen ; G. Crouchet
 A. Major,1,person,,,"Major, A."
@@ -1039,6 +1049,7 @@ Blackburn,1,person,,,Blackburn
 Blades,1,person,,,Blades
 Blair,1,person,,,Blair
 Bocsen,1,person,,,Bocsen
+Bollar,1,person,"Bollar, C.",,Bollar
 Bradel,1,person,,,Bradel
 Brewer,1,person,,,Brewer
 Bronson,1,person,,,Bronson
@@ -1063,6 +1074,7 @@ C. Richter,1,person,,,C. Richter
 C. Sotkewicz,1,person,,,C. Sotkewicz
 Cal Iskra,1,person,,,Cal Iskra
 Caldwell,1,person,,,Caldwell
+Cape Cod V.,1,person,,,Cape Cod V
 Capital City AV Soc./Reed,1,person,,,Capital City AV Soc ; Reed
 Capital City AVS,1,person,,,Capital City AVS
 Capitol City AV/Sisk,1,person,,,Capitol City AV ; Sisk
@@ -1076,7 +1088,6 @@ Cerri Flowers,1,person,,,Cerri Flowers
 Charles Cohen,1,person,,,Charles Cohen
 Charles H. Henry,1,person,,,Charles H. Henry
 Charlyne C. Reed,1,person,,,Charlyne C. Reed
-Christine Leppard,1,person,,,Christine Leppard
 Chrysler's,1,person,,,Chrysler's
 Clagg,1,person,,,Clagg
 Clarance Wilson,1,person,,,Clarance Wilson
@@ -1088,6 +1099,7 @@ Collins,1,person,,,Collins
 Condit/D. Harris,1,person,,,Condit ; D. Harris
 Corbin,1,person,,,Corbin
 Cort Raskopf,1,person,,,Cort Raskopf
+Crystal City AVS,1,person,,,Crystal City AVS
 Crystal Huebscher,1,person,,,Crystal Huebscher
 D. Baker,1,person,,,"Baker, D."
 D. Benge,1,person,,,D. Benge
@@ -1124,12 +1136,11 @@ Dooley,1,person,,,Dooley
 Doreen Jamieson,1,person,,,Doreen Jamieson
 Dorothy Adams,1,person,,,Dorothy Adams
 Dorothy R. Parker,1,person,,,Dorothy R. Parker
-Dottie Wilson,1,person,,,Dottie Wilson
+Dot Roesch,1,person,,,Dot Roesch
 Downes,1,person,,,Downes
 Dr. Crawcour,1,person,,,Dr. Crawcour
 Dr. F. B. Cohen,1,person,,,Dr. F. B. Cohen
 Dr. Reed,1,person,,,Dr. Reed
-Dr. S. Crawcour,1,person,,,Dr. S. Crawcour
 Dykeman,1,person,,,Dykeman
 Dyson,1,person,,,Dyson
 E. Daw,1,person,,,E. Daw
@@ -1247,7 +1258,6 @@ Hollada,1,person,,,Hollada
 Holly Smith,1,person,,,Holly Smith
 Holton-Hunkle,1,person,,,Holton-Hunkle
 Hopson,1,person,,,Hopson
-Horikoshi/Kawakami,1,person,,,Horikoshi ; Kawakami
 House of V,1,person,,,House of V
 Hunt,1,person,,,Hunt
 Hyla Corbin,1,person,,,Hyla Corbin
@@ -1317,7 +1327,6 @@ L. E. Collins,1,person,,,L. E. Collins
 L. Fageley,1,person,,,L. Fageley
 L. Herres,1,person,,,L. Herres
 L. Huckenpahler,1,person,,,L. Huckenpahler
-L. M. Dethlefsen,1,person,,,L. M. Dethlefsen
 L. Rainsberger,1,person,,,L. Rainsberger
 L. Robinson,1,person,,,L. Robinson
 LaTourneau,1,person,,,LaTourneau
@@ -1352,6 +1361,7 @@ M. S. Paist,1,person,,,M. S. Paist
 M. Trapp,1,person,,,M. Trapp
 M. Tyack,1,person,,,M. Tyack
 MAS,1,person,,,MAS
+Magee,1,person,,,Magee
 Magill,1,person,,,Magill
 Marcia Balonis,1,person,,,Marcia Balonis
 Marek,1,person,,,Marek
@@ -1399,6 +1409,7 @@ Mrs. Alice Stramandole,1,person,,,Mrs. Alice Stramandole
 Mrs. Anna Lee,1,person,,,Mrs. Anna Lee
 Mrs. Blanch Tucker,1,person,,,Mrs. Blanch Tucker
 "Mrs. C, S. Hawley",1,person,,,"Mrs. C, S. Hawley"
+Mrs. C. F. Boggan,1,person,,,Mrs. C. F. Boggan
 Mrs. C. J. Donald Jr.,1,person,,,Mrs. C. J. Donald Jr
 Mrs. C. R. Ballard,1,person,,,Mrs. C. R. Ballard
 Mrs. C. Smith,1,person,,,Mrs. C. Smith
@@ -1418,8 +1429,8 @@ Mrs. Gale Tucker,1,person,,,Mrs. Gale Tucker
 Mrs. Goldie Kinne,1,person,,,Mrs. Goldie Kinne
 Mrs. H. E. Rieck,1,person,,,Mrs. H. E. Rieck
 Mrs. H. G. Garner,1,person,,,Mrs. H. G. Garner
+Mrs. H. J. Hebert,1,person,,,Mrs. H. J. Hebert
 Mrs. H. Keenahan,1,person,,,Mrs. H. Keenahan
-Mrs. H. R. Tiedeman,1,person,,,Mrs. H. R. Tiedeman
 Mrs. H. Stein,1,person,,,Mrs. H. Stein
 Mrs. H. Stine,1,person,,,Mrs. H. Stine
 Mrs. H. Van Zele,1,person,,,Mrs. H. Van Zele
@@ -1428,7 +1439,6 @@ Mrs. H. W. Folger,1,person,,,Mrs. H. W. Folger
 Mrs. H.N. Tuveson,1,person,,,Mrs. H.N. Tuveson
 Mrs. Hayes,1,person,,,Mrs. Hayes
 Mrs. Heverling,1,person,,,Mrs. Heverling
-Mrs. Irene Haseltine,1,person,,,Mrs. Irene Haseltine
 Mrs. J. B. Griffith,1,person,,,Mrs. J. B. Griffith
 Mrs. J. C. Lasswell,1,person,,,Mrs. J. C. Lasswell
 Mrs. J. Chadwick,1,person,,,Mrs. J. Chadwick
@@ -1459,11 +1469,13 @@ Mrs. Paul Kiesling,1,person,,,Mrs. Paul Kiesling
 Mrs. Paul W. Kiesling,1,person,,,Mrs. Paul W. Kiesling
 Mrs. Paul Wm. Kiesling,1,person,,,Mrs. Paul Wm. Kiesling
 Mrs. Q. Nichols,1,person,,,Mrs. Q. Nichols
+Mrs. R. L. Pritchett,1,person,,,Mrs. R. L. Pritchett
 Mrs. R. S. Riquelmy,1,person,,,Mrs. R. S. Riquelmy
 Mrs. Ralph A. Reed,1,person,,,Mrs. Ralph A. Reed
 Mrs. S. Grasso,1,person,,,Mrs. S. Grasso
 Mrs. T. B. McKneely,1,person,,,Mrs. T. B. McKneely
 Mrs. T. Kostulias,1,person,,,Mrs. T. Kostulias
+Mrs. W. E. Anderson,1,person,,,Mrs. W. E. Anderson
 Mrs. W. F. Anderson,1,person,,,Mrs. W. F. Anderson
 Mrs. W. J. Ritmanich,1,person,,,Mrs. W. J. Ritmanich
 Murdock,1,person,,,Murdock
@@ -1512,7 +1524,6 @@ Q. Nickols,1,person,,,Q. Nickols
 QT,1,person,,,QT
 QVH,1,person,,,QVH
 Quixie Nichols,1,person,,,Quixie Nichols
-R & D Mendoza,1,person,,,R ; D Mendoza
 R. Anderson,1,person,,,R. Anderson
 R. Armsirong,1,person,,,R. Armsirong
 R. H. Roe,1,person,,,R. H. Roe
@@ -1565,7 +1576,6 @@ S. Sorauo,1,person,,,S. Sorauo
 S. Wavrunek,1,person,,,S. Wavrunek
 S.H. Smith,1,person,,,S.H. Smith
 Sally Haven,1,person,,,Sally Haven
-Sandy Lang,1,person,,,Sandy Lang
 Sandy Weyland,1,person,,,Sandy Weyland
 Savage,1,person,"Savage, E.",,Savage
 Savage/Nadeau,1,person,,,Savage ; Nadeau
@@ -1609,6 +1619,7 @@ T. Malinich/D. Lineberger,1,person,,,T. Malinich ; D. Lineberger
 Tf. & F. Clark,1,person,,,Tf ; F. Clark
 Thad Scaggs,1,person,,,Thad Scaggs
 Ticknor's AV,1,person,,,Ticknor's AV
+Ticknors AV,1,person,,,Ticknors AV
 Tinari Gmhses,1,person,,,Tinari Gmhses
 Tinari's GH,1,person,,,Tinari's GH
 Tinari's Greenhouse,1,organization,,,Tinari's Greenhouse
@@ -1635,6 +1646,7 @@ Valley Violets,1,person,,,Valley Violets
 Vaughn,1,person,,,Vaughn
 Veda H. Quimby,1,person,,,Veda H. Quimby
 Vernon,1,person,,,Vernon
+Vernon Estes,1,person,,,Vernon Estes
 Violet Frathel,1,person,,,Violet Frathel
 Violet's c/o Cookie,1,person,,,Violet's c ; o Cookie
 Violets from Starrs,1,person,,,Violets from Starrs
@@ -1643,7 +1655,6 @@ Volkmamnn,1,person,,,Volkmamnn
 Volkman,1,person,,,Volkman
 Volkman Bros,1,organization,,,Volkman Bros
 Volkman Bros.,1,organization,,,Volkman Bros
-Volkmann Bros,1,organization,,,Volkmann Bros
 Vollmann Bros.,1,organization,,,Vollmann Bros
 Von Dietrich,1,person,,,Von Dietrich
 W. A. Stoner,1,person,,,W. A. Stoner

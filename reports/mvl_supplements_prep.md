@@ -7,14 +7,14 @@ Generated 2026-11-13 by scripts/prep_mvl_supplements.py
 - erratum: Springtime 1980 dropped (duplicate of Granger's Springtime): 1
 - rows with a description: 19624
 - plants (names merged across lists): 15660
-- recent-file plants held back (number/date conflict with MLV): 133
-- recent-file plants with a recorded conflict decision: 0
-- plants sharing a registration number: 200
+- recent-file plants held back (number/date conflict with MLV): 0
+- recent-file plants with a recorded conflict decision: 133
+- plants sharing a registration number: 204
 
 ## Plants
 - total: 15660
 - registered: 7790
-- with registration number: 7506
+- with registration number: 7502
 - with size class: 12823
 - with hybridizer: 15351
 - species: 39
@@ -26,7 +26,7 @@ Generated 2026-11-13 by scripts/prep_mvl_supplements.py
 - spelling_unchecked: 4198
 - mlv_name_other_hybridizer: 1016
 - near-misses to decide (mvl_spelling.csv): 569 names
-- registration number disagreements / conflicts (mvl_regno.csv): 421
+- registration number disagreements / conflicts (mvl_regno.csv): 429
 
 ## Cross references
 - resolved: 1250
