@@ -7,6 +7,8 @@ xlsx_conflicting_duplicate,Royal Blue Trailer,row 2557 differs from kept row 255
 xlsx_conflicting_duplicate,Southsea Rock,"row 2749 differs from kept row 2748: seed='Birthday Blush' pollen=""Aca's Summer Parfait"" hybridizer='Taylor, Margaret'"
 xlsx_conflicting_duplicate,Sylph's Dragonhead,"row 2812 differs from kept row 2811: seed='Playful Spectrum' pollen='Ultra Violet Twilgiht' hybridizer='Jackson, Jeff'"
 xlsx_conflicting_duplicate,Tea's Blueberry Butterfly,"row 2827 differs from kept row 2826: seed='Summer Carnival (sport of)' pollen='sport of' hybridizer='Baker, Joan'"
+supplement_conflict,Cajun's Heart and Soul,bloom_description: 2022='Single-semidouble dark red frilled pansy' vs 2019='ssd dark red pansy' (kept 2022)
+supplement_conflict,Cajun's Heart and Soul,"foliage_description: 2022='Variegated medium green and white, serrated' vs 2019='Variegated medium green and cream, serrated' (kept 2022)"
 supplement_conflict,Cajun's Christy,"bloom_description: 2018='Single-semidouble purple star/white eye and rays, thin white edge, variable green on top petals' vs 2017='Semidouble purple star/white eye and rays, thin white-green edge' (kept 2018)"
 supplement_conflict,Cajun's Cotton Candy,bloom_description: 2018='Semidouble-double rose pink ruffled star/white eye and edge' vs 2017='Semidouble-double rose pink star/white eye and edge' (kept 2018)
 supplement_conflict,Cajun's Cotton Candy,"foliage_description: 2018='Variegated medium green and cream, serrated' vs 2017='Variegated medium green and cream, ruffled, serrated' (kept 2018)"
@@ -175,6 +177,21 @@ supplement_conflict,Optimara EverSpecial,"hyb: 2014='Holtkamp, R.' vs 2010='Holt
 supplement_conflict,Optimara EverYoung,bloom_description: 2014='Single pink two-tone sticktite frilled pansy' vs 2010='Single-semidouble pink two-tone pansy.' (kept 2014)
 supplement_conflict,Optimara EverYoung,"foliage_description: 2014='Medium green, glossy, ruffled' vs 2010='Medium green, plain, wavy, scalloped, serrated.' (kept 2014)"
 supplement_conflict,Optimara EverYoung,"hyb: 2014='Holtkamp, R.' vs 2010='Holtkamp' (kept 2014)"
+supplement_conflict,Brooke Lyn,bloom_description: 2010='Double lavender and purple/white-green edge.' vs 2009='Double lavender and purple/white-green edge' (kept 2010)
+supplement_conflict,Brooke Lyn,"foliage_description: 2010='Light green, heart-shaped, quilted, pebbled, serrated.' vs 2009='Light green, heart-shaped, quilted, pebbled, serrated' (kept 2010)"
+supplement_conflict,Buckeye Leprechaun Charm,"bloom_description: 2010='Semidouble lavender ruffled pansy/darker top petals, purple band, variable white-green edge.' vs 2005='Semidouble lavender ruffled pansy/darker top petals, purple band, variable white-green edge' (kept 2010)"
+supplement_conflict,Buckeye Leprechaun Charm,"foliage_description: 2010='Variegated dark green, pink and cream, plain/red back.' vs 2005='Variegated dark green, pink and cream, plain/red back' (kept 2010)"
+supplement_conflict,Minstrel's Mary Ruth,bloom_description: 2015='Semidouble-double rose-pink pansy/blue-purple fantasy' vs 2004='Sir# lavender-pink pansy/purple fantasy' (kept 2015)
+supplement_conflict,Buckeye Everlasting,bloom_description: 2010='Semidouble-double pink pansy.' vs 2004='Semidouble-double pink pan^' (kept 2010)
+supplement_conflict,Buckeye Everlasting,"foliage_description: 2010='Variegated dark green, cream and pink, heart-shaped, quilted, glossy, scalloped/red back.' vs 2004='Variegated dark green, cream and pink, heart-shaped, quilted, ^ossy, scalloped/ red back' (kept 2010)"
+supplement_conflict,Buckeye Love's Caress,"bloom_description: 2010='Single-semidouble lavender frilled pansy/dark purple fantasy, edge.' vs 2004='Single-semidouble lavender frilled pansy/dark purple fantasy, edge' (kept 2010)"
+supplement_conflict,Buckeye Love's Caress,"foliage_description: 2010='Variegated dark green, cream and pink, pointed, glossy, serrated/red back.' vs 2004='Variegated dark green, cream and pink, pointed, glossy, serrated/red back' (kept 2010)"
+supplement_conflict,Buckeye Masterpiece,bloom_description: 2010='Semidouble-double rose-wine two-tone ruffled pansy/darker top petals.' vs 2004='Semidouble-double rose-wine two-tone ruffled pansy/ darker top petals' (kept 2010)
+supplement_conflict,Buckeye Masterpiece,"foliage_description: 2010='Variegated dark green, cream and pink, pointed, quilted, serrated/red back.' vs 2004='Variegated dark green, cream and pink, pointed, quilted, serrated/red back' (kept 2010)"
+supplement_conflict,Buckeye Nocturne,bloom_description: 2010='Semidouble-double pink frilled pansy/rose overlay.' vs 2004='Semidouble-double pink frilled pansy/rose overlay' (kept 2010)
+supplement_conflict,Buckeye Nocturne,"foliage_description: 2010='Variegated dark green, cream and pink, pointed/red back.' vs 2004='Variegated dark green, cream and pink, pointed/red back' (kept 2010)"
+supplement_conflict,Buckeye Ohio Friendship,bloom_description: 2010='Semidouble-double pink ruffled star.' vs 2004='Semidouble-double pink mffled star' (kept 2010)
+supplement_conflict,Buckeye Ohio Friendship,"foliage_description: 2010='Variegated dark green and pink, plain, glossy/red back.' vs 2004='Variegated dark green and pink, plain, glossy/red back' (kept 2010)"
 placeholder_parent,8E Fryderyk Chopin,seed: '? (lost info)'
 placeholder_parent,8E Fryderyk Chopin,pollen: '? (lost info)'
 placeholder_parent,8E Helen Magnus,seed: '? (lost info)'

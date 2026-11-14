@@ -1,15 +1,17 @@
-cultivar,new_name,reason,id_from
-Hunter's Anaphlaxis,Hunter's Anaphylaxis,spelling used in the hybridizer's own photo file names,
-Hunter's Running With Scisors,Hunter's Running With Scissors,spelling used in the hybridizer's own photo file names,
-Pink Madonna,Pink Madona,spelling in the AVSA Master Variety List (AVSA #4021); user decision to follow the MLV,
-Rhythm Rascal,Rhythym Rascal,spelling in the AVSA Master Variety List (AVSA #4987); user decision to follow the MLV,
-Sue Hoffmann,Sue Hoffman,spelling in the AVSA Master Variety List (AVSA #8678); user decision to follow the MLV,
-Gentles Persuasion,Gentle Persuasion,spelling in the AVSA Master Variety List (AVSA #7120); user decision to follow the MLV,
-Nuclear Fucsian,Nuclear Fuscian,spelling in the AVSA Master Variety List (AVSA #6056); user decision to follow the MLV,
-Imp's Shiny Seashell,Imp's Shiny Seashells,spelling in the hybridizer's own 2020 list (user decision),
-9eptune's Treasure,Neptune's Treasure,OCR error in the supplement (leading 9 for N); the AVSA Master Variety List has Neptune's Treasure by S. Sorano,Neptune's Treasure
-9u'er Hong,Nu'er Hong,OCR error in the supplement (leading 9 for N); Leo Lee's own list gives Nu'er Hong,Nu'er Hong
-Bella Ghana,Bella Gitana,"misspelling in the 1985 supplement; the AVSA record is Bella Gitana (#5805, L. Dethlefsen)",Bella Gitana
-Red Mt. Fuji,Red Mount Fuji,abbreviation in the 1993 supplement; the AVSA record is Red Mount Fuji (#7812); descriptions identical,Red Mount Fuji
-Avenelle,Avanelle,"misspelling in the 1980 supplement; the AVSA record is Avanelle (#3893, C. Bollar)",Avanelle
-Alamo Bob Serbin,Bob Serbin,"name printed with a series prefix in the 1996 supplement; the AVSA record is Bob Serbin (#8292, J. Brownlie); descriptions identical",Bob Serbin
+﻿cultivar,new_name,reason,id_from,id
+Hunter's Anaphlaxis,Hunter's Anaphylaxis,spelling used in the hybridizer's own photo file names,,
+Hunter's Running With Scisors,Hunter's Running With Scissors,spelling used in the hybridizer's own photo file names,,
+Pink Madonna,Pink Madona,spelling in the AVSA Master Variety List (AVSA #4021); user decision to follow the MLV,,
+Rhythm Rascal,Rhythym Rascal,spelling in the AVSA Master Variety List (AVSA #4987); user decision to follow the MLV,,
+Sue Hoffmann,Sue Hoffman,spelling in the AVSA Master Variety List (AVSA #8678); user decision to follow the MLV,,
+Gentles Persuasion,Gentle Persuasion,spelling in the AVSA Master Variety List (AVSA #7120); user decision to follow the MLV,,
+Nuclear Fucsian,Nuclear Fuscian,spelling in the AVSA Master Variety List (AVSA #6056); user decision to follow the MLV,,
+Imp's Shiny Seashell,Imp's Shiny Seashells,spelling in the hybridizer's own 2020 list (user decision),,
+9eptune's Treasure,Neptune's Treasure,OCR error in the supplement (leading 9 for N); the AVSA Master Variety List has Neptune's Treasure by S. Sorano,Neptune's Treasure,
+9u'er Hong,Nu'er Hong,OCR error in the supplement (leading 9 for N); Leo Lee's own list gives Nu'er Hong,Nu'er Hong,
+Bella Ghana,Bella Gitana,"misspelling in the 1985 supplement; the AVSA record is Bella Gitana (#5805, L. Dethlefsen)",Bella Gitana,
+Red Mt. Fuji,Red Mount Fuji,abbreviation in the 1993 supplement; the AVSA record is Red Mount Fuji (#7812); descriptions identical,Red Mount Fuji,
+Avenelle,Avanelle,"misspelling in the 1980 supplement; the AVSA record is Avanelle (#3893, C. Bollar)",Avanelle,
+Alamo Bob Serbin,Bob Serbin,"name printed with a series prefix in the 1996 supplement; the AVSA record is Bob Serbin (#8292, J. Brownlie); descriptions identical",Bob Serbin,
+Girls Night Out,Girls' Night Out,AVSA Registration Report (African Violet Magazine Jan-Feb 2021): name changed at the request of the hybridizer; AVSA #10893,,
+Lavender Lace,Lavender Lace Romance,"AVSA Registration Report (African Violet Magazine Nov-Dec 2005): name changed at the request of the hybridizer; AVSA #9049, G. Gay",,lavender-lace-g-gay

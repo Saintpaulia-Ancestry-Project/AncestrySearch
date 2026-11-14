@@ -233,6 +233,9 @@ def load_parent_corrections():
 PARENT_CORRECTIONS = load_parent_corrections()
 
 
+ID_RENAMES = {}   # record id -> (old name, new name, reason) from name_corrections.csv rows that have an `id`
+
+
 def load_name_corrections():
     """reports/review/name_corrections.csv (cultivar, new_name, reason): spelling corrections of a cultivar's name.
 
@@ -243,6 +246,8 @@ def load_name_corrections():
     - the record's id stays the same (ids are in links, images.csv and bookmarks, so they never change). Optional column
       `id_from`: the name whose slug is the id, needed when the corrected spelling already exists as its own record
       (the two records merge and must keep the id the other tables and images.csv already use);
+    - optional column `id`: rename ONLY the record with this id (use it when several plants share the name; the
+      other plants keep the name, no alias is created and `cultivar` is just a label for the reader);
     - the old spelling is kept in the cultivar's notes ("[name corrected from ...]"), which the search index covers.
     Returns {canonical key: (old name, new name, reason)}. Applies to cultivars and to parent-only records."""
     path = REVIEW / "name_corrections.csv"
@@ -252,6 +257,11 @@ def load_name_corrections():
             old, new = cname(r["cultivar"]), cname(r["new_name"])
             if not old or not new:
                 flag("name_correction_unsupported", r["cultivar"], f"new_name={r['new_name']!r}")
+                continue
+            if "id" in r.index and r["id"].strip():
+                # one record of a name shared by several plants: renamed by id after the ids are assigned; the
+                # other plants keep the name and no alias is created (see apply of ID_RENAMES in the import)
+                ID_RENAMES[r["id"].strip()] = (old, new, r["reason"].strip())
                 continue
             ok = norm(old)
             for _ in range(5):                      # follow merges decided in name_near_misses.csv
@@ -424,6 +434,14 @@ def load_supplements():
         d = pd.read_excel(p, dtype=object)
         d["_year"] = int(p.parent.name)
         d["_file"] = p.name
+        frames.append(d)
+    # data/registration_reports.csv: the 'Registration Report' columns of the African Violet Magazine (2004-2009,
+    # 2020-2022), same 14 columns as the supplements; the issue year is in the Notes text.
+    rr = DATA / "registration_reports.csv"
+    if rr.exists():
+        d = pd.read_csv(rr, dtype=object, keep_default_na=False).replace("", None)
+        d["_year"] = d["Notes"].map(lambda n: int(re.search(r"(\d{4})\s*$", str(n)).group(1)))
+        d["_file"] = rr.name
         frames.append(d)
     a = pd.concat(frames, ignore_index=True)
     # a few rows have the provenance note shifted into the registration/date columns
@@ -1202,6 +1220,14 @@ def build():
     allrec = collections.OrderedDict(list(out.items()) + list(stubs.items()))
     ml_stats = attach_masterlist(allrec)
     mvl_stats = attach_mvl(allrec)
+    # data_corrections.csv again: records that only exist through the MVL supplements are created in attach_mvl, after
+    # the first pass above, so their corrections would otherwise be lost (found with Little Cesar).
+    for k, d in allrec.items():
+        for fld, (val, why) in CORRECTIONS.get(norm(d["name"]), {}).items():
+            if fld != "notes" and d[fld] != val:
+                d["notes"] = (d["notes"] + " " if d["notes"] else "") + f"[{fld} corrected from {d[fld] or 'blank'}: {why}]"
+                d[fld] = val
+                n_corr += 1
     # ids
     used = {}
     same_name = collections.Counter(norm(d["name"]) for d in allrec.values())
@@ -1219,6 +1245,14 @@ def build():
             n += 1
         used[sid] = k
         d["id"] = sid
+    for d in allrec.values():          # name corrections for a single record (a name shared by several plants)
+        if d["id"] in ID_RENAMES:
+            old_, new_, why_ = ID_RENAMES[d["id"]]
+            d["notes"] = (d["notes"] + " " if d["notes"] else "") + f"[name corrected from {d['name']}" + (f": {why_}" if why_ else "") + "]"
+            d["name"] = new_
+    for rid_ in ID_RENAMES:
+        if rid_ not in {d["id"] for d in allrec.values()}:
+            flag("name_correction_unused", ID_RENAMES[rid_][0], f"no record with the id {rid_}")
     for k, d in allrec.items():
         d["sport_of"] = allrec[sport_fk[k]]["id"] if k in sport_fk else ""
     for r in parentage:

@@ -68,7 +68,7 @@ Coryell,55,person,,,Coryell
 Oppen,55,person,,,Oppen
 V. Lorenzen,55,person,,,V. Lorenzen
 Ronn Nadeau,54,person,,,Ronn Nadeau
-B. Foster,52,person,,,B. Foster
+B. Foster,52,person,,,"Foster, B."
 Manelta,52,person,,,Manelta
 Rose,52,person,,,Rose
 Hendrix,51,person,,,Hendrix
@@ -426,7 +426,7 @@ Hazen,7,person,,,Hazen
 Hightower's Violet Nook,7,person,,,Hightower's Violet Nook
 Holt Kamp,7,person,"Holtkamp, M. | Holtkamp | Holtkamp, R. Sr. | Holtkamp, R.",Holtkamp,Holtkamp
 Horikoshi/Shinohara,7,person,,,Horikoshi ; Shinohara
-I. Lineberg,7,person,,,I. Lineberg
+I. Lineberg,7,person,,,"Lineberg, I."
 Irene Haseltine,7,person,,,Irene Haseltine
 Kellar's Nursery,7,organization,,,Kellar's Nursery
 Lanigan & Rose Knoll,7,person,,,Lanigan ; Rose Knoll
@@ -508,7 +508,7 @@ Gary Beck,5,person,,,Gary Beck
 Granger's,5,person,,,Granger's
 Griffith's,5,person,,,Griffith's
 Groeneman,5,person,,,Groeneman
-Hall,5,person,,,Hall
+Hall,5,person,"Hall, M.",,Hall
 Hatley,5,person,,,Hatley
 Haywood,5,person,,,Haywood
 Hilton Dahlia Farm,5,organization,,,Hilton Dahlia Farm
@@ -584,7 +584,7 @@ Harborcrest,4,person,,,Harborcrest
 Hayes,4,person,,,Hayes
 Hotchkiss,4,person,"Hotchkiss, Mrs",,Hotchkiss
 Husted,4,person,,,Husted
-J. Cochran,4,person,,,J. Cochran
+J. Cochran,4,person,,,"Cochran, J."
 J. Stromborg,4,person,,,J. Stromborg
 Jeanie Bell,4,person,,,Jeanie Bell
 Jones & Mueller,4,person,,,Jones ; Mueller
@@ -1099,7 +1099,7 @@ Capital City AVS,1,person,,,Capital City AVS
 Capitol City AV/Sisk,1,person,,,Capitol City AV ; Sisk
 Carlson,1,person,,,Carlson
 Carol Davey,1,person,,,Carol Davey
-Carter,1,person,"Carter, C.",,Carter
+Carter,1,person,"Carter, C. | Carter, W.",,Carter
 Casey,1,person,,,Casey
 CatherHne M. Hawley,1,person,,,CatherHne M. Hawley
 Catherine M. Hawley,1,person,,,Catherine M. Hawley
@@ -1114,7 +1114,7 @@ Clarance Wilson,1,person,,,Clarance Wilson
 Clare Brown,1,person,,,Clare Brown
 Clary,1,person,,,Clary
 Clemo,1,person,,,Clemo
-Cochran,1,person,,,Cochran
+Cochran,1,person,"Cochran, J.",,Cochran
 Collins,1,person,,,Collins
 Condit/D. Harris,1,person,,,Condit ; D. Harris
 Corbin,1,person,,,Corbin
@@ -1206,7 +1206,7 @@ Fischer Greenhouses,1,organization,,,Fischer Greenhouses
 Fisher,1,person,"Fisher, E.",,Fisher
 Florence Walker,1,person,,,Florence Walker
 Fonbuena,1,person,,,Fonbuena
-Foster,1,person,,,Foster
+Foster,1,person,"Foster, B.",,Foster
 France,1,person,,,France
 Frankston,1,person,,,Frankston
 Frathe 1,1,person,,,Frathe 1

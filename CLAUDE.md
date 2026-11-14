@@ -278,6 +278,21 @@ receiver's pure validation code in headless Edge. Deployed: SUBMIT_URL in submit
   Gesneriad Council of Australia and New Zealand. Do NOT import or publish it until permission is recorded. Plan, field mapping and steps:
   notes/anz-catalogue-plan.md.
 
+## African Violet Magazine Registration Reports (decided with the user; licence CC BY-NC-SA 4.0, Biodiversity Heritage Library)
+- data/registration_reports.csv (433 rows, the 14 AVML columns; the issue year is the last word of Notes): the "Registration Report"
+  columns of the magazine, 2004-2009 (2003-2005 and 2008-2009 registrations; the 2006-2008 issues are not in the folder)
+  and 2020-2022 (#11245-#11367). Loaded by load_supplements() in import_excel.py like a supplement year (fills EMPTY fields only;
+  sqlite and the 2010-2019 supplements win). A magazine row whose registration number is already in the database must carry the
+  database's spelling of the name, otherwise a duplicate record is created (build step replaces it).
+- Made LOCALLY from the PDFs in the private repo C:\source\AVAncestry-private\AVM (pdftotext + pymupdf + RapidOCR on 300 dpi page
+  images; scripts in AVAncestry-private/AVM/MVL_extracts/: parse_registration_reports*.py, merge_/classify_/finalize_2004_2009.py).
+  Entries the automatic reading was unsure of were read by Claude from the page images. 6 unsure rows of 2004-2009 are left out.
+- reports/review/registration_changes.csv: every "Registration Change" note 2004-2022 with what the database holds and the decision;
+  applied through data_corrections.csv / name_corrections.csv. name_corrections.csv has an optional `id` column: a row with an id
+  renames ONLY that record (for a name shared by several plants, e.g. Lavender Lace Romance = lavender-lace-g-gay).
+- import_excel.py applies data_corrections.csv a second time after attach_mvl (records that exist only through the MVL supplements).
+- data/submissions/rivermist-baker-2026-04.csv: entries 12 and 66 are action=update (their names now also exist from the magazine).
+
 ## Next steps
 1. User review of the prototype; decide look/feel and extra filters.
 2. Local mode: mydata.sqlite for user data (sql.js cannot ATTACH files: plan a second
