@@ -291,6 +291,13 @@ receiver's pure validation code in headless Edge. Deployed: SUBMIT_URL in submit
   applied through data_corrections.csv / name_corrections.csv. name_corrections.csv has an optional `id` column: a row with an id
   renames ONLY that record (for a name shared by several plants, e.g. Lavender Lace Romance = lavender-lace-g-gay).
 - import_excel.py applies data_corrections.csv a second time after attach_mvl (records that exist only through the MVL supplements).
+- data/registration_lists.csv (106 rows, same 14 columns, Notes end with the issue year): registrations of 1969-2002 found by searching the
+  magazines (AVAncestry-private/AVM, 1965-2004 volumes) for the numbers missing from source/MVL_missing_reg_numbers.xlsx (trimmed against the
+  database; 229 numbers left). Name, number, date (where printed), size and the printed registration code (in Notes; NOT decoded into
+  colour/bloom/foliage); the hybridizer is the owner line that follows each group of entries in the list. 52 have no date printed
+  (1984-85 lists): AVAncestry-private/AVM/MVL_extracts/missing_reg_search/found_without_date_54.xlsx is where the user collects dates.
+  Results of the search (summary.csv, hits.csv) are in the same folder; 2903-2999 (97 numbers) look never issued (1977 index goes 2899 -> 3000).
+  When a registered name equals an older plant's name, the older record keeps its data but its id gets an originator suffix (honey-bunch-haga).
 - data/submissions/rivermist-baker-2026-04.csv: entries 12 and 66 are action=update (their names now also exist from the magazine).
 
 ## Next steps

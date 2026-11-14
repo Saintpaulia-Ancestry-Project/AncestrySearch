@@ -33,7 +33,7 @@ Sappenfield,112,person,,,Sappenfield
 Naomi,111,person,,,Naomi
 S. Williams,108,person,,,"Williams, S."
 Baker's,104,person,,,Baker's
-Wilson,99,person,"Wilson, R. | Wilson",,Wilson
+Wilson,99,person,"Wilson, R. | Wilson | Wilson, C.",,Wilson
 Maas,98,person,"Maas, M.",,Maas
 W. Smith,98,person,,,W. Smith
 Lyon/Sorano,96,person,,,Lyon ; Sorano
@@ -59,7 +59,7 @@ Eyerdom,67,person,"Eyerdom | Eyerdom, H. | Eyerdom, J.",,Eyerdom
 Kolb,67,person,"Kolb, E.",,Kolb
 Swift's AV,66,person,,,Swift's AV
 Granger G,65,person,,,Granger G
-Constantinov,63,person,,,Constantinov
+Constantinov,63,person,"Constantinov, V.",,Constantinov
 Susan's AV,63,person,,,Susan's AV
 Anderson,62,person,"Anderson, Carol",,Anderson
 S. Harrison,61,person,,,"Harrison, S."
@@ -85,7 +85,7 @@ Rienhardt,48,person,"Rienhardt | Rienhardt, H. | Rienhardt, C.",,Rienhardt
 Bud's,47,person,,,Bud's
 E. Kiesling,47,person,,,E. Kiesling
 Permann,47,person,,,Permann
-Nadeau,46,person,"Nadeau, Ronn",,Nadeau
+Nadeau,46,person,"Nadeau, Ronn | Nadeau, K.",,Nadeau
 Sorano,46,person,"Sorano, S. | Sorano, P. | Sorano | Sorano, K.",,Sorano
 A. E. Adams,45,person,,,"Adams, A. E."
 B. Elkin,45,person,,,B. Elkin
@@ -128,19 +128,19 @@ Mills,33,person,,,Mills
 Peters,33,person,,,Peters
 R. G. Anderson,33,person,,,R. G. Anderson
 R. Wasmund,33,person,,,"Wasmund, R."
-Violets Atlanta,33,person,,,Violets Atlanta
+Violets Atlanta,33,person,Violets Atlanta,,Violets Atlanta
 Doris,32,person,,,Doris
 Mrs. C. S. Hawley,32,person,,,Mrs. C. S. Hawley
 Peterson,32,person,,,Peterson
-R. Cox,32,person,,,R. Cox
-Tinari Greenhouses,32,organization,,,Tinari Greenhouses
+R. Cox,32,person,,,"Cox, R."
+Tinari Greenhouses,32,organization,Tinari Greenhouses,,Tinari Greenhouses
 B. Borck,31,person,,,B. Borck
 Cook,31,person,"Cook, B.",,Cook
 D. Croteau,31,person,,,D. Croteau
 Swift,31,person,"Swift, J.",,Swift
 Utz,31,person,"Utz, H.",,Utz
 A.E. Adams,30,person,,,"Adams, A. E."
-Cox,30,person,"Cox, G.",,Cox
+Cox,30,person,"Cox, G. | Cox, R.",,Cox
 Kellar,30,person,,,Kellar
 Harris,29,person,"Harris, P. | Harris, D. | Harris",,Harris
 Perdue,29,person,,,Perdue
@@ -216,7 +216,7 @@ Odom,19,person,,,Odom
 P. Sorano,19,person,,,"Sorano, P."
 Price,19,person,"Price, N.",,Price
 Spitz,19,person,,,Spitz
-V. Constantinov,19,person,,,V. Constantinov
+V. Constantinov,19,person,,,"Constantinov, V."
 V. L. Lorenzen,19,person,,,V. L. Lorenzen
 Yoars,19,person,,,Yoars
 C. C. Reed,18,person,,,C. C. Reed
@@ -227,7 +227,7 @@ Hyla,18,person,,,Hyla
 J. C. Munk,18,person,,,"Munk, JC"
 Madison Gardens,18,organization,,,Madison Gardens
 P. Harris,18,person,,,"Harris, P."
-Swanson,18,person,,,Swanson
+Swanson,18,person,"Swanson, E.",,Swanson
 Taylor,18,person,"Taylor, Margaret",,Taylor
 Bradley,17,person,,,Bradley
 Burton,17,person,,,Burton
@@ -237,12 +237,12 @@ Johnson,17,person,"Johnson, Bill",,Johnson
 Linda Ray,17,person,,,Linda Ray
 Y. Decelles,17,person,,,"Decelles, Y."
 B. Johnson,16,person,,,B. Johnson
-E. Janosick,16,person,,,E. Janosick
-E. Wasche,16,person,,,E. Wasche
+E. Janosick,16,person,,,"Janosick, E."
+E. Wasche,16,person,,,"Wasche, E."
 Elderkin,16,person,,,Elderkin
 Ernest Fisher,16,person,,,Ernest Fisher
 Granger's/Eyerdom,16,person,,,Granger's ; Eyerdom
-J. Bell,16,person,,,J. Bell
+J. Bell,16,person,,,"Bell, J."
 Lyon's Greenhouse,16,organization,,,Lyon's Greenhouse
 Nichols,16,person,Nichols,,Nichols
 Roehrs,16,person,,,Roehrs
@@ -282,7 +282,7 @@ C. Russell,13,person,,,"Russell, C."
 Candy Russell,13,person,,,Candy Russell
 Frathels,13,person,,,Frathels
 Geo. J. Ball Inc.,13,person,,,Geo. J. Ball Inc
-Hightower,13,person,"Hightower, G.",,Hightower
+Hightower,13,person,"Hightower, G. | Hightower, D.",,Hightower
 J. Eyerdom/H. Eyerdom,13,person,,,J. Eyerdom ; H. Eyerdom
 Lyons,13,person,Lyons,,Lyons
 Mrs. O. F. Magee,13,person,,,Mrs. O. F. Magee
@@ -293,7 +293,7 @@ Barbara Elkin,12,person,,,Barbara Elkin
 Bottrell,12,person,,,Bottrell
 Buttram,12,person,,,Buttram
 C. Hobbs/H. Hobbs,12,person,,,C. Hobbs ; H. Hobbs
-C. Wilson,12,person,,,C. Wilson
+C. Wilson,12,person,,,"Wilson, C."
 Candy Phillips,12,person,,,Candy Phillips
 Champion,12,person,"Champion, Ethel",,Champion
 Harry R. Albro,12,person,,,Harry R. Albro
@@ -465,7 +465,7 @@ Hinkley,6,person,,,Hinkley
 Ireland,6,person,,,Ireland
 Isla Montgomery,6,person,,,Isla Montgomery
 J. Feeney,6,person,,,J. Feeney
-Janosick,6,person,,,Janosick
+Janosick,6,person,"Janosick, E.",,Janosick
 Jeannette's Jesneriads,6,person,,"Domiano, Jeanette","Domiano, Jeanette"
 Justice,6,person,,,Justice
 Koran,6,person,,,Koran
@@ -481,7 +481,7 @@ P. Brenner,6,person,,,P. Brenner
 Rainbow,6,person,,,Rainbow
 Richard,6,person,,,Richard
 Rivenburg,6,person,,,Rivenburg
-S. Lang,6,person,,,S. Lang
+S. Lang,6,person,,,"Lang, S."
 SATELLITE RED 11-19-68.,6,person,,,SATELLITE RED 11-19-68
 Silcott,6,person,,,Silcott
 Stork,6,person,"Stork, Kent | Stork, Joyce | Stork, Boone",,Stork
@@ -810,7 +810,7 @@ Cornibe,2,person,"Cornibe, C.",,Cornibe
 D. Allen,2,person,,,D. Allen
 D. Ferguson,2,person,,,D. Ferguson
 D. Lass,2,person,,,D. Lass
-Dates Violetry,2,person,,,Dates Violetry
+Dates Violetry,2,person,Dates Violetry,,Dates Violetry
 Deborah J. Good,2,person,,,Deborah J. Good
 Donald M. Palmer,2,person,,,Donald M. Palmer
 Doreen Jamieson,2,person,,,Doreen Jamieson
@@ -854,7 +854,7 @@ Hightower's VN,2,person,,,Hightower's VN
 Hixson,2,person,,,Hixson
 Holikamp,2,person,,,Holikamp
 Holkamp,2,person,,,Holkamp
-Huebscher,2,person,,,Huebscher
+Huebscher,2,person,"Huebscher, C.A.",,Huebscher
 Human,2,person,,,Human
 Hutson,2,person,,,Hutson
 Iris Cohen,2,person,,,Iris Cohen
@@ -878,7 +878,7 @@ K. & R. Nadeau,2,person,,,K ; R. Nadeau
 Keithley,2,person,,,Keithley
 Kirschenbaum,2,person,,,Kirschenbaum
 Kolb's Greenhouse,2,organization,,,Kolb's Greenhouse
-Kolb's Greenhouses,2,organization,,,Kolb's Greenhouses
+Kolb's Greenhouses,2,organization,Kolb's Greenhouses,,Kolb's Greenhouses
 Krumenacker,2,person,,,Krumenacker
 Kunkel,2,person,,,Kunkel
 L. D. Robinson,2,person,,,L. D. Robinson
@@ -1138,7 +1138,7 @@ D. Stevens,1,person,,,D. Stevens
 D. Thomas,1,person,,,D. Thomas
 D. Thornburg,1,person,,,D. Thornburg
 Damron,1,person,,,Damron
-Date's Violetry,1,person,,,Date's Violetry
+Date's Violetry,1,person,Dates Violetry,,Date's Violetry
 David K. Feeter,1,person,,,David K. Feeter
 Day,1,person,,,Day
 DeLoach/S. G. Sorano,1,person,,,DeLoach ; S. G. Sorano
@@ -1315,7 +1315,7 @@ J.G,1,person,,,J.G
 JJ. H. Smith,1,person,,,JJ. H. Smith
 Jackie Johnson,1,person,,,Jackie Johnson
 Jackson,1,person,"Jackson, Jeff",,Jackson
-James,1,person,,,James
+James,1,person,James,,James
 James H. Smith,1,person,,,James H. Smith
 Jane Reed,1,person,,,Jane Reed
 Janet Armstrong-Wickell,1,person,,,Janet Armstrong-Wickell
@@ -1368,7 +1368,7 @@ Lyndon Lyon Grnhses.,1,person,,,Lyndon Lyon Grnhses
 Lyon Magazine GH/Sorano,1,person,,,Lyon Magazine GH ; Sorano
 Lyon- /Sorano,1,person,,,Lyon- ; Sorano
 Lyons Greenhouse,1,organization,,,Lyons Greenhouse
-M. A. Corrigan,1,person,,,M. A. Corrigan
+M. A. Corrigan,1,person,,,"Corrigan, M.A."
 M. Burs/Nadeau,1,person,,,M. Burs ; Nadeau
 M. C. Woodward,1,person,,,M. C. Woodward
 M. Corrigan,1,person,,,M. Corrigan

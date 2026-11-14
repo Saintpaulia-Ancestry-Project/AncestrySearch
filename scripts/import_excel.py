@@ -437,12 +437,14 @@ def load_supplements():
         frames.append(d)
     # data/registration_reports.csv: the 'Registration Report' columns of the African Violet Magazine (2004-2009,
     # 2020-2022), same 14 columns as the supplements; the issue year is in the Notes text.
-    rr = DATA / "registration_reports.csv"
-    if rr.exists():
-        d = pd.read_csv(rr, dtype=object, keep_default_na=False).replace("", None)
-        d["_year"] = d["Notes"].map(lambda n: int(re.search(r"(\d{4})\s*$", str(n)).group(1)))
-        d["_file"] = rr.name
-        frames.append(d)
+    # data/registration_lists.csv: the same for the 1969-2002 registration lists found by searching the magazines for numbers
+    # missing from the MVL master (name, number, date, size, printed code in the Notes).
+    for rr in (DATA / "registration_reports.csv", DATA / "registration_lists.csv"):
+        if rr.exists():
+            d = pd.read_csv(rr, dtype=object, keep_default_na=False).replace("", None)
+            d["_year"] = d["Notes"].map(lambda n: int(re.search(r"(\d{4})\s*$", str(n)).group(1)))
+            d["_file"] = rr.name
+            frames.append(d)
     a = pd.concat(frames, ignore_index=True)
     # a few rows have the provenance note shifted into the registration/date columns
     for col in ("AVSA Registration", "Date registered"):
