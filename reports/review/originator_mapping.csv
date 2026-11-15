@@ -8,7 +8,7 @@ Fischer,313,person,"Fischer, A.",,Fischer
 Tonkadale,292,person,,,Tonkadale
 Madison,284,person,,,Madison
 Richter,263,person,,,Richter
-Holtkamp,259,person,"Holtkamp, M. | Holtkamp | Holtkamp, R. Sr. | Holtkamp, R.",,Holtkamp
+Holtkamp,261,person,"Holtkamp, M. | Holtkamp | Holtkamp, R. Sr. | Holtkamp, R.",,Holtkamp
 Volkmann,239,person,Volkmann,,Volkmann
 E. Fisher,215,person,,,"Fisher, E."
 Tinari,202,person,"Tinari, Frank | Tinari",,Tinari
@@ -92,8 +92,8 @@ B. Elkin,45,person,,,B. Elkin
 Buynak,44,person,Buynak,,Buynak
 E. Champion,44,person,,,E. Champion
 F. Tinari,44,person,,,F. Tinari
-J. Brownlie,44,person,,,J. Brownlie
 Fischer Greenhouse,43,organization,,,Fischer Greenhouse
+J. Brownlie,43,person,,,J. Brownlie
 Coleman,42,person,"Coleman, C Craig",,Coleman
 Pittman,42,person,"Pittman, Hortense",,Pittman
 Wills,42,person,,,Wills
@@ -175,6 +175,7 @@ Sunnyside,24,person,"Sunnyside, Levy | Sunnyside",,Sunnyside
 C. Sotkiewicz,23,person,,,"Sotkiewicz, C."
 Pat's Flowerland,23,person,,,Pat's Flowerland
 Sherer,23,person,,,Sherer
+The House of Violets,23,person,,,The House of Violets
 Violets by Cort,23,person,,,Violets by Cort
 Waller,23,person,,,Waller
 G. Durand,22,person,,,"Durand, G."
@@ -191,11 +192,9 @@ Gordon Boone,21,person,,,Gordon Boone
 Green Circle/Blansit,21,person,,,Green Circle ; Blansit
 Hi Hill,21,person,,,Hi Hill
 Mrs. T. C. Fritz,21,person,,,Mrs. T. C. Fritz
-The House of Violets,21,person,,,The House of Violets
 Vern Lorenzen,21,person,,,Vern Lorenzen
 Watts,21,person,,,Watts
 Webb,21,person,,,Webb
-C. C. Reed,20,person,,,C. C. Reed
 C. Harris,20,person,,,C. Harris
 L. Hale,20,person,,,L. Hale
 L. Ray,20,person,,,"Ray, L."
@@ -221,6 +220,7 @@ Price,19,person,"Price, N.",,Price
 Spitz,19,person,,,Spitz
 V. L. Lorenzen,19,person,,,V. L. Lorenzen
 Yoars,19,person,,,Yoars
+C. C. Reed,18,person,,,C. C. Reed
 Carr,18,person,,,Carr
 Houdyshel,18,person,,,Houdyshel
 Hyla,18,person,,,Hyla
@@ -391,6 +391,7 @@ G. Beck,8,person,,,G. Beck
 J & B Sisk,8,person,,,J ; B Sisk
 Jim Wright,8,person,,,Jim Wright
 Joanne Steffen,8,person,,,Joanne Steffen
+John Brownlie,8,person,,,John Brownlie
 K. Hobbs-Gregg,8,person,,,K. Hobbs-Gregg
 Kehl,8,person,,,Kehl
 Martha Tucker,8,person,,,Martha Tucker
@@ -429,7 +430,6 @@ Horikoshi/Shinohara,7,person,,,Horikoshi ; Shinohara
 Hortense Pittman,7,person,,,Hortense Pittman
 I. Lineberg,7,person,,,"Lineberg, I."
 Irene Haseltine,7,person,,,Irene Haseltine
-John Brownlie,7,person,,,John Brownlie
 Kellar's Nursery,7,organization,,,Kellar's Nursery
 Lanigan & Rose Knoll,7,person,,,Lanigan ; Rose Knoll
 Lyndon Lyon Gmhses.,7,person,,,Lyndon Lyon Gmhses
@@ -643,7 +643,6 @@ A. L. Carter,3,person,,,A. L. Carter
 A. Murphy,3,person,,,"Murphy, A."
 AVS,3,person,,,AVS
 Arthur F. Hill,3,person,,,Arthur F. Hill
-B&J African Violets,3,person,,,B&J African Violets
 B. J. Bryant,3,person,,,B. J. Bryant
 Barbara Cook,3,person,,,Barbara Cook
 Beck,3,person,,,Beck
@@ -1039,6 +1038,7 @@ Ashton,1,person,,,Ashton
 Aubuchon,1,person,,,Aubuchon
 Ava Main,1,person,,,Ava Main
 B & J African Violet,1,person,,,B ; J African Violet
+B&J African Violets,1,person,,,B&J African Violets
 B. - Magazine Sisk,1,person,,,B. - Magazine Sisk
 B. Goodsell/J. Eyerdom,1,person,,,B. Goodsell ; J. Eyerdom
 B. Promersberger,1,person,,,B. Promersberger
@@ -1311,6 +1311,7 @@ J. Hill,1,person,,,J. Hill
 J. Kohn,1,person,,,J. Kohn
 J. Lloyd,1,person,,,J. Lloyd
 J. Rainey,1,person,,,J. Rainey
+J. Reed,1,person,,,J. Reed
 J. Regner,1,person,,,J. Regner
 J. Swilt,1,person,,,J. Swilt
 J. T. Brownlie,1,person,,,J. T. Brownlie

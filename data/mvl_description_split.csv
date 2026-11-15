@@ -16,7 +16,7 @@ about-face,Deep orchid,Double ruffled deep orchid with a white edge.,Plain quilt
 abracadabra,Lavender,Semidouble lavender star/purple fantasy.,"Ruffled, girl foliage.",ok
 abraham,"Pink, white edge",Double.,Plain foliage.,code
 absinthe-house,Two-tone,Single.,"Ruffled/wavy, variegated foliage.",code
-acas-beverly,"Red, white edge",Semidouble.,"Plain, quilted foliage.",code
+aca-s-beverley,"Red, white edge",Semidouble.,"Plain, quilted foliage.",code
 aca-s-blue-bijou,Blue,Semidouble blue.,Variegated green and white.,ok
 aca-s-blue-lou,Blue/white,Semidouble blue/white edge.,Variegated green and white.,ok
 aca-s-blues-singer,Blue,Semidouble blue two-tone star.,"Variegated medium green, pink and white.",ok
@@ -71,6 +71,7 @@ aca-s-wackie-jackie,"Multicolor (white, red)",Semidouble.,"Plain, variegated fol
 aca-s-wewonchu,Pink/red,Two-tone pink and red fringed semidouble.,"Dark, plain, quilted foliage.",ok
 acadian,Light lilac,"Light lilac semi-double, white edge.",Tailored foliage.,ok
 acadian-odyssey,Purple,Double purple slightly ruffled star with midnight blue edge.,"Black/green, pink variegated, pointed, plain, glossy foliage with red reverse.",ok
+acas-beverly,"Red, white edge",Semidouble.,"Plain, quilted foliage.",code
 acas-eloise,Red/white,Single-semidouble red and white pansy.,"Light green, plain, quilted.",ok
 acas-marie,Pink,Semidouble pink pansy/green-white edge.,Variegated medium green and white.,ok
 acas-megan,Light pink,Semidouble-double light pink ruffled star/thin white-green edge.,"Light green, quilted, glossy, wavy, serrated.",ok
@@ -297,8 +298,9 @@ alps-charm,Pink,"Pink, semidouble.",TL variegated foliage.,ok
 alps-star,White,"White star, single.",Medium green plain foliage.,ok
 alps-trail,Rose pink,"Rose pink, semidouble.",Plain green foliage.,ok
 alta,Lavender,Single or tufted lavender Star with purple edge.,Deep green glossy foliage.,ok
-altamount,Blue,Single chimera blue pansy/white stripe.,"Plain, semitrailing.",ok
+altamont,Blue,Single chimera blue pansy/white stripe.,"Plain, semitrailing.",ok
 altamonte-skies,Blue,Blue with blue eye geneva semidouble star.,Medium green quilted.,ok
+altamount,Blue/white,"Blue and white pansy type, single.",Plain foliage.,needs review
 althea-c,Red purple,Deep two-tone red purple double bloom.,"Heart shaped leaves, inclined to spoon.",ok
 alto-wayne,"Multicolor (light orchid, purple)","Single, fringed/ruffled.","Quilted, ruffled/wavy, variegated foliage.",code
 alton-dandy,Pink,Pink double.,"Quilted, tailored foliage.",ok
@@ -573,7 +575,7 @@ arbutus-pink,,"Frosted sticktite, pink single.","Flat, dark green, quilted compa
 arcadia,Pale blue,Double pale blue bloom with a white edge.,Lightly quilted heart-shaped leaf.,ok
 arctic-baby,White,Semidouble white star.,"Variegated medium green and cream, quilted.",ok
 arctic-bear,White,White double.,Plain quilted.,ok
-arctic-blizzard,Pure white,Full double fluted pure white.,"Plain, quilted foliage.",ok
+arctic-blizzard,White,Fluted huge double white.,Medium green round leaves.,ok
 arctic-frost,White,"Semidouble white large star/variable blue-marked eye, edge.",Medium green.,ok
 artic-majesty,White,Double white bloom.,"Plain, quilted, variegated supreme foliage.",ok
 ardinella,"Purple, blue edge","Single, fringed dark purple with a light blue edge.","Dark quilted, fringed foliage.",ok+code
@@ -594,6 +596,7 @@ arpegge-minuet,Pink,Double fringed pink.,Variegated pointed foliage.,ok
 array,Purple,Double purple.,Plain foliage.,ok
 art-deco,Pink,Pink two-tone single,Variegated Lillian Jarret,human
 artful,Dark pink,Double dark pink Star.,Plain foliage.,ok
+artic-blizzard,Pure white,Full double fluted pure white.,"Plain, quilted foliage.",ok
 artic-mist,,Pencil edge of blue around a white fringed bloom.,Glossy foliage.,ok
 artic-snow,White,White blossoms with violet-blue centers.,Medium light green standard foliage.,ok
 artic-white,Pure white,A strong pure white single.,Tailored foliage.,ok
@@ -644,7 +647,8 @@ auburn-trail,Lavender,Semidouble lavender/darker fantasy.,"Dark green, pointed."
 auctioneer,Vivid fuchsia-red,Double vivid fuchsia-red large star.,Light-medium green.,ok
 audra-leigh,Pink,Shaded pink star.,Quilted variegated foliage.,ok
 audrey-buchanan,Rose,Semidouble rose.,"TL variegated medium green, plain.",ok
-audrey-hawthorn,Lavender-orchid,Double lavender-orchid.,Dark green.,ok
+audrey-hanthorne,Lavender-orchid,Double lavender-orchid.,Dark green.,ok
+audrey-hawthorn,Lavender-orchid,Lavender-orchid double.,"Deep green plain pointed glossy foliage, red reverse.",ok
 audry,Deep pink,Deep pink double with a medium pink edge.,Quilted scalloped supreme foliage.,ok
 august-bride,Deep pink,Double deep pink.,"Quilted, plain foliage.",ok
 august-glow,Light pink,Large light pink double.,"Dark green, red reverse foliage.",ok
@@ -652,6 +656,7 @@ august-moon,White,Semidouble white star/variable pink eye.,"Light green, heart-s
 august-skies,White,"Very large white star, mottled light blue, some blue edge, double.",Medium green foliage.,ok
 august-thirteenth,Pale pink,Pale pink two-tone single star fringed.,"Dark green quilted foliage, red reverse.",ok
 aunt-clara,Medium purple,Single.,"Quilted, ovate foliage.",human
+aunt-frances,Medium pink,Double.,Variegated foliage.,code
 aunt-francis,Medium pink,Medium pink double.,Variegated foliage.,ok
 aunt-georgia,Rose,Single-semidouble rose two-tone pansy.,"Dark green, plain/red back.",ok
 aunt-goldie,"Multicolor (orchid, blue)","Double, fringed/ruffled.",Plain foliage.,code
@@ -2341,7 +2346,7 @@ chris,Hot pink,Slightly frilled hot pink double.,Dark slightly notched foliage.,
 chris-kemmerling,Light pink,Light pink single star bell.,Quilted pointed.,ok
 chris-leppard,Rose,"Rose double fringed, plain ruffled.",,bloom only
 christening-gown,White,Semidouble white frilled pansy.,Dark green.,ok
-christy-love,Coral,Double coral flowers.,Dark red backed foliage.,ok
+christi-love,Coral,Double coral flowers.,Dark red backed foliage.,ok
 christina-marie,Orchid/purple two-tone,"Double, fringed/ruffled, star-shaped.","Plain, pointed foliage.",code
 christine,Medium pink,"Semidouble/ double ruffled medium pink two tone, dark pink eye, white to green geneva edge pansy.","Dark green, pink and white variegated, wavy, serrated.",ok
 christine-dianne,,Single deep star.,Plain quilted foliage.,ok
@@ -2365,6 +2370,7 @@ christmas-star,Orchid,Single orchid star banded with a deeper tone.,Slightly wav
 christopher-howard,Medium blue,Single fringed medium blue.,"Plain, ruffled supreme foliage.",ok
 christopher-james,Wisteria blue,Single and double wisteria blue rayed star with a deeper eye.,Emerald green plain quilted foliage.,ok
 christopher-robin,Plum purple,Plum purple bicolor conventional flower.,"Dark, plain foliage.",ok
+christy-love,Coral,Double coral star.,Wavy foliage.,ok
 chris-little-obsession,White,Semidouble-double white pansy.,"Light-medium green, heart-shaped, quilted.",ok
 chu-tu,Dark blue,Double dark blue with a white edge.,Quilted foliage.,ok
 chuckles,Fuchsia red,Fuchsia red double.,Dark green red reverse foliage.,ok
@@ -2541,7 +2547,8 @@ connecticut-valley,Raspberry pink,Raspberry pink double.,Black tailored foliage.
 connie-coon-gordon,Pink,Solid pink double.,Longifolia plain scalloped foliage.,ok
 connie-grasso,,Single star. Fuchsia with distint white notched edge.,Variegated serrated leaves sometimes grows tri-colored.,ok
 connie-b,Blue,Double blue fantasy.,Medium green leaf.,ok
-connie-billings,Pale pink,Pale pink two-tone star.,Plain glossy.,ok
+connie-billing,Pale pink,Pale pink two-tone star.,Plain glossy.,ok
+connie-billings,Light pink two-tone,Star-shaped.,Quilted foliage.,code
 connie-salland,Rose-pink,"Semidouble chimera rose-pink fluted/white stripe, variable green edge.","Dark green, wavy.",ok
 connie-sparkle,Pink,Dainty double pink flowers with dots of blue.,Green foliage.,ok
 connie-s-follies,Light lavender,Single-semidouble light lavender twotone.,"Dark green, plain, longifolia, quilted.",ok
@@ -2730,6 +2737,7 @@ crazy-quilt-baker,Rose pink,Rose pink star heavily flecked with purple.,Medium g
 crazy-quilt-house-of,Purple,Double purple.,Variegated foliage.,ok
 cream,White,Double white blossoms.,Dark quilted foliage.,ok
 cream-de-menthe,Lime green,Frilly lime green double with trace of blue.,,bloom only
+cream-of-crop,White,Double.,Ruffled/wavy foliage.,code
 cream-of-the-crop,White,Double white.,Ruffled foliage.,ok
 cream-puff-fredette,White,Creamy white double stars.,Dark foliage.,ok
 cream-puff-lanigan,White,Large rosette type double white with pink center.,Plain medium green foliage.,ok
@@ -3046,6 +3054,7 @@ dazzle-trail,Lavender/pink,Double lavender/pink with purple fantasy.,Dark green 
 dazzler,Intense coral pink,Double intense coral pink with a white edge.,Quilted pointed foliage.,ok
 dazzling,Reddish purple,Reddish purple edged in white.,,bloom only
 dazzling-daidrain,White,"White with coral rays, single, chimera.",Plain foliage.,ok
+dazzling-daidrian,"Multicolor (white, pink)","Single, chimera.",Plain foliage.,code
 dazzling-deceiver,Red/pink,"Double, star-shaped.",Plain foliage.,code
 deadly-sting,Dark blue-purple,"Semidouble dark blue-purple ruffled pansy/dark green tips, edge.","Variegated medium green, white and cream.",ok
 dealer-s-choice,Blue,"Semidouble, star-shaped.",Plain foliage.,code
@@ -3300,7 +3309,7 @@ dib-s-gentle-joan,Pink,Pink slightly white and green edges. Double star fringed.
 dib-s-geri-ann,Pink two-tone,"Single and double, star-shaped.","Plain, quilted foliage.",code
 dib-s-gingerine,"White, orchid edge",Semidouble.,"Quilted, ruffled/wavy, pointed foliage.",code
 dib-s-ivory-n-blue,White/blue,Semidouble and double.,"Longifolia, ruffled/wavy, pointed foliage.",code
-dibs-jade-and-blue,Dark blue,Semidouble dark blue star with white edge.,Longifolia quilted wavy foliage.,ok
+dib-s-jade-n-blue,"Dark blue, white edge","Semidouble and double, fringed/ruffled.","Longifolia, quilted, ruffled/wavy foliage.",code
 dib-s-jiminez,Orchid/purple,"Double, star-shaped, fringed/ruffled.","Quilted, girl, ruffled/wavy, pointed foliage.",code
 dib-s-joanne-elaine,Pink/blue two-tone,"Semidouble and double, star-shaped.","Quilted, pointed foliage.",code
 dib-s-kathi-ann,Pink two-tone,Semidouble.,"Quilted, spooned/ovate foliage.",code
@@ -3357,6 +3366,7 @@ dib-s-whimsie,"Lavender, dark orchid petal tips, geneva",Semidouble star.,"Longi
 dib-s-white-avion,Pure white,Double fringed pure white with green tips.,"Quilted, girl ruffled pointed foliage.",ok
 dib-s-winky-tink,Red two-tone,"Single, fringed/ruffled.","Quilted, ruffled/wavy, pointed foliage.",code
 dibs-bunch-o-honey,"Purple, white edge",Semidouble.,"Quilted, ruffled/wavy, girl foliage.",code
+dibs-jade-and-blue,Dark blue,Semidouble dark blue star with white edge.,Longifolia quilted wavy foliage.,ok
 dibs-n-blue,White/blue,Semidouble and double.,"Longifolia, ruffled/wavy, pointed foliage.",code
 dick-bell,Light blue two-tone,Single.,Plain foliage.,code
 diedre,Deep red-orchid,Deep red-orchid blossoms.,Dark wavy quilted foliage.,ok
@@ -3849,6 +3859,7 @@ elsie-rose,Deep pink,"Single and semi-double deep pink or rose stars, fluted pet
 elusive-dallette,Deep pink,Double deep pink with a green edge.,Quilted ruffled ovate and pointed foliage.,ok
 elusive-frathel,Medium pink,Full double medium pink with a frilled edge.,Dark green red backed tailored foliage.,ok
 elusive-butterely,Light pink,Semidouble light pink fringed.,Plain quilted foliage.,ok
+elusive-butterfly,Light pink,"Semidouble, fringed/ruffled.","Plain, quilted foliage.",code
 elvis-presley,Red,Two tone red double with a light green edge.,Ruffled variegated foliage.,ok
 elvis-scarf,"Deep lavender multicolor, white mottling",Double.,"Medium green, red reverse, plain, quilted, scalloped foliage.",human
 elyce,Magenta pink,Large magenta pink star with lavender marking.,Dark notched foliage.,ok
@@ -4362,7 +4373,7 @@ forego-lyon,Pink,Semidouble pink stars.,Dark tailored foliage.,ok
 forego-volkmann,Pink,Semidouble pink star.,Dark tailored foliage.,ok
 foremost-red,Wine-red,Single wine-red large star.,"Dark green, plain.",ok
 forest-fire,Dark cerise red,Dark cerise red single.,Dark green plain foliage.,ok
-forrest-mist,Medium pink,Double fringed medium pink with green edges.,"Scalloped, pointed foliage.",ok
+forest-mist,"Medium pink, green edge","Double, fringed/ruffled.","Ruffled/wavy, pointed foliage.",code
 forest-topaz,Orchid two-tone,Single.,"Quilted, ruffled/wavy, variegated, pointed foliage.",code
 forever-after,Pink,Pink double.,Dark green plain slightly wavy foliage.,ok
 forever-amber,Pink,Semidouble pink with amber cast bloom.,"Forest green, slightly frilled foliage.",ok
@@ -4370,6 +4381,7 @@ forever-wine,,Double and semidouble fringed winered.,Ruffled pointed foliage.,ok
 forget-me-not,Hot pink,Hot pink double.,Pink variegated quilted foliage.,ok
 forgotten-dreams,Medium blue,"Medium blue, pink and white streaks and spots fantasy, single, star.","Dark green, plain, glossy, serrated, red reverse foliage.",ok
 forrest-flame,Red,Deepest red big double bloom.,Dark red backed foliage.,ok
+forrest-mist,Medium pink,Double fringed medium pink with green edges.,"Scalloped, pointed foliage.",ok
 fort-vancouver,Bright pink,Semi-double.,Large leaves with white down over them.,human
 fort-worth,Dark wine-red,"Dark wine-red, semidouble.",Dark green tailored foliage.,ok
 fort-worth-first,Medium blue,Semidouble medium blue.,Serrated foliage.,ok
@@ -4408,6 +4420,7 @@ frank-burton-nichol-quixie,Orchid,"Orchid double star fused with purple, with da
 frank-burton-nickol,Lavender,Lavender with purple tipped double Stars.,Tailored foliage.,ok
 frank-white,Blue,"Blue, rose fantasy ruffled star double.","Deep green plain, quilted foliage.",ok
 frankie,Deep blue,Deep blue double.,Dark foliage.,ok
+frankie-lee,Purple two-tone,Double.,"Quilted, ruffled/wavy foliage.",code
 franklie-lee,Purple,Double purple with darker edge.,"Quilted, scalloped foliage.",ok
 franky-jo,Light wine,"Semi-double light wine colored bloom with very dark throat. Petals are fluted, specked and splashed with white.","Medium green slightly pebbled heart shaped foliage, Standard grower.",ok
 fraternity,Light pink,Double.,Plain foliage.,code
@@ -5179,7 +5192,8 @@ hapatica,White,"Single cupped white bloom with an overlay of lavender, blossom a
 happiness,Pink,Pink with white edge double.,Quilted variegated.,ok
 happiness-is,Bright rose pink,Bright rose pink double bloom.,Vigorous plain foliage.,ok
 happy-anniversary,Pink,Double pink.,"Slightly spooned pink variegated foliage, red reverse.",ok
-happy-birthday,Lavender,Double fringed two tone lavender.,"Quilted, ruffled foliage.",ok
+happy-birthday,Lavender,Semidouble fringed lavender two tone.,Quilted ruffled foliage.,ok
+happy-birthday-usa,Lavender,Double fringed two tone lavender.,"Quilted, ruffled foliage.",ok
 happy-blue,Medium blue,"Medium blue, double.","Tommie Lou variegated, tailored, quilted foliage.",ok
 happy-charmer,Dark pink,"Double, fringed/ruffled.","Plain, pointed foliage.",code
 happy-child,White/blue,Semiminiature double white and blue.,Cupped girl leaves.,ok
@@ -5334,6 +5348,7 @@ helter-skelter,Deep lavender-blue,"Deep lavender-blue, magenta fantasy, green fr
 henny-backus,Purple,Double purple star.,Plain glossy foliage.,ok
 henny-penny,Red/pink,Single red and pink.,,bloom only
 henrietta,Mauve,"Mauve, double stars.",Veined pointed foliage.,ok
+henrietta-willson,Light blue,Double.,Plain foliage.,code
 henrietta-wilson,Sky blue,Double sky blue.,Plain foliage.,ok
 hepatica,Peach pink,Peach pink semi double blossoms.,Olive green arrow shaped foliage.,ok
 her-charm,Light purple,Light purple double.,Tailored.,ok
@@ -5806,7 +5821,6 @@ jack-swift-house-of,Purple,Double purple two tone.,"Plain, variegated foliage.",
 jackie,Dark violet,Single dark violet.,Plain foliage.,ok
 jackie-smith,Pink,Double.,"Plain, variegated, pointed foliage.",code
 jackie-s-rosemary,"Red violet, purple streaks and flecks","Fantasy, double.","Dark green, quilted, pointed, red reverse foliage.",human
-jackpot-list1973,Deep blue violet,Semi-double.,"Plain, oval leaves.",human
 jackpot-tinari,Purple,Purple geneva double.,Slightly quilted.,ok
 jacolyn,Dark pink,"Single, fringed/ruffled.","Plain, variegated foliage.",code
 jacqueline,Green,Green crinkly edged pink double.,Heavy foliage.,ok
@@ -5882,7 +5896,8 @@ jeanie-bezz,Rose pink two-tone,Double.,"Quilted, ovate, slightly hairy, rounded,
 jeanmarie,Dark pink,"Double, fringed/ruffled.","Quilted, pointed foliage.",code
 jeanne,Dark blue,Dark blue star.,Tailored foliage.,ok
 jeanne-bohn,Dark purple,Single.,"Plain, quilted, pointed foliage.",code
-jeanne-cotton,Orchid,Double orchid frilled/violet edge.,"Variegated, ruffled.",ok
+jeanne-cotten,Orchid,Double orchid frilled/violet edge.,"Variegated, ruffled.",ok
+jeanne-cotton,"Orchid, purple edge","Double, fringed/ruffled.","Ruffled/wavy, variegated foliage.",code
 jeannette-s-dream,Fuchsia,Double fuchsia ruffled.,"Dark green, plain, pointed, glossy.",ok
 jeannette-s-halo,White,Double white frilled/green-edged upper petals.,Dark green/red back.,ok
 jeannette-s-pure-sin,Magenta,Single magenta sticktite star/variable white edge.,"Variegated green, cream and pink, heart-shaped, wavy, serrated.",ok
@@ -6072,7 +6087,7 @@ just-whisper,Lavender,Semidouble lavender two-tone ruffled star.,"Medium-dark gr
 just-a-pink,Pink,Full double pink.,Plain Champion variegation rosette forming foliage.,ok
 justine,Lavender,"Lavender, semidouble, star.","Dark green, pink and white variegated foliage, pink reverse.",ok
 kaala,Dark blue,Very large dark blue blooms with a white edge.,Neat girl foliage.,ok
-kanns-fran,Pink,Single pink two-tone star.,"Variegated dark green, quilted/red back.",ok
+kaan-s-fran,Pink,Single pink two-tone star.,"Variegated dark green, quilted/red back.",ok
 kabuki-dream,Royal purple,Stick tite royal purple bloom with hot spots shining through.,Lovely dark foliage.,ok
 kahlua,,Profusion of “Ashes of Roses” semidouble stars.,Tailored foliage.,ok
 kaleidoscope,Violet/pink,Violet and pink stars with sections and spots of pink.,Medium green plain quilted foliage.,ok
@@ -6080,6 +6095,7 @@ kalja,Wine,Double wine with green edge.,Girl foliage.,ok
 kamakura,Fuchsia-pink,Fuchsia-pink stars with brilliant green to white edge.,,bloom only
 kamella,Light purple,Light purple Star with a tufted center.,Slightly ruffled medium green strawberry foliage.,ok
 kamon-s-star,Light pink,"Light pink, darker pink center stripe, single, chimera.",Plain dark foliage.,ok
+kanns-fran,Pink,Single shades of pink star blossom.,"Variegated, dark green, quilted foliage, red reverse.",ok
 kansas-blizzard,White,Single white sticktite ruffled star/some green edge.,"Medium green, plain, glossy.",ok
 kansas-city-chief,"Light red, green edge","Single, fringed/ruffled, star-shaped.","Quilted, ruffled/wavy, pointed foliage.",code
 kansas-city-lights,Medium lavender,Single medium lavender large star/pink fantasy.,"Variegated dark green, pink and cream, quilted, glossy/red back.",ok
@@ -6205,6 +6221,7 @@ kingwood,Blue,Blue semi-double bloom.,Standard foliage.,ok
 kingwood-blue,Blue,Powder blue double.,Medium green quilted girl.,ok
 kingwood-pink,Deep rich pink,Full double deep rich pink.,Plain quilted foliage.,ok
 kingwood-red,Red,Double.,Plain foliage.,code
+kings-jewel,"Dark red, yellow edge",Semidouble.,"Quilted, ruffled/wavy, supreme foliage.",code
 kinky-blue,Blue/white,Semidouble blue/white edge.,Variegated green and white.,ok
 kinky-pink,Pink,Semidouble pink pansy/green edge.,Variegated green and white.,ok
 kippy,,Mauye semi-double flowers.,Dark waxy foliage.,ok
@@ -9477,12 +9494,13 @@ peggy-madison,Clear white,"Double clear white, yellow pollen sacks.",Tailored fo
 peggy-k,Violet,Double violet stars with purple tips.,,bloom only
 peggy-lynn,Medium pink,Double medium pink shading darker at center. Light green on buds fades on blossoms.,Plain pointed foliage.,ok
 peggy-rios,Pale lavender-blue,Single-semidouble pale lavender-blue.,"Dark green, longifolia/red back.",ok
-peggys-staat,Light purple,Double light purple with some white.,Quilted pointed foliage.,ok
+peggy-staat,Purple/white two-tone,Double.,"Quilted, pointed foliage.",code
 peggy-sue,Light blue,Double light blue flowers with white edges and splashes.,Small dark green ovate foliage.,ok
 peggy-s-debbie,Medium pink,Semidouble medium pink with a white edge.,"Plain, quilted ruffled foliage.",ok
 peggy-s-diane,Medium pink,Single medium pink.,Quilted ovate foliage.,ok
 peggy-s-rustover,White/orchid,Semidouble white and orchid.,Plain foliage.,ok
 peggy-s-toni,Deep pink,Double fringed deep pink.,"Plain, quilted, ovate foliage.",ok
+peggys-staat,Light purple,Double light purple with some white.,Quilted pointed foliage.,ok
 pehte-dollie,Fuchsia/red,Double.,Plain foliage.,code
 pen-n-ink,White,Single-semidouble white pansy/dark violet-blue edge.,"Light-medium green, plain.",ok
 pendictin-pink,Clear pink,Single clear pink.,Plain foliage.,ok
@@ -9652,6 +9670,7 @@ picasso,Light blue,Double light blue fantasy flecked with white and almost white
 pichaninny,,"Double, fringed, dark bluish purple, usually has bright green edge.","Quilted, wavy scalloped, glossy leaf.",ok
 pick-a-dilly,Dark blue,Double fringed dark blue.,"Quilted, variegated foliage.",ok
 pick-a-lilly,White,Double.,Quilted foliage.,code
+pick-a-lily,White,Double.,Quilted foliage.,code
 pick-me,Dark blue,Double.,"Ruffled, variegated foliage.",human
 picotee-petticoat,Mauve,Single/semidouble ruffled mauve two tone.,"Dark green, quilted, slightly ruffled, variegated with pink.",ok
 picture-hat,Pink,"Pink two-tone dark eye double, fringed star.",Plain quilted variegated foliage.,ok
@@ -10095,10 +10114,11 @@ pippin-pink,Clear pink,Clear pink full double.,Medium green quilted foliage with
 pippit,Dark pink,"Single, star-shaped.",Plain foliage.,code
 pique-pink,Pink,Small pink bloom.,A tiny green leaf.,ok
 pique-pixie,Pink,Small bloom.,"Tiny, green foliage.",human
-pirats-alley,Dark red two-tone,Double.,"Quilted, variegated, spooned/ovate foliage.",code
+pirate-s-alley,Dark red two-tone,Double.,"Quilted, variegated, spooned/ovate foliage.",code
 pirate-s-gold,White,Double white fluted star/lemon-yellow blush.,"Medium green, quilted, wavy.",ok
 pirate-s-ransom,Dark pink,"Dark pink semidouble stars with ruffled edge, dark green.",,bloom only
 pirate-s-treasure,Pink,"Semidouble pink large star/coral eye, raspberry fantasy, edge.",Light-medium green.,ok
+pirats-alley,Dark pink two-tone,Double.,"Quilted, variegated, spooned/ovate foliage.",code
 pistachio,White,White and green double.,Scalloped medium green foliage.,ok
 pistil-pakin-mama,White,Frilly white double with purple edge.,Glossy ruffled foliage.,ok
 pitty-pat,Lavender,Lavender fringed geneva double.,Medium green quilted foliage.,ok
@@ -10386,6 +10406,7 @@ puck,Medium blue,"Single frilled medium blue, white edge.",Tailored foliage.,ok
 puddin,Red,Large double red.,Medium green tailored foliage.,ok
 puddin-moore,Red,Double.,Pointed foliage.,code
 pueblo,Coral,Single-semidouble coral star.,"Dark green, plain/red back.",ok
+puerto-vallarta,Light pink,"Semidouble, fringed/ruffled.",Plain foliage.,code
 puerto-vallirta,Pink,Semidouble fringed creamy pink.,Plain scalloped foliage.,ok
 puff-meese,Pale pink,Double pale pink geneva.,Plain leaves.,ok
 puff-swift,Light pink,Large light pink double.,Medium green slightly quilted foliage.,ok
@@ -10665,7 +10686,7 @@ rainbow-s-red-october,Red,Semidouble red large wavy star/pink fantasy.,"Medium-d
 rainbow-s-ruby-lou,Dark red,"Dark red, semidouble.","Plain, Tommie Lou variegated foliage.",ok
 rainbow-s-satellite,Pink,Pink double star.,"Tommie Lou variegated, wavy, pointed foliage.",ok
 rainbow-s-satin-frills,Pink/white,Semidouble pink and white frilled pansy.,"Medium green, wavy.",ok
-rainbows-shade,Pink,Semidouble pink with purple shadows.,Semiquilted foliage.,ok
+rainbow-s-shado,Pink/purple,Semidouble.,Quilted foliage.,code
 rainbow-s-showboat,Pink,Pink large ruffled pansy/lavender fantasy.,"Medium green, plain.",ok
 rainbow-s-snow-queen,White,Semidouble white large frilled pansy/some red marking.,"Medium green, wavy.",ok
 rainbow-s-snowy-gold,White,"White, semidouble.","Plain, crown variegated foliage.",ok
@@ -10685,6 +10706,7 @@ rainbow-s-weeping-clown,Light lavender/purple,Single light lavender/purple fanta
 rainbow-s-white-prism,"Multicolor (white, purple, pink)",Double.,"Quilted, ruffled/wavy, pointed foliage.",code
 rainbows-end-annalee,Salmon pink,Salmon pink single with deeper upper petals.,Gold and green variegated tailored foliage.,ok
 rainbows-roberta,Medium maroon,Double shaded medium maroon wavy petals.,"Dark green, pointed, scalloped foliage.",ok
+rainbows-shade,Pink,Semidouble pink with purple shadows.,Semiquilted foliage.,ok
 rainee,Purple,"Purple, occasional pink splashes double star.",Variegated tailored foliage.,ok
 rainey-s-jessie,Orchid two-tone,Semidouble.,"Quilted, ruffled/wavy foliage.",code
 rainey-s-taurus,Orchid two-tone,Semidouble.,Quilted foliage.,code
@@ -11043,7 +11065,7 @@ redwood-city,Red/blue,Single red and blue fantasy.,Plain foliage.,ok
 redwood-trail,Fuchsia red,Single fuchsia red.,Plain foliage.,ok
 reed-s-dixie-moonbeam,Light pink,Double.,Plain foliage.,code
 reed-s-fancifrill,"Dark orchid, white edge two-tone","Double, fringed/ruffled.",Quilted foliage.,code
-reed-s-jackpot,Deep blue violet,Semidouble.,"Plain, oval leaves.",human
+jackpot-list1973,Deep blue violet,Semi-double.,"Plain, oval leaves.",human
 reed-s-pink-lemonade,Pink,Double pink.,"Plain, variegated foliage.",ok
 reeds-moonbeam,Light pink,Double.,Plain foliage.,code
 reflection-lyon,Lavender,Double lavender flowers streaked with purple.,Tiny pointed leaves.,ok
@@ -11141,7 +11163,8 @@ rhapsodie-margit,Violet,Violet single.,"Medium green plain, glossy foliage.",ok
 rhapsodie-margit-hi,Dark blue,Single dark blue sticktite.,"Medium green, heart-shaped, glossy, hairy, scalloped.",ok
 rhapsodie-margit-ii,Dark blue,Single dark blue.,"Bright green, plain, ovate to pointed, hairy.",ok
 rhapsodie-maria,White,Single pearl white.,"Dark green, ovate to heart-shaped, hairy, serrated /purple-red back.",ok
-rhapsodie-marilyn,White,"Single white frilled/purple-blue center, edge.","Medium green, plain, hairy, serrated.",ok
+rhapsodie-marilyn,White,White fringed single with occasional light purple center and edge.,"Glossy, fringed, plain foliage.",ok
+rhapsodie-marilyn-ii,White,"Single white frilled/purple-blue center, edge.","Medium green, plain, hairy, serrated.",ok
 rhapsodie-mars,Red,Ruby red bloom.,Tailored foliage.,ok
 rhapsodie-mary,White,"White multicolor with light pink tinge and deeper center, fringed single.","Deep olive green, plain fringed foliage.",ok
 rhapsodie-mercury,Mauve,Frosted mauve bloom.,Tailored foliage.,ok
@@ -11165,7 +11188,8 @@ rhapsodie-patricia,Dark red-lilac,Single dark red-lilac frilled/darker eye.,"Med
 rhapsodie-patsy,White,"Single white frilled sticktite/purple-blue eye, edge.","Medium green, plain, glossy, hairy, scalloped.",ok
 rhapsodie-rebecca,Medium blue,Single medium blue.,"Medium green, pointed, hairy, serrated.",ok
 rhapsodie-romona,Red,Single Bordeaux red.,,bloom only
-rhapsodie-rosalie,White,Single white frilled sticktite/bright pink patches.,"Medium green, pointed, glossy, hairy, scalloped.",ok
+rhapsodie-rosalie,White/,Single white/light pink patches.,"Medium green, plain, hairy.",ok
+rhapsodie-rosalie-ii,White,Single white frilled sticktite/bright pink patches.,"Medium green, pointed, glossy, hairy, scalloped.",ok
 rhapsodie-rose,Pink,Double pink shaded.,"Dark green, plain, ovate to heart-shaped, hairy / purple-pink back.",ok
 rhapsodie-roxanna,White,"White with red purple radiating from center, single to semidouble.","Deep olive green, plain foliage.",ok
 rhapsodie-ruby,Dark wine,Double dark wine.,Dark green foliage.,ok
@@ -11267,7 +11291,8 @@ riviera-midnight,Dark purple,"Single, star-shaped.","Quilted, variegated foliage
 riviera-poodle-top,"Pink, green edge","Double, fringed/ruffled.",Ruffled/wavy foliage.,code
 riviera-royalty,Dark purple,"Dark purple, has velvet appearance, double.","Pink variegated, tailored quilted foliage.",ok
 riviera-sunset,Pink,"Pink, darker eye, two-tone single star.",Variegated tailored quilted foliage.,ok
-riviere-blue,Blue,Blue double geneva star.,Broad scalloped tailored foliage.,ok
+riviere-bleue,Blue,Blue double geneva star.,Broad scalloped tailored foliage.,ok
+riviere-blue,"Blue, white edge","Double, star-shaped.","Plain, ruffled/wavy foliage.",code
 rob-roy,Rich wine red,Rich wine red full double.,Plain dark green foliage.,ok
 rob-s-albatross,White/blue,Double white and blue sticktite star.,"Medium green, plain, pointed, quilted.",ok
 rob-s-almost-sinful,Medium pink,"Medium pink, wide ruby red edge, some spatters on face, fringed, semidouble.","Dark green, red reverse, variegated foliage.",ok
@@ -11428,7 +11453,7 @@ rob-s-sticky-wicket,Light fuchsia,"Light fuchsia, semidouble.",Medium green poin
 rob-s-strobe-light,Medium blue,Single chimera medium blue pansy/white stripe.,"Medium green, quilted, serrated.",ok
 rob-s-sugar-cube,White,Double white sticktite star.,"Variegated medium green and white, quilted, serrated.",ok
 rob-s-sunspot,White,Double white large star/bright red mottling.,"Medium green, pointed, quilted, hairy, serrated.",ok
-robs-sweetpea,White,"White to light pink, green edges, double star.","Medium green T.L. variegated pointed, lightly quilted, serrated foliage.",ok
+rob-s-swee-pea,White,"White to light pink, green edges, double star.","Medium green T.L. variegated pointed, lightly quilted, serrated foliage.",ok
 rob-s-sweet-dreams,Light peach-pink,Semidouble light peach-pink pansy.,"Black-green, quilted, glossy /red back.",ok
 rob-s-swizzle-stick,Dark red/white,Single chimera dark red/white stripe.,"TL variegated medium green and white, quilted.",ok
 rob-s-taffy-pull,White,Semidouble white sticktite pansy/read edge.,"Medium green, quilted, hairy.",ok
@@ -11489,6 +11514,7 @@ robs-silver-spook-egenite-leila,White and light lavender,Semidouble.,"Crown vari
 robs-simply-susan,Dark pink,Double dark pink large star/wide white edge.,"Variegated medium-dark green, round/red back.",ok
 robs-slap-happy,Dark coral,Semidouble dark coral pansy.,"Crown variegated dark green, white, cream and pink, quilted.",ok
 robs-squeeze-toy,Dark coral-pink,Semidouble dark coral-pink.,"Crown variegated dark green, white, pink and beige/red back.",ok
+robs-sweetpea,White,"White to light pink, green edges double star.","Medium green T.L. variegated pointed, lightly quilted, serrated foliage.",ok
 rochelle-s-paisley-princess,Pink,Single-semidouble pink frilled star/dark blue-purple fantasy.,"Medium green, serrated.",ok
 rochelle-s-ruby-sparkler,Fuchsia-red/,Semidouble fuchsia-red/hot pink fantasy.,"Variegated dark green and cream-yellow, quilted.",ok
 rochelle-s-temptor,Fuchsia-red purple,Semidouble fuchsia-red purple large star/thin white frilled edge.,"Dark green, plain.",ok
@@ -11889,6 +11915,7 @@ san-jura,Royal blue,Royal blue double bloom.,Quilted dark veined medium green fo
 san-mateo,Purple,"Single-semidouble purple two-tone frilled pansy/darker shading at tips, variable darker purple-green edge.","Variegated green, white and pink ruffled.",ok
 san-mateo-blues,Lavender-blue,"Semidouble-double lavender-blue two-tone frilled large/variable white markings, thin white-green and/or purple edge.",Variegated green white and pink.,ok
 san-someon,Bright cerise-red,Bright cerise-red single bloom.,Dark red backed tailored foliage.,ok
+san-souci,Lavender,"Lavender, slightly ruffled double.",Plain pointed foliage.,ok
 san-xavier,White,Double white bloom.,Light green foliage.,ok
 sanae,"Pink, white edge",Double.,Quilted foliage.,code
 sanctuary,Medium blue,Single-semidouble medium blue pansy/white edge.,"Dark green, plain.",ok
@@ -11907,7 +11934,7 @@ sandy-trail,Fuchsia,Single fuchsia sticktite pansy/white tips.,"Medium green, pl
 sangria,Rose,Rose single geneva.,,bloom only
 sangria-wine,Red,Double red blossom.,Dark green longifolia foliage.,ok
 sanibel,White,Semidouble white with a red edge.,Plain foliage.,ok
-san-souci,Lavender,"Lavender, slightly ruffled double.",Plain pointed foliage.,ok
+sans-souci,Orchid,"Double, fringed/ruffled.","Quilted, pointed foliage.",code
 sansoucy-candide,Pink,"Semidouble, ruffled.","Dark green, plain, quilted, serrated, red back foliage.",human
 sansoucy-celeste,Blue,Double blue/thin white edge.,"Medium green, plain, pointed, serrated/red back.",ok
 sansoucy-coco,Blue,Double blue ruffled/variable white-green edge.,"Variegated medium green, white and cream, plain, quilted.",ok
@@ -13357,11 +13384,13 @@ sultan,Dark rose-fuchsia,"Semidouble dark rose-fuchsia two-tone pansy/light wine
 sultry,Lavender,Frilly lavender double with wine.,Ruched holly foliage.,ok
 sultry-purple,Dark maroon purple,Double dark maroon purple with curly edges.,Dark ruched foliage.,ok
 sultry-rose,Rose,Double frilled rose bloom with a fuchsia center.,Very dark foliage.,ok
-sum-pumkin,Pink,Semidouble pink with deep each edge ruffled star.,"Medium green and white variegated, plain, pointed foliage.",ok
+sum-pumkin,Pink,"Pink, deep peach edge, ruffled, semidouble, star.","Medium green and white variegated, plain, pointed foliage.",ok
+sum-pumpkin,Pink,Semidouble pink with deep each edge ruffled star.,"Medium green and white variegated, plain, pointed foliage.",ok
 sumatra-pearl,Pink,Pearly pink semidouble.,Cream and green variegated.,ok
 sumatra-plum,Dark plum,Dark plum pansy shape.,Tommie Lou variegation.,ok
 sumatra-sunset,Pink,Pink two-tone slightly frilled edges.,,bloom only
 summer-butterely,White,"White edged, rich pink semidouble star.",Dark quilted pointed foliage.,ok
+summer-butterfly,"Pink, white edge","Semidouble, star-shaped.","Plain, quilted, pointed foliage.",code
 summer-carnival,White,"Semidouble white, pink and yellow ruffled/yellow eye, blue fantasy.",Dark green.,ok
 summer-charm,Rose-pink/raspberry,Semidouble rose-pink/raspberry fantasy.,Variegated dark green and white.,ok
 summer-clouds,White,White semi-double star with a pink center.,Tailored foliage.,ok
@@ -13621,7 +13650,7 @@ suzy-s-bonnie-may,Dark orchid two-tone,"Single, fringed/ruffled, star-shaped.",P
 suzy-s-brett-steven,Light orchid,Double.,Quilted foliage.,code
 suzy-s-eve-shea,Cream white,Single to double cream white with blue fantasy markings star.,Red backed foliage.,ok
 suzy-s-gertha,Medium blue,"Medium blue, semi-double.",Dark green quilted flat girl foliage.,ok
-suzys-grace-c,"Multicolor (white, orchid)","Single and double, star-shaped.",Plain foliage.,code
+suzy-s-grace-g,"Multicolor (white, orchid)","Single and double, star-shaped.",Plain foliage.,code
 suzy-s-jennifer-paige,Violet,Double two-tone violet bloom.,Large quilted green foliage.,ok
 suzy-s-jerry-b,Light purple two-tone,"Single and semidouble, star-shaped.",Quilted foliage.,code
 suzy-s-lady-suzette,Medium blue,Double fringed medium blue bloom with tips two shades darker.,Girl foliage.,ok
@@ -13638,9 +13667,11 @@ suzy-s-our-nan,Violet,Semidouble violet two tone.,Medium green foliage.,ok
 suzy-s-paige-s,Lavender,Single two tone lavender.,Medium green foliage.,ok
 suzy-s-ruth-j,Lavender,Semidouble lavender.,Quilted foliage.,ok
 suzy-s-ward-b,Light purple two-tone,Semidouble.,"Plain, variegated foliage.",code
+suzys-beau-phillip,Medium blue,Single and double.,"Plain, quilted foliage.",code
 suzys-bert,Amethyst violet,"Semi-double amethyst violet bloom, slightly ruffled, Elongated.",Wavy foliage. Medium green.,ok
 suzys-cathy,Blue,"Flax blue, single semidouble bloom.",Dark green tailored foliage.,ok
 suzys-charlene,Light pink,"Single light pink Star, with white edge.",Plain green foliage.,ok
+suzys-grace-c,"Multicolor (white, orchid)","Single and double, star-shaped.",Plain foliage.,code
 suzys-jenny,Bright pink,Double bright pink bloom sometimes pink with white. Sometimes has a slight ruffled edge.,Plain foliage.,ok
 suzys-parsey,,"Semi-double, hyacinth blue bloom.",Dark green tailored foliage.,ok
 suzzanne,Pink,Double pink bloom.,Tailored foliage.,ok
@@ -13928,8 +13959,8 @@ teenage-crush,Light pink,Light pink with dark pink streaks.,Ruffled variegated f
 teensy,White,White bell shaped Star with a sheer blue overlay.,Quilted pointed foliage.,ok
 teeny-bopper,Purple,Single.,Pointed foliage.,code
 teeny-jeanie,Pink two-tone,"Single, star-shaped.","Plain, quilted foliage.",code
+teeny-weeny-baker,Rose-lavender/purple,Single rose-lavender/purple fantasy.,"Plain, pointed.",ok
 teeny-weeny-frathel,Rose,Double rose bloom with white through the petals.,Tailored glossy foliage.,ok
-tweeny-weeny,Rose-lavender/purple,Single rose-lavender/purple fantasy.,"Plain, pointed.",ok
 tejas,Dark fuchsia,"Dark fuchsia with darker streaks, semi-double to double bloom.",Bronzy green tailored slightly pointed foliage.,ok
 telstar-fischer,Blue,Blue with white edging full double blossoms.,Medium green foliage.,ok
 telstar-lyon,Purple,Single purple Star with a white edge.,Plain variegated.,ok
@@ -13964,7 +13995,8 @@ tennessee-springtime,White,"Single ruffled white star, pink edge.",Plain foliage
 tennessee-trudy,Deep pink,Double deep pink.,Plain foliage.,ok
 tennessee-waltz,Dark blue,Single ruffled dark blue star with a white edge.,Plain quilted foliage.,ok
 tennessee-white-swan,White,Semidouble white star.,Plain quilted foliage.,ok
-tense,White purple,"White purple edge double, medium green plain.",Plain foliage.,ok+code
+tense,White purple,"White purple edge double, medium green plain.",,bloom only
+tensie,"White, purple edge",Double.,Plain foliage.,code
 tensie-s-peachy,Pale pink,Large pale’ pink double. Heavey bloomer.,Serrated tailor foliage.,ok
 tensie-s-sunshine,Lemon lime,Lemon lime single. Blossoms do not drop.,Dark green foliage.,ok
 tensie-s-touch,White,"White, touched with pink and green, fringed, double.",Light green wavy foliage.,ok
@@ -14485,6 +14517,7 @@ tuxedo,Purple,"Double purple star, white edge.",Tailored foliage.,ok
 tweedle-dee,Fuchsia,"Fuchsia, green and white ruffled tricolor.",Variegated foliage.,ok
 tweedle-dee-dee,Lilac,"Lilac double stars, fine purple edge.",Plain foliage.,ok
 tweedle-dee-dum,White,White double stars fine line purple edge.,Plain foliage.,ok
+tweeny-weeny,Rose lavender,Single rose lavender with purple splashes.,Plain pointed foliage.,ok
 tweety,Red,Single red.,Dark tailored foliage.,ok
 twice-as-nice,Lavender,Double lavender two tone.,Variegated foliage.,ok
 twice-pink,Pink,Double.,"Plain, variegated foliage.",code
