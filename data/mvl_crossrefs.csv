@@ -31,7 +31,7 @@ BLUE EMPRESS,DeLeon Blue Empress,deleon-blue-empress,1965,row,BLUE EMPRESS (See 
 CHEER,Persian Cheer,persian-cheer,1965,row,CHEER (See Persian Cheer)
 CHEERLEADER,Richter’s Cheer- leader,richter-s-cheerleader,1965,row,CHEERLEADER (See Richter’s Cheer- leader)
 COLONY,Pilgrim Colony,pilgrim-colony,1965,row,COLONY (See Pilgrim Colony)
-DARK BEAUTY,Westwind’s Dark Beauty,westwinds-dark-beauty-myrtle-woodward,1965,row,DARK BEAUTY (See Westwind’s Dark Beauty)
+DARK BEAUTY,Westwind’s Dark Beauty,westwinds-dark-beauty-av-westwind,1965,row,DARK BEAUTY (See Westwind’s Dark Beauty)
 DELECTABLE,Edena Delectable,edena-delectable,1965,row,DELECTABLE (See Edena Delectable)
 DEMURE,Westwind’s Demure,westwinds-demure,1965,row,DEMURE (See Westwind’s Demure)
 DEWDROP,Kentucky Dewdrop,kentucky-dewdrop,1965,row,DEWDROP (See Kentucky Dewdrop)
@@ -120,11 +120,11 @@ VANITY,Westwind’s Vanity,westwinds-vanity,1967,row,VANITY (See Westwind’s Va
 VILLAGER,Pilgrim Villager,pilgrim-villager,1967,row,VILLAGER (See Pilgrim Villager)
 ARISTROCRAT,Kentucky Aristocrat,kentucky-aristocrat,1967,row,ARISTROCRAT (See Kentucky Aristocrat)
 BLUE ROSES,Kuhl’s Blue Roses,kuhl-s-blue-roses,1967,row,BLUE ROSES (See Kuhl’s Blue Roses)
-CORAL FRILLS,Westwind’s Coral Frills,westwinds-coral-frills-av-westwind,1967,row,CORAL FRILLS (See Westwind’s Coral Frills)
+CORAL FRILLS,Westwind’s Coral Frills,westwinds-coral-frills-myrtle-woodward,1967,row,CORAL FRILLS (See Westwind’s Coral Frills)
 DARK BEAUTY,Westwinds Dark Beauty,westwinds-dark-beauty-av-westwind,1967,row,DARK BEAUTY (See Westwinds Dark Beauty)
 FLORIDA BELLE,Crystal Florida Belle,crystal-florida-belle,1967,row,FLORIDA BELLE (See Crystal Florida Belle)
 FRILLS,Twin Lakes Frills,twin-lakes-frills,1967,row,FRILLS (See Twin Lakes Frills)
-FRIVOLOUS FRILLS,Westwind’s Frivolous Frills,westwinds-frivolous-frills-woodward,1967,row,FRIVOLOUS FRILLS (See Westwind’s Frivolous Frills)
+FRIVOLOUS FRILLS,Westwind’s Frivolous Frills,westwinds-frivolous-frills-westwind,1967,row,FRIVOLOUS FRILLS (See Westwind’s Frivolous Frills)
 MY MAN,Kuhl’s My Man,kuhl-s-my-man,1967,row,MY MAN (See Kuhl’s My Man)
 NEFERTITI,Kuhl’s Nefertiti,kuhl-s-nefertiti,1967,row,NEFERTITI (See Kuhl’s Nefertiti)
 PINK LUCILE,CRYSTAL PINK LUCILE,crystal-pink-lucile,1967,row,PINK LUCILE (See CRYSTAL PINK LUCILE)
@@ -286,7 +286,7 @@ DARK KNIGHT,Westwinds’ Dark Knight,westwinds-dark-knight,1972,row,DARK KNIGHT 
 DOUBLE GEM,Crystal Double Gem,crystal-double-gem,1972,row,DOUBLE GEM (See Crystal Double Gem)
 DUSTY ROSE,Westwinds’ Dusty Rose,westwinds-dusty-rose,1972,row,DUSTY ROSE (See Westwinds’ Dusty Rose)
 EASTERLING,Kramer’s Easterling,kramer-s-easterling,1972,row,EASTERLING (See Kramer’s Easterling)
-ETHEREAL,Westwinds’ Ethereal,westwinds-ethereal-woodward,1972,row,ETHEREAL (See Westwinds’ Ethereal)
+ETHEREAL,Westwinds’ Ethereal,westwinds-ethereal-av-westwind,1972,row,ETHEREAL (See Westwinds’ Ethereal)
 EVENTIDE,Westwinds’ Eventide,westwinds-eventide,1972,row,EVENTIDE (See Westwinds’ Eventide)
 FANETTI,Kramer’s Fanetti,kramer-s-fanetti,1972,row,FANETTI (See Kramer’s Fanetti)
 FANFARE,Manelta’s Fanfare,manelta-s-fanfare,1972,row,FANFARE (See Manelta’s Fanfare)
@@ -321,11 +321,11 @@ PURPLE PUFF,Westwinds’ Purple Puff,westwinds-purple-puff,1972,row,PURPLE PUFF 
 PURPLE TIPS,Westwinds’ Purple Tips,westwinds-purple-tips,1972,row,PURPLE TIPS (See Westwinds’ Purple Tips)
 RED FLAIR,Granger’s Red Flair,granger-s-red-flair,1972,row,RED FLAIR (See Granger’s Red Flair)
 RED LIGHT,Westwinds’ Red Light,westwinds-red-light,1972,row,RED LIGHT (See Westwinds’ Red Light)
-RED ROSEBUD,Westwinds’ Red Rosebud,westwinds-red-rosebud-woodward,1972,row,RED ROSEBUD (See Westwinds’ Red Rosebud)
+RED ROSEBUD,Westwinds’ Red Rosebud,westwinds-red-rosebud-av-westwind,1972,row,RED ROSEBUD (See Westwinds’ Red Rosebud)
 ROSE DREAM,Crystal Rose Dream,crystal-rose-dream,1972,row,ROSE DREAM (See Crystal Rose Dream)
 ROSE FROST,Granger’s Rose Frost,granger-s-rose-frost,1972,row,ROSE FROST (See Granger’s Rose Frost)
 ROYAL FRILLS,Westwinds’ Royal Frills,westwinds-royal-frills,1972,row,ROYAL FRILLS (See Westwinds’ Royal Frills)
-SANDY,Westwinds’ Sandy,westwinds-sandy-woodward,1972,row,SANDY (See Westwinds’ Sandy)
+SANDY,Westwinds’ Sandy,westwinds-sandy-av-westwind,1972,row,SANDY (See Westwinds’ Sandy)
 SASSY,Westdale Sassy,westdale-sassy,1972,row,SASSY (See Westdale Sassy)
 SERENADA,Granger’s Serenada,granger-s-serenada,1972,row,SERENADA (See Granger’s Serenada)
 STAR BEAUTY,Crystal Star Beauty,crystal-star-beauty,1972,row,STAR BEAUTY (See Crystal Star Beauty)
@@ -613,7 +613,7 @@ CANDYLAND,WRANGLER’S CANDYLAND,wrangler-s-candyland,1982,row,CANDYLAND see WRA
 CANYON ECHOES,WRANGLER’S CANYON ECHOES,wrangler-s-canyon-echoes,1982,row,CANYON ECHOES see WRANGLER’S CANYON ECHOES
 CAROLYN,MAAS CAROLYN,maas-carolyn,1982,row,CAROLYN see MAAS CAROLYN
 CHALLENGE,DIB’'S CHALLENGE,dib-s-challenge,1982,row,CHALLENGE see DIB’'S CHALLENGE
-CURTAIN CALL,FREDETTE’S CURTAIN CALL,fredette-s-curtain-call,1982,row,CURTAIN CALL see FREDETTE’S CURTAIN CALL
+CURTAIN CALL,FREDETTE’S CURTAIN CALL,curtain-call-fredette-irene,1982,row,CURTAIN CALL see FREDETTE’S CURTAIN CALL
 DEBBIE,MAAS’ DEBBIE,maas-debbie,1982,row,DEBBIE see MAAS’ DEBBIE
 DELTA QUEEN,DIB’S DELTA QUEEN,dib-s-delta-queen,1982,row,DELTA QUEEN see DIB’S DELTA QUEEN
 DESIRE,SKAGIT DESIRE,skagit-desire,1982,row,DESIRE see SKAGIT DESIRE
@@ -643,7 +643,7 @@ LOVEY BABY,MEEK’S LOVEY BABY,meek-s-lovey-baby,1982,row,LOVEY BABY see MEEK’
 MARBLEHEAD,DIB’S MARBLEHEAD,dib-s-marblehead,1982,row,MARBLEHEAD see DIB’S MARBLEHEAD
 VALLIN MARITIME HAVEN,NORTEX’S MARITIME HAVEN,nortex-s-maritime-haven,1982,row,VALLIN MARITIME HAVEN see NORTEX’S MARITIME HAVEN
 MASTERPIECE,SKAGIT MASTERPIECE,skagit-masterpiece,1982,row,MASTERPIECE see SKAGIT MASTERPIECE
-MIMI,FREDETTE’S MIMI,fredette-s-mimi,1982,row,MIMI see FREDETTE’S MIMI
+MIMI,FREDETTE’S MIMI,mimi-fredette-irene,1982,row,MIMI see FREDETTE’S MIMI
 MIST,SKAGIT MIST,skagit-mist,1982,row,MIST see SKAGIT MIST
 MIZ UNIVERSE,DIB'S MIZ UNIVERSE,dib-s-miz-universe,1982,row,MIZ UNIVERSE see DIB'S MIZ UNIVERSE
 MOLLIE RITCHIE,WRANGLER’S MOLLIE RITCHIE,wrangler-s-mollie-ritchie,1982,row,MOLLIE RITCHIE see WRANGLER’S MOLLIE RITCHIE
@@ -778,7 +778,7 @@ BLUE BABE,NESS’ BLUE BABE,ness-blue-babe,1989,row,BLUE BABE See NESS’ BLUE B
 BLUE MOON,ROB’S BLUE MOON,rob-s-blue-moon,1989,row,BLUE MOON See ROB’S BLUE MOON
 BLUE SQUIRT,NESS’ BLUE SQUIRT,ness-blue-squirt,1989,row,BLUE SQUIRT See NESS’ BLUE SQUIRT
 BRANDON SHANE,MARIE’S BRANDON SHANE,marie-s-brandon-shane,1989,row,BRANDON SHANE See MARIE’S BRANDON
-CALIFORNIA,OPTIMARA®-CALIFORNIA,optimara-california,1989,row,CALIFORNIA See OPTIMARA®-CALIFORNIA
+CALIFORNIA,OPTIMARA®-CALIFORNIA,california,1989,row,CALIFORNIA See OPTIMARA®-CALIFORNIA
 CALYPSO GAL,NESS’ CALYPSO GAL,ness-calypso-gal,1989,row,CALYPSO GAL See NESS’ CALYPSO GAL
 CAMEO,PATT’S CAMEO,patt-s-cameo,1989,row,CAMEO See PATT’S CAMEO
 CAMEO PINK,NESS’ CAMEO PINK,ness-cameo-pink,1989,row,CAMEO PINK See NESS’ CAMEO PINK
@@ -797,7 +797,7 @@ DARRELL JAMES,MARIE'S DARRELL JAMES,marie-s-darrell-james,1989,row,DARRELL JAMES
 DAWN,BIMINI DAWN,bimini-dawn,1989,row,JAMES DAWN See BIMINI DAWN
 DEBRA ANN,MARIE’S DEBRA ANN,marie-s-debra-ann,1989,row,DEBRA ANN See MARIE’S DEBRA ANN
 DECENNIE,OPTIMARA®-DECENNIE,optimara-decennie,1989,row,DECENNIE See OPTIMARA®-DECENNIE
-DELAWARE,OPTIMARA®-DELAWARE,optimara-delaware,1989,row,DELAWARE See OPTIMARA®-DELAWARE
+DELAWARE,OPTIMARA®-DELAWARE,delaware,1989,row,DELAWARE See OPTIMARA®-DELAWARE
 DELIGHT,DEBBIE'S DELIGHT,debbie-s-delight,1989,row,DELIGHT See DEBBIE'S DELIGHT
 DELIGHT,NESS’ SHIRLEY’S DELIGHT,ness-shirley-s-delight,1989,row,DELIGHT See NESS’ SHIRLEY’S DELIGHT
 DELIGHT,ROMA’S DELIGHT,roma-s-delight,1989,row,DELIGHT See ROMA’‘S DELIGHT
@@ -807,10 +807,10 @@ EASTER JOY,FREDETTE’S EASTER JOY,fredette-s-easter-joy,1989,row,EASTER JOY See
 EMBER GLOW,ROB’S EMBER GLOW,rob-s-ember-glow,1989,row,EMBER GLOW See ROB’S EMBER GLOW
 FACE,APACHE FACE,apache-face,1989,row,FACE See APACHE FACE
 FARRAH,RHAPSODIE®-FARRAH,rhapsodie-farrah,1989,row,FARRAH See RHAPSODIE®-FARRAH
-FLORIDA,OPTIMARA®-FLORIDA,optimara-florida,1989,row,FLORIDA See OPTIMARA®-FLORIDA
+FLORIDA,OPTIMARA®-FLORIDA,florida,1989,row,FLORIDA See OPTIMARA®-FLORIDA
 FLORIDA II,OPTIMARA®-FLORIDA II,optimara-florida-ii,1989,row,FLORIDA II See OPTIMARA®-FLORIDA II
 GEMINI,OPTIMARA®-GEMINI,optimara-gemini,1989,row,GEMINI See OPTIMARA®-GEMINI
-GEORGIA,OPTIMARA®-GEORGIA,optimara-georgia,1989,row,GEORGIA See OPTIMARA®-GEORGIA
+GEORGIA,OPTIMARA®-GEORGIA,georgia,1989,row,GEORGIA See OPTIMARA®-GEORGIA
 GLORY,APACHE GLORY,apache-glory,1989,row,GLORY See APACHE GLORY
 HALO,RUTH’S HALO,ruth-s-halo,1989,row,HALO See RUTH’S HALO
 HARLEQUIN,OPTIMARA®-HARLEQUIN,optimara-harlequin,1989,row,HARLEQUIN See OPTIMARA®-HARLEQUIN
@@ -847,7 +847,7 @@ LOUISIANA II,OPTIMARA®-LOUISIANA II,optimara-louisiana-ii,1989,row,LOUISIANA II
 MAGNETIC FIELD,ROB’S MAGNETIC FIELD,rob-s-magnetic-field,1989,row,MAGNETIC FIELD See ROB’S MAGNETIC
 MANITOBA II,OPTIMARA®-MANITOBA II,optimara-manitoba-ii,1989,row,FIELD MANITOBA II See OPTIMARA®-MANITOBAII
 MARTINIQUE,OPTIMARA®-MARTINIQUE,optimara-martinique,1989,row,MARTINIQUE See OPTIMARA®-MARTINIQUE
-MARYLAND,OPTIMARA®-MARYLAND,optimara-maryland,1989,row,MARYLAND See OPTIMARA®-MARYLAND
+MARYLAND,OPTIMARA®-MARYLAND,maryland,1989,row,MARYLAND See OPTIMARA®-MARYLAND
 MATTHEW MANUEL,MARIE’S MATTHEW MANUEL,marie-s-matthew-manuel,1989,row,MATTHEW MANUEL See MARIE’S MATTHEW
 MEG,RHAPSODIE®-MEG,rhapsodie-meg,1989,row,MEG See RHAPSODIE®-MEG
 MICHAEL ALAN,MARIE’S MICHAEL ALAN,marie-s-michael-alan,1989,row,MICHAEL ALAN See MARIE’S MICHAEL ALAN
@@ -858,7 +858,7 @@ MONIQUE,RHAPSODIE®-MONIQUE,rhapsodie-monique-holtkamp,1989,row,MONIQUE See RHAP
 NANCY,RHAPSODIE®-NANCY,rhapsodie-nancy,1989,row,NANCY See RHAPSODIE®-NANCY
 NEAT NELLIE,NESS’ NEAT NELLIE,ness-neat-nellie,1989,row,NEAT NELLIE See NESS’ NEAT NELLIE
 NEVADA,OPTIMARA®-NEVADA,optimara-nevada,1989,row,NEVADA See OPTIMARA®-NEVADA
-NEW JERSEY,OPTIMARA®-NEW JERSEY,optimara-new-jersey,1989,row,NEW JERSEY See OPTIMARA®-NEW JERSEY
+NEW JERSEY,OPTIMARA®-NEW JERSEY,new-jersey,1989,row,NEW JERSEY See OPTIMARA®-NEW JERSEY
 NEW JERSEY II,OPTIMARA®-NEW JERSEY II,optimara-new-jersey-ii,1989,row,NEW JERSEY II See OPTIMARA®-NEW JERSEY
 NIGHT LIFE,NESS’ NIGHT LIFE,ness-night-life,1989,row,NIGHT LIFE See NESS’ NIGHT LIF
 NITE BLOOMERS,PAPA’S NITE BLOOMERS,papa-s-nite-bloomers,1989,row,NITE BLOOMERS See PAPA’S NITE BLOOMERS
@@ -910,13 +910,13 @@ VIKING BABE,NESS’ VIKING BABE,ness-viking-babe,1989,row,VIKING BABE See NESS�
 VIKING KING,NESS’ VIKING KING,ness-viking-king,1989,row,VIKING KING See NESS’ VIKING KING
 VIKING MAIDEN,NESS’ VIKING MAIDEN,ness-viking-maiden,1989,row,VIKING MAIDEN See NESS’ VIKING MAIDEN
 VIOLET SAPPHIRE,OPTIMARA®-VIOLET SAPPHIRE,optimara-violet-sapphire,1989,row,VIOLET SAPPHIRE See OPTIMARA-VIOLET
-VIRGINIA,OPTIMARA®-VIRGINIA,optimara-virginia,1989,row,SAPPHIRE VIRGINIA See OPTIMARA®-VIRGINIA
+VIRGINIA,OPTIMARA®-VIRGINIA,virginia-holtkamp,1989,row,SAPPHIRE VIRGINIA See OPTIMARA®-VIRGINIA
 VIRGO,OPTIMARA®-VIRGO,optimara-virgo,1989,row,VIRGO See OPTIMARA®-VIRGO
 WEST VIRGINIA,OPTIMARA®-WEST VIRGINIA,optimara-west-virginia,1989,row,WEST VIRGINIA See OPTIMARA®-WEST VIRGINIA
 WHIMSICAL,ROB’S WHIMSICAL,rob-s-whimsical,1989,row,WHIMSICAL See ROB’S WHIMSICAL
 WHOOPIE,ROB’S WHOOPIE,rob-s-whoopie,1989,row,WHOOPIE See ROB’S WHOOPIE
 ZEE,ZACA’S ZEE,zaca-s-zee,1989,row,ZEE See ZACA’S ZEE
-COLORADO,OPTIMARA®-COLORADO,optimara-colorado,1989,row,COLORADO Se OPTIMARA®-COLORADO
+COLORADO,OPTIMARA®-COLORADO,colorado,1989,row,COLORADO Se OPTIMARA®-COLORADO
 GEORGIA II,OPTIMARA®-GEORGIA II,optimara-georgia-ii,1989,row,GEORGIA II See OPTIMARA®-GEORGIA II
 Alabaster,Skagit Alabaster,skagit-alabaster,1981,row,Alabaster (See Skagit Alabaster)
 Amethyst Caper,DiB's Amethyst Caper,dib-s-amethyst-caper,1981,row,Amethyst Caper (See DiB's Amethyst Caper)
@@ -1065,7 +1065,7 @@ My Fred,DiB's My Fred,dib-s-my-fred,1981,row,My Fred (See DiB's My Fred)
 My Michigan,DiB's My Michigan,dib-s-my-michigan,1981,row,My Michigan (See DiB's My Michigan)
 My Own,DiB's My Own,dib-s-my-own,1981,row,My Own (See DiB's My Own)
 Novelle,Hortense's Novelle,hortense-s-novelle,1981,row,Novelle (See Hortense's Novelle)
-Oh My,Deborah's Oh My,deborah-s-oh-my,1981,row,Oh My (See Deborah's Oh My)
+Oh My,Deborah's Oh My,oh-my-deborah-good,1981,row,Oh My (See Deborah's Oh My)
 Panorama,Skagit Panorama,skagit-panorama,1981,row,Panorama (See Skagit Panorama)
 Party Pink,Swanee Party Pink,swanee-party-pink,1981,row,Party Pink (See Swanee Party Pink)
 Peppermint Patty,Baker's Peppermint Patty,baker-s-peppermint-patty,1981,row,Peppermint Patty (See Baker's Peppermint Patty)
