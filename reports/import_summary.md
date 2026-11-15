@@ -6,7 +6,7 @@
 - parentage.csv: 5362; people.csv: 1975; cultivar_hybridizers.csv: 25532; cultivar_links.csv: 12
 - SQLite rows dropped by review decisions: 5
 - new hybridizer strings appended to hybridizer_mapping.csv: 0
-- reviewer corrections applied (data_corrections.csv): 44
+- reviewer corrections applied (data_corrections.csv): 61
 - parent corrections applied (parent_corrections.csv): 7
 - 1963 Master List: {'new': 12765, 'joined_auto': 29, 'groups': 12794, 'review': 426}
 - Master List supplements 1964-2002: {'new': 12589, 'spelling_unchecked': 3603, 'joined_auto': 2109, 'joined_decision': 342, 'crossrefs': 1218, 'plants': 15040, 'held_back': 614, 'review_rows': 2873}
