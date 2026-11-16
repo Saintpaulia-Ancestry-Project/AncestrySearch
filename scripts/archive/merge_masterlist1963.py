@@ -30,13 +30,13 @@ import sys
 import unicodedata
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 import parse_masterlist1963 as p1  # noqa: E402
 
 NEW = ROOT / "source" / "AVML1963_import.csv"
 OUT = ROOT / "data" / "masterlist1963.csv"
-REVIEW = ROOT / "reports" / "review" / "masterlist_ocr_review.csv"
+REVIEW = ROOT / "reports" / "decision_history" / "masterlist_ocr_review.csv"
 REPORT = ROOT / "reports" / "masterlist1963_ocr_merge.md"
 SCAN = "https://babel.hathitrust.org/cgi/pt?id=coo.31924019134067&seq={seq}"  # scan sequence = printed page + 2
 

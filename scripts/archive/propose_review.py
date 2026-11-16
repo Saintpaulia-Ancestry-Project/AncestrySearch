@@ -15,7 +15,7 @@ from pathlib import Path
 
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 XLSX = ROOT / "source" / "AfricanVioletAncestry.xlsx"
 SQLITE = ROOT / "source" / "AfricanVioletAncestry.sqlite"
 OUT = ROOT / "reports" / "review"

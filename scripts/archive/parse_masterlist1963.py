@@ -18,7 +18,7 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 BOOK = ROOT / "source" / "AV-MasterLIstSupplements" / "MasterListBook"
 # This parser reads OCR 1 (the HathiTrust page text). It is the CROSS-CHECK for the second OCR; the published
 # data/masterlist1963.csv is produced by scripts/merge_masterlist1963.py.

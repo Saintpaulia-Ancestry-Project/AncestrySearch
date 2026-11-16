@@ -146,6 +146,12 @@ hand-maintained data and stay as they are.
   master when its decision is made. The routine pipeline no longer runs `import_excel.py`: `import_submissions.py apply` (83 rows
   skipped as already applied) -> `build_db.py` -> export; master byte-identical and database fingerprint identical. The seven review
   files stay where they are until step 4 (archive), because `import_excel.py` still reads them.
+- Step 4 DONE: `import_excel.py`, `merge_masterlist1963.py`, `parse_masterlist1963.py`, `inspect_excel.py`, `propose_review.py` and the two one-time
+  migration scripts are in `scripts/archive/` (README there; `import_excel.py` refuses to run without `AV_ALLOW_BOOTSTRAP=1`). Nine decided
+  review files moved to `reports/decision_history/`. Checked: the archived importer run on a COPY of the repository plus
+  `import_submissions.py apply` reproduces the five master CSVs byte for byte; the routine pipeline and the database fingerprint
+  are unchanged. Left in `reports/review/`: `outstanding_originator_mapping.csv` (no apply operation yet: linking an originator to a
+  person), the WordPress photo review files and the AVSA sports-page review files (their own imports).
 - Limitation to remember: a held plant imported as `mlv` takes the MLV spelling and number, but its date and size are the supplement's
   (the MLV date is not in the public check file).
 - Still to do (old list, partly done): step 2 (originally merged with step 1: the id redirect is only recorded in `data/id_redirects.csv`; the site does

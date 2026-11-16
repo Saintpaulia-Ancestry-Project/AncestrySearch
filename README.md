@@ -24,26 +24,26 @@ not work, because browsers block loading the database from a plain file.)
 ## How the data is built
 
 ```
-source/  (original spreadsheet, SQLite and supplement workbooks; read-only)
-   |  scripts/import_excel.py       needs pandas and openpyxl
-   v
-data/    (cleaned CSV files: cultivars, parentage, people, ...)
+data/    (the master CSV files: cultivars, parentage, people, ...; hand-maintained, edited only through scripts/master_edit.py,
+          scripts/apply_check_decisions.py and scripts/import_submissions.py)
    |  scripts/build_db.py           standard library only
    v
 site/avancestry.sqlite
 ```
 
+The master data was made once from the original sources (spreadsheet, SQLite, supplement workbooks, the 1963 Master List); those
+sources are historical and the scripts that read them are archived in `scripts/archive/` (see its README). The routine run is:
+
 ```
 pip install -r requirements.txt
-python scripts/merge_masterlist1963.py   # two OCRs of the 1963 Master List -> data/masterlist1963.csv
-python scripts/import_excel.py     # source/ -> data/ and reports/
-python scripts/build_db.py         # data/ -> site/avancestry.sqlite
-python scripts/export_ancestry_xlsx.py   # site/downloads/AfricanVioletAncestry.xlsx (needs openpyxl); commit it with the data
+python scripts/apply_check_decisions.py --write   # only when decisions were typed in reports/outstanding_checks.csv
+python scripts/import_submissions.py apply        # contributor submissions in data/submissions/
+python scripts/build_db.py                        # data/ -> site/avancestry.sqlite
+python scripts/export_ancestry_xlsx.py            # site/downloads/AfricanVioletAncestry.xlsx (needs openpyxl); commit it with the data
 ```
 
-Human decisions that shape the import (which duplicates to drop, hybridizer name mapping, spelling
-variants to merge, individual value corrections) are in `reports/review/`. `reports/import_flags.csv`
-lists everything the import found unusual. `data/pages/*.md` holds the site's text pages.
+What still needs a person's decision is in `reports/outstanding_checks.csv`; decided work is the historical record in
+`reports/decision_history/`. `data/pages/*.md` holds the site's text pages.
 `CLAUDE.md` records the design decisions in detail.
 
 ## Adding photos

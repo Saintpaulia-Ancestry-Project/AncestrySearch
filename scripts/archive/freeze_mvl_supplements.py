@@ -22,10 +22,10 @@ from pathlib import Path
 
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DATA, REVIEW, REPORTS = ROOT / "data", ROOT / "reports" / "review", ROOT / "reports"
 HIST = REPORTS / "decision_history"
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from mvl_lib import hyb_tokens  # noqa: E402
 
 CHECK_COLS = ["check_id", "group_id", "source", "check_type", "tier", "name", "hybridizer", "lists_or_year", "reg_no", "reg_date",

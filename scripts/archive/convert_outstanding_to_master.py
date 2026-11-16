@@ -14,10 +14,10 @@ from pathlib import Path
 
 import pandas as pd
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from names_lib import norm  # noqa: E402
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 NEW_COLS = ["check_id", "group_id", "source", "check_type", "tier", "name", "hybridizer", "lists_or_year", "record_id", "plant_key",
             "reg_no", "reg_date", "mlv_name", "mlv_hybridizer", "mlv_reg", "mlv_date", "description", "detail", "proposal",
             "target_key", "first_class_name", "first_class_hybridizer", "first_class_reg_date", "decision", "note"]

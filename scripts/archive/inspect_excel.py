@@ -13,7 +13,7 @@ from pathlib import Path
 import openpyxl
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 XLSX = ROOT / "source" / "AfricanVioletAncestry.xlsx"
 OUT = ROOT / "reports" / "inspect_report.md"
 SHEETS = ["Name", "Hybridizer", "Seed Parent", "Pollen Parent"]

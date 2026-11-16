@@ -56,7 +56,6 @@ Work from the repository root with the project Python: `.venv/Scripts/python.exe
 
    ```
    python scripts/import_submissions.py ingest submissions/inbox/<date>-reviewed.csv
-   python scripts/import_excel.py
    python scripts/import_submissions.py apply
    python scripts/build_db.py
    python scripts/export_ancestry_xlsx.py
@@ -64,8 +63,8 @@ Work from the repository root with the project Python: `.venv/Scripts/python.exe
 
    - `ingest` keeps only accept/join/different rows with `agreed_license=yes`, removes contact and admin columns,
      and writes `data/submissions/<submission_id>.csv`. These files are tracked.
-   - `import_excel.py` regenerates `data/*.csv`; `apply` then adds every file in `data/submissions/`. Applying is
-     repeatable: each applied entry is tagged `(submission <id>, entry <n>)` in `source_note`, so nothing is added
+   - `apply` adds every file in `data/submissions/` to the master `data/*.csv` (import_excel.py is archived and is no longer run).
+     Applying is repeatable: each applied entry is tagged `(submission <id>, entry <n>)` in `source_note`, so nothing is added
      twice.
    - Read `reports/submission_import.md`: it lists what was created, filled in, held and what conflicted.
      Held rows (ambiguous parent, existing name with no decision) are fixed in the Sheet and the steps repeated.

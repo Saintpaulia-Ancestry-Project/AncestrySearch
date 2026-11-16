@@ -25,11 +25,19 @@ from pathlib import Path
 
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parent.parent
+import os
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))   # names_lib, mvl_lib
+if __name__ == "__main__" and os.environ.get("AV_ALLOW_BOOTSTRAP") != "1":
+    sys.exit("import_excel.py is an ARCHIVED bootstrap tool: it rebuilds data/*.csv from the sources and would OVERWRITE the master.\n"
+             "See scripts/archive/README.md. Set AV_ALLOW_BOOTSTRAP=1 to run it on a copy of the repository.")
+
+ROOT = Path(__file__).resolve().parents[2]
 SRC = ROOT / "source"
 DATA = ROOT / "data"
 REPORTS = ROOT / "reports"
-REVIEW = REPORTS / "review"
+REVIEW = REPORTS / "decision_history"   # the decided review files moved here (phase 2, step 4)
 for p in (DATA, REPORTS, REVIEW):
     p.mkdir(parents=True, exist_ok=True)
 
@@ -545,7 +553,7 @@ def mvl_origin_surnames():
 
 def mvl_hyb_tokens(h, mapped=False):
     import sys
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from mvl_lib import hyb_tokens
     toks = set(hyb_tokens(h))
     if mapped:
@@ -685,7 +693,7 @@ def attach_mvl(allrec):
 
 # ------------------------------------------------------------------ originators given as text
 PO_REVIEW = REVIEW / "parent_originator_matches.csv"
-OM_REVIEW = REVIEW / "outstanding_originator_mapping.csv"
+OM_REVIEW = REPORTS / "review" / "outstanding_originator_mapping.csv"
 ORIG_SPLIT = re.compile(r"\s+(?:&|and)\s+|\s*[/;]\s*")   # "A & B" and "A and B" split; "A&R" does not
 
 

@@ -115,11 +115,17 @@ notes/freeze-plan.md, phase 2); only work still to be decided goes to reports/ou
   Notes go to cultivar_links.
 
 ## Repo layout
-data/ (cleaned CSVs), scripts/ (inspect_excel.py, import_excel.py, build_db.py),
+data/ (the master CSVs), scripts/ (master_edit.py, apply_check_decisions.py, import_submissions.py, build_db.py, scripts/archive/),
 reports/ (generated inspection reports), site/ (front end, built .sqlite,
 images/), source/ (originals), notes/, README.md. `.venv/` is local only.
 
 ## Status
+**PIPELINE NOW (phase 2 done, notes/freeze-plan.md): the master CSVs in data/ are hand-maintained and edited only through
+scripts/master_edit.py, scripts/apply_check_decisions.py and scripts/import_submissions.py. Routine run:
+`[apply_check_decisions.py --write] -> import_submissions.py apply -> build_db.py (must end "All checks passed.") ->
+export_ancestry_xlsx.py`. import_excel.py and the scripts that fed it are ARCHIVED in scripts/archive/ (they would overwrite
+the master; see scripts/archive/README.md); every "pipeline order ... import_excel.py ..." and review-file statement below is
+HISTORY of how the master was made. The decided review files are in reports/decision_history/.**
 - scripts/inspect_excel.py, scripts/propose_review.py: done (reports/).
 - scripts/import_excel.py: done; writes data/*.csv + reports/import_flags.csv and
   import_summary.md. Reads reviewer decisions from reports/review/ (re-runnable;
