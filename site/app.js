@@ -3,6 +3,7 @@
  *   #/                      search + browse         (#/?q=rob&size=Miniature&page=2)
  *   #/c/<cultivar id>       cultivar page + lineage graph
  *   #/p/<person id>         hybridizer page
+ *   #/species               species grouped by AVSA code
  *   #/about                 project history
  *   #/downloads             downloadable files (list: DOWNLOADS below)
  *   #/submit                contributor form (submit.js)
@@ -98,6 +99,7 @@ function route() {
   try {
     if (parts[0] === "c" && parts[1]) renderCultivar(app, decodeURIComponent(parts[1]));
     else if (parts[0] === "p" && parts[1]) renderPerson(app, decodeURIComponent(parts[1]), params);
+    else if (parts[0] === "species") renderSpecies(app);
     else if (parts[0] === "about") renderAbout(app);
     else if (parts[0] === "downloads") renderDownloads(app);
     else if (parts[0] === "submit") renderSubmit(app);   // submit.js
@@ -744,6 +746,55 @@ function renderPerson(app, id, params) {
         <a class="btn secondary" ${page > 1 ? `href="${link(page - 1)}"` : 'style="visibility:hidden"'}>&larr; Previous</a>
         <span class="muted">Page ${page} of ${pages}</span>
         <a class="btn secondary" ${page < pages ? `href="${link(page + 1)}"` : 'style="visibility:hidden"'}>Next &rarr;</a></div>` : ""}`;
+}
+
+/* ------------------------------------------------------------------ species page */
+/** Sort key of an AVSA species code: 1, 2, 3, 4, 5, 5a, 5b, 5c, 5c1, 5c2, 5d ... 6, 7, 8, 9, 10. */
+function speciesCodeKey(code) {
+  const m = /^(\d+)([a-i]?)(\d?)$/.exec(code) || [];
+  return [parseInt(m[1] || "999", 10), m[2] || "", m[3] || ""];
+}
+function renderSpecies(app) {
+  const pg = q1("SELECT title, body FROM pages WHERE slug = 'species'");
+  const rows = q(`SELECT c.id, c.name, c.description, c.notes,
+                         (SELECT count(*) FROM parentage p WHERE p.parent_id = c.id) AS uses
+                  FROM cultivars c WHERE c.kind = 'species'`);
+  const groups = new Map();
+  for (const r of rows) {
+    const m = /^S\.\s+(\d+[a-i]?\d?)\.\s+(.*)$/.exec(r.name);
+    const code = m ? m[1] : "other";
+    const rest = m ? m[2] : r.name;
+    const isClone = /^cl\./.test(rest);
+    const g = groups.get(code) || { code, head: [], clones: [] };
+    (isClone ? g.clones : g.head).push(r);
+    groups.set(code, g);
+  }
+  const ordered = [...groups.values()].sort((a, b) => {
+    const ka = speciesCodeKey(a.code), kb = speciesCodeKey(b.code);
+    return ka[0] - kb[0] || ka[1].localeCompare(kb[1]) || ka[2].localeCompare(kb[2]);
+  });
+  const byName = (a, b) => a.name.localeCompare(b.name, "en", { numeric: true });
+  const excerpt = (t) => {
+    const s = (t || "").replace(/\s+/g, " ").trim();
+    return s.length > 190 ? s.slice(0, s.lastIndexOf(" ", 190)) + "…" : s;
+  };
+  const item = (r) => `<li class="card"><a class="title" href="#/c/${encodeURIComponent(r.id)}">${esc(r.name)}</a>
+      <div class="badges">${/Not in cultivation/.test(r.notes) ? `<span class="badge kind">not in cultivation</span>` : ""}${
+        r.uses ? `<span class="badge">parent of ${num(r.uses)}</span>` : ""}</div>
+      ${r.description ? `<div class="meta"><span>${esc(excerpt(r.description))}</span></div>` : ""}</li>`;
+  const label = (g) => g.code === "other" ? "Other" : (g.head[0] ? g.head[0].name.replace(/^S\.\s+/, "") : g.code + ". clones");
+  app.innerHTML = `<h1>${esc(pg ? pg.title : "Species")}</h1>
+    ${pg ? `<div class="prose">${renderProse(pg.body)}</div>` : ""}
+    <p class="muted">${num(rows.length)} species, subspecies, varieties and clones.</p>
+    <nav class="speciesnav" aria-label="Species codes">${ordered.map((g) => `<a href="#/species" data-jump="sp-${esc(g.code)}">${esc(g.code === "other" ? "Other" : g.code)}</a>`).join(" ")}</nav>
+    ${ordered.map((g) => `<section class="speciesgroup" id="sp-${esc(g.code)}">
+      <h2>${esc(label(g))}</h2>
+      <ul class="results">${g.head.sort(byName).map(item).join("")}${g.clones.sort(byName).map(item).join("")}</ul></section>`).join("")}`;
+  $$("[data-jump]", app).forEach((a) => a.addEventListener("click", (e) => {
+    e.preventDefault();
+    const t = document.getElementById(a.dataset.jump);
+    if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
 }
 
 /* ------------------------------------------------------------------ about page */
