@@ -634,3 +634,38 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,relink_originator,rand-m,Rand,hybridizer,Rand,"Rand, M.",User confirmed against the First Class database
 2026-11-16,relink_originator,khoe-ted,Khoe,hybridizer,Khoe,"Khoe, Ted",User confirmed against the First Class database
 2026-11-16,relink_originator,weber-bud,Weber,hybridizer,Weber,"Weber, Bud",User confirmed against the First Class database
+2026-11-16,merge,surrender,Surrender,id,surrender-luciano,surrender,User confirmed against the First Class database
+2026-11-16,merge,s-diplotricha,S. diplotricha,id,s-diplotricha-1963,s-diplotricha,User confirmed against the First Class database
+2026-11-16,merge,s-grotei,S. grotei,id,s-grotei-1963,s-grotei,User confirmed against the First Class database
+2026-11-16,merge,s-shumensis,S. shumensis,id,s-shumensis-1963,s-shumensis,User confirmed against the First Class database
+2026-11-16,merge,s-velutina,S. velutina,id,s-velutina-1963,s-velutina,User confirmed against the First Class database
+2026-11-16,remove_hybridizer,s-brevipilosa,S. brevipilosa,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-confusa-b-burtt,S. confusa,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-difficilis-b-burtt,S. difficilis,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-diplotricha-punter-0,S. diplotricha Punter #0,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-diplotricha-punter-6,S. diplotricha Punter #6,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-diplotricha-punter-7,S. diplotricha Punter #7,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-goetzeana-a-engler,S. goetzeana,hybridizer,A. Engler,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-grandifolia-237,S. grandifolia #237,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-grandifolia-299,S. grandifolia #299,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-grotei-a-engler,S. grotei,hybridizer,A. Engler,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-inconspicua,S. inconspicua,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-intermedia-b-burtt,S. intermedia,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-ionantha-h-wendland,S. ionantha,hybridizer,H. Wendland,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-magungensis-e-roberts,S. magungensis,hybridizer,E. Roberts,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-magungensis-var-minima,S. magungensis var. minima,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-magungensis-var-occidentalis,S. magungensis var. occidentalis,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-orbicularis-b-burtt,S. orbicularis,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-orbicularis-var-purpurea,S. orbicularis var. purpurea,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-pendula-b-burtt,S. pendula,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-pendula-var-kizarae,S. pendula var. kizarae,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-pusilla,S. pusilla,hybridizer,A. Engler,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-rupicola,S. rupicola,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-shumensis-b-burtt,S. shumensis,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-teitensis,S. teitensis,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-tongwensis-b-burtt,S. tongwensis,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,remove_hybridizer,s-velutina-b-burtt,S. velutina,hybridizer,B. Burtt,,species have no hybridizer (user rule); the printed authority stays in hybridizer_raw
+2026-11-16,delete_person,b-burtt,B. Burtt,,,,left with no cultivar after species lost their authority links
+2026-11-16,delete_person,a-engler,A. Engler,,,,left with no cultivar after species lost their authority links
+2026-11-16,delete_person,h-wendland,H. Wendland,,,,left with no cultivar after species lost their authority links
+2026-11-16,delete_person,e-roberts,E. Roberts,,,,left with no cultivar after species lost their authority links
