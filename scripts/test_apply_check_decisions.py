@@ -106,14 +106,17 @@ def main():
     bogus = chk[chk.check_type == "spelling near-miss of an MLV name"].iloc[3]
     setd(bogus.check_id, "no such decision")
     # MLV values for an `mlv` decision; typed First Class values for `keep` (not in the MLV)
-    withdate = chk[(chk.check_type == "spelling near-miss of an MLV name") & (chk.mlv_date != "") & (chk.mlv_reg != "")
-                   & ~chk.check_id.isin(marks)].iloc[0]
+    import re as _re
+    _norm = lambda x: _re.sub(r"[^a-z0-9]", "", x.lower())
+    _existing = set(cv0.name.map(_norm))      # an MLV name already in the master is JOINED (existing values win): not what these checks test
+    _cand = chk[(chk.check_type == "spelling near-miss of an MLV name") & (chk.mlv_date != "") & (chk.mlv_reg != "")
+                & (chk.mlv_size != "") & ~chk.check_id.isin(marks) & ~chk.mlv_name.map(_norm).isin(_existing)]
+    withdate = _cand.iloc[0]
     setd(withdate.check_id, "mlv")
     fcrow = chk[(chk.check_type == "spelling near-miss of an MLV name") & ~chk.check_id.isin(marks)].iloc[0]
     setd(fcrow.check_id, "keep")
     # hierarchy: a typed First Class date beats the MLV date; the MLV fills the size First Class did not give
-    both = chk[(chk.check_type == "spelling near-miss of an MLV name") & (chk.mlv_date != "") & (chk.mlv_size != "") & (chk.mlv_reg != "")
-               & ~chk.check_id.isin(marks)].iloc[0]
+    both = _cand[~_cand.check_id.isin(marks) & (_cand.check_id != withdate.check_id)].iloc[0]
     setd(both.check_id, "mlv")
     chk.loc[chk.check_id == both.check_id, "first_class_reg_date"] = "03/04/1969"
     chk.loc[chk.check_id == fcrow.check_id, "first_class_reg_date"] = "(987654) 01/02/1970"
