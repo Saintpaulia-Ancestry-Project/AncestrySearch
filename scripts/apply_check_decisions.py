@@ -250,8 +250,9 @@ class Applier:
                     raise me.EditError(f"{c['name']}: the existing record is not a parent-only stub")
                 m.merge(c["target_key"], self.rec(c), reason)
                 k = m.by_id[c["target_key"]]
+                what = ("1963 Master List entry", "the 1963 book") if t == "book entry vs existing record" else ("supplement entry", "the supplements")
                 k["notes"] = (k["notes"] + " " if k["notes"] else "") + (
-                    "Joined to the 1963 Master List entry by name only: this was a name known only as a parent, and the 1963 book "
+                    f"Joined to the {what[0]} by name only: this was a name known only as a parent, and {what[1]} "
                     "lists exactly one plant of that name.")
                 return f"{c['name']}: joined to the parent-only record [{c['target_key']}] by name"
             if low == "delete":
