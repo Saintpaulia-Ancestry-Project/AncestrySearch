@@ -467,3 +467,19 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,add,temtation,Temtation,,,,released from the held supplement plants
 2026-11-16,add,tick-tock-trail,Tick Tock Trail,,,,released from the held supplement plants
 2026-11-16,import_plant,val-s-silver-light,Val's Silver Light,plant,vals-silver-flight,joined,released from the held supplement plants
+2026-11-16,relink_originator,lyon-lyndon,Lyon,hybridizer,Lyon,"Lyon, Lyndon","User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user (surname match only: a probable link))"
+2026-11-16,relink_originator,granger-gardens,Granger,hybridizer,Granger,Granger Gardens,"User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user (surname match only: a probable link))"
+2026-11-16,relink_originator,arndt-g,Arndt,hybridizer,Arndt,"Arndt, G.","User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user (surname match only: a probable link))"
+2026-11-16,relink_originator,fischer-a,Fischer,hybridizer,Fischer,"Fischer, A.","User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user (surname match only: a probable link))"
+2026-11-16,set_person_kind,tonkadale,Tonkadale,kind,person,organization,"User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user)"
+2026-11-16,relink_originator,madison-gardens,Madison,hybridizer,Madison,Madison Gardens,"User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user (surname match only: a probable link))"
+2026-11-16,set_person_kind,volkmann,Volkmann,kind,person,organization,"User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user)"
+2026-11-16,relink_originator,tinari-frank,Tinari,hybridizer,Tinari,"Tinari, Frank","User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user (surname match only: a probable link))"
+2026-11-16,relink_originator,everett-hammond,Hammond,hybridizer,Hammond,Everett Hammond,"User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user (surname match only: a probable link))"
+2026-11-16,set_person_kind,edena,Edena,kind,person,organization,"User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user)"
+2026-11-16,relink_originator,ulery-c,Ulery,hybridizer,Ulery,"Ulery, C.","User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user (surname match only: a probable link))"
+2026-11-16,relink_originator,m-lanigan,Lanigan,hybridizer,Lanigan,M. Lanigan,"User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user (surname match only: a probable link))"
+2026-11-16,set_person_kind,susan-s-violets,Susan's Violets,kind,person,organization,"User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user)"
+2026-11-16,relink_originator,fredette-irene,Fredette,hybridizer,Fredette,"Fredette, Irene","User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user (surname match only: a probable link))"
+2026-11-16,relink_originator,lindstrom-w,Wayne Lindstrom,hybridizer,Wayne Lindstrom,"Lindstrom, W.","User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user (surname match only: a probable link))"
+2026-11-16,set_person_kind,granger-gardens,Granger Gardens,kind,organization,organization,"User confirmed against the First Class database (Top-25 originator, Claude's best guess accepted by the user)"

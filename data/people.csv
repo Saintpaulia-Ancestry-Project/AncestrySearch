@@ -30,7 +30,7 @@ hill-joan,"Hill, Joan",person,,
 wasmund-r,"Wasmund, R.",person,,R. Wasmund
 dates-violetry,Dates Violetry,person,,
 nagy-christopher,"Nagy, Christopher",person,,
-ulery-c,"Ulery, C.",person,,
+ulery-c,"Ulery, C.",person,,Ulery
 clements-tony,"Clements, Tony",person,,
 dick-david,"Dick, David",person,,"Dick, D."
 rienhardt-h,"Rienhardt, H.",person,,
@@ -68,7 +68,7 @@ ko-stanley,"Ko, Stanley",person,,"Ko, S."
 fredette-irene,"Fredette, Irene",person,,"Fredette, I."
 lebetskaia-elena,"Lebetskaia, Elena",person,,"Lebetskaia, E."
 toth-linda,"Toth, Linda",person,Hungary,"Toth, Linda (Hungary)"
-tinari-frank,"Tinari, Frank",person,,"Tinari, F."
+tinari-frank,"Tinari, Frank",person,,"Tinari, F. | Tinari"
 lloyd-e,"Lloyd, E",person,,"Lloyd, E."
 nicholas-richard,"Nicholas, Richard",person,,
 robinson-olive-ma,"Robinson, Olive Ma",person,,"Robinson, O."
@@ -97,8 +97,7 @@ wagman-fay,"Wagman, Fay",person,,"Wagman, F."
 repkina-svetlana,"Repkina, Svetlana",person,,"Repkina, S."
 follett-r,"Follett, R.",person,,
 sanders-shirley,"Sanders, Shirley",person,,"Sanders, S."
-tinari,Tinari,person,,. Tinari
-volkmann,Volkmann,person,,
+volkmann,Volkmann,organization,,
 oden-t,"Oden, T.",person,,
 hulleman-t,"Hulleman, T.",person,,
 ng-t,"Ng, T.",person,,
@@ -275,7 +274,7 @@ arkhipov-e,"Arkhipov, E.",person,,
 andreeva,Andreeva,person,,
 harster-greenhouses,Harster Greenhouses,organization,,
 gall-m,"Gall, M.",person,,M. Gall
-fischer-a,"Fischer, A.",person,,
+fischer-a,"Fischer, A.",person,,Fischer
 curcurato-b,"Curcurato, B.",person,,
 asp-l,"Asp, L.",person,,
 davis-t,"Davis, T.",person,,T. Davis
@@ -307,11 +306,11 @@ cook-b,"Cook, B.",person,,
 finger-s,"Finger, S.",person,,S. Finger
 holtkamp-r,"Holtkamp, R.",person,,R. Holtkamp
 unknown,Unknown,person,,
-arndt-g,"Arndt, G.",person,,
+arndt-g,"Arndt, G.",person,,Arndt
 skorniakova-n,"Skorniakova, N.",person,,
 stork-boone,"Stork, Boone",person,,Stork/Boone
 harrison-s,"Harrison, S.",person,,S. Harrison
-lindstrom-w,"Lindstrom, W.",person,,W. Lindstrom
+lindstrom-w,"Lindstrom, W.",person,,W. Lindstrom | Wayne Lindstrom
 stancliff-a,"Stancliff, A.",person,,
 wickell-j,"Wickell, J.",person,,J. Wickell
 green-circle,Green Circle,person,,
@@ -413,7 +412,6 @@ nadeau-k,"Nadeau, K.",person,,
 mrs-r-a-brown,Mrs. R. A. Brown,person,,
 lanigan,Lanigan,person,,
 lyon,Lyon,person,,
-arndt,Arndt,person,,
 frathel,Frathel,person,,
 maas,Maas,person,,
 hollada,Hollada,person,,
@@ -470,12 +468,10 @@ ticknor-s-av,Ticknor's AV,person,,
 baker,Baker,person,,
 geo-j-ball-inc,Geo. J. Ball Inc,person,,"Geo. J, Ball Inc. | Geo. J. Ball Inc."
 anthoflores,Anthoflores,person,,
-wayne-lindstrom,Wayne Lindstrom,person,,
 swifts-gh,Swifts' GH,person,,
 watts,Watts,person,,
 cox,Cox,person,,
 s-sorane,S. Sorane,person,,
-ulery,Ulery,person,,
 blansit,Blansit,person,,
 max-maas,Max Maas,person,,
 fischer-gh,Fischer GH,person,,
@@ -502,24 +498,23 @@ sidney-sorano,Sidney Sorano,person,,
 r-robinson,R. Robinson,person,,
 a-adams,A. Adams,person,,
 dennee,Dennee,person,,
-madison,Madison,person,,
 l-lyon,L. Lyon,person,,
 lyon-s-gh,Lyon's GH,person,,
 alice-black,Alice Black,person,,
 c-hobbs,C. Hobbs,person,,
 h-hobbs,H. Hobbs,person,,
-susan-s-violets,Susan's Violets,person,,
+susan-s-violets,Susan's Violets,organization,,
 williams,Williams,person,,
 d-croteau,D. Croteau,person,,
 mr-gene-thiel,Mr. Gene Thiel,person,,
 richter,Richter,person,,
 dr-s-c-reed,Dr. S. C. Reed,person,,
 neuenschwander,Neuenschwander,person,,
-edena,Edena,person,,
+edena,Edena,organization,,
 meeds,Meeds,person,,
 nemec,Nemec,person,,
 hasenyager,Hasenyager,person,,
-tonkadale,Tonkadale,person,,
+tonkadale,Tonkadale,organization,,
 jensen,Jensen,person,,
 wills,Wills,person,,
 price,Price,person,,
@@ -531,7 +526,6 @@ rector,Rector,person,,
 wessale,Wessale,person,,
 pease,Pease,person,,
 hardisty,Hardisty,person,,
-fischer,Fischer,person,,
 meagher,Meagher,person,,
 sappenfield,Sappenfield,person,,
 ten-hagen,Ten Hagen,person,,
@@ -554,7 +548,6 @@ hendrix,Hendrix,person,,
 merkel,Merkel,person,,
 brown,Brown,person,,
 vallin,Vallin,person,,
-hammond,Hammond,person,,
 rose,Rose,person,,
 peterson,Peterson,person,,
 elderkin,Elderkin,person,,
@@ -1145,7 +1138,7 @@ barnhill,Barnhill,person,,
 volkart,Volkart,person,,
 easterbrook,Easterbrook,person,,
 v-ballitano,V. Ballitano,person,,
-everett-hammond,Everett Hammond,person,,
+everett-hammond,Everett Hammond,person,,Hammond
 patt-harris,Patt Harris,person,,
 mrs-chas-w-parks,Mrs. Chas. W. Parks,person,,
 b-sick,B Sick,person,,
@@ -1452,7 +1445,7 @@ d-harris,D. Harris,person,,
 c-richter,C. Richter,person,,
 richter-gh,Richter GH,person,,
 n-weeks,N. Weeks,person,,
-madison-gardens,Madison Gardens,organization,,
+madison-gardens,Madison Gardens,organization,,Madison
 engenites,Engenites,person,,
 susan-shaw,Susan Shaw,person,,
 c-k-powers,C. K. Powers,person,,
