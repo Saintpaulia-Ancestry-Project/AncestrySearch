@@ -625,3 +625,12 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,relink_originator,jackson-jeff,Jackson,hybridizer,Jackson,"Jackson, Jeff",User confirmed against the First Class database
 2026-11-16,relink_originator,"j-sisk,b-sisk",J. & B. Sisk,hybridizer,J; B Sick; B Sisk,J Sisk; B Sisk,Sisk couple: one spelling (decided by the user)
 2026-11-16,set_hybridizers,lucky-duck,Lucky Duck,hybridizer,,J Sisk; B Sisk,printed J. & B. Sisk; the link had been lost
+2026-11-16,relink_originator,hobbs-h,Hobbs,hybridizer,Hobbs,"Hobbs, H",User confirmed against the First Class database
+2026-11-16,relink_originator,ness-d,Ness,hybridizer,Ness,"Ness, D",User confirmed against the First Class database
+2026-11-16,relink_originator,janosick-e,Janosick,hybridizer,Janosick,"Janosick, E.",User confirmed against the First Class database
+2026-11-16,relink_originator,hotchkiss-mrs,Hotchkiss,hybridizer,Hotchkiss,"Hotchkiss, Mrs",User confirmed against the First Class database
+2026-11-16,relink_originator,murphy-a,Murphy,hybridizer,Murphy,"Murphy, A.",User confirmed against the First Class database
+2026-11-16,relink_originator,meek-r,Meek,hybridizer,Meek,"Meek, R.",User confirmed against the First Class database
+2026-11-16,relink_originator,rand-m,Rand,hybridizer,Rand,"Rand, M.",User confirmed against the First Class database
+2026-11-16,relink_originator,khoe-ted,Khoe,hybridizer,Khoe,"Khoe, Ted",User confirmed against the First Class database
+2026-11-16,relink_originator,weber-bud,Weber,hybridizer,Weber,"Weber, Bud",User confirmed against the First Class database
