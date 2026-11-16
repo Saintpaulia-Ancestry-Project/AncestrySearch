@@ -161,17 +161,10 @@ class Master:
 
     def merge(self, keep_id, drop_id, reason, force=False):
         """fold record drop_id into keep_id (empty fields are filled, relations re-pointed, the dropped id redirects)"""
-        import copy
         k, d = self._one(keep_id), self._one(drop_id)
-        tables = (self.cultivars, self.parentage, self.hyb, self.links, self.images, self.redirects, self.aliases)
-        backup = [copy.deepcopy(t.rows) for t in tables]
-        try:
-            self._merge(k, d, keep_id, drop_id, reason, force)
-        except EditError:
-            for t, rows in zip(tables, backup):
-                t.rows = rows
-            self.reindex()
-            raise
+        # _merge raises EditError only in its first checks, before it changes anything: no backup copy is needed
+        # (a full copy of every table per merge ran out of memory)
+        self._merge(k, d, keep_id, drop_id, reason, force)
 
     def _merge(self, k, d, keep_id, drop_id, reason, force):
         if keep_id == drop_id:
