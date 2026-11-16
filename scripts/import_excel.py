@@ -871,7 +871,7 @@ def build():
         k = K(name)
         rr = rec(k, name)
         note = re.sub(r"\s*From the \d{4} supplement to the AV Master List\.?", "", clean(r["Notes"])).strip()
-        item = {"year": int(r["_year"]), "hyb": clean(r["Hybridiser"]), "reg": parse_reg(r["AVSA Registration"]),
+        item = {"year": int(r["_year"]), "file": str(r["_file"]), "hyb": clean(r["Hybridiser"]), "reg": parse_reg(r["AVSA Registration"]),
                 "date": parse_date(r["Date registered"]), "note": note,
                 **{t: clean(r[s_]) for s_, t in FIELD_MAP}}
         if rr["s"]:
@@ -926,6 +926,10 @@ def build():
             if x["Extra"] and x["Extra"].strip().lower() != "sport of":
                 d["description"] = d["description"] or x["Extra"]
                 d["bloom_description"] = d["bloom_description"] or x["Extra"]
+        # the AVML supplements 2010-2019 a cultivar is listed in (user decision: add the supplement year to the notes)
+        yrs = sorted({str(i["year"]) for i in s_list if i["file"].startswith("AVML") and 2010 <= i["year"] <= 2019})
+        if yrs:
+            d["notes"] = (d["notes"] + " " if d["notes"] else "") +                 "Listed in the AVSA Master List supplement" + ("s " if len(yrs) > 1 else " ") + ", ".join(yrs) + "."
         d["_q"], d["_x"], d["_key"] = q, x, k
         out[k] = d
 

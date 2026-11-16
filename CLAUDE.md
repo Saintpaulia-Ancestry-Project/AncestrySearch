@@ -247,9 +247,10 @@ Claude: remind the user of these steps (and do them, with approval to commit) wh
 Never push without being asked.
 
 ## To Do
-- **Revisit the AVML 2010-2019 supplements** (decided with the user): this data was already in source/AfricanVioletAncestry.sqlite, so
-  those cultivars are covered. Separately, go through them again to update the NOTES of those cultivars (the supplement provenance
-  such as "From the 2012 supplement" and prefixes like "(Russ/Ukr)", "(DAVS 2010)", "(ANZ 659, 2009)"). Not started.
+- **AVML 2010-2019 supplements: notes DONE** (decided with the user): every cultivar listed in them has "Listed in the AVSA Master List
+  supplement YYYY." (years, comma separated) added to its notes by import_excel.py; the raw codes in source_note (Russ/Ukr, DAVS, ANZ,
+  TX Hyb, Western) are left as they are. Still open: only 306 of the 1,584 AVML rows match a record from source/AfricanVioletAncestry.sqlite;
+  732 cultivars registered 2003-2022 exist only through the supplements/magazine reports (reports/inventory_2004_2022_sources.md).
 - **Hector Wong archive** (source/Hector Wong Archive - SAP Saintpaulia Ancestry Project/, LOCAL ONLY, git-ignored,
   never published): the contents of Hector Wong's Google Drive for this project (~1,200 files, 275 MB: ~1,035 jpg,
   80 pdf, 31 msg, plus doc/docx/xls/xlsx/htm/png/txt). Top-level folders: Start of the project (1990s);
