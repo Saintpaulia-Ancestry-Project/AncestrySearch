@@ -264,6 +264,7 @@ Never push without being asked.
   cultivar_id, url, source, gallery_title, item_id, matched_by, checked_at; ALREADY holds 2,757 auto + decided links), rebuild, then DELETE the review
   files, the scratch HTML (scratchpad of the 2026-11-15 session, 468 MB) and the temporary match script. We link only: never copy AVSA images or captions.
   Links use https://africanvioletsocietyofamerica.org/look/photo-gallery/<letter>/[<page>/]#envira-gallery-item-<id>.
+- **Search speed/precision (requested 2026-11-16):** searching "Baby Pink" should return only cultivars whose name contains "Baby Pink" ("Baby Pink", "Baby Pink <anything>"), not Baby Ann, Baby Darryl, Baby Doe etc. Look at how the multi-word query is built in site/app.js / queries.sql (FTS4 prefix terms) and make a multi-word query require the words together/in order (phrase or name-prefix match first), while keeping the speed. Check with the user whether other-word-order matches ("Pink Baby") should still appear, ranked lower.
 - **AVML 2010-2019 supplements: notes DONE** (decided with the user): every cultivar listed in them has "Listed in the AVSA Master List
   supplement YYYY." (years, comma separated) added to its notes by import_excel.py; the raw codes in source_note (Russ/Ukr, DAVS, ANZ,
   TX Hyb, Western) are left as they are. Still open: only 306 of the 1,584 AVML rows match a record from source/AfricanVioletAncestry.sqlite;
