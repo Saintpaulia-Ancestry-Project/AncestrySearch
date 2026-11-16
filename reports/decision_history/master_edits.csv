@@ -1011,3 +1011,12 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,add,union-county-mable-hudson,Union County Mable Hudson,,,,released from the held supplement plants
 2026-11-16,add,victorian,Victorian,,,,released from the held supplement plants
 2026-11-16,add,virginia,Virginia,,,,released from the held supplement plants
+2026-11-16,merge,circus-boy,Circus Boy,id,circus-boy-tinari-greenhouses,circus-boy,User confirmed against the First Class database (Rule: the existing record is only a parent-only stub and the supplements list exactly one plant of this name)
+2026-11-16,merge,heirloom,Heirloom,id,heirloom-g-boone,heirloom,User confirmed against the First Class database (Rule: the existing record is only a parent-only stub and the supplements list exactly one plant of this name)
+2026-11-16,merge,party-lace,Party Lace,id,party-lace-pats-flowerland,party-lace,User confirmed against the First Class database (Rule: the existing record is only a parent-only stub and the supplements list exactly one plant of this name)
+2026-11-16,merge,teeny-weeny,Teeny Weeny,id,teeny-weeny-baker,teeny-weeny,User confirmed against the First Class database (Rule: the existing record is only a parent-only stub and the supplements list exactly one plant of this name)
+2026-11-16,merge,tina,Tina,id,tina-union-county-chapter-avsa,tina,User confirmed against the First Class database (Rule: the existing record is only a parent-only stub and the supplements list exactly one plant of this name)
+2026-11-16,merge,winterset,Winterset,id,winterset-granger-gardens,winterset,User confirmed against the First Class database (Rule: the existing record is only a parent-only stub and the supplements list exactly one plant of this name)
+2026-11-16,merge,bimbo,Bimbo,id,bimbo-1963,bimbo,"User confirmed against the First Class database (MLV.xls: same registration number is H. Pittman; existing record is Pittman, Hortense)"
+2026-11-16,merge,marilu,Marilu,id,marilu-1963,marilu,"User confirmed against the First Class database (MLV.xls: same registration number is H. Pittman; existing record is Pittman, Hortense)"
+2026-11-16,merge,miss-beautiful,Miss Beautiful,id,miss-beautiful-1963,miss-beautiful,"User confirmed against the First Class database (MLV.xls: same registration number is H. Pittman; existing record is Pittman, Hortense)"
