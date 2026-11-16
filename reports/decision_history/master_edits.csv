@@ -207,3 +207,10 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,add,winter-s-dream,Winter's Dream,,,,released from the held supplement plants
 2026-11-16,add,wrangler-s-comanche-cutie,Wrangler's Comanche Cutie,,,,released from the held supplement plants
 2026-11-16,add,wrangler-s-prairie-fire,Wrangler's Prairie Fire,,,,released from the held supplement plants
+2026-11-16,merge,azure-beauty,Azure Beauty,id,azure-beauty-ulery,azure-beauty,"User confirmed against the First Class database (MLV.xls (probable): the existing record is only a parent stub and the MLV lists one cultivar of this name, by the book originator)"
+2026-11-16,merge,caliph,Caliph,id,caliph-richter,caliph,"User confirmed against the First Class database (MLV.xls (probable): the existing record is only a parent stub and the MLV lists one cultivar of this name, by the book originator)"
+2026-11-16,merge,coon-valley,Coon Valley,id,coon-valley-wilson-bros,coon-valley,"User confirmed against the First Class database (MLV.xls (probable): the existing record is only a parent stub and the MLV lists one cultivar of this name, by the book originator)"
+2026-11-16,merge,gorgeous-blue-wonder,Gorgeous Blue Wonder,id,gorgeous-blue-wonder-ulery,gorgeous-blue-wonder,"User confirmed against the First Class database (MLV.xls (probable): the existing record is only a parent stub and the MLV lists one cultivar of this name, by the book originator)"
+2026-11-16,merge,lingo,Lingo,id,lingo-lyon,lingo,"User confirmed against the First Class database (MLV.xls (probable): the existing record is only a parent stub and the MLV lists one cultivar of this name, by the book originator)"
+2026-11-16,merge,painted-girl,Painted Girl,id,painted-girl-ulery,painted-girl,"User confirmed against the First Class database (MLV.xls (probable): the existing record is only a parent stub and the MLV lists one cultivar of this name, by the book originator)"
+2026-11-16,merge,white-pride,White Pride,id,white-pride-ulery,white-pride,"User confirmed against the First Class database (MLV.xls (probable): the existing record is only a parent stub and the MLV lists one cultivar of this name, by the book originator)"
