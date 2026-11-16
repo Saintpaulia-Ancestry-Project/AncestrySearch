@@ -324,7 +324,9 @@ one-off source (AVM has issued none since 2019).
   scripts/freeze_mvl_supplements.py (one-time, kept for reference). source/MVL_Supplements_*.xlsx stay as the original sources.
 - EVERYTHING STILL TO CHECK is in ONE file, reports/outstanding_checks.csv (+ outstanding_checks.md summary): MVL spelling
   near-misses, held-back plants, shared registration numbers (tiers), same-name/hybridizer-differs matches, description splits,
-  the 1963 book matches and OCR review. Type `decision` (vocabulary: header of scripts/apply_check_decisions.py), then
+  the 1963 book matches and OCR review, and (added from the inventory reports/inventory_2004_2022_sources.md) 23 AVML 2010-2019 /
+  magazine rows that disagree with their record (size, hybridizer, number) and 25 possible duplicate or misspelled names.
+  Those 2003-2022 sources are NOT frozen: they are still read by import_excel.py every run (to freeze with the 2010-2019 To Do). Type `decision` (vocabulary: header of scripts/apply_check_decisions.py), then
   `python scripts/apply_check_decisions.py --write` (dry run without --write): it edits the frozen CSVs (or, for the 1963 book,
   masterlist_matches.csv / masterlist_ocr_review.csv), appends the applied rows to reports/decision_history/applied_checks.csv and
   removes them from the outstanding file. The private First Class worksheets (AVAncestry-private/AVM/MVL_extracts/spelling_check/)

@@ -14,6 +14,9 @@ Decisions by check_type (case-insensitive):
   description split needs review       accept     split_status = accepted
   registration number shared by several plants   rename:<Name>   rename the plant to <Name> (merged with that name's plant)
                                        different | keep   nothing to change (the group is only closed)
+  source row disagrees with record     record | source | set:<value>   AVML / magazine value vs the record (size, hybridizer,
+                                                  number): `source` / `set:` add a row to reports/review/data_corrections.csv
+  possible duplicate or misspelled name  merge:<correct name> | separate   merge adds `mode alias` rows to name_corrections.csv
   1963 book (book entry vs existing record)  join | separate | <text>   written into reports/review/masterlist_matches.csv
   1963 book (OCR review)               keep | drop | use text            written into reports/review/masterlist_ocr_review.csv `use`
 After a run: .venv\\Scripts\\python scripts\\import_excel.py ... (the usual pipeline).
@@ -84,6 +87,7 @@ def main():
     P = {r["plant_key"]: dict(r) for _, r in plants.iterrows()}
     cols = list(plants.columns)
     applied, kept, msgs = [], [], []
+    new_corr, new_alias = [], []
 
     def rename(pk, new_name, reg=""):
         p = P.get(pk)
@@ -154,6 +158,26 @@ def main():
                 res = rename(c["target_key"], d.split(":", 1)[1].strip(), "")
             elif low in ("different", "keep"):
                 res = f"{c['name']}: closed (no change)"
+        elif t == "source row disagrees with record":
+            # these sources (AVML 2010-2019, magazine reports) are not frozen: a value is changed through data_corrections.csv
+            if low in ("record", "keep"):
+                res = f"{c['name']}: record value kept"
+            elif low == "source" or low.startswith("set:"):
+                fld, _, val = (c["proposal"].partition("=") if low == "source" else ("", "", ""))
+                if low.startswith("set:"):
+                    fld, val = (c["proposal"].partition("=")[0] or "size_class"), d.split(":", 1)[1].strip()
+                if fld and val:
+                    new_corr.append((c["name"], fld, val, "User confirmed against the First Class database"))
+                    res = f"{c['name']}: {fld} -> {val} (data_corrections.csv)"
+        elif t == "possible duplicate or misspelled name":
+            if low == "separate":
+                res = f"{c['name']} / {c['target_key']}: kept separate"
+            elif low.startswith("merge:"):
+                canon = d.split(":", 1)[1].strip()
+                for nm_ in (c["name"], c["target_key"]):
+                    if norm(nm_) != norm(canon):
+                        new_alias.append((nm_, canon, f"Possible duplicate decided by the user: merge, {canon} is the correct form."))
+                res = f"{c['name']} / {c['target_key']}: merged into {canon} (name_corrections.csv)"
         elif c["source"] == "1963 book" and t == "book entry vs existing record" and ml_m is not None:
             m = ml_m[(ml_m["book_name"].map(norm) == norm(c["name"])) & (ml_m["book_originator"].map(norm) == norm(c["hybridizer"]))]
             if len(m):
@@ -183,6 +207,16 @@ def main():
         ml_m.to_csv(review / "masterlist_matches.csv", index=False, encoding="utf-8-sig")
     if ml_o is not None:
         ml_o.to_csv(review / "masterlist_ocr_review.csv", index=False, encoding="utf-8-sig")
+    if new_corr:
+        dc = review / "data_corrections.csv"
+        t_ = rd(dc) if dc.exists() else pd.DataFrame(columns=["cultivar", "field", "value", "reason"])
+        pd.concat([t_, pd.DataFrame(new_corr, columns=["cultivar", "field", "value", "reason"])], ignore_index=True).to_csv(
+            dc, index=False, encoding="utf-8-sig")
+    if new_alias:
+        nc = review / "name_corrections.csv"
+        t_ = rd(nc)
+        add_ = pd.DataFrame([dict(cultivar=o, new_name=n_, reason=r_, id_from="", id="", mode="alias") for o, n_, r_ in new_alias])
+        pd.concat([t_, add_], ignore_index=True).to_csv(nc, index=False, encoding="utf-8-sig")
     hist = rep / "decision_history" / "applied_checks.csv"
     hist.parent.mkdir(parents=True, exist_ok=True)
     rows = [dict(c, applied=datetime.date.today().isoformat(), result=r) for c, r in applied]
