@@ -394,3 +394,76 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,merge,play-me,Play Me,id,play-me-jeannettes-jes,play-me,"User confirmed against the First Class database (Same name and the same hybridizer under another spelling (Jeannette’s Jes. / Domiano, Jeanette))"
 2026-11-16,merge,santana-sunset,Santana Sunset,id,santana-sunset-jeannettes-jes,santana-sunset,"User confirmed against the First Class database (Same name and the same hybridizer under another spelling (Jeannette’s Jes. / Domiano, Jeanette))"
 2026-11-16,merge,whole-wheat,Whole Wheat,id,whole-wheat-jeanneties-jesneriads,whole-wheat,"User confirmed against the First Class database (Same name and the same hybridizer under another spelling (Jeannetie’s Jesneriads / Domiano, Jeanette))"
+2026-11-16,import_plant,aquarius,Aquarius,plant,aquarious,joined,released from the held supplement plants
+2026-11-16,import_plant,ballet-cristina,Ballet Cristina,plant,ballet-christina,joined,released from the held supplement plants
+2026-11-16,import_plant,ballet-karla,Ballet Karla,plant,ballet-katla,joined,released from the held supplement plants
+2026-11-16,add,bit-of-burgundy,Bit of Burgundy,,,,released from the held supplement plants
+2026-11-16,add,cajun-cuisine,Cajun Cuisine,,,,released from the held supplement plants
+2026-11-16,add,cancy-apple,Cancy Apple,,,,released from the held supplement plants
+2026-11-16,add,candy-lane,Candy Lane,,,,released from the held supplement plants
+2026-11-16,add,charlie-sims,Charlie Sims,,,,released from the held supplement plants
+2026-11-16,add,cheer-up,Cheer Up,,,,released from the held supplement plants
+2026-11-16,add,cherry-kiss,Cherry Kiss,,,,released from the held supplement plants
+2026-11-16,import_plant,fernando-otra-vez,Fernando Otra Vez,plant,fernando-otra-ves,joined,released from the held supplement plants
+2026-11-16,add,fiddle-dee-dee,Fiddle Dee Dee,,,,released from the held supplement plants
+2026-11-16,add,flying-saucer,Flying Saucer,,,,released from the held supplement plants
+2026-11-16,import_plant,granger-s-voyageur,Granger's Voyageur,plant,grangers-voyaguer,joined,released from the held supplement plants
+2026-11-16,add,joyful-janey,Joyful Janey,,,,released from the held supplement plants
+2026-11-16,import_plant,laverne-cup-of-blue,Laverne Cup of Blue,plant,la-verne-cup-o-blue,joined,released from the held supplement plants
+2026-11-16,import_plant,lazy-susan,Lazy Susan,plant,laxy-susan,joined,released from the held supplement plants
+2026-11-16,add,linda-s-star-2,Linda's Star,,,,released from the held supplement plants
+2026-11-16,import_plant,little-ruddy,Little Ruddy,plant,little-buddy,joined,released from the held supplement plants
+2026-11-16,add,maas-gorgeous,Maas' Gorgeous,,,,released from the held supplement plants
+2026-11-16,add,maas-red-buttons,Maas' Red Buttons,,,,released from the held supplement plants
+2026-11-16,import_plant,maas-variegated-gorgeous,Maas' Variegated Gorgeous,plant,maass-variegated-gorgeous,joined,released from the held supplement plants
+2026-11-16,add,madame-dommenge,Madame Dommenge,,,,released from the held supplement plants
+2026-11-16,import_plant,mahogany-belle,Mahogany Belle,plant,mahogany-blue,joined,released from the held supplement plants
+2026-11-16,import_plant,maranatha,Maranatha,plant,marantha,joined,released from the held supplement plants
+2026-11-16,import_plant,maranatha,Maranatha,plant,mavanatha,joined,released from the held supplement plants
+2026-11-16,import_plant,midnight-wanderer,Midnight Wanderer,plant,midnight-wander,joined,released from the held supplement plants
+2026-11-16,add,nortex-s-peach-haven,Nortex's Peach Haven,,,,released from the held supplement plants
+2026-11-16,add,nortex-s-rose-haven,Nortex's Rose Haven,,,,released from the held supplement plants
+2026-11-16,add,nortex-s-royal-haven,Nortex's Royal Haven,,,,released from the held supplement plants
+2026-11-16,add,optimara-chico-2,Optimara Chico,,,,released from the held supplement plants
+2026-11-16,add,optimara-degas-ii,Optimara Degas II,,,,released from the held supplement plants
+2026-11-16,add,optimara-kansas-ii,Optimara Kansas II,,,,released from the held supplement plants
+2026-11-16,add,optimara-maine-ii-2,Optimara Maine II,,,,released from the held supplement plants
+2026-11-16,import_plant,optimara-miho,Optimara Miho,plant,optimara-michiko,joined,released from the held supplement plants
+2026-11-16,add,optimara-mississippi-ii,Optimara Mississippi II,,,,released from the held supplement plants
+2026-11-16,add,optimara-nebraska-ii,Optimara Nebraska II,,,,released from the held supplement plants
+2026-11-16,add,optimara-ontario-ii,Optimara Ontario II,,,,released from the held supplement plants
+2026-11-16,import_plant,ouachita-blues,Ouachita Blues,plant,ouchita-blues,joined,released from the held supplement plants
+2026-11-16,add,ouachita-queen,Ouachita Queen,,,,released from the held supplement plants
+2026-11-16,add,pat-s-dick-s-heart,Pat's Dick's Heart,,,,released from the held supplement plants
+2026-11-16,add,pat-s-lavena-s-dream,Pat's Lavena's Dream,,,,released from the held supplement plants
+2026-11-16,add,peaches-n-snow,Peaches 'n' Snow,,,,released from the held supplement plants
+2026-11-16,import_plant,pink-dubloon,Pink Dubloon,plant,pink-dubloom,joined,released from the held supplement plants
+2026-11-16,add,pink-flair,Pink Flair,,,,released from the held supplement plants
+2026-11-16,import_plant,pink-revere,Pink Revere,plant,pink-reverie,joined,released from the held supplement plants
+2026-11-16,add,pinkie-2,Pinkie,,,,released from the held supplement plants
+2026-11-16,add,pinky-price,Pinky Price,,,,released from the held supplement plants
+2026-11-16,add,pinky-wink,Pinky Wink,,,,released from the held supplement plants
+2026-11-16,import_plant,pixilation,Pixilation,plant,pixiliation,joined,released from the held supplement plants
+2026-11-16,add,razzamatazz,Razzamatazz,,,,released from the held supplement plants
+2026-11-16,add,reverend-blades,Reverend Blades,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-candy-ii,Rhapsodie Candy II,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-cora,Rhapsodie Cora,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-jennie-ii,Rhapsodie Jennie II,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-loretta-ii,Rhapsodie Loretta II,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-margit-iii,Rhapsodie Margit III,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-michelle-ii,Rhapsodie Michelle II,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-nona,Rhapsodie Nona,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-sabrina-ii,Rhapsodie Sabrina II,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-stephanie-ii,Rhapsodie Stephanie II,,,,released from the held supplement plants
+2026-11-16,import_plant,robin-lynne,Robin Lynne,plant,robyn-lynne,joined,released from the held supplement plants
+2026-11-16,add,rose-ann-2,Rose Ann,,,,released from the held supplement plants
+2026-11-16,import_plant,rhythm-rascal,Rhythym Rascal,plant,rythym-rascal,joined,released from the held supplement plants
+2026-11-16,import_plant,skagit-ecstasy,Skagit Ecstasy,plant,skagit-ectasy,joined,released from the held supplement plants
+2026-11-16,import_plant,sparks-and-spangles,Sparks and Spangles,plant,sparks-spangles,joined,released from the held supplement plants
+2026-11-16,add,swanee-crest,Swanee Crest,,,,released from the held supplement plants
+2026-11-16,add,swanee-julia,Swanee Julia,,,,released from the held supplement plants
+2026-11-16,add,swanee-river,Swanee River,,,,released from the held supplement plants
+2026-11-16,add,swanee-rosette,Swanee Rosette,,,,released from the held supplement plants
+2026-11-16,add,temtation,Temtation,,,,released from the held supplement plants
+2026-11-16,add,tick-tock-trail,Tick Tock Trail,,,,released from the held supplement plants
+2026-11-16,import_plant,val-s-silver-light,Val's Silver Light,plant,vals-silver-flight,joined,released from the held supplement plants

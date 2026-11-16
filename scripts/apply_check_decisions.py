@@ -8,7 +8,8 @@ Columns that matter: record_id = the cultivar's id in the master (empty for a HE
 plant_key = the frozen MVL plant (data/mvl_supplements.csv); target_key = the other record of a pair (an id; for name pairs a name).
 
 Decisions by check_type (case-insensitive). `set:<field>=<value>` works on any row that has a record_id.
-  spelling near-miss of an MLV name   (held plant)   mlv | keep | different
+  spelling near-miss of an MLV name   (held plant)   mlv | keep | different | keep:<Name> (as keep, under this corrected spelling:
+                                      OCR noise in the printed name, e.g. "Optimara Nebraska I]" -> "Optimara Nebraska II")
                                       mlv = the supplement entry is the MLV spelling: imported under `mlv_name`, or merged into the record of
                                       that name; keep / different = it is NOT the MLV cultivar: imported under the supplement spelling.
                                       HIERARCHY: First Class > MLV > supplement, field by field. What you type from First Class
@@ -193,11 +194,16 @@ class Applier:
         if t == "spelling near-miss of an MLV name":
             # HIERARCHY (user): First Class (typed by the user) > MLV > the supplement. Per field, a First Class value wins; the MLV only
             # fills what First Class does not give (and only for `mlv`: the cultivar is in the MLV); the supplement is the last resort.
+            if not (self.plants.plant_key == c["plant_key"]).any():
+                return f"{c['name']}: already imported or dropped by another decision (the plant is no longer held)"
+            fixed = d.split(":", 1)[1].strip() if low.startswith("keep:") else ""
+            if fixed:
+                low = "keep"
             fc_reg, fc_date = fc_parse(c["first_class_reg_date"])
             fc = dict(name=c["first_class_name"], hyb=c["first_class_hybridizer"], size=c["first_class_size"], reg=fc_reg, date=fc_date)
             if low in ("mlv", "keep", "different"):
                 use_mlv = low == "mlv"
-                name = fc["name"] or (c["mlv_name"] if use_mlv else None)
+                name = fc["name"] or fixed or (c["mlv_name"] if use_mlv else None)
                 reg = fc["reg"] or (c["mlv_reg"] if use_mlv else None)
                 date = fc["date"] or (c["mlv_date"] if use_mlv else None)
                 size = fc["size"] or (c["mlv_size"] if use_mlv else None)
