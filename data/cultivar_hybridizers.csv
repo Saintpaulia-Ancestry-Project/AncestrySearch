@@ -12554,7 +12554,7 @@ sampson,luciano,1
 san-francisco-constantinov,constantinov,1
 sanjura,h-c-parker,1
 sassy,meese,1
-say-rodda,rodda,1
+say,rodda,1
 scarlet-rays,frathel,1
 scarlet-slippers,luciano,1
 scout-s-honor,arndt,1
@@ -12872,7 +12872,6 @@ alamo-bashful,sorano-s,1
 alamo-beacon,h-pittman,1
 alamo-bergen-precious,l-dwyer,1
 alamo-best-friends,sorano-s,1
-alamo-bewitchin-jeannie,stokes-j,1
 alamo-bliss,h-pittman,1
 alamo-blue-jeans-baby,sorano-s,1
 alamo-blue-lace,b-goodsell,1
@@ -13429,8 +13428,7 @@ balboa-puffer,g-mccanne,1
 balboa-sunrise,g-mccanne,1
 balboa-sunset,g-mccanne,1
 balboa-treasure,g-mecanne,1
-bali-hai-house-of-violets,house-of-violets,1
-bali-hai-don-wilson,don-wilson,1
+bali-hai,house-of-violets,1
 ballad-of-blue-lumiere,mrs-c-r-ballard,1
 ballad-of-dixie,v-lorenzen,1
 ballad-of-happiness,mrs-c-r-ballad,1
@@ -14863,7 +14861,6 @@ corelli,barnard,1
 corey,cape-cod-violetry,1
 corey-beth,v-rader,1
 corinne-freeman,williams-s,1
-corinne-pretty-debbie,nadeau,1
 corkie,lyon,1
 corn-s-a-poppin,johnston-n,1
 corola-star,f-tinari,1
@@ -15499,7 +15496,6 @@ dib-s-whimsie,d-i-bearman,1
 dib-s-white-avion,doris-bearman,1
 dib-s-winky-tink,d-i-bearman,1
 dib-s-bunch-o-honey,doris-i-bearman,1
-dib-s-n-blue,doris-bearman,1
 dick-bell,martha-tucker,1
 dierdre-fisher-s-av,fisher-s-av,1
 dierdre-storytella,storytella,1
@@ -17044,7 +17040,6 @@ haida-princess,doreen-jamieson,1
 haku-yoki,horikoshi,1
 haku-yoki,shinohara,2
 hal-s-bonnie-blue,davis-t,1
-half-half,champion-s-av,1
 half-moon-bay,g-r-beck,1
 half-pint-lyon,lyon,1
 half-pint-p-tracey,tracey-p,1
@@ -17115,7 +17110,6 @@ harvest-time,fischer,1
 hat-trick,susan-s-violets,1
 havahoney,swifts-av,1
 havana-daydreamer,williams-s,1
-haven-sweet-romance,susan-s-violets,1
 hawaii-don-wilson,don-wilson,1
 hawaiian-pearl,sorano-s,1
 hawaiian-sunrise,susan-s-violets,1
@@ -19614,7 +19608,6 @@ mud-pie,e-champion,1
 muffet,pittman,1
 muffy-kolb,kolb,1
 muffy-s-sorano,sorano-s,1
-mulberry-swifts-african-violets,swifts-african-violets,1
 mulberry-jazz,sorano-p,1
 mulberry-mist,swift-s-av,1
 mulberry-rose,volkmann,1
@@ -20012,7 +20005,6 @@ okefenokee,baker-s,1
 okie-blaster,jack-cochran,1
 okie-dokie,swifts,1
 okie-easter-bunny,cochran-j,1
-okie-grape-festival,cochran-j,1
 okie-love-bug,jack-cochran,1
 okie-snapper,jack-cochran,1
 okie-sun-glo,jack-cochran,1
@@ -20335,7 +20327,6 @@ our-maid-marion,elkin,1
 our-naked-joy-nadeau,nadeau,1
 our-nancy,griffiths,1
 our-norma,rienhardt,1
-our-rosalee,boone-g,1
 out-love,b-elkin,1
 out-of-africa,w-lalanne,1
 outburst,baker-s,1
@@ -21293,8 +21284,7 @@ pretti-nu,parker,1
 pretty-baby-fredette,fredette,1
 pretty-baby-h-heard,h-heard,1
 pretty-bird,d-harrington,1
-pretty-debbie,mable-white,1
-pretty-debbie,nadeau,2
+pretty-debbie,nadeau,1
 pretty-eyes,j,1
 pretty-eyes,b-sisk,2
 pretty-kitty,swift-s-av,1
@@ -21481,7 +21471,6 @@ q-t-pink-elegance,quality,1
 qoqdles-of-blue,peck,1
 quachita-blues,house-of-violets,1
 quantas,e-e-hammond,1
-quartz-royal-crest,elkin,1
 quasar,l-hale,1
 queen-bea,d-l-thomas,1
 queen-bee,storytelia,1
@@ -22100,8 +22089,7 @@ ronald-christopher,fisher-e,1
 ronda-v-lorenzen-park-n,v-lorenzen-park-n,1
 rosa-bella-lanigan,lanigan,1
 rosa-rita,arndt,1
-rosalee-hammond,hammond,1
-rosalee-gordon-boone,gordon-boone,1
+rosalee,hammond,1
 rosalie-a-e-adams,adams-a-e,1
 rosalie-doolittle,ruth-bronson,1
 rosalie-s-trailer,rosalie-gamlen,1
@@ -22476,7 +22464,6 @@ saucy-lady-nw,nw,1
 savannah-sweetheart-supreme,granger-gardens,1
 savina,v-lorenzen-park-nursery,1
 saxony,granger,1
-say-mrs-o-f-magee,mrs-o-f-magee,1
 say-when-lyon,lyon,1
 say-yes,house-of-violets,1
 sayonara-b-elkin,b-elkin,1
@@ -23569,7 +23556,6 @@ steven-martin,fisher-e,1
 sticktight,mrs,1
 still-waters,k-stork,1
 stolen-dream-j-c-munk,j-c-munk,1
-stonewall,sandra-leary,1
 stonewall-peach,sandra-leary,1
 storm-warning,mrs-p-w-kiesling,1
 stormy-blue,lyon,1
@@ -24193,12 +24179,10 @@ tennessee-apple-blossom,mrs-t-c-fritz,1
 tennessee-ballet,mrs-t-c-fritz,1
 tennessee-blue-beauty,mrs-t-c-fritz,1
 tennessee-blue-moon,mrs-t-c-fritz,1
-tennessee-elf,mrs-t-c-fritz,1
 tennessee-indigo-bunting,mrs-t-c-fritz,1
 tennessee-indigo-elf,mrs-t-c-fritz,1
 tennessee-mary-ann,mrs-t-c-fritz,1
 tennessee-miss-buffy,mrs-t-c-fritz,1
-tennessee-mist,mrs-t-c-fritz,1
 tennessee-pinafore,mrs-t-c-fritz,1
 tennessee-pink-delight,mrs-t-c-fritz,1
 tennessee-pink-mist,mrs-t-c-fritz,1
@@ -25167,7 +25151,6 @@ westwind-s-royal-purple,westwind-s,1
 westwind-s-strawberry-frosting,westwinds,1
 westwind-s-twilight,westwinds,1
 westwind-s-vanity,westwind-s,1
-wewonchu,j-t-brownlie,1
 what-a-violet,house-of-violets,1
 what-fun,d-good,1
 what-now,lyon,1

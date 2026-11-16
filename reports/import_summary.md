@@ -1,17 +1,17 @@
 # Import summary
 
-- cultivars.csv: 31413 rows (named from sources: 5011; stubs from parents: 1022)
-- kinds: {'seedling': 237, 'cultivar': 30652, 'stub': 471, 'species': 53}
-- sources: {'xlsx': 774, 'xlsx+mvl_supp': 1272, 'xlsx+sqlite+mvl_supp': 107, 'xlsx+supplement': 598, 'xlsx+sqlite+supplement': 116, 'xlsx+sqlite': 52, 'xlsx+supplement+mvl_supp': 43, 'xlsx+sqlite+supplement+mvl_supp': 7, 'xlsx+masterlist1963': 23, 'xlsx+masterlist1963+mvl_supp': 3, 'xlsx+supplement+masterlist1963': 1, 'sqlite+mvl_supp': 567, 'sqlite': 222, 'sqlite+supplement': 210, 'sqlite+supplement+mvl_supp': 10, 'sqlite+masterlist1963': 2, 'supplement': 994, 'supplement+mvl_supp': 10, 'parent': 700, 'parent+mvl_supp': 322, 'masterlist1963': 12650, 'masterlist1963+mvl_supp': 115, 'mvl_supp': 12615}
-- parentage.csv: 5362; people.csv: 1975; cultivar_hybridizers.csv: 25560; cultivar_links.csv: 12
+- cultivars.csv: 31397 rows (named from sources: 5011; stubs from parents: 1022)
+- kinds: {'seedling': 237, 'cultivar': 30636, 'stub': 471, 'species': 53}
+- sources: {'xlsx': 774, 'xlsx+mvl_supp': 1272, 'xlsx+sqlite+mvl_supp': 107, 'xlsx+supplement': 598, 'xlsx+sqlite+supplement': 116, 'xlsx+sqlite': 52, 'xlsx+supplement+mvl_supp': 43, 'xlsx+sqlite+supplement+mvl_supp': 7, 'xlsx+masterlist1963': 23, 'xlsx+masterlist1963+mvl_supp': 3, 'xlsx+supplement+masterlist1963': 1, 'sqlite+mvl_supp': 567, 'sqlite': 222, 'sqlite+supplement': 210, 'sqlite+supplement+mvl_supp': 10, 'sqlite+masterlist1963': 2, 'supplement': 994, 'supplement+mvl_supp': 10, 'parent': 700, 'parent+mvl_supp': 322, 'masterlist1963': 12650, 'masterlist1963+mvl_supp': 115, 'mvl_supp': 12599}
+- parentage.csv: 5362; people.csv: 1973; cultivar_hybridizers.csv: 25543; cultivar_links.csv: 12
 - SQLite rows dropped by review decisions: 5
 - new hybridizer strings appended to hybridizer_mapping.csv: 0
 - reviewer corrections applied (data_corrections.csv): 73
 - parent corrections applied (parent_corrections.csv): 7
 - 1963 Master List: {'new': 12765, 'joined_auto': 29, 'groups': 12794, 'review': 426}
-- Master List supplements 1964-2002: {'new': 12615, 'spelling_unchecked': 3570, 'joined_auto': 2130, 'joined_decision': 337, 'crossrefs': 1222, 'plants': 15082, 'held_back': 470, 'review_rows': 2873}
+- Master List supplements 1964-2002: {'new': 12599, 'spelling_unchecked': 3556, 'joined_auto': 2130, 'joined_decision': 337, 'crossrefs': 1222, 'plants': 15066, 'held_back': 470, 'review_rows': 2871}
 - parents written 'Name (Originator)': {'joined: originator agrees': 1, 'separate record with its originator': 2, 'review': 0}
-- originators written as text, now people: {'originators': 1725, 'with a proposed link': 111, 'linked by decision': 7, 'auto-linked (I. Surname = Surname, I.)': 80}
+- originators written as text, now people: {'originators': 1723, 'with a proposed link': 111, 'linked by decision': 7, 'auto-linked (I. Surname = Surname, I.)': 80}
 - sports linked: 816
 - with registration no.: 9313
 - name near-miss candidates written for review: (file exists; decisions applied: 89)
