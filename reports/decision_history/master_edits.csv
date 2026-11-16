@@ -577,3 +577,27 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,set_person_kind,violet-frathel,Violet Frathel,kind,person,organization,"User confirmed against the First Class database (Bulk: a firm, society or club name, not a person)"
 2026-11-16,set_person_kind,violets-from-starrs,Violets from Starrs,kind,person,organization,"User confirmed against the First Class database (Bulk: a firm, society or club name, not a person)"
 2026-11-16,set_person_kind,westwinds-african-violets,Westwinds African Violets,kind,person,organization,"User confirmed against the First Class database (Bulk: a firm, society or club name, not a person)"
+2026-11-16,relink_originator,lindstrom-w,Lindstrom,hybridizer,Lindstrom,"Lindstrom, W.",User confirmed against the First Class database
+2026-11-16,relink_originator,swift-j,Swift,hybridizer,Swift,"Swift, J.",User confirmed against the First Class database
+2026-11-16,relink_originator,utz-h,Utz,hybridizer,Utz,"Utz, H.",User confirmed against the First Class database
+2026-11-16,relink_originator,elkin-barbara,Elkin,hybridizer,Elkin,"Elkin, Barbara",User confirmed against the First Class database
+2026-11-16,relink_originator,johnson-bill,Johnson,hybridizer,Johnson,"Johnson, Bill",User confirmed against the First Class database
+2026-11-16,relink_originator,beeman-m,Beeman,hybridizer,Beeman,"Beeman, M.",User confirmed against the First Class database
+2026-11-16,relink_originator,kuhl-f,Kuhl,hybridizer,Kuhl,"Kuhl, F.",User confirmed against the First Class database
+2026-11-16,relink_originator,brownlie-john,Brownlie,hybridizer,Brownlie,"Brownlie, John",User confirmed against the First Class database
+2026-11-16,relink_originator,tracey-p,Tracey,hybridizer,Tracey,"Tracey, P.",User confirmed against the First Class database
+2026-11-16,relink_originator,bryant-betty,Bryant,hybridizer,Bryant,"Bryant, Betty",User confirmed against the First Class database
+2026-11-16,relink_originator,burns-marie,Burns,hybridizer,Burns,"Burns, Marie",User confirmed against the First Class database
+2026-11-16,relink_originator,foote-t,Foote,hybridizer,Foote,"Foote, T.",User confirmed against the First Class database
+2026-11-16,relink_originator,hart-a,Hart,hybridizer,Hart,"Hart, A.",User confirmed against the First Class database
+2026-11-16,relink_originator,phillips-c,Phillips,hybridizer,Phillips,"Phillips, C.",User confirmed against the First Class database
+2026-11-16,relink_originator,cornibe-c,Cornibe,hybridizer,Cornibe,"Cornibe, C.",User confirmed against the First Class database
+2026-11-16,relink_originator,harrington-dolores,Harrington,hybridizer,Harrington,"Harrington, Dolores",User confirmed against the First Class database
+2026-11-16,relink_originator,lalanne-j,Lalanne,hybridizer,Lalanne,"Lalanne, J.",User confirmed against the First Class database
+2026-11-16,relink_originator,sotkiewicz-c,Sotkiewicz,hybridizer,Sotkiewicz,"Sotkiewicz, C.",User confirmed against the First Class database
+2026-11-16,relink_originator,tremblay-michel,Tremblay,hybridizer,Tremblay,"Tremblay, Michel",User confirmed against the First Class database
+2026-11-16,relink_originator,wilkening-k,Wilkening,hybridizer,Wilkening,"Wilkening, K.",User confirmed against the First Class database
+2026-11-16,relink_originator,bearman-d,Bearman,hybridizer,Bearman,"Bearman, D.",User confirmed against the First Class database
+2026-11-16,relink_originator,bollar-c,Bollar,hybridizer,Bollar,"Bollar, C.",User confirmed against the First Class database
+2026-11-16,relink_originator,dates-violetry,Date's Violetry,hybridizer,Date's Violetry,Dates Violetry,User confirmed against the First Class database
+2026-11-16,relink_originator,sisk-b,Sisk,hybridizer,Sisk,"Sisk, B.",User confirmed against the First Class database
