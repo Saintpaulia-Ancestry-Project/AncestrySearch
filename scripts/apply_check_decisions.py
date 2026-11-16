@@ -19,8 +19,9 @@ Decisions by check_type (case-insensitive). `set:<field>=<value>` works on any r
   same name as another plant, no hybridizer  (held)  release | separate  (import as its own record)  |  join:<record id>
   description split needs review      (held)         accept             (import with the split as it is)
   same name, hybridizer differs or unknown            join  (merge record_id into target_key)  |  separate (nothing changes)
-  registration number shared by several plants        rename:<Name>  (rename record_id, or merge it into the record of that name)  |
-                                                      different | keep (nothing changes)
+  registration number shared by several plants        join (the same cultivar as the plant that keeps the number: merge record_id
+                                                      into it)  |  rename:<Name>  (rename record_id, or merge it into the record of that
+                                                      name)  |  different | keep (nothing changes: another plant, number stays with the holder)
   source row disagrees with record                    record (keep)  |  source (value in `proposal`)  |  set:<field>=<value>
   possible duplicate or misspelled name               merge:<correct name>  |  separate
   book entry vs existing record (1963)                join  (merge record_id into target_key)  |  separate
@@ -74,6 +75,7 @@ class Applier:
         self.split = rd(d / "mvl_description_split.csv") if (d / "mvl_description_split.csv").exists() else pd.DataFrame()
         self.xrefs = rd(d / "mvl_crossrefs.csv") if (d / "mvl_crossrefs.csv").exists() else pd.DataFrame()
         self.released = set()
+        self.checks = pd.DataFrame()
 
     # ---------------------------------------------------------------- held MVL plants -> master
     def plant(self, key):
@@ -151,7 +153,10 @@ class Applier:
     def rec(self, c):
         rid = c["record_id"]
         if not rid or rid not in self.m.by_id:
-            raise me.EditError(f"{c['name']}: no record id in the master (record_id={rid!r})")
+            hits = self.same_name(c["name"])          # no id on the row: a single record of that name will do
+            if len(hits) == 1:
+                return hits[0]
+            raise me.EditError(f"{c['name']}: no record id in the master (record_id={rid!r}) and {len(hits)} records with that name")
         return rid
 
     def same_name(self, name, exclude=()):
@@ -218,6 +223,15 @@ class Applier:
             if low == "separate":
                 return f"{c['name']}: kept separate"
         elif t == "registration number shared by several plants":
+            if low == "join":
+                # the same cultivar as the plant that keeps the number: merge this record into that one
+                holder = [r["id"] for r in m.cultivars.rows if r["registration_no"] == c["reg_no"]]
+                if len(holder) != 1:
+                    raise me.EditError(f"{c['name']}: {len(holder)} records hold number {c['reg_no']}; use rename:<Name>")
+                if holder[0] == self.rec(c):
+                    return f"{c['name']}: already one record with the number"
+                m.merge(holder[0], self.rec(c), reason)
+                return f"{c['name']}: merged into {m.by_id[holder[0]]['name']} [{holder[0]}]"
             if low.startswith("rename:"):
                 return f"{c['name']}: {self.rename_or_merge(self.rec(c), d.split(':', 1)[1].strip(), reason)}"
             if low in ("different", "keep"):
@@ -281,6 +295,10 @@ class Applier:
 
 
 def main():
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")      # names with curly quotes / accents print the same everywhere
+    except Exception:
+        pass
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--root", default=str(Path(__file__).resolve().parents[1]))
@@ -289,6 +307,7 @@ def main():
     rep = root / "reports"
     checks = rd(rep / "outstanding_checks.csv")
     ap_ = Applier(root)
+    ap_.checks = checks
     applied, kept, msgs = [], [], []
     for _, c in checks.iterrows():
         c = dict(c)

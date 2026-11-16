@@ -1,0 +1,112 @@
+date,op,cultivar_id,name,field,old_value,new_value,reason
+2026-11-16,merge,chiffon-blush,Chiffon Blush,id,chiffon-blush-linda-a-neumann,chiffon-blush,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,chiffon-charm,Chiffon Charm,id,chiffon-charm-linda-a-neumann,chiffon-charm,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,easy-sunday-mornin,Easy Sunday Mornin',id,easy-sunday-mornin-nadeau,easy-sunday-mornin,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,forbidden-ecstasy,Forbidden Ecstasy,id,forbidden-ecstasy-nadeau,forbidden-ecstasy,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,hot-places,Hot Places,id,hot-places-nadeau,hot-places,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,i-am-woman,I Am Woman,id,i-am-woman-nadeau,i-am-woman,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,juicy,Juicy,id,juicy-nadeau,juicy,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,la-lune,La Lune,id,la-lune-nadeau,la-lune,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,midnight-oasis,Midnight Oasis,id,midnight-oasis-nadeau,midnight-oasis,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,one-on-one,One on One,id,one-on-one-nadeau,one-on-one,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,our-naked-joy,Our Naked Joy,id,our-naked-joy-nadeau,our-naked-joy,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,party-town,Party Town,id,party-town-nadeau,party-town,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,pink-satin-sheets,Pink Satin Sheets,id,pink-satin-sheets-nadeau,pink-satin-sheets,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,sable-and-sand,Sable and Sand,id,sable-and-sand-nadeau,sable-and-sand,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,silver-milestone,Silver Milestone,id,silver-milestone-linda-a-neumann,silver-milestone,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,soft-places,Soft Places,id,soft-places-nadeau,soft-places,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,merge,suite-dreams,Suite Dreams,id,suite-dreams-nadeau,suite-dreams,User confirmed against the First Class database (MLV: plant and existing record match the same MLV row)
+2026-11-16,add,adventure,Adventure,,,,released from the held supplement plants
+2026-11-16,import_plant,arctic-blizzard,Arctic Blizzard,plant,artic-blizzard,joined,released from the held supplement plants
+2026-11-16,add,beverley-ann,Beverley Ann,,,,released from the held supplement plants
+2026-11-16,add,bluberry,Bluberry,,,,released from the held supplement plants
+2026-11-16,add,blue-falcon,Blue Falcon,,,,released from the held supplement plants
+2026-11-16,add,blue-falcon-2,Blue Falcon,,,,released from the held supplement plants
+2026-11-16,add,bryte-n-beautifull,Bryte n' Beautifull,,,,released from the held supplement plants
+2026-11-16,add,bubblin-over-2,Bubblin Over,,,,released from the held supplement plants
+2026-11-16,add,cheery,Cheery,,,,released from the held supplement plants
+2026-11-16,add,chico-2,Chico,,,,released from the held supplement plants
+2026-11-16,add,chiffon-charmer,Chiffon Charmer,,,,released from the held supplement plants
+2026-11-16,add,coral-glow,Coral Glow,,,,released from the held supplement plants
+2026-11-16,import_plant,cream-of-crop,Cream of Crop,plant,cream-of-the-crop,joined,released from the held supplement plants
+2026-11-16,import_plant,dear-ellie,Dear Ellie,plant,deal-ellie,joined,released from the held supplement plants
+2026-11-16,add,dean,Dean,,,,released from the held supplement plants
+2026-11-16,add,erich,Erich,,,,released from the held supplement plants
+2026-11-16,add,fancy-til,Fancy Til,,,,released from the held supplement plants
+2026-11-16,add,first-snow-2,First Snow,,,,released from the held supplement plants
+2026-11-16,add,frilly-billy,Frilly Billy,,,,released from the held supplement plants
+2026-11-16,add,frosted-cherry,Frosted Cherry,,,,released from the held supplement plants
+2026-11-16,add,glenn-h,Glenn H,,,,released from the held supplement plants
+2026-11-16,import_plant,glenn-h,Glenn H,plant,glen-h-ch-county-union,joined,released from the held supplement plants
+2026-11-16,add,grape-frost,Grape Frost,,,,released from the held supplement plants
+2026-11-16,add,halley-s-comet,Halley's Comet,,,,released from the held supplement plants
+2026-11-16,add,happiness-is,Happiness Is,,,,released from the held supplement plants
+2026-11-16,add,happy-faces,Happy Faces,,,,released from the held supplement plants
+2026-11-16,add,heart-of-dixie,Heart of Dixie,,,,released from the held supplement plants
+2026-11-16,add,hidden-treasure,Hidden Treasure,,,,released from the held supplement plants
+2026-11-16,add,june-roses,June Roses,,,,released from the held supplement plants
+2026-11-16,add,killington,Killington,,,,released from the held supplement plants
+2026-11-16,add,killington-2,Killington,,,,released from the held supplement plants
+2026-11-16,add,lavender-love,Lavender Love,,,,released from the held supplement plants
+2026-11-16,add,lila,Lila,,,,released from the held supplement plants
+2026-11-16,add,lili-belle,Lili Belle,,,,released from the held supplement plants
+2026-11-16,add,little-eve,Little Eve,,,,released from the held supplement plants
+2026-11-16,add,madeline-2,Madeline,,,,released from the held supplement plants
+2026-11-16,add,marie,Marie,,,,released from the held supplement plants
+2026-11-16,add,martha-b,Martha B.,,,,released from the held supplement plants
+2026-11-16,add,mega,Mega,,,,released from the held supplement plants
+2026-11-16,add,michael-2,Michael,,,,released from the held supplement plants
+2026-11-16,add,moon-shadow,Moon Shadow,,,,released from the held supplement plants
+2026-11-16,add,morning-light-2,Morning Light,,,,released from the held supplement plants
+2026-11-16,add,night-wings,Night Wings,,,,released from the held supplement plants
+2026-11-16,import_plant,optimara-grenada-ii,Optimara Grenada II,plant,optimara-granada,joined,released from the held supplement plants
+2026-11-16,add,orchid-cluster,Orchid Cluster,,,,released from the held supplement plants
+2026-11-16,add,peachie-2,Peachie,,,,released from the held supplement plants
+2026-11-16,add,perfections,Perfections,,,,released from the held supplement plants
+2026-11-16,add,persian-caprice,Persian Caprice,,,,released from the held supplement plants
+2026-11-16,add,persian-princess-2,Persian Princess,,,,released from the held supplement plants
+2026-11-16,import_plant,pick-a-lily,Pick-a-Lily,plant,pick-a-lilly,joined,released from the held supplement plants
+2026-11-16,add,pink-crochet,Pink Crochet,,,,released from the held supplement plants
+2026-11-16,add,pink-jewels,Pink Jewels,,,,released from the held supplement plants
+2026-11-16,add,pink-pareait,Pink Pareait,,,,released from the held supplement plants
+2026-11-16,add,pink-polly,Pink Polly,,,,released from the held supplement plants
+2026-11-16,add,pink-rogue,Pink Rogue,,,,released from the held supplement plants
+2026-11-16,add,pink-willow,Pink Willow,,,,released from the held supplement plants
+2026-11-16,add,pink-ink,Pink 'Ink,,,,released from the held supplement plants
+2026-11-16,add,pink-n-gold,Pink 'n Gold,,,,released from the held supplement plants
+2026-11-16,import_plant,pirate-s-alley,Pirate's Alley,plant,pirats-alley,joined,released from the held supplement plants
+2026-11-16,add,raspberry-ice,Raspberry Ice,,,,released from the held supplement plants
+2026-11-16,add,red-butterfly,Red Butterfly,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-barbard,Rhapsodie Barbard,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-linda,Rhapsodie Linda,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-mars-2,Rhapsodie Mars,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-michele-2,Rhapsodie Michele,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-veronika,Rhapsodie Veronika,,,,released from the held supplement plants
+2026-11-16,add,rhapsody-candy,Rhapsody Candy,,,,released from the held supplement plants
+2026-11-16,add,rose-n-shine,Rose n 'shine,,,,released from the held supplement plants
+2026-11-16,add,saturn-5,Saturn #5,,,,released from the held supplement plants
+2026-11-16,add,savanah,Savanah,,,,released from the held supplement plants
+2026-11-16,add,scarletto,Scarletto,,,,released from the held supplement plants
+2026-11-16,add,shawn,Shawn,,,,released from the held supplement plants
+2026-11-16,add,silver-mint,Silver Mint,,,,released from the held supplement plants
+2026-11-16,add,snow-bells,Snow Bells,,,,released from the held supplement plants
+2026-11-16,add,snow-drop-2,Snow Drop,,,,released from the held supplement plants
+2026-11-16,add,sparkling-white,Sparkling White,,,,released from the held supplement plants
+2026-11-16,add,star-trailer-2,Star Trailer,,,,released from the held supplement plants
+2026-11-16,add,star-trek,Star Trek,,,,released from the held supplement plants
+2026-11-16,add,star-trek-2,Star Trek,,,,released from the held supplement plants
+2026-11-16,add,swift-s-stars-n-stripes,Swift's Stars 'n' Stripes,,,,released from the held supplement plants
+2026-11-16,add,storm-cloud-2,Storm Cloud,,,,released from the held supplement plants
+2026-11-16,add,strawberry-fiesta,Strawberry Fiesta,,,,released from the held supplement plants
+2026-11-16,add,sweet-pink,Sweet Pink,,,,released from the held supplement plants
+2026-11-16,import_plant,tensie,Tensie,plant,tense,joined,released from the held supplement plants
+2026-11-16,add,thinkin-pink,Thinkin' Pink,,,,released from the held supplement plants
+2026-11-16,add,tiara,Tiara,,,,released from the held supplement plants
+2026-11-16,add,tiger-eye,Tiger Eye,,,,released from the held supplement plants
+2026-11-16,add,victorian-jewel,Victorian Jewel,,,,released from the held supplement plants
+2026-11-16,add,white-glory-2,White Glory,,,,released from the held supplement plants
+2026-11-16,add,wide-country,Wide Country,,,,released from the held supplement plants
+2026-11-16,add,wink,Wink,,,,released from the held supplement plants
+2026-11-16,add,wonderlust,Wonderlust,,,,released from the held supplement plants
+2026-11-16,merge,clematis,Clematis,id,clamatis,clematis,"User confirmed against the First Class database (MLV.xls: spelling variant of Clematis (S. Weynand), same hybridizer)"
+2026-11-16,merge,reed-s-dixie-moonbeam,Reed's Dixie Moonbeam,id,reed-s-moonbeam,reed-s-dixie-moonbeam,"User confirmed against the First Class database (MLV.xls: spelling variant of Reed's Dixie Moonbeam (C. Reed), same hybridizer)"

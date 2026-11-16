@@ -20,14 +20,16 @@ def scratch():
     for f in MASTER + FROZEN:
         if (ROOT / "data" / f"{f}.csv").exists():
             shutil.copy(ROOT / "data" / f"{f}.csv", r / "data" / f"{f}.csv")
-    shutil.copy(ROOT / "reports" / "outstanding_checks.csv", r / "reports" / "outstanding_checks.csv")
+    chk = pd.read_csv(ROOT / "reports" / "outstanding_checks.csv", dtype=str, keep_default_na=False, encoding="utf-8-sig")
+    chk["decision"] = ""          # the real file may hold decisions typed by the user: the tests start without any
+    chk.to_csv(r / "reports" / "outstanding_checks.csv", index=False, encoding="utf-8-sig")
     return r
 
 
 def run(root, write=True):
     cmd = [sys.executable, str(ROOT / "scripts" / "apply_check_decisions.py"), "--root", str(root)] + (["--write"] if write else [])
-    out = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
-    return out.stdout + out.stderr
+    out = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
+    return (out.stdout or "") + (out.stderr or "")
 
 
 def rd(p):
