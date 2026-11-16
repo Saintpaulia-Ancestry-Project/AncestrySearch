@@ -970,3 +970,4 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,add,grand-performance,Grand Performance,,,,released from the held supplement plants
 2026-11-16,add,iffie-face,Iffie Face,,,,released from the held supplement plants
 2026-11-16,add,our-rosalee,Our Rosalee,,,,released from the held supplement plants
+2026-11-16,relink_originator,"c-reed,house-of-violets","C. Reed, House of Violets",hybridizer,"C. Reed, House of Violets",C. Reed; House of Violets,User confirmed against the First Class database (Printed as two names: hybridizer C. Reed and the House of Violets (existing people))
