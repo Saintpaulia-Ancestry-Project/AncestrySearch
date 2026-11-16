@@ -37,7 +37,7 @@ import parse_masterlist1963 as p1  # noqa: E402
 NEW = ROOT / "source" / "AVML1963_import.csv"
 OUT = ROOT / "data" / "masterlist1963.csv"
 REVIEW = ROOT / "reports" / "decision_history" / "masterlist_ocr_review.csv"
-REPORT = ROOT / "reports" / "masterlist1963_ocr_merge.md"
+REPORT = ROOT / "reports" / "historical" / "masterlist1963" / "masterlist1963_ocr_merge.md"
 SCAN = "https://babel.hathitrust.org/cgi/pt?id=coo.31924019134067&seq={seq}"  # scan sequence = printed page + 2
 
 SECTION = {"Master List": "main", "1960 List": "1960", "1961 List": "1961", "1962 List": "1962"}
@@ -340,7 +340,7 @@ def main():
         o2 = (r["description_ocr2"] or r["originator_ocr2"] or r["name_ocr2"])[:45]
         md.append(f"| {r['printed_page']} | {r['issue']} | {(r['name_ocr2'] or r['name_ocr1'])[:30]} | {read[:55]} | {o1} | {o2} | "
                   f"[page]({r['scan_url']}) |".replace("|  |", "| |"))
-    (ROOT / "reports" / "masterlist1963_needs_human.md").write_text(chr(10).join(md), encoding="utf-8")
+    (ROOT / "reports" / "historical" / "masterlist1963" / "masterlist1963_needs_human.md").write_text(chr(10).join(md), encoding="utf-8")
     n_desc = sum(1 for r in rows if r["description"])
     status = collections.Counter(r["check_status"].split(":")[0] + ":" + r["check_status"].split(":")[-1].strip()[:40]
                                  if r["check_status"] else "(no decision yet)" for r in review)

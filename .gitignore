@@ -15,7 +15,7 @@ source/Hector Wong Archive*/
 source/AVPhotos/
 
 # Intermediate output of scripts/parse_masterlist1963.py (OCR 1, a cross-check only)
-reports/masterlist1963_ocr1.csv
+reports/historical/masterlist1963/masterlist1963_ocr1.csv
 
 # Page scans of the 1963 Master List (889 MB): raw publication content, not published
 source/PageImages/
@@ -23,6 +23,7 @@ source/PageImages/
 # Contributor submissions: raw Sheet exports hold contact details; staged photos are working copies
 submissions/inbox/
 reports/submission_photos/
+reports/historical/submissions/
 source/Rivermist Hybrids #* of 3.eml
 
 # Cached WordPress API responses (scrape_wp_fetch.py)

@@ -125,7 +125,8 @@ scripts/master_edit.py, scripts/apply_check_decisions.py and scripts/import_subm
 `[apply_check_decisions.py --write] -> import_submissions.py apply -> build_db.py (must end "All checks passed.") ->
 export_ancestry_xlsx.py`. import_excel.py and the scripts that fed it are ARCHIVED in scripts/archive/ (they would overwrite
 the master; see scripts/archive/README.md); every "pipeline order ... import_excel.py ..." and review-file statement below is
-HISTORY of how the master was made. The decided review files are in reports/decision_history/.**
+HISTORY of how the master was made. The decided review files are in reports/decision_history/; the reports of the one-off sources are
+in reports/historical/ (layout: reports/README.md); only outstanding_checks and submission_import.md stay at the top of reports/.**
 - scripts/inspect_excel.py, scripts/propose_review.py: done (reports/).
 - scripts/import_excel.py: done; writes data/*.csv + reports/import_flags.csv and
   import_summary.md. Reads reviewer decisions from reports/review/ (re-runnable;
@@ -238,7 +239,7 @@ HISTORY of how the master was made. The decided review files are in reports/deci
 
 - AVSA Sports page (source/African Violet Sports - African Violet Society of America.html, the original source of the
   sports data): scripts/import_sports_page.py parses it and writes data/sports_page.csv (description + any bloom/foliage/size
-  value where the page disagreed) and the review log reports/review/sports_page_conflicts.csv. build_db.py applies it: THE PAGE
+  value where the page disagreed) and the review log reports/historical/sports_page/sports_page_conflicts.csv. build_db.py applies it: THE PAGE
   WINS (decided with the user). Matches by registration number + exact name (hybridizer / equal text to break ties; name
   mismatches fall back to the registration number and are logged). Pipeline order: import_excel.py ->
   import_sports_page.py -> build_db.py. Fill `decision` in the log to record later reviews.

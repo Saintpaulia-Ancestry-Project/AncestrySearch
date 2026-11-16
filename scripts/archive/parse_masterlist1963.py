@@ -1,8 +1,8 @@
 """Parse the OCR text of the AVSA "Master List of African Violets" (1935 to 1963) into data/masterlist1963.csv.
 
 Input:  source/AV-MasterLIstSupplements/MasterListBook/*.txt  (OCR page text; raw, not tracked in git)
-Output: reports/masterlist1963_ocr1.csv    one row per listed name (OCR 1; see merge_masterlist1963.py)
-        reports/masterlist1963_report.md   counts, samples and everything that was skipped
+Output: reports/historical/masterlist1963/masterlist1963_ocr1.csv    one row per listed name (OCR 1; see merge_masterlist1963.py)
+        reports/historical/masterlist1963/masterlist1963_report.md   counts, samples and everything that was skipped
 
 What is taken from the book: the name, the originator in parentheses, the registered flag ("REG."),
 the section it is listed in (the main A-Z list, the 1960, 1961 and 1962 sections, or the "No
@@ -22,8 +22,8 @@ ROOT = Path(__file__).resolve().parents[2]
 BOOK = ROOT / "source" / "AV-MasterLIstSupplements" / "MasterListBook"
 # This parser reads OCR 1 (the HathiTrust page text). It is the CROSS-CHECK for the second OCR; the published
 # data/masterlist1963.csv is produced by scripts/merge_masterlist1963.py.
-OUT = ROOT / "reports" / "masterlist1963_ocr1.csv"
-REPORT = ROOT / "reports" / "masterlist1963_report.md"
+OUT = ROOT / "reports" / "historical" / "masterlist1963" / "masterlist1963_ocr1.csv"
+REPORT = ROOT / "reports" / "historical" / "masterlist1963" / "masterlist1963_report.md"
 
 # (section, first file, last file). Printed page number = file number - 2.
 SECTIONS = [("main", 5, 131), ("1960", 132, 144), ("1961", 145, 161), ("1962", 162, 175), ("nodesc", 176, 178)]
@@ -300,7 +300,7 @@ def main():
     by_sec = collections.Counter(r["section"] for r in rows)
     keys = collections.Counter((r["name"].lower(), r["originator"].lower()) for r in rows)
     lines = ["# 1963 Master List: parse report", "",
-             f"{len(rows)} names written to reports/masterlist1963_ocr1.csv.", "",
+             f"{len(rows)} names written to reports/historical/masterlist1963/masterlist1963_ocr1.csv.", "",
              "| section | names |", "|---|---|"] + [f"| {s} | {by_sec[s]} |" for s, _, _ in SECTIONS]
     lines += ["", f"- with an originator: {sum(1 for r in rows if r['originator'])}",
               f"- flagged registered (REG.): {sum(r['registered'] for r in rows)}",

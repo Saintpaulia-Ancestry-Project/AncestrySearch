@@ -22,3 +22,8 @@ Checked at the move: `import_excel.py` run on a copy of the repository, followed
 five master CSVs byte for byte.
 The MVL preparation scripts (`prep_mvl_supplements.py`, `split_mvl_descriptions.py`; they read the private MLV.xls) are in
 `AVAncestry-private/AVM/MVL_extracts/frozen_pipeline_tools/`.
+
+Added with the reports clean-up: `scrape_wp_download.py`, `scrape_wp_fetch.py`, `scrape_wp_manifest.py` (the paused WordPress photo project;
+they read and write `reports/historical/wordpress_photos/`) and `import_sports_page.py` (the AVSA sports page import; its source HTML is not
+on this machine; it writes `reports/historical/sports_page/`; `build_db.py` still applies `data/sports_page.csv`). Reports written by the
+other archived scripts now go to `reports/historical/<source>/`.

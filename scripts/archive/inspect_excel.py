@@ -1,4 +1,4 @@
-"""Inspect source/AfricanVioletAncestry.xlsx and write reports/inspect_report.md.
+"""Inspect source/AfricanVioletAncestry.xlsx and write reports/historical/original_sources_import/inspect_report.md.
 
 Read-only: never modifies the workbook, creates no CSVs or database.
 Usage:  .venv\\Scripts\\python scripts\\inspect_excel.py
@@ -15,7 +15,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
 XLSX = ROOT / "source" / "AfricanVioletAncestry.xlsx"
-OUT = ROOT / "reports" / "inspect_report.md"
+OUT = ROOT / "reports" / "historical" / "original_sources_import" / "inspect_report.md"
 SHEETS = ["Name", "Hybridizer", "Seed Parent", "Pollen Parent"]
 COLS = ["Timestamp", "Plant Name", "Seed Parent", "Pollen Parent", "Hybridizer", "Notes"]
 DATA = COLS[1:]

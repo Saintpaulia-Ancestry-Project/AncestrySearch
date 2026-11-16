@@ -150,7 +150,7 @@ hand-maintained data and stay as they are.
   migration scripts are in `scripts/archive/` (README there; `import_excel.py` refuses to run without `AV_ALLOW_BOOTSTRAP=1`). Nine decided
   review files moved to `reports/decision_history/`. Checked: the archived importer run on a COPY of the repository plus
   `import_submissions.py apply` reproduces the five master CSVs byte for byte; the routine pipeline and the database fingerprint
-  are unchanged. Left in `reports/review/`: the WordPress photo review files and the AVSA sports-page review files (their own imports).
+  are unchanged. The WordPress photo and AVSA sports-page review files stayed in `reports/review/` until the reports clean-up (see `reports/README.md`): they and the one-off import reports now live in `reports/historical/`, and `reports/review/` is gone.
 - Decision (user): ids that are no longer in the site database are NOT a concern (the live site is new and little known, the data is still
   being worked on). No redirect support in the front end for now; `master_edit.py` still records every merge in
   `data/id_redirects.csv` (old id -> kept id) so the front end could use it later, when the site is widely linked.

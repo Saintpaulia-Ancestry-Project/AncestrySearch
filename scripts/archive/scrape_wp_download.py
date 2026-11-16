@@ -1,4 +1,4 @@
-"""Download the photos the manifest marks as included (reports/manifest.csv, final_decision == include).
+"""Download the photos the manifest marks as included (reports/historical/wordpress_photos/manifest.csv, final_decision == include).
 
 Stage 2 of the WordPress blog import. Stage 1 (scrape_wp_manifest.py) decides which photos and who gets credit;
 this script only fetches those originals, politely, into source/WordPressPhotos/ (git-ignored), named by
@@ -22,8 +22,8 @@ import time
 import urllib.request
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-MANIFEST = ROOT / "reports" / "manifest.csv"
+ROOT = Path(__file__).resolve().parents[2]
+MANIFEST = ROOT / "reports" / "historical" / "wordpress_photos" / "manifest.csv"
 OUT = ROOT / "source" / "WordPressPhotos"
 DELAY = 1.5
 DEFAULT_CONTACT = "saintpauliaancestry@gmail.com"      # project address, approved for the User-Agent

@@ -333,7 +333,7 @@ def main():
 
     # data/sports_page.csv (scripts/import_sports_page.py): descriptions restored from the AVSA Sports page. The PAGE WINS:
     # it sets `description` and any bloom/foliage/size value it lists (only where it disagreed). Log of every change:
-    # reports/review/sports_page_conflicts.csv
+    # reports/historical/sports_page/sports_page_conflicts.csv
     page_csv = DATA / "sports_page.csv"
     if page_csv.exists():
         with open(page_csv, newline="", encoding="utf-8") as f:

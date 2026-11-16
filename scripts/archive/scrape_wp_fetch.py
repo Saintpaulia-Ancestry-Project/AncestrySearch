@@ -7,7 +7,7 @@ Produces no images; downloads JSON only.
 import argparse, hashlib, json, time, urllib.request, urllib.parse
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 CACHE = ROOT / "cache" / "wp_scrape"
 SITE = "saintpauliaancestry.wordpress.com"
 API = f"https://public-api.wordpress.com/rest/v1.1/sites/{SITE}"

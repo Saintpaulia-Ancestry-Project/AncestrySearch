@@ -12,7 +12,7 @@ Human decisions (reports/review/):
   name_corrections.csv    - spelling corrections / merges of variant names (the old name_near_misses.csv
                             merge decisions now live here).
 
-Outputs: data/*.csv, reports/import_flags.csv, reports/import_summary.md
+Outputs: data/*.csv, reports/historical/original_sources_import/import_flags.csv, import_summary.md
 Usage:  .venv\\Scripts\\python scripts\\import_excel.py
 """
 import collections
@@ -1221,7 +1221,7 @@ def write_all(res):
     pd.DataFrame(res["links"], columns=["cultivar_id", "url", "kind"]).to_csv(
         DATA / "cultivar_links.csv", index=False, encoding="utf-8")
     pd.DataFrame(flags, columns=["category", "cultivar", "detail"]).to_csv(
-        REPORTS / "import_flags.csv", index=False, encoding="utf-8-sig")
+        REPORTS / "historical" / "original_sources_import" / "import_flags.csv", index=False, encoding="utf-8-sig")
 
 
 def main():
@@ -1248,7 +1248,7 @@ def main():
              f"- with registration no.: {sum(1 for d in allrec.values() if d['registration_no'])}",
              f"- name aliases from name_corrections.csv: {len(ALIAS)}",
              "", "## Flags by category", ""] + [f"- {k}: {v}" for k, v in fl.most_common()]
-    (REPORTS / "import_summary.md").write_text("\n".join(lines), encoding="utf-8")
+    (REPORTS / "historical" / "original_sources_import" / "import_summary.md").write_text("\n".join(lines), encoding="utf-8")
     print("\n".join(lines))
 
 

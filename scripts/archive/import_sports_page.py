@@ -6,8 +6,8 @@ and writes:
   data/sports_page.csv                       id, description, bloom_description, foliage_description, size_class
                                              (build_db.py applies it: description is set from the page; the three
                                              split fields only where the page text disagrees with them: PAGE WINS)
-  reports/review/sports_page_conflicts.csv   log of every difference for later review (page value already applied)
-  reports/sports_page_summary.md             counts
+  reports/historical/sports_page/sports_page_conflicts.csv   log of every difference for later review (page value already applied)
+  reports/historical/sports_page/sports_page_summary.md             counts
 
 Never matches by guessing: registration number + exact normalised name only; the rest is logged as unmatched.
 Run after import_excel.py, before build_db.py.  Needs only the standard library.
@@ -19,12 +19,12 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 SRC = ROOT / "source" / "African Violet Sports - African Violet Society of America.html"
 DATA = ROOT / "data"
 OUT_CSV = DATA / "sports_page.csv"
-LOG_CSV = ROOT / "reports" / "review" / "sports_page_conflicts.csv"
-SUMMARY = ROOT / "reports" / "sports_page_summary.md"
+LOG_CSV = ROOT / "reports" / "historical" / "sports_page" / "sports_page_conflicts.csv"
+SUMMARY = ROOT / "reports" / "historical" / "sports_page" / "sports_page_summary.md"
 
 
 def key(s):
@@ -217,9 +217,9 @@ def main():
                     add_log("date_differs", cell, c, "registered_date", iso, c["registered_date"], "info only; not applied")
             out[c["id"]] = row
 
-    # hand-set splits (reports/review/sports_page_splits.csv): where the automatic Bloom. Foliage. Size split of a page
+    # hand-set splits (reports/historical/sports_page/sports_page_splits.csv): where the automatic Bloom. Foliage. Size split of a page
     # text is wrong, the reviewer gives the three pieces; they replace the automatic ones for that cultivar.
-    sp_path = ROOT / "reports" / "review" / "sports_page_splits.csv"
+    sp_path = ROOT / "reports" / "historical" / "sports_page" / "sports_page_splits.csv"
     if sp_path.exists():
         for r in read(sp_path):
             if r["id"] in out:
@@ -251,7 +251,7 @@ def main():
              f"- page silent on size (database kept): {stats['page_silent_on_size']}",
              f"- unmatched / ambiguous cells: {stats['unmatched']} / {stats['ambiguous']}",
              f"- descriptions carrying an origin tag such as (Russ/Ukr): {stats['origin_tag']}", "",
-             "## Log entries by kind (reports/review/sports_page_conflicts.csv)", ""]
+             "## Log entries by kind (reports/historical/sports_page/sports_page_conflicts.csv)", ""]
     lines += [f"- {k}: {n}" for k, n in sorted(kinds.items())]
     SUMMARY.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines))

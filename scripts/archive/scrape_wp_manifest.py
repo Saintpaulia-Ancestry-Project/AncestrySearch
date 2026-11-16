@@ -1,6 +1,6 @@
 """Build an image manifest from saintpauliaancestry.wordpress.com (WordPress.com public API).
 
-Stage 1 only: manifest + review reports in reports/. NO images are downloaded.
+Stage 1 only: manifest + review reports in reports/historical/wordpress_photos/. NO images are downloaded.
 Fetching is done (and cached on disk) by scrape_wp_fetch.py; this script re-reads that cache.
 
 Usage:  python scripts/scrape_wp_manifest.py [--contact EMAIL_OR_URL]
@@ -13,12 +13,12 @@ from pathlib import Path
 import pandas as pd
 from bs4 import BeautifulSoup, NavigableString, Comment
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scrape_wp_fetch import fetch_all  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"
-OUT = ROOT / "reports"
+OUT = ROOT / "reports" / "historical" / "wordpress_photos"
 HYBRIDIZERS_ID = 64587011          # parent category of every hybridizer category
 GESNERIAD_ROOT = 120908736         # "Other Gesneriads" (Sinningia, Streptocarpus): not Saintpaulia
 
@@ -594,7 +594,7 @@ def final_credit(decs, e):
 
 def load_credit_names():
     """reports/review/hybridizer_credit_names.csv: category -> (credit name, exclude rule). Blank credit_name = accept suggestion."""
-    path = ROOT / "reports" / "review" / "hybridizer_credit_names.csv"
+    path = ROOT / "reports" / "historical" / "wordpress_photos" / "hybridizer_credit_names.csv"
     if not path.exists():
         return {}
     d = pd.read_csv(path, dtype=str, keep_default_na=False, encoding="utf-8-sig")
@@ -637,7 +637,7 @@ def finalize(row, names):
 
 def load_decisions():
     """reports/review/credit_decisions.csv (filled in by the user): per (image, reason) decision use|exclude + credit_as."""
-    path = ROOT / "reports" / "review" / "credit_decisions.csv"
+    path = ROOT / "reports" / "historical" / "wordpress_photos" / "credit_decisions.csv"
     if not path.exists():
         return {}, {}
     d = pd.read_csv(path, dtype=str, keep_default_na=False, encoding="utf-8-sig")
@@ -652,7 +652,7 @@ def load_decisions():
 def build_outputs(all_occ, posts_info, db, allkeys, catmap, cats):
     dec_by_key, dec_by_img = load_decisions()
     credit_names = load_credit_names()
-    mp = ROOT / "reports" / "review" / "wp_match_decisions.csv"
+    mp = ROOT / "reports" / "historical" / "wordpress_photos" / "wp_match_decisions.csv"
     match_dec = {r["searched_as"]: r for r in pd.read_csv(mp, dtype=str, keep_default_na=False, encoding="utf-8-sig").to_dict("records")} if mp.exists() else {}
     # ---- per-occurrence evaluation
     evaluated = []
