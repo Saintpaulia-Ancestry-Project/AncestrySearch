@@ -110,3 +110,100 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,add,wonderlust,Wonderlust,,,,released from the held supplement plants
 2026-11-16,merge,clematis,Clematis,id,clamatis,clematis,"User confirmed against the First Class database (MLV.xls: spelling variant of Clematis (S. Weynand), same hybridizer)"
 2026-11-16,merge,reed-s-dixie-moonbeam,Reed's Dixie Moonbeam,id,reed-s-moonbeam,reed-s-dixie-moonbeam,"User confirmed against the First Class database (MLV.xls: spelling variant of Reed's Dixie Moonbeam (C. Reed), same hybridizer)"
+2026-11-16,import_plant,abe-lincoln,Abe Lincoln,plant,a-lincoln,joined,released from the held supplement plants
+2026-11-16,add,arabesque,Arabesque,,,,released from the held supplement plants
+2026-11-16,add,azalea-rose,Azalea Rose,,,,released from the held supplement plants
+2026-11-16,add,bethlehem-beacon,Bethlehem Beacon,,,,released from the held supplement plants
+2026-11-16,import_plant,bellissima,Bellissima,plant,bellissma,joined,released from the held supplement plants
+2026-11-16,add,bergen-strawberry-sherbet,Bergen Strawberry Sherbet,,,,released from the held supplement plants
+2026-11-16,add,boogie-woogie,Boogie Woogie,,,,released from the held supplement plants
+2026-11-16,import_plant,bryte-star,Bryte Star,plant,brythe-star,joined,released from the held supplement plants
+2026-11-16,import_plant,buckeye-blithe-spirit,Buckeye Blithe Spirit,plant,buckeye-blythe-spirit,joined,released from the held supplement plants
+2026-11-16,import_plant,burgundy-lace,Burgundy Lace,plant,burgandy-lace,joined,released from the held supplement plants
+2026-11-16,add,canadian-centennial,Canadian Centennial,,,,released from the held supplement plants
+2026-11-16,add,caribbean-treasure,Caribbean Treasure,,,,released from the held supplement plants
+2026-11-16,import_plant,christmas-snow,Christmas Snow,plant,chirstmas-snow,joined,released from the held supplement plants
+2026-11-16,import_plant,coral-caper,Coral Caper,plant,coral-capers,joined,released from the held supplement plants
+2026-11-16,import_plant,choralene,Choralene,plant,coralene,joined,released from the held supplement plants
+2026-11-16,add,creme-de-menthe,Creme De Menthe,,,,released from the held supplement plants
+2026-11-16,add,deep-pink-miriam-steel,Deep Pink Miriam Steel,,,,released from the held supplement plants
+2026-11-16,import_plant,dorothy-shaw,Dorothy Shaw,plant,dorthy-shaw,joined,released from the held supplement plants
+2026-11-16,import_plant,double-peacharino,Double Peacharino,plant,double-peacherino,joined,released from the held supplement plants
+2026-11-16,import_plant,duchess,Duchess,plant,dutchess,joined,released from the held supplement plants
+2026-11-16,add,fire-and-brimstone,Fire and Brimstone,,,,released from the held supplement plants
+2026-11-16,add,frosted-amethyst,Frosted Amethyst,,,,released from the held supplement plants
+2026-11-16,add,glamorous,Glamorous,,,,released from the held supplement plants
+2026-11-16,add,glamour-queen,Glamour Queen,,,,released from the held supplement plants
+2026-11-16,import_plant,happy-thoughts,Happy Thoughts,plant,happy-thought,joined,released from the held supplement plants
+2026-11-16,import_plant,heirloom-lace,Heirloom Lace,plant,heirloom-laces,joined,released from the held supplement plants
+2026-11-16,import_plant,jambolaya,Jambolaya,plant,jambolya,joined,released from the held supplement plants
+2026-11-16,add,jayne-sport,Jayne Sport,,,,released from the held supplement plants
+2026-11-16,import_plant,jayne-anne,Jayne Anne,plant,jayne-ann,joined,released from the held supplement plants
+2026-11-16,add,jubilee-trail,Jubilee Trail,,,,released from the held supplement plants
+2026-11-16,add,lightning-bolt,Lightning Bolt,,,,released from the held supplement plants
+2026-11-16,import_plant,lilian-s-sparkler,Lilian's Sparkler,plant,lilian-sparkler,joined,released from the held supplement plants
+2026-11-16,import_plant,little-charm,Little Charm,plant,little-charmer,joined,released from the held supplement plants
+2026-11-16,import_plant,love-s-charm,Love's Charm,plant,loves-sharm,joined,released from the held supplement plants
+2026-11-16,add,lucky-duck,Lucky Duck,,,,released from the held supplement plants
+2026-11-16,add,lyon-s-tomorrow-s-sunrise,Lyon's Tomorrow's Sunrise,,,,released from the held supplement plants
+2026-11-16,add,melodie-allison,Melodie Allison,,,,released from the held supplement plants
+2026-11-16,add,melodie-beth-ellen,Melodie Beth Ellen,,,,released from the held supplement plants
+2026-11-16,add,melodie-farrah,Melodie Farrah,,,,released from the held supplement plants
+2026-11-16,add,melodie-frances,Melodie Frances,,,,released from the held supplement plants
+2026-11-16,add,melodie-jeanie,Melodie Jeanie,,,,released from the held supplement plants
+2026-11-16,add,melodie-julianne,Melodie Julianne,,,,released from the held supplement plants
+2026-11-16,add,melodie-laura-ann,Melodie Laura Ann,,,,released from the held supplement plants
+2026-11-16,import_plant,melodie-mary-ann,Melodie Mary Ann,plant,melody-mary-ann,joined,released from the held supplement plants
+2026-11-16,import_plant,mistress-evil,Mistress Evil,plant,mistress-of-evil,joined,released from the held supplement plants
+2026-11-16,add,ness-viking-fntasy,Ness' Viking Fntasy,,,,released from the held supplement plants
+2026-11-16,import_plant,ness-ballyhoo-blue,Ness' Ballyhoo Blue,plant,nesss-ballyhoo-blue,joined,released from the held supplement plants
+2026-11-16,add,ness-belleami,Ness' Belleami,,,,released from the held supplement plants
+2026-11-16,import_plant,ness-blue-babe,Ness' Blue Babe,plant,nesss-blue-babe,joined,released from the held supplement plants
+2026-11-16,add,ness-blue-flirt,Ness' Blue Flirt,,,,released from the held supplement plants
+2026-11-16,add,ness-burgundy-beau,Ness' Burgundy Beau,,,,released from the held supplement plants
+2026-11-16,import_plant,ness-crimson-kiss,Ness' Crimson Kiss,plant,nesss-crimson-kiss,joined,released from the held supplement plants
+2026-11-16,add,ness-crystal-rose,Ness' Crystal Rose,,,,released from the held supplement plants
+2026-11-16,add,ness-eva-s-aloha,Ness' Eva's Aloha,,,,released from the held supplement plants
+2026-11-16,import_plant,ness-joey-s-pal,Ness' Joey's Pal,plant,nesss-joeys-pal,joined,released from the held supplement plants
+2026-11-16,add,ness-lilac-time,Ness' Lilac Time,,,,released from the held supplement plants
+2026-11-16,import_plant,ness-minnesota-splash,Ness' Minnesota Splash,plant,nesss-minnesota-splash,joined,released from the held supplement plants
+2026-11-16,import_plant,ness-neat-nellie,Ness' Neat Nellie,plant,nesss-neat-nellie,joined,released from the held supplement plants
+2026-11-16,import_plant,ness-night-life,Ness' Night Life,plant,nesss-night-life,joined,released from the held supplement plants
+2026-11-16,import_plant,ness-pink-fluff,Ness' Pink Fluff,plant,nesss-pink-fluff,joined,released from the held supplement plants
+2026-11-16,add,ness-purple-gremlin,Ness' Purple Gremlin,,,,released from the held supplement plants
+2026-11-16,import_plant,ness-shirley-s-delight,Ness' Shirley's Delight,plant,nesss-shirleys-delight,joined,released from the held supplement plants
+2026-11-16,import_plant,optimara-fiji,Optimara Fiji,plant,optimara-flji,joined,released from the held supplement plants
+2026-11-16,import_plant,optimara-two-step,Optimara Two-step,plant,optimara-tworstep,joined,released from the held supplement plants
+2026-11-16,import_plant,orieanna,Orieanna,plant,orienna,joined,released from the held supplement plants
+2026-11-16,add,oui-ben,Oui Ben,,,,released from the held supplement plants
+2026-11-16,import_plant,pastel-patterns,Pastel Patterns,plant,pastel-paterns,joined,released from the held supplement plants
+2026-11-16,import_plant,persuasive-pink,Persuasive Pink,plant,persuasive-pine,joined,released from the held supplement plants
+2026-11-16,add,petite-coquette,Petite Coquette,,,,released from the held supplement plants
+2026-11-16,add,pink-flicker,Pink Flicker,,,,released from the held supplement plants
+2026-11-16,import_plant,pink-pussycat-lanigan,Pink Pussycat,plant,pine-pussycat,joined,released from the held supplement plants
+2026-11-16,import_plant,pink-fulfillment,Pink Fulfillment,plant,pink-fullfillment,joined,released from the held supplement plants
+2026-11-16,add,pink-sherbet,Pink Sherbet,,,,released from the held supplement plants
+2026-11-16,import_plant,pink-splatter,Pink Splatter,plant,pink-splater,joined,released from the held supplement plants
+2026-11-16,add,pinkificent,Pinkificent,,,,released from the held supplement plants
+2026-11-16,add,pistil-packin-mama,Pistil Packin' Mama,,,,released from the held supplement plants
+2026-11-16,add,princess-grace,Princess Grace,,,,released from the held supplement plants
+2026-11-16,add,princess-leia,Princess Leia,,,,released from the held supplement plants
+2026-11-16,add,prudence-crandall,Prudence Crandall,,,,released from the held supplement plants
+2026-11-16,add,puffy-pink,Puffy Pink,,,,released from the held supplement plants
+2026-11-16,add,purfect-pink,Purfect Pink,,,,released from the held supplement plants
+2026-11-16,import_plant,rob-s-angelie,Rob's Angelie,plant,robs-angelic,joined,released from the held supplement plants
+2026-11-16,import_plant,rosalynn-carter,Rosalynn Carter,plant,rosalyn-carter,joined,released from the held supplement plants
+2026-11-16,import_plant,royal-mountbatton,Royal Mountbatton,plant,royal-mountbattan,joined,released from the held supplement plants
+2026-11-16,add,saint-louis-blues,Saint Louis Blues,,,,released from the held supplement plants
+2026-11-16,import_plant,shangri-la-peace,Shangri-la Peace,plant,shangri-al-peace,joined,released from the held supplement plants
+2026-11-16,import_plant,sherbert,Sherbert,plant,sherbet,joined,released from the held supplement plants
+2026-11-16,import_plant,silk-n-honey,Silk 'n' Honey,plant,silk-and-honey,joined,released from the held supplement plants
+2026-11-16,import_plant,skagit-pixie-trails,Skagit Pixie Trails,plant,skagit-pixte-trail,joined,released from the held supplement plants
+2026-11-16,add,sonoma-blue-silver,Sonoma Blue Silver,,,,released from the held supplement plants
+2026-11-16,import_plant,suzy-s-lady-suzette,Suzy's Lady Suzette,plant,susys-lady-suzette,joined,released from the held supplement plants
+2026-11-16,import_plant,suzy-s-mr-lucky,Suzy's Mr. Lucky,plant,susys-mr-lucky,joined,released from the held supplement plants
+2026-11-16,import_plant,vallarta-la-palapa,Vallarta La Palapa,plant,vallarta-palapa,joined,released from the held supplement plants
+2026-11-16,add,white-dwarf,White Dwarf,,,,released from the held supplement plants
+2026-11-16,add,winter-s-dream,Winter's Dream,,,,released from the held supplement plants
+2026-11-16,add,wrangler-s-comanche-cutie,Wrangler's Comanche Cutie,,,,released from the held supplement plants
+2026-11-16,add,wrangler-s-prairie-fire,Wrangler's Prairie Fire,,,,released from the held supplement plants
