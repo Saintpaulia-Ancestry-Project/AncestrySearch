@@ -1020,3 +1020,10 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,merge,bimbo,Bimbo,id,bimbo-1963,bimbo,"User confirmed against the First Class database (MLV.xls: same registration number is H. Pittman; existing record is Pittman, Hortense)"
 2026-11-16,merge,marilu,Marilu,id,marilu-1963,marilu,"User confirmed against the First Class database (MLV.xls: same registration number is H. Pittman; existing record is Pittman, Hortense)"
 2026-11-16,merge,miss-beautiful,Miss Beautiful,id,miss-beautiful-1963,miss-beautiful,"User confirmed against the First Class database (MLV.xls: same registration number is H. Pittman; existing record is Pittman, Hortense)"
+2026-11-16,add,angel-wing-2,Angel Wing,,,,released from the held supplement plants
+2026-11-16,add,diedre,Diedre,,,,released from the held supplement plants
+2026-11-16,add,golli-g,Golli G,,,,released from the held supplement plants
+2026-11-16,add,helen-2,Helen,,,,released from the held supplement plants
+2026-11-16,add,jeanie-2,Jeanie,,,,released from the held supplement plants
+2026-11-16,add,lorena,Lorena,,,,released from the held supplement plants
+2026-11-16,add,westwinds-royal-frills,Westwinds' Royal Frills,,,,released from the held supplement plants
