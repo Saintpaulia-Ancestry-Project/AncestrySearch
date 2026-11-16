@@ -152,8 +152,14 @@ hand-maintained data and stay as they are.
   `import_submissions.py apply` reproduces the five master CSVs byte for byte; the routine pipeline and the database fingerprint
   are unchanged. Left in `reports/review/`: `outstanding_originator_mapping.csv` (no apply operation yet: linking an originator to a
   person), the WordPress photo review files and the AVSA sports-page review files (their own imports).
-- Limitation to remember: a held plant imported as `mlv` takes the MLV spelling and number, but its date and size are the supplement's
-  (the MLV date is not in the public check file).
+- Decision (user): ids that are no longer in the site database are NOT a concern (the live site is new and little known, the data is still
+  being worked on). No redirect support in the front end for now; `master_edit.py` still records every merge in
+  `data/id_redirects.csv` (old id -> kept id) so the front end could use it later, when the site is widely linked.
+- DATA HIERARCHY (user decision): First Class > MLV.xls > the supplement, field by field. For a held spelling near-miss decided `mlv`,
+  `outstanding_checks.csv` has `mlv_date` / `mlv_size` (one-time local read of MLV.xls: MLV row found for all 429; 276 with a date, 414 with
+  a size) and the MLV only fills what First Class does not give. What the user types from First Class (`first_class_name`,
+  `first_class_hybridizer`, `first_class_reg_date` as "6616 05/25/1987", `first_class_size`) always wins, also over the values of an existing
+  record the plant is merged into. For `keep` / `different` (not the MLV cultivar) the MLV is not used at all.
 - Still to do (old list, partly done): step 2 (originally merged with step 1: the id redirect is only recorded in `data/id_redirects.csv`; the site does
   not use it yet), step 3 (switch `apply_check_decisions.py` to the master), step 4 (archive), step 5 (full compare).
 

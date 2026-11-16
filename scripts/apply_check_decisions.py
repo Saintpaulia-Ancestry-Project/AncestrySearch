@@ -9,8 +9,13 @@ plant_key = the frozen MVL plant (data/mvl_supplements.csv); target_key = the ot
 
 Decisions by check_type (case-insensitive). `set:<field>=<value>` works on any row that has a record_id.
   spelling near-miss of an MLV name   (held plant)   mlv | keep | different
-                                      mlv = the supplement entry is the MLV spelling: imported under `mlv_name` with number `mlv_reg`,
-                                      or merged into the record of that name; keep / different = imported under the supplement spelling
+                                      mlv = the supplement entry is the MLV spelling: imported under `mlv_name`, or merged into the record of
+                                      that name; keep / different = it is NOT the MLV cultivar: imported under the supplement spelling.
+                                      HIERARCHY: First Class > MLV > supplement, field by field. What you type from First Class
+                                      (`first_class_name`, `first_class_hybridizer`, `first_class_reg_date` as "6616 05/25/1987",
+                                      `first_class_size`) always wins; for `mlv` the MLV (`mlv_reg`, `mlv_date`, `mlv_size`) fills only
+                                      what First Class does not give; the supplement's own values are the last resort. When the record
+                                      already exists, its values stay except those you typed from First Class.
   same name as another plant, no hybridizer  (held)  release | separate  (import as its own record)  |  join:<record id>
   description split needs review      (held)         accept             (import with the split as it is)
   same name, hybridizer differs or unknown            join  (merge record_id into target_key)  |  separate (nothing changes)
@@ -36,9 +41,19 @@ import master_edit as me  # noqa: E402
 from names_lib import cname, norm  # noqa: E402
 
 CHECK_COLS = ["check_id", "group_id", "source", "check_type", "tier", "name", "hybridizer", "lists_or_year", "record_id", "plant_key",
-              "reg_no", "reg_date", "mlv_name", "mlv_hybridizer", "mlv_reg", "mlv_date", "description", "detail", "proposal",
-              "target_key", "first_class_name", "first_class_hybridizer", "first_class_reg_date", "decision", "note"]
+              "reg_no", "reg_date", "mlv_name", "mlv_hybridizer", "mlv_reg", "mlv_date", "mlv_size", "description", "detail", "proposal",
+              "target_key", "first_class_name", "first_class_hybridizer", "first_class_reg_date", "first_class_size", "decision", "note"]
 SEEDLING = re.compile(r"^\d{1,2}-\d{1,3}-\d{1,3}$|^seedling\b", re.I)
+
+
+def fc_parse(text):
+    """first_class_reg_date: free text such as '6616 05/25/1987', '(6616) 05/25/1987', '05/25/1987' or '6616' -> (number, ISO date)"""
+    t = str(text or "")
+    m = re.search(r"(\d{1,2})/(\d{1,2})/(\d{4})", t)
+    date = f"{m.group(3)}-{int(m.group(1)):02}-{int(m.group(2)):02}" if m else ""
+    rest = t[:m.start()] + t[m.end():] if m else t
+    n = re.search(r"(?<!\d)(\d{3,6})(?!\d)", rest)
+    return (n.group(1) if n else ""), date
 
 
 def rd(path):
@@ -63,12 +78,15 @@ class Applier:
         s = self.split[self.split.plant_key == key]
         return dict(p.iloc[0]), (dict(s.iloc[0]) if len(s) else {})
 
-    def import_plant(self, key, name=None, reg=None, join_id=None):
+    def import_plant(self, key, name=None, reg=None, join_id=None, date=None, size=None, hybridizer=None):
         """put a held supplement plant into the master: as a new record, or filling the EMPTY fields of record join_id"""
         P, S = self.plant(key)
         m = self.m
         name = cname(name or P["name"])
         reg = P["registration_no"] if reg is None else reg
+        date = P["registered_date"] if not date else date
+        size = P["size_class"] if not size else size
+        hybridizer = P["hybridizer"] if not hybridizer else hybridizer
         if reg and any(r["registration_no"] == reg and r["id"] != join_id for r in m.cultivars.rows):
             holder = next(r for r in m.cultivars.rows if r["registration_no"] == reg and r["id"] != join_id)
             note_reg = f"Registration number {reg} is listed for {holder['name']}; not set here."
@@ -90,15 +108,15 @@ class Applier:
                 for f in ("color", "bloom_description", "foliage_description"):
                     if not d[f] and S.get(f):
                         d[f] = S[f]
-            if not d["size_class"] and P["size_class"]:
-                d["size_class"] = P["size_class"]
+            if not d["size_class"] and size:
+                d["size_class"] = size
             if reg and not d["registration_no"]:
                 d["registration_no"] = reg
-                if P["registered_date"] and not d["registered_date"]:
-                    d["registered_date"] = P["registered_date"]
-                    d["registered_year"] = P["registered_date"][:4]
-            if not d["hybridizer_raw"] and P["hybridizer"]:
-                d["hybridizer_raw"] = P["hybridizer"]
+            if date and not d["registered_date"] and (reg or d["registration_no"]):
+                d["registered_date"] = date
+                d["registered_year"] = date[:4]
+            if not d["hybridizer_raw"] and hybridizer:
+                d["hybridizer_raw"] = hybridizer
             if P["registered"] == "yes":
                 d["registered_mvl"] = "1"
             d["sources"] = "+".join(dict.fromkeys(t for t in (d["sources"] + "+mvl_supp").split("+") if t))
@@ -111,10 +129,10 @@ class Applier:
             m._log("import_plant", cid, d["name"], "plant", key, "joined", "released from the held supplement plants")
         else:
             kind = "species" if P["kind"] == "species" else ("seedling" if SEEDLING.match(name) else "cultivar")
-            fields = dict(kind=kind, size_class=P["size_class"], registration_no=reg,
-                          registered_date=P["registered_date"] if reg else "",
-                          registered_year=(P["registered_date"][:4] if reg and P["registered_date"] else ""),
-                          description=P["description"], hybridizer_raw=P["hybridizer"], sources="mvl_supp", source_note=listing,
+            fields = dict(kind=kind, size_class=size, registration_no=reg,
+                          registered_date=date if reg else "",
+                          registered_year=(date[:4] if reg and date else ""),
+                          description=P["description"], hybridizer_raw=hybridizer, sources="mvl_supp", source_note=listing,
                           mvl_lists=", ".join(lists), registered_mvl="1" if P["registered"] == "yes" else "",
                           notes=" ".join(xr + ([note_reg] if note_reg else [])))
             if P["description"]:
@@ -152,16 +170,29 @@ class Applier:
             m.set_field(self.rec(c), fld.strip(), val.strip(), reason)
             return f"{c['name']}: {fld.strip()} set"
         if t == "spelling near-miss of an MLV name":
-            if low == "mlv":
-                target = self.same_name(c["mlv_name"])
+            # HIERARCHY (user): First Class (typed by the user) > MLV > the supplement. Per field, a First Class value wins; the MLV only
+            # fills what First Class does not give (and only for `mlv`: the cultivar is in the MLV); the supplement is the last resort.
+            fc_reg, fc_date = fc_parse(c["first_class_reg_date"])
+            fc = dict(name=c["first_class_name"], hyb=c["first_class_hybridizer"], size=c["first_class_size"], reg=fc_reg, date=fc_date)
+            if low in ("mlv", "keep", "different"):
+                use_mlv = low == "mlv"
+                name = fc["name"] or (c["mlv_name"] if use_mlv else None)
+                reg = fc["reg"] or (c["mlv_reg"] if use_mlv else None)
+                date = fc["date"] or (c["mlv_date"] if use_mlv else None)
+                size = fc["size"] or (c["mlv_size"] if use_mlv else None)
+                hyb = fc["hyb"] or None
+                target = self.same_name(name) if (use_mlv or fc["name"]) and name else []
                 if target:
-                    cid = self.import_plant(c["plant_key"], join_id=target[0], reg=c["mlv_reg"])
+                    cid = self.import_plant(c["plant_key"], join_id=target[0], reg=reg, date=date, size=size, hybridizer=hyb)
+                    # an existing record: its values win, except what the user typed from First Class
+                    for fld, val in (("registration_no", fc["reg"]), ("registered_date", fc["date"]), ("size_class", fc["size"]),
+                                     ("hybridizer_raw", fc["hyb"])):
+                        if val and m.by_id[cid][fld] != val:
+                            m.set_field(cid, fld, val, "User confirmed against the First Class database")
                     return f"{c['name']} -> joined {m.by_id[cid]['name']} [{cid}]"
-                cid = self.import_plant(c["plant_key"], name=c["mlv_name"], reg=c["mlv_reg"])
-                return f"{c['name']} -> imported as {c['mlv_name']} [{cid}] (number {c['mlv_reg'] or 'none'})"
-            if low in ("keep", "different"):
-                cid = self.import_plant(c["plant_key"])
-                return f"{c['name']} -> imported as printed [{cid}]"
+                cid = self.import_plant(c["plant_key"], name=name, reg=reg, date=date, size=size, hybridizer=hyb)
+                return (f"{c['name']} -> imported as {m.by_id[cid]['name']} [{cid}] (number {m.by_id[cid]['registration_no'] or 'none'}, "
+                        f"date {m.by_id[cid]['registered_date'] or 'none'})")
         elif t == "same name as another plant, no hybridizer":
             if low in ("release", "separate"):
                 cid = self.import_plant(c["plant_key"])

@@ -75,6 +75,19 @@ def main():
     setd(ocr.check_id, "set:notes=OCR note set by the test")
     bogus = chk[chk.check_type == "spelling near-miss of an MLV name"].iloc[3]
     setd(bogus.check_id, "no such decision")
+    # MLV values for an `mlv` decision; typed First Class values for `keep` (not in the MLV)
+    withdate = chk[(chk.check_type == "spelling near-miss of an MLV name") & (chk.mlv_date != "") & (chk.mlv_reg != "")
+                   & ~chk.check_id.isin(marks)].iloc[0]
+    setd(withdate.check_id, "mlv")
+    fcrow = chk[(chk.check_type == "spelling near-miss of an MLV name") & ~chk.check_id.isin(marks)].iloc[0]
+    setd(fcrow.check_id, "keep")
+    # hierarchy: a typed First Class date beats the MLV date; the MLV fills the size First Class did not give
+    both = chk[(chk.check_type == "spelling near-miss of an MLV name") & (chk.mlv_date != "") & (chk.mlv_size != "") & (chk.mlv_reg != "")
+               & ~chk.check_id.isin(marks)].iloc[0]
+    setd(both.check_id, "mlv")
+    chk.loc[chk.check_id == both.check_id, "first_class_reg_date"] = "03/04/1969"
+    chk.loc[chk.check_id == fcrow.check_id, "first_class_reg_date"] = "(987654) 01/02/1970"
+    chk.loc[chk.check_id == fcrow.check_id, "first_class_size"] = "Miniature"
     chk.to_csv(root / "reports" / "outstanding_checks.csv", index=False, encoding="utf-8-sig")
     out = run(root)
     print(out)
@@ -87,6 +100,15 @@ def main():
     assert join.record_id not in ids and join.target_key in ids, "join merges record_id into target_key"
     names = set(cv.name)
     assert "Test Renamed Cultivar" in names or any(norm_eq(n, "Test Renamed Cultivar") for n in names)
+    mrow = cv[cv.name == withdate.mlv_name]
+    assert len(mrow) and mrow.iloc[0].registered_date == withdate.mlv_date and mrow.iloc[0].registration_no == withdate.mlv_reg,         "an `mlv` decision takes number and date from the MLV"
+    if withdate.mlv_size:
+        assert mrow.iloc[0].size_class == withdate.mlv_size
+    brow = cv[cv.name == both.mlv_name]
+    assert len(brow) and brow.iloc[0].registered_date == "1969-03-04", "First Class date beats the MLV date"
+    assert brow.iloc[0].size_class == both.mlv_size and brow.iloc[0].registration_no == both.mlv_reg, "the MLV fills what First Class lacks"
+    frow = cv[(cv.registration_no == "987654")]
+    assert len(frow) == 1 and frow.iloc[0].registered_date == "1970-01-02" and frow.iloc[0].size_class == "Miniature",         "a `keep` decision takes the First Class values typed by the user"
     rec = cv[cv.id == ocr.record_id].iloc[0]
     assert "OCR note set by the test" in rec.notes
     sup = rd(root / "data" / "mvl_supplements.csv")
