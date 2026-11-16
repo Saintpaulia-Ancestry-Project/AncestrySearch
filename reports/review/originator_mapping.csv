@@ -1,7 +1,7 @@
 ﻿originator,uses,kind,proposed_link,decision,final_person(s)
 Lyon,900,person,"Lyon, Lyndon",,Lyon
 Granger,491,person,,,Granger
-S. Sorano,432,person,,,"Sorano, S."
+S. Sorano,431,person,,,"Sorano, S."
 Frathel,371,person,,,Frathel
 Arndt,328,person,"Arndt, G.",,Arndt
 Fischer,313,person,"Fischer, A.",,Fischer
@@ -52,7 +52,7 @@ Volkmann Bros.,79,organization,,,Volkmann Bros
 Hasenyager,78,person,,,Hasenyager
 Coniber,77,person,,,Coniber
 Luciano,74,person,,,Luciano
-J. Swift,73,person,,,"Swift, J."
+J. Swift,72,person,,,"Swift, J."
 D. Ness,71,person,,,"Ness, D"
 Hansen,68,person,,,Hansen
 Eyerdom,67,person,"Eyerdom | Eyerdom, H. | Eyerdom, J.",,Eyerdom
@@ -172,11 +172,11 @@ Mulford,24,person,,,Mulford
 R. Russell,24,person,,,R. Russell
 Riese,24,person,,,Riese
 Sunnyside,24,person,"Sunnyside, Levy | Sunnyside",,Sunnyside
-C. Sotkiewicz,23,person,,,"Sotkiewicz, C."
 Sherer,23,person,,,Sherer
 The House of Violets,23,person,,,The House of Violets
 Violets by Cort,23,person,,,Violets by Cort
 Waller,23,person,,,Waller
+C. Sotkiewicz,22,person,,,"Sotkiewicz, C."
 G. Durand,22,person,,,"Durand, G."
 J. Eyerdom,22,person,,,"Eyerdom, J."
 Nelson,22,person,,,Nelson
@@ -188,12 +188,12 @@ Spoutz,22,person,,,Spoutz
 B. Burtt,21,person,,,B. Burtt
 Benke,21,person,,,Benke
 Green Circle/Blansit,21,person,,,Green Circle ; Blansit
-Hi Hill,21,person,,,Hi Hill
 Vern Lorenzen,21,person,,,Vern Lorenzen
 Watts,21,person,,,Watts
 Webb,21,person,,,Webb
 C. Harris,20,person,,,C. Harris
 Elkin,20,person,"Elkin, Barbara",,Elkin
+Hi Hill,20,person,,,Hi Hill
 L. Hale,20,person,,,L. Hale
 L. Ray,20,person,,,"Ray, L."
 Lyon GH,20,person,,,Lyon GH
@@ -604,7 +604,6 @@ Mrs. P. Kiesling,4,person,,,Mrs. P. Kiesling
 Mrs. Wm. Baschnagel,4,person,,,Mrs. Wm. Baschnagel
 Muriel T. Kaiser,4,person,,,Muriel T. Kaiser
 Murphy,4,person,"Murphy, A.",,Murphy
-Myrtle C. Woodward,4,person,,,Myrtle C. Woodward
 N. Hudson,4,person,,,"Hudson, N."
 Nortex's Wholesale Grnhse.,4,person,,,Nortex's Wholesale Grnhse
 Orchard,4,person,,,Orchard
@@ -768,7 +767,6 @@ Violet Gardens,3,organization,,,Violet Gardens
 Violets do Cookie,3,person,,,Violets do Cookie
 Violets from the Starrs,3,person,,,Violets from the Starrs
 Wessale,3,person,,,Wessale
-Westwinds' AV,3,person,,,Westwinds' AV
 Weynand,3,person,,,Weynand
 Wilton,3,person,,,Wilton
 A. Matteck,2,person,,,A. Matteck
@@ -887,7 +885,6 @@ Loder,2,person,,,Loder
 M. Boer,2,person,,,"Boer, M."
 M. Burns/Nadeau,2,person,,,M. Burns ; Nadeau
 M. Burs,2,person,,,M. Burs
-M. C. Woodward,2,person,,,M. C. Woodward
 M. Lanigan & Rose Knoll Gardens,2,organization,,,M. Lanigan ; Rose Knoll Gardens
 M. Maas,2,person,,,"Maas, M."
 M. Mason,2,person,,,M. Mason
@@ -922,6 +919,7 @@ Mrs. R. A. Reed,2,person,,,Mrs. R. A. Reed
 Mrs. R. L. Hummer,2,person,,,Mrs. R. L. Hummer
 Mrs. S. Withrow,2,person,,,Mrs. S. Withrow
 Muster,2,person,,,Muster
+Myrtle C. Woodward,2,person,,,Myrtle C. Woodward
 N. Levine,2,person,,,"Levine, N."
 N. Pineault,2,person,,,N. Pineault
 N. Ransone,2,person,,,N. Ransone
@@ -1374,6 +1372,7 @@ Lyon Magazine GH/Sorano,1,person,,,Lyon Magazine GH ; Sorano
 Lyon- /Sorano,1,person,,,Lyon- ; Sorano
 Lyons Greenhouse,1,organization,,,Lyons Greenhouse
 M. Burs/Nadeau,1,person,,,M. Burs ; Nadeau
+M. C. Woodward,1,person,,,M. C. Woodward
 M. Corrigan,1,person,,,M. Corrigan
 M. Jackson,1,person,,,M. Jackson
 M. Koester,1,person,,,M. Koester
@@ -1681,7 +1680,6 @@ Violets from Starrs,1,person,,,Violets from Starrs
 Violets from The Starrs,1,person,,,Violets from The Starrs
 Volkmamnn,1,person,,,Volkmamnn
 Volkman,1,person,,,Volkman
-Volkman Bros,1,organization,,,Volkman Bros
 Volkman Bros.,1,organization,,,Volkman Bros
 Vollmann Bros.,1,organization,,,Vollmann Bros
 Von Dietrich,1,person,,,Von Dietrich
