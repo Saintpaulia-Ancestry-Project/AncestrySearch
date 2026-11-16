@@ -258,6 +258,12 @@ Never push without being asked.
   differs or unknown` rows = `separate`; the 7 `spelling near-miss` rows (Angel Wing, Diedre, Helen, Jeanie, Lorena, Westwinds' Royal Frills,
   Golli G) = `different` (imported under their own spelling). No First Class lookup is needed any more. New checks can still appear
   in that file; decisions go through `apply_check_decisions.py --write` as before.
+- **AVSA Photo Gallery link-out (one-off; plan in notes/avsa-gallery-plan.md): the user is going through reports/avsa_review.xlsx over the
+  following days** (185 open rows: review rows + near-miss names; gitignored; the 70 decided rows are in reports/avsa_review_decided.csv, also
+  gitignored). `decision` = link | link:<record id> | skip. When it is done: add the decided links to data/external_photos.csv (columns
+  cultivar_id, url, source, gallery_title, item_id, matched_by, checked_at; ALREADY holds 2,757 auto + decided links), rebuild, then DELETE the review
+  files, the scratch HTML (scratchpad of the 2026-11-15 session, 468 MB) and the temporary match script. We link only: never copy AVSA images or captions.
+  Links use https://africanvioletsocietyofamerica.org/look/photo-gallery/<letter>/[<page>/]#envira-gallery-item-<id>.
 - **AVML 2010-2019 supplements: notes DONE** (decided with the user): every cultivar listed in them has "Listed in the AVSA Master List
   supplement YYYY." (years, comma separated) added to its notes by import_excel.py; the raw codes in source_note (Russ/Ukr, DAVS, ANZ,
   TX Hyb, Western) are left as they are. Still open: only 306 of the 1,584 AVML rows match a record from source/AfricanVioletAncestry.sqlite;

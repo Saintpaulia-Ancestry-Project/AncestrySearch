@@ -104,6 +104,15 @@ CREATE TABLE images (
   added_at    TEXT
 );
 
+-- Links to photos hosted elsewhere (AVSA Photo Gallery). We link only; no image or caption is copied.
+CREATE TABLE external_photos (
+  cultivar_id   TEXT NOT NULL REFERENCES cultivars(id),
+  url           TEXT NOT NULL,
+  source        TEXT NOT NULL,
+  gallery_title TEXT,
+  PRIMARY KEY (cultivar_id, url)
+);
+
 CREATE TABLE pages (slug TEXT PRIMARY KEY, title TEXT NOT NULL, body TEXT NOT NULL);
 
 CREATE INDEX idx_cultivars_name      ON cultivars(name COLLATE NOCASE);
@@ -115,6 +124,7 @@ CREATE INDEX idx_parentage_parent    ON parentage(parent_id);
 CREATE INDEX idx_parentage_child     ON parentage(child_id);
 CREATE INDEX idx_hybridizers_person  ON cultivar_hybridizers(person_id);
 CREATE INDEX idx_images_cultivar     ON images(cultivar_id);
+CREATE INDEX idx_external_photos_cultivar ON external_photos(cultivar_id);
 
 -- Full-text search. FTS4, not FTS5: the sql.js WebAssembly builds (which run this in the browser)
 -- include FTS3/FTS4 but not FTS5. `id` and `kind` are stored but not indexed so the UI can filter by them.
@@ -374,6 +384,12 @@ def main():
                 " VALUES (?,?,?,?,?,?,?,?,?)",
                 [(r["cultivar_id"], r["file"], nz(r["caption"]), r["credit"], to_int(r["sort_order"]) or 1,
                   to_int(r["width"]), to_int(r["height"]), nz(r["source_url"]), nz(r["added_at"])) for r in rows])
+        ext_csv = DATA / "external_photos.csv"
+        if ext_csv.exists():
+            with open(ext_csv, newline="", encoding="utf-8") as f:
+                ext = list(csv.DictReader(f))
+            con.executemany("INSERT INTO external_photos VALUES (?,?,?,?)",
+                            [(r["cultivar_id"], r["url"], r["source"], nz(r["gallery_title"])) for r in ext])
         con.executemany("INSERT INTO cultivar_links VALUES (?,?,?)",
                         [(r["cultivar_id"], r["url"], r["kind"]) for r in links])
         con.execute("""
@@ -401,7 +417,7 @@ def main():
 
     one = lambda sql, *a: con.execute(sql, a).fetchone()[0]
     counts = {t: one(f"SELECT count(*) FROM {t}") for t in
-              ("cultivars", "people", "parentage", "cultivar_hybridizers", "cultivar_links", "images", "cultivars_fts")}
+              ("cultivars", "people", "parentage", "cultivar_hybridizers", "cultivar_links", "images", "external_photos", "cultivars_fts")}
     if counts["cultivars_fts"] != counts["cultivars"]:
         problems.append("FTS row count differs from cultivars")
     if counts["cultivars"] != len(cultivars) or counts["parentage"] != len(par):

@@ -34,3 +34,7 @@ source/WordPressPhotos/
 
 # Uses MLV.xls from the private Hector Wong archive: local only, never published
 scripts/prep_mvl_supplements.py
+
+# temporary AVSA gallery link-out review (deleted when finished)
+reports/avsa_review.xlsx
+reports/avsa_review_decided.csv

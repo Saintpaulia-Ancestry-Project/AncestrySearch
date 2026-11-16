@@ -253,3 +253,7 @@ label[hidden], .gen-word[hidden] { display: none; }
 .speciesnav a { padding: 2px 10px; border-radius: 999px; background: var(--accent-soft); text-decoration: none; font-size: 0.9rem; }
 .speciesgroup { scroll-margin-top: 70px; }
 .speciesgroup h2 { margin: 26px 0 10px; }
+
+.ext-photos { margin-top: 16px; }
+.ext-photos h2 { font-size: 1rem; margin: 0 0 4px; }
+.ext-photos p { margin: 0; }
