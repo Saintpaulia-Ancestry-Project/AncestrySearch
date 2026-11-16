@@ -1,0 +1,50 @@
+{
+ "cultivar_hybridizer_names": {
+  "rows": 24884,
+  "sha256": "96c5268d7f272eac"
+ },
+ "cultivar_hybridizers": {
+  "rows": 25568,
+  "sha256": "1111876c5eec3169"
+ },
+ "cultivar_links": {
+  "rows": 12,
+  "sha256": "40fc49baf07848b8"
+ },
+ "cultivars": {
+  "rows": 31425,
+  "sha256": "559ef057cb2d2547"
+ },
+ "edges": {
+  "rows": 6240,
+  "sha256": "ae65bb90db0f4a6f"
+ },
+ "images": {
+  "rows": 521,
+  "sha256": "310efd8ae2b973d0"
+ },
+ "pages": {
+  "rows": 3,
+  "sha256": "f15b92087c8c914e"
+ },
+ "parentage": {
+  "rows": 5415,
+  "sha256": "796c783a10057a70"
+ },
+ "people": {
+  "rows": 1972,
+  "sha256": "ebed18e540f5a07e"
+ },
+ "v_children": {
+  "rows": 6240,
+  "sha256": "bf6a303f73b0cc15"
+ },
+ "v_cultivar_list": {
+  "rows": 31425,
+  "sha256": "848d660076a59eec"
+ },
+ "v_parents": {
+  "rows": 6240,
+  "sha256": "5c31b3a457fbd1e9"
+ }
+}
