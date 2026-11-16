@@ -1,5 +1,5 @@
 id,name,kind,country,aliases
-dates-jimmy,"Dates, Jimmy",person,,
+dates-jimmy,"Dates, Jimmy",person,,Dates
 smith-jeff,"Smith, Jeff",person,,"Smith, J."
 holtzman-sharon,"Holtzman, Sharon",person,,"Holtzman, S."
 miemietz-jenner,"Miemietz, Jenner",person,Germany,"Miemietz, Jenner (Germany)"
@@ -10,9 +10,9 @@ stork-kent,"Stork, Kent",person,,"Stork, K. | K. Stork"
 elkin-barbara,"Elkin, Barbara",person,,"Elkin, B. | Elkin"
 ness-d,"Ness, D",person,,"D. Ness | Ness, D."
 harrington-dolores,"Harrington, Dolores",person,,"Harrington, D. | Harrington"
-champion-ethel,"Champion, Ethel",person,,"Champion, E."
+champion-ethel,"Champion, Ethel",person,,"Champion, E. | Champion"
 taylor-margaret,"Taylor, Margaret",person,,"Taylor, M."
-pittman-hortense,"Pittman, Hortense",person,,"Pittman, H."
+pittman-hortense,"Pittman, Hortense",person,,"Pittman, H. | Pittman"
 senk-david,"Senk, David",person,,"Senk, D."
 stromborg-janet,"Stromborg, Janet",person,,"Stromborg, J."
 croteau-denis,"Croteau, Denis",person,,"Croteau, D."
@@ -436,7 +436,6 @@ stork,Stork,person,,
 b-curcuruto,B. Curcuruto,person,,
 baker-s,Baker's,person,,
 fredette,Fredette,person,,
-j,J,person,,
 b-sisk,B Sisk,person,,
 barbara-elkin,Barbara Elkin,person,,
 howard-utz,Howard Utz,person,,
@@ -448,13 +447,11 @@ volkmann-bros,Volkmann Bros,organization,,Volkmann Bros.
 wilson-bros,Wilson Bros,organization,,Wilson Bros.
 granger,Granger,person,,
 kahler,Kahler,person,,
-dates,Dates,person,,
 kolb-s-gh,Kolb's GH,organization,,
 rita-luciano,Rita Luciano,person,,Luciano
 k-hobbs-gregg,K. Hobbs-Gregg,person,,
 sandra-leary,Sandra Leary,person,,
 union-country-ch,Union Country Ch,person,,Union Country Ch.
-pittman,Pittman,person,,
 haywood,Haywood,person,,
 d-g-boone,D. G. Boone,person,,
 ticknor-s-av,Ticknor's AV,organization,,
@@ -664,7 +661,6 @@ casey,Casey,person,,
 wonder,Wonder,person,,
 west,West,person,,
 baylor,Baylor,person,,
-champion,Champion,person,,
 hixson,Hixson,person,,
 bradley,Bradley,person,,
 lattin,Lattin,person,,
@@ -983,7 +979,6 @@ r-g-anderson,R. G. Anderson,person,,
 d-j-good,D. J. Good,person,,
 richter-s-gh,Richter's GH,organization,,
 evlo,Evlo,person,,
-e,E,person,,
 l-hammond,L Hammond,person,,
 madison-g,Madison G,person,,Madison G.
 edward-janosick,Edward Janosick,person,,
@@ -1119,7 +1114,6 @@ v-ballitano,V. Ballitano,person,,
 everett-hammond,Everett Hammond,person,,Hammond
 patt-harris,Patt Harris,person,,
 mrs-chas-w-parks,Mrs. Chas. W. Parks,person,,
-b-sick,B Sick,person,,
 b-miller-morris,B. Miller-Morris,person,,
 sisk,Sisk,person,,
 harry-albro,Harry Albro,person,,
@@ -1285,10 +1279,8 @@ c-reed,C. Reed,person,,
 mccawley-s-av,McCawley's AV,organization,,
 mrs-t-h-trimble,Mrs. T. H. Trimble,person,,
 betty-miller-morris,Betty Miller-Morris,person,,
-r,R,person,,
 d-mendoza,D Mendoza,person,,
 b,B,person,,
-j-african-violet,J African Violet,person,,
 sandy-weyland,Sandy Weyland,person,,
 h-b-kelley,H. B. Kelley,person,,
 b-moss,B. Moss,person,,
@@ -1401,8 +1393,6 @@ capital-city-av-soc,Capital City AV Soc,person,,
 wood-s-av,Wood's AV,organization,,
 n-platnick,N. Platnick,person,,
 eleanore-hull,Eleanore Hull,person,,
-n-dallette,N dallette,person,,
-e-reichenback,E Reichenback,person,,
 j-garrison,J. Garrison,person,,
 r-taylor,R. Taylor,person,,
 union-county-ch,Union County Ch,person,,Union County Ch.
@@ -1479,7 +1469,6 @@ c-raskopf,C. Raskopf,person,,C. Raskopf.
 norma-buttler,Norma Buttler,person,,
 mrs-p-e-kiesling,Mrs. P. E. Kiesling,person,,
 j-feeney,J. Feeney,person,,
-n-matlette,N. Matlette,person,,
 doreen-jamieson,Doreen Jamieson,person,,
 egenites,Egenites,person,,
 frank-a-tinari,Frank A. Tinari,person,,
@@ -1489,7 +1478,6 @@ e-mc-cawley,E. Mc- Cawley,person,,
 siorytella,Siorytella,person,,
 all-seasons-avc,All Seasons AVC,person,,
 h-montgomery,H. Montgomery,person,,
-e-richenbach,E Richenbach,person,,
 mrs-c-hawley,Mrs. C. Hawley,person,,
 mr,Mr,person,,
 mrs-jackie-r-winfield,Mrs. Jackie R. Winfield,person,,
@@ -1808,7 +1796,6 @@ s-wavrunek,S. Wavrunek,person,,
 r-j-craig,R. J. Craig,person,,
 p-sansoucy,P. Sansoucy,person,,
 carol-davey,Carol Davey,person,,
-c-n-mallette,C&N Mallette,person,,
 j-aubuchon,J. Aubuchon,person,,
 hale-s-hse-of-violets,Hale's Hse. of Violets,organization,,
 w-f-whiffen,W. F. Whiffen,person,,
@@ -1855,7 +1842,7 @@ shirley-farnsworth,Shirley Farnsworth,person,,
 e-cook,E. Cook,person,,
 mrs-o-magee,Mrs. O. Magee,person,,
 feeney,Feeney,person,,
-b-j-african-violets,B&J African Violets,person,,
+b-j-african-violets,B&J African Violets,person,,J African Violet
 mrs-h-s-johnson,Mrs. H. S. Johnson,person,,
 elmer-swanson,Elmer Swanson,person,,
 wells,Wells,person,,
@@ -1927,3 +1914,8 @@ aubuchon,Aubuchon,person,,
 j-winfield,J. Winfield,person,,
 j-loder,J. Loder,person,,
 ransone,Ransone,person,,
+e-hammond,E Hammond,person,,
+j-sisk,J Sisk,person,,
+c-mallette,C Mallette,person,,
+h-reichenbach,H Reichenbach,person,,
+r-mendoza,R Mendoza,person,,

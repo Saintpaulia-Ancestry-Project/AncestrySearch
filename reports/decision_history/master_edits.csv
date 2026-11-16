@@ -601,3 +601,27 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,relink_originator,bollar-c,Bollar,hybridizer,Bollar,"Bollar, C.",User confirmed against the First Class database
 2026-11-16,relink_originator,dates-violetry,Date's Violetry,hybridizer,Date's Violetry,Dates Violetry,User confirmed against the First Class database
 2026-11-16,relink_originator,sisk-b,Sisk,hybridizer,Sisk,"Sisk, B.",User confirmed against the First Class database
+2026-11-16,relink_originator,pittman-hortense,Pittman,hybridizer,Pittman,"Pittman, Hortense",User confirmed against the First Class database
+2026-11-16,relink_originator,dates-jimmy,Dates,hybridizer,Dates,"Dates, Jimmy",User confirmed against the First Class database
+2026-11-16,relink_originator,champion-ethel,Champion,hybridizer,Champion,"Champion, Ethel",User confirmed against the First Class database
+2026-11-16,add_person,e-hammond,E Hammond,,,,created while relinking
+2026-11-16,relink_originator,"e-hammond,l-hammond",E & L Hammond,hybridizer,E; L Hammond,E Hammond; L Hammond,User confirmed against the First Class database
+2026-11-16,relink_originator,"c-reed,r-reed",C & R Reed,hybridizer,C; R Reed,C. Reed; R Reed,User confirmed against the First Class database
+2026-11-16,add_person,j-sisk,J Sisk,,,,created while relinking
+2026-11-16,relink_originator,"j-sisk,b-sisk",J & B Sisk,hybridizer,J; B Sisk,J Sisk; B Sisk,User confirmed against the First Class database
+2026-11-16,add_person,c-mallette,C Mallette,,,,created while relinking
+2026-11-16,relink_originator,"c-mallette,n-mallette",C & N Mallette,hybridizer,C; N Mallette,C Mallette; N Mallette,User confirmed against the First Class database
+2026-11-16,relink_originator,"c-mallette,n-mallette",C&N Mallette,hybridizer,C&N Mallette,C Mallette; N Mallette,User confirmed against the First Class database
+2026-11-16,add_person,h-reichenbach,H Reichenbach,,,,created while relinking
+2026-11-16,relink_originator,"h-reichenbach,e-reichenbach",H & E Reichenbach,hybridizer,H; E Reichenbach,H Reichenbach; E Reichenbach,User confirmed against the First Class database
+2026-11-16,relink_originator,"h-reichenbach,e-reichenbach",H & E Reichenback,hybridizer,H; E Reichenback,H Reichenbach; E Reichenbach,User confirmed against the First Class database
+2026-11-16,add_person,r-mendoza,R Mendoza,,,,created while relinking
+2026-11-16,relink_originator,"r-mendoza,d-mendoza",R & D Mendoza,hybridizer,R; D Mendoza,R Mendoza; D Mendoza,User confirmed against the First Class database
+2026-11-16,relink_originator,b-j-african-violets,B & J African Violet,hybridizer,B; J African Violet,B&J African Violets,User confirmed against the First Class database
+2026-11-16,relink_originator,b-j-african-violets,B&J African Violets,hybridizer,B&J African Violets,B&J African Violets,User confirmed against the First Class database
+2026-11-16,relink_originator,"c-mallette,n-mallette",C & N dallette,hybridizer,C; N dallette,C Mallette; N Mallette,User confirmed against the First Class database
+2026-11-16,relink_originator,"c-mallette,n-mallette",C. & N. Matlette,hybridizer,C; N. Matlette,C Mallette; N Mallette,User confirmed against the First Class database
+2026-11-16,relink_originator,"h-reichenbach,e-reichenbach",H & E Richenbach,hybridizer,H; E Richenbach,H Reichenbach; E Reichenbach,User confirmed against the First Class database
+2026-11-16,relink_originator,jackson-jeff,Jackson,hybridizer,Jackson,"Jackson, Jeff",User confirmed against the First Class database
+2026-11-16,relink_originator,"j-sisk,b-sisk",J. & B. Sisk,hybridizer,J; B Sick; B Sisk,J Sisk; B Sisk,Sisk couple: one spelling (decided by the user)
+2026-11-16,set_hybridizers,lucky-duck,Lucky Duck,hybridizer,,J Sisk; B Sisk,printed J. & B. Sisk; the link had been lost
