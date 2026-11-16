@@ -113,6 +113,22 @@ def main():
     m.parentage.rows.append({"child_id": "no-such-id", "parent_id": "spinnaker", "role": "seed", "certainty": "known", "raw_text": "x"})
     must_fail(m.save)
     print("ok  save refuses a dangling relation")
+    # 8. relink an originator printed as text: cultivars move to the chosen people, orphans go, aliases kept
+    m = me.Master(root)
+    n_lyon = m.relink_originator("Arndt", ["Arndt"], ["Arndt, G."], "unit test")
+    assert n_lyon > 100, n_lyon
+    ids = {p["name"]: p["id"] for p in m.people.rows}
+    assert "Arndt" not in ids or any(h["person_id"] == ids["Arndt"] for h in m.hyb.rows), "orphan person removed (or still used)"
+    g = next(p for p in m.people.rows if p["name"] == "Arndt, G.")
+    assert "Arndt" in g["aliases"] or "Arndt" not in ids
+    must_fail(m.relink_originator, "Arndt", ["Arndt"], ["Arndt, G."], "second time: nothing left to move")
+    k = m.relink_originator("Sidney & Paul Sorano", ["Sidney", "Paul Sorano"], ["Test Person One", "Test Person Two"], "unit test")
+    two = [h for h in m.hyb.rows if h["person_id"] in (m._person("Test Person One"), m._person("Test Person Two"))]
+    assert k >= 1 and len(two) == 2 * k and {h["position"] for h in two} == {"1", "2"}
+    m.set_person_kind("Test Person One", "organization", "unit test")
+    assert m.validate() == []
+    m.save()
+    print("ok  relink an originator (one person, several people), kind, refusal of a repeat")
     shutil.rmtree(root, ignore_errors=True)
     print("all tests passed")
 

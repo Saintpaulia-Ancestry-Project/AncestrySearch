@@ -150,11 +150,13 @@ hand-maintained data and stay as they are.
   migration scripts are in `scripts/archive/` (README there; `import_excel.py` refuses to run without `AV_ALLOW_BOOTSTRAP=1`). Nine decided
   review files moved to `reports/decision_history/`. Checked: the archived importer run on a COPY of the repository plus
   `import_submissions.py apply` reproduces the five master CSVs byte for byte; the routine pipeline and the database fingerprint
-  are unchanged. Left in `reports/review/`: `outstanding_originator_mapping.csv` (no apply operation yet: linking an originator to a
-  person), the WordPress photo review files and the AVSA sports-page review files (their own imports).
+  are unchanged. Left in `reports/review/`: the WordPress photo review files and the AVSA sports-page review files (their own imports).
 - Decision (user): ids that are no longer in the site database are NOT a concern (the live site is new and little known, the data is still
   being worked on). No redirect support in the front end for now; `master_edit.py` still records every merge in
   `data/id_redirects.csv` (old id -> kept id) so the front end could use it later, when the site is widely linked.
+- Originator linking DONE (user decision: build it as a check type): the 1,714 undecided rows of the originator mapping are in
+  `outstanding_checks.csv` (type `originator text vs person`; the old file is `decision_history/originator_mapping.csv`);
+  `master_edit.relink_originator` / `set_person_kind` and the apply handler are tested.
 - DATA HIERARCHY (user decision): First Class > MLV.xls > the supplement, field by field. For a held spelling near-miss decided `mlv`,
   `outstanding_checks.csv` has `mlv_date` / `mlv_size` (one-time local read of MLV.xls: MLV row found for all 429; 276 with a date, 414 with
   a size) and the MLV only fills what First Class does not give. What the user types from First Class (`first_class_name`,

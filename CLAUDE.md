@@ -191,7 +191,7 @@ HISTORY of how the master was made. The decided review files are in reports/deci
   originators agree, else a separate parent record carrying the originator; a name match with no known hybridizer
   goes to reports/review/parent_originator_matches.csv (decision `join`). (2) The 1963 book's 509 originator strings
   (and bracketed parent originators) become people exactly as printed, so hybridizer pages exist; they are linked to
-  an existing person ONLY where reports/review/outstanding_originator_mapping.csv says so (decision `link`, or type the
+  an existing person ONLY where reports/decision_history/originator_mapping.csv says so (decision `link`, or type the
   person's name(s) separated by ;), because a 1960s originator and a modern hybridizer can share a surname. The `kind`
   column there (person/organization) is editable. 'A & B' / 'A and B' split into two people; 'A&R' does not.
   Pipeline order: parse (cross-check only) -> merge_masterlist1963.py -> import_excel.py -> build_db.py.
@@ -342,6 +342,9 @@ one-off source (AVM has issued none since 2019).
   imported into the master when its decision is made), appends the applied rows to reports/decision_history/applied_checks.csv and
   removes them from the outstanding file. The private First Class worksheet is a working copy
   (AVAncestry-private/AVM/MVL_extracts/spelling_check/outstanding_checks_worksheet.xlsx; MLV text: never commit).
+- Originators printed as text (1963 book, supplements) are checks too (type `originator text vs person`, 1,714 rows): decide `link`, `link:<person>`,
+  `people:<A>; <B>` or `kind:organization`; apply_check_decisions.py then moves every cultivar printed with that originator to those people
+  (master_edit.relink_originator) and deletes people left with no cultivar. The old mapping file is history: reports/decision_history/originator_mapping.csv.
 - PHASE 2 (notes/freeze-plan.md): the master files data/cultivars.csv, parentage.csv, people.csv, cultivar_hybridizers.csv,
   cultivar_links.csv (+ images.csv, name_aliases.csv, id_redirects.csv) are now edited ONLY through master_edit.py /
   apply_check_decisions.py / import_submissions.py; import_excel.py is NOT part of the routine pipeline any more (it would overwrite the

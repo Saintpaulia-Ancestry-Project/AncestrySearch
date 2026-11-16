@@ -25,6 +25,11 @@ Decisions by check_type (case-insensitive). `set:<field>=<value>` works on any r
   possible duplicate or misspelled name               merge:<correct name>  |  separate
   book entry vs existing record (1963)                join  (merge record_id into target_key)  |  separate
   OCR review (1963)                                   drop (delete record_id)  |  keep  |  set:<field>=<value>
+  originator text vs person                           link (the single proposed person)  |  link:<existing person name or id>  |
+                                                      people:<Name 1>; <Name 2> (those people, created when new; for "A & B")  |
+                                                      kind:person | kind:organization  |  keep (stays a person of its own)
+                                                      Moves every cultivar printed with that originator (and linked to exactly the
+                                                      people in `hybridizer`); people left with no cultivar are deleted.
 After a run no import step is needed: build_db.py -> export_ancestry_xlsx.py.
 Usage: python scripts/apply_check_decisions.py [--write] [--root DIR]     (default: a dry run that only reports)
 """
@@ -241,6 +246,31 @@ class Applier:
                     m.rename(ids[keep_name][0], canon, reason)
                 m.merge(ids[keep_name][0], ids[drop_name][0], reason)
                 return f"{c['name']} / {c['target_key']}: merged into {canon}"
+        elif t == "originator text vs person":
+            cur = [x.strip() for x in c["hybridizer"].split(";") if x.strip()]
+            reason_o = reason
+            if low == "keep":
+                return f"{c['name']}: stays as printed"
+            if low.startswith("kind:"):
+                for x in cur:
+                    m.set_person_kind(x, d.split(":", 1)[1].strip().lower(), reason_o)
+                return f"{c['name']}: kind set for {', '.join(cur)}"
+            specs = None
+            if low == "link":
+                names = [x.strip() for x in c["proposal"].split("|") if x.strip()]
+                if len(names) != 1:
+                    raise me.EditError(f"{c['name']}: {len(names)} proposed people; use link:<name> or people:<names>")
+                specs = names
+            elif low.startswith("link:"):
+                one = d.split(":", 1)[1].strip()
+                if m.find_person(one) is None:
+                    raise me.EditError(f"{one!r} is not an existing person (unique name or id); use people:<names> to create")
+                specs = [one]
+            elif low.startswith("people:"):
+                specs = [x.strip() for x in d.split(":", 1)[1].split(";") if x.strip()]
+            if specs:
+                n_ = m.relink_originator(c["name"], cur, specs, reason_o)
+                return f"{c['name']}: {n_} cultivars now linked to {'; '.join(specs)}"
         elif t == "OCR review":
             if low == "keep":
                 return f"{c['name']}: kept"

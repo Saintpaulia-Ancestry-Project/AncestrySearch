@@ -269,6 +269,75 @@ class Master:
         self._log("add", cid, name, "", "", "", reason)
         return cid
 
+    # ---------------------------------------------------------------- people
+    def _person(self, spec, create_kind="person"):
+        """a person id from an id or an exact name; created when the name is new"""
+        by_id = {p["id"]: p for p in self.people.rows}
+        if spec in by_id:
+            return spec
+        hits = [p for p in self.people.rows if p["name"] == spec]
+        if len(hits) == 1:
+            return hits[0]["id"]
+        if len(hits) > 1:
+            raise EditError(f"{len(hits)} people are named {spec!r}; use the id")
+        base = slugify(spec)
+        pid, n = base, 1
+        while pid in by_id:
+            n += 1
+            pid = f"{base}-{n}"
+        self.people.rows.append({"id": pid, "name": spec, "kind": create_kind, "country": "", "aliases": ""})
+        self._log("add_person", pid, spec, "", "", "", "created while relinking")
+        return pid
+
+    def find_person(self, spec):
+        by_id = {p["id"]: p for p in self.people.rows}
+        if spec in by_id:
+            return spec
+        hits = [p["id"] for p in self.people.rows if p["name"] == spec]
+        return hits[0] if len(hits) == 1 else None
+
+    def relink_originator(self, text, current_names, new_specs, reason):
+        """Cultivars whose printed hybridizer text is `text` and whose hybridizer rows are exactly the people named in
+        `current_names` get the people in `new_specs` instead (ids or exact names; a new name creates a person). People left
+        with no cultivar are deleted, and when the cultivars move to ONE person the old name is kept in that person's aliases.
+        Returns the number of cultivars changed."""
+        key = norm(text)
+        cur = sorted(current_names)
+        by_pid = {p["id"]: p["name"] for p in self.people.rows}
+        rows_of = {}
+        for h in self.hyb.rows:
+            rows_of.setdefault(h["cultivar_id"], []).append(h)
+        todo = [c["id"] for c in self.cultivars.rows
+                if norm(c["hybridizer_raw"]) == key and sorted(by_pid.get(h["person_id"], "") for h in rows_of.get(c["id"], [])) == cur]
+        if not todo:
+            raise EditError(f"no cultivar printed as {text!r} is linked to exactly {current_names}")
+        new_ids = [self._person(x) for x in new_specs]
+        old_ids = {h["person_id"] for cid in todo for h in rows_of.get(cid, [])}
+        done = set(todo)
+        self.hyb.rows = [h for h in self.hyb.rows if h["cultivar_id"] not in done]
+        for cid in todo:
+            for i, pid in enumerate(new_ids, 1):
+                self.hyb.rows.append({"cultivar_id": cid, "person_id": pid, "position": str(i)})
+        still = {h["person_id"] for h in self.hyb.rows}
+        gone = [pid for pid in old_ids if pid not in still and pid not in new_ids]
+        if len(new_ids) == 1 and gone:
+            newp = next(p for p in self.people.rows if p["id"] == new_ids[0])
+            names = [x for x in newp["aliases"].split(" | ") if x] + [by_pid[g] for g in gone if by_pid[g] != newp["name"]]
+            newp["aliases"] = " | ".join(dict.fromkeys(names))
+        self.people.rows = [p for p in self.people.rows if p["id"] not in gone]
+        self._log("relink_originator", ",".join(new_ids), text, "hybridizer", "; ".join(current_names), "; ".join(new_specs), reason)
+        return len(todo)
+
+    def set_person_kind(self, spec, kind, reason):
+        pid = self.find_person(spec)
+        if pid is None:
+            raise EditError(f"no unique person {spec!r}")
+        if kind not in ("person", "organization", "species"):
+            raise EditError(f"kind {kind!r}")
+        p = next(x for x in self.people.rows if x["id"] == pid)
+        old, p["kind"] = p["kind"], kind
+        self._log("set_person_kind", pid, p["name"], "kind", old, kind, reason)
+
     # ---------------------------------------------------------------- checks
     def _check_cycles(self):
         par = {}

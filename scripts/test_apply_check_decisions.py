@@ -88,18 +88,30 @@ def main():
     chk.loc[chk.check_id == both.check_id, "first_class_reg_date"] = "03/04/1969"
     chk.loc[chk.check_id == fcrow.check_id, "first_class_reg_date"] = "(987654) 01/02/1970"
     chk.loc[chk.check_id == fcrow.check_id, "first_class_size"] = "Miniature"
+    ors = chk[chk.check_type == "originator text vs person"]
+    o_link = ors[(ors.name == "Arndt")].iloc[0]
+    setd(o_link.check_id, "link")
+    o_kind = ors[(ors.name == "Tonkadale")].iloc[0]
+    setd(o_kind.check_id, "kind:organization")
+    o_two = ors[ors.name == "Sidney & Paul Sorano"].iloc[0]
+    setd(o_two.check_id, "people:Test Person One; Test Person Two")
+    o_bad = ors[ors.name == "Madison"].iloc[0]
+    setd(o_bad.check_id, "link:No Such Person")
     chk.to_csv(root / "reports" / "outstanding_checks.csv", index=False, encoding="utf-8-sig")
     out = run(root)
     print(out)
+    assert f"NOT APPLIED {o_bad.check_id}" in out and "is not an existing person" in out
     assert f"NOT APPLIED {bogus.check_id}" in out
     after = rd(root / "reports" / "outstanding_checks.csv")
-    assert len(after) == n0 - (len(marks) - 1), (len(after), n0, len(marks))
+    assert len(after) == n0 - (len(marks) - out.count("NOT APPLIED")), (len(after), n0, len(marks))
     assert bogus.check_id in set(after.check_id)
     cv = rd(root / "data" / "cultivars.csv")
     ids = set(cv.id)
     assert join.record_id not in ids and join.target_key in ids, "join merges record_id into target_key"
     names = set(cv.name)
     assert "Test Renamed Cultivar" in names or any(norm_eq(n, "Test Renamed Cultivar") for n in names)
+    pe = rd(root / "data" / "people.csv")
+    assert "Test Person One" in set(pe.name) and pe[pe.name == "Tonkadale"].iloc[0].kind == "organization"
     mrow = cv[cv.name == withdate.mlv_name]
     assert len(mrow) and mrow.iloc[0].registered_date == withdate.mlv_date and mrow.iloc[0].registration_no == withdate.mlv_reg,         "an `mlv` decision takes number and date from the MLV"
     if withdate.mlv_size:
