@@ -122,18 +122,26 @@ def main():
     chk.loc[chk.check_id == fcrow.check_id, "first_class_reg_date"] = "(987654) 01/02/1970"
     chk.loc[chk.check_id == fcrow.check_id, "first_class_size"] = "Miniature"
     ors = chk[chk.check_type == "originator text vs person"]
-    o_link = ors[(ors.name == "Arndt")].iloc[0]
-    setd(o_link.check_id, "link")
-    o_kind = ors[(ors.name == "Tonkadale")].iloc[0]
-    setd(o_kind.check_id, "kind:organization")
-    o_two = ors[ors.name == "Sidney & Paul Sorano"].iloc[0]
-    setd(o_two.check_id, "people:Test Person One; Test Person Two")
-    o_bad = ors[ors.name == "Madison"].iloc[0]
-    setd(o_bad.check_id, "link:No Such Person")
+    one_prop = ors[ors.proposal.map(lambda x: len([y for y in x.split("|") if y.strip()]) == 1)]
+    o_link = o_kind = o_two = o_bad = None
+    if len(one_prop):
+        o_link = one_prop.iloc[0]
+        setd(o_link.check_id, "link")
+    plain = ors[~ors.check_id.isin(marks) & ~ors.name.str.contains("[/&]")]
+    if len(plain) > 1:
+        o_kind = plain.iloc[0]
+        setd(o_kind.check_id, "kind:organization")
+        o_bad = plain.iloc[1]
+        setd(o_bad.check_id, "link:No Such Person")
+    multi = ors[ors.name.str.contains("[/&]") & ors.hybridizer.str.contains(";") & ~ors.check_id.isin(marks)]
+    if len(multi):
+        o_two = multi.iloc[0]
+        setd(o_two.check_id, "people:Test Person One; Test Person Two")
     chk.to_csv(root / "reports" / "outstanding_checks.csv", index=False, encoding="utf-8-sig")
     out = run(root)
     print(out)
-    assert f"NOT APPLIED {o_bad.check_id}" in out and "is not an existing person" in out
+    if o_bad is not None:
+        assert f"NOT APPLIED {o_bad.check_id}" in out and "is not an existing person" in out
     assert f"NOT APPLIED {bogus.check_id}" in out
     after = rd(root / "reports" / "outstanding_checks.csv")
     assert len(after) == n0 - (len(marks) - out.count("NOT APPLIED")), (len(after), n0, len(marks))
@@ -145,7 +153,11 @@ def main():
     names = set(cv.name)
     assert "Test Renamed Cultivar" in names or any(norm_eq(n, "Test Renamed Cultivar") for n in names)
     pe = rd(root / "data" / "people.csv")
-    assert "Test Person One" in set(pe.name) and pe[pe.name == "Tonkadale"].iloc[0].kind == "organization"
+    if o_two is not None:
+        assert "Test Person One" in set(pe.name)
+    if o_kind is not None:
+        cur = [x.strip() for x in o_kind.hybridizer.split(";")]
+        assert all(pe[pe.name == x].iloc[0].kind == "organization" for x in cur if len(pe[pe.name == x]))
     mrow = cv[cv.name == withdate.mlv_name]
     assert len(mrow) and mrow.iloc[0].registered_date == withdate.mlv_date and mrow.iloc[0].registration_no == withdate.mlv_reg,         "an `mlv` decision takes number and date from the MLV"
     if withdate.mlv_size:

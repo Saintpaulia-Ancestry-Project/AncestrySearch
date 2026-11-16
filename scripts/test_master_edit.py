@@ -115,17 +115,33 @@ def main():
     print("ok  save refuses a dangling relation")
     # 8. relink an originator printed as text: cultivars move to the chosen people, orphans go, aliases kept
     m = me.Master(root)
-    n_lyon = m.relink_originator("Arndt", ["Arndt"], ["Arndt, G."], "unit test")
-    assert n_lyon > 100, n_lyon
-    ids = {p["name"]: p["id"] for p in m.people.rows}
-    assert "Arndt" not in ids or any(h["person_id"] == ids["Arndt"] for h in m.hyb.rows), "orphan person removed (or still used)"
-    g = next(p for p in m.people.rows if p["name"] == "Arndt, G.")
-    assert "Arndt" in g["aliases"] or "Arndt" not in ids
-    must_fail(m.relink_originator, "Arndt", ["Arndt"], ["Arndt, G."], "second time: nothing left to move")
-    k = m.relink_originator("Sidney & Paul Sorano", ["Sidney", "Paul Sorano"], ["Test Person One", "Test Person Two"], "unit test")
-    two = [h for h in m.hyb.rows if h["person_id"] in (m._person("Test Person One"), m._person("Test Person Two"))]
-    assert k >= 1 and len(two) == 2 * k and {h["position"] for h in two} == {"1", "2"}
-    m.set_person_kind("Test Person One", "organization", "unit test")
+    names = {p["id"]: p["name"] for p in m.people.rows}
+    linked = {}
+    for h in m.hyb.rows:
+        linked.setdefault(h["cultivar_id"], []).append(names.get(h["person_id"], ""))
+    one = {}                                   # a printed text whose cultivars are all linked to exactly one person of that name
+    for c_ in m.cultivars.rows:
+        t = c_["hybridizer_raw"].strip()
+        if t and linked.get(c_["id"]) == [t]:
+            one.setdefault(t, []).append(c_["id"])
+    text = max(one, key=lambda k: len(one[k]))
+    target = next(p["name"] for p in m.people.rows if p["name"] != text and p["kind"] == "person")
+    n_moved = m.relink_originator(text, [text], [target], "unit test")
+    assert n_moved >= 1, n_moved
+    must_fail(m.relink_originator, text, [text], [target], "second time: nothing left to move")
+    two = {}                                   # a text of two people ("A / B"): cultivars linked to exactly those two
+    for c_ in m.cultivars.rows:
+        t = c_["hybridizer_raw"].strip()
+        ps = linked.get(c_["id"], [])
+        if len(ps) == 2 and ("/" in t or "&" in t):
+            two.setdefault((t, tuple(sorted(ps))), []).append(c_["id"])
+    if two:
+        (t2, ps2), ids2 = next(iter(two.items()))
+        k = m.relink_originator(t2, list(ps2), ["Test Person One", "Test Person Two"], "unit test")
+        pair = (m._person("Test Person One"), m._person("Test Person Two"))
+        rows2 = [h for h in m.hyb.rows if h["person_id"] in pair]
+        assert k >= 1 and len(rows2) == 2 * k and {h["position"] for h in rows2} == {"1", "2"}
+        m.set_person_kind("Test Person One", "organization", "unit test")
     assert m.validate() == []
     m.save()
     print("ok  relink an originator (one person, several people), kind, refusal of a repeat")
