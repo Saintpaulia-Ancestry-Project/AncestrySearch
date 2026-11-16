@@ -952,3 +952,7 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,add,vulcan-red,Vulcan Red,,,,released from the held supplement plants
 2026-11-16,add,westdale-burgundy-wine,Westdale Burgundy Wine,,,,released from the held supplement plants
 2026-11-16,add,zula-queen,Zula Queen,,,,released from the held supplement plants
+2026-11-16,set,candlelit-delight,Candlelit Delight,hybridizer_raw,"Sorano, P.",Lyndon Lyon Greenhouses,User confirmed against the First Class database
+2026-11-16,set,optimara-everharmony,Optimara EverHarmony,size_class,Standard,Large,User confirmed against the First Class database
+2026-11-16,set,buckeye-too-much,Buckeye Too Much,size_class,Standard,Large,User confirmed against the First Class database
+2026-11-16,set,rrav-s-irish-elf,Rrav's Irish Elf,size_class,Semiminiature,Miniature,User confirmed against the First Class database
