@@ -117,7 +117,9 @@ def main():
                       "African Violet Magazine (https://www.biodiversitylibrary.org/bibliography/146187, curated by the "
                       "Biodiversity Heritage Library). The online collection of the magazine is made available under "
                       "CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/), and that content stays "
-                      "under those terms."),
+                      "under those terms. The same applies to the names and descriptions of species (names beginning 'S.'), which follow "
+                      "K. Barbi, African Violet Species Identification Guide (MAAVS, 2019) and J. Smith and W. Goretsky, "
+                      "Gesneriads 68(1), 2018 (CC BY-NC-SA 4.0)."),
         ("Credit", "Saintpaulia Ancestry Project, https://github.com/Saintpaulia-Ancestry-Project"),
         (None, None),
         ("Column", "Meaning"),

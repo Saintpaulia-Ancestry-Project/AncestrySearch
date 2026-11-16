@@ -1813,7 +1813,7 @@ happy-tears,babe,seed,known,Babe
 happy-tears,seedling-y-101,pollen,known,Seedling Y-101
 happy-teen,my-mindy,seed,known,My Mindy
 happy-teen,seedling-of-precious-pink,pollen,known,Seedling of Precious Pink
-happy-trails,s-magungensis-var-minima-and-several-standard-pink-trailers,seed,known,S. magungensis var. minima and several standard pink trailers
+happy-trails,s-magungensis-var-minima,seed,known,S. magungensis var. minima and several standard pink trailers
 harbor-blue,something-special,seed,known,Something Special
 harbor-blue,grangers-wonderland,pollen,known,Granger's Wonderland
 harmony,rainbow-s-quiet-riot,seed,known,Rainbow’s Quiet Riot
@@ -3399,7 +3399,7 @@ nuclear-fucsian,our-naked-joy,seed,known,Our Naked Joy
 nuclear-fucsian,red-ferrari,pollen,known,Red Ferrari
 nymph-fly,s-velutina,seed,known,S. velutina
 nymph-fly,pink-wasp,pollen,known,Pink Wasp
-nymph-fly-4-64-2,saintpaulia-velutina,seed,known,Saintpaulia velutina
+nymph-fly-4-64-2,s-velutina-b-burtt,seed,known,Saintpaulia velutina
 nymph-fly-4-64-2,pink-wasp,pollen,known,Pink Wasp
 ocean-eyes,marvel,seed,known,Marvel
 ocean-eyes,l-ambassadeur,pollen,known,L' Ambassadeur
@@ -3605,7 +3605,7 @@ pink-wasp,1-57-2,seed,known,1-57-2
 pink-wasp,georgia-peach,pollen,known,Georgia Peach
 pinxter,seedling-94e,seed,known,Seedling 94E
 pinxter,seedling-96,pollen,known,Seedling 96
-pixie-blue,s-magungensis-var-minima-and-several-standard-pink-trailers,seed,known,S. magungensis var. minima and several standard pink trailers
+pixie-blue,s-magungensis-var-minima,seed,known,S. magungensis var. minima and several standard pink trailers
 pixilation,aluminum-foil,seed,known,Aluminum Foil
 pixilation,happy-cricket,pollen,known,Happy Cricket
 plain-and-fancy,seedling-94d,seed,known,Seedling 94D
@@ -5161,7 +5161,7 @@ victorian-park,playful-spectrum,seed,known,Playful Spectrum
 victorian-park,golden-autumn,pollen,known,Golden Autumn
 victorian-pink,coon-valley,seed,known,Coon Valley
 victorian-pink,seedling,pollen,known,Seedling
-violet-trail,s-grotei-tiny-rose-hello-dolly-pink-angel,seed,known,"S. grotei, Tiny Rose, Hello Dolly, Pink Angel"
+violet-trail,s-grotei-a-engler,seed,known,"S. grotei, Tiny Rose, Hello Dolly, Pink Angel"
 virginia-is,interviewer,seed,known,Interviewer
 virginia-is,starshine,pollen,known,Starshine
 viviana,virginia-is,seed,known,Virginia Is
@@ -5318,9 +5318,9 @@ yesterday-s-cherry-cola,s-grotei-mather-no-21,seed,known,S. grotei Mather No. 21
 yesterday-s-cherry-cola,cherry-cola,pollen,known,Cherry Cola
 yesterday-s-child,s-magungensis-x-s-velutina,seed,known,S. magungensis x S. velutina
 yesterday-s-child,mather-no-21-x-ness-angel-glitter,pollen,known,Mather No. 21 x Ness' Angel Glitter
-yesterday-s-evidence,s-ionantha-ssp-grotei-cl-mather-no-21,seed,known,S. ionantha ssp. grotei cl. Mather No. 21
+yesterday-s-evidence,s-grotei-mather-no-21,seed,known,S. ionantha ssp. grotei cl. Mather No. 21
 yesterday-s-evidence,crimson-ice,pollen,known,Crimson Ice
-yesterday-s-eye-spy,s-ionantha-ssp-grotei-cl-mather-no-21,seed,known,S. ionantha ssp. grotei cl. Mather No. 21
+yesterday-s-eye-spy,s-grotei-mather-no-21,seed,known,S. ionantha ssp. grotei cl. Mather No. 21
 yesterday-s-eye-spy,crimson-ice,pollen,known,Crimson Ice
 yesterday-s-garland,mather-no-21,seed,known,Mather No. 21
 yesterday-s-garland,ness-angel-glitter,pollen,known,Ness' Angel Glitter
@@ -5414,3 +5414,5 @@ rivermist-thriller,rivermist-zeeva,seed,known,Rivermist Zeeva
 rivermist-thriller,rivermist-zeeva,pollen,known,Rivermist Zeeva
 rivermist-warpaint,rivermist-beguiling,seed,known,Rivermist Beguiling
 rivermist-warpaint,rivermist-oohlala,pollen,known,Rivermist Oohlala
+s-magungensis-x-s-velutina,s-magungensis-e-roberts,unordered,known,S. magungensis x S. velutina
+s-magungensis-x-s-velutina,s-velutina-b-burtt,unordered,known,S. magungensis x S. velutina
