@@ -74,15 +74,76 @@ The review files in `reports/review/` that only held decisions for the frozen su
 5. Run the pipeline: `cultivars.csv` etc. identical to the snapshot; the sqlite differs only by build time.
 6. Update CLAUDE.md (pipeline order, "MVL supplements" section, review files), notes/mvl-supplements-plan.md.
 
-## Phase 2 (later, only if wanted): freeze the whole baseline
-Make `data/cultivars.csv`, `parentage.csv`, `cultivar_hybridizers.csv`, `people.csv` the master and retire `import_excel.py` from
-the routine run (bootstrap tool only); `data_corrections`, `parent_corrections`, `name_corrections` become one-time edits plus
-history. Needs its own plan: how a new source or a correction merges into a master that has been edited.
+## Phase 2: freeze the whole baseline (DRAFT, nothing done yet)
+
+User decision: `source/AfricanVioletAncestry.sqlite` and `.xlsx` are historical and never change. The AVML supplements 1964-2019,
+the 1963 book and the magazine registration reports are one-off sources too. Whatever has been decided and imported from them is
+never imported again.
+
+### What `import_excel.py` still does on every run (the thing to remove)
+Reads, in one pass, and rebuilds `data/cultivars.csv`, `parentage.csv`, `people.csv`, `cultivar_hybridizers.csv`,
+`cultivar_links.csv` (about 38 s; `import_submissions.py apply` then adds the contributor submissions on top):
+
+| input | kind |
+|---|---|
+| `source/AfricanVioletAncestry.xlsx` (Name sheet), `.sqlite` (Varieties) | historical source |
+| `source/AV-MasterLIstSupplements/2010..2019/AVML-*.xlsx` | historical source (2010-2019 To Do) |
+| `data/registration_reports.csv`, `registration_lists.csv` | historical source (magazine) |
+| `data/masterlist1963.csv` (made by `merge_masterlist1963.py` from the two OCRs) | historical source |
+| `data/mvl_supplements.csv`, `mvl_description_split.csv`, `mvl_crossrefs.csv` | already frozen in phase 1, but still joined on every run |
+| `reports/review/`: `sqlite_duplicates`, `data_corrections`, `parent_corrections`, `name_corrections`, `hybridizer_mapping`, `outstanding_originator_mapping`, `parent_originator_matches`, `masterlist_matches` | decisions re-applied every run |
+| `data/submissions/*.csv` (apply step) | live (new contributions); already idempotent ("already applied: skipped") |
+
+`build_db.py` also reads `data/description_split.csv`, `sports_page.csv`, `images.csv` and `data/pages/`: these are already
+hand-maintained data and stay as they are.
+
+### Target
+1. **Master data.** `cultivars.csv`, `parentage.csv`, `people.csv`, `cultivar_hybridizers.csv`, `cultivar_links.csv` become
+   hand-maintained master files (same precedent as `description_split.csv`). Nothing regenerates them. The sources above stay in
+   `source/` for audit but no routine script reads them.
+2. **Pipeline:** `apply_check_decisions.py` (when there are decisions) -> `import_submissions.py apply` -> `build_db.py` ->
+   `export_ancestry_xlsx.py`. About 10 seconds.
+3. **`import_excel.py` and the scripts that feed it** (`merge_masterlist1963.py`, `parse_masterlist1963.py`, `inspect_excel.py`,
+   `propose_review.py`) move to `scripts/archive/` with a README line: "bootstrap tools; they reproduce the master from the
+   sources for an audit and are not part of the routine pipeline". The review files they read move to `reports/decision_history/`
+   (read by no script). Deleted from `reports/review/`: `sqlite_duplicates`, `data_corrections`, `parent_corrections`,
+   `name_corrections`, `hybridizer_mapping`, `parent_originator_matches`, `masterlist_matches`.
+4. **Edits to the master go through one tool, `scripts/master_edit.py`** (not by hand, so every change is logged to
+   `reports/decision_history/master_edits.csv` with who/why/when). Operations: set a field (`data_corrections` becomes this),
+   rename (id stays; the old spelling goes to the notes, as `name_corrections` does today), merge record B into A (rewrites
+   `parentage`, `cultivar_hybridizers`, `cultivar_links`, `images.csv`; B's id is kept as a redirect row so old links and
+   bookmarks still work), add/delete a record, link an originator to a person, set a parent cell. `apply_check_decisions.py`
+   calls it, so the MVL, 1963-book and 2003-2022 checks all end in the master directly. After this the phase-1 frozen
+   `mvl_*.csv` files are history too (their plants are in the master; check rows then point at master ids).
+5. **Contributor submissions** stay live and stay incremental: they are applied to the master, then recorded in
+   `decision_history/applied_submissions.csv` so a file is never re-applied.
+6. **Provenance is kept** in the master's `sources`, `source_note`, `notes`, `mvl_lists` columns (already there), so nothing is
+   lost when the importer is retired.
+
+### Migration (one commit per step, each verified)
+1. Snapshot `data/*.csv` and `site/avancestry.sqlite`; the snapshot after every step must give an identical `avancestry.sqlite`
+   (table-by-table dump compare, not file bytes).
+2. Write `master_edit.py` with tests for each operation (known cases: Spinnaker/Reed's Jackpot merge and rename, a hybridizer
+   correction, a name alias merge, an originator link).
+3. Move the review-file rows into `decision_history/`, switch `apply_check_decisions.py` from the phase-1 CSVs to the master,
+   convert the live `outstanding_checks.csv` target keys (`mvl` plant keys) to master record ids.
+4. Archive the import scripts; update `.github` workflow if it calls any of them (today it runs `build_db.py` and the export only);
+   rewrite the Status / Pipeline / Source data sections of CLAUDE.md.
+5. Run the full pipeline and compare: the master CSVs unchanged from step 1, the sqlite identical.
+
+### Risks and what stays outside
+- A correction to a source now means a logged edit to the master; the sources can no longer be re-read to "start over".
+  (`git` history of the master files and the archived bootstrap tools are the way back.)
+- The Pages workflow and `build_db.py` already build from the committed CSVs, so the site is unaffected.
+- Local mode (`mydata.sqlite`), the submission form and the images repo are unaffected.
+- People mapping (`outstanding_originator_mapping.csv`, `hybridizer_mapping.csv`) keep their own outstanding file: unlinked
+  originators are not cultivars, but linking one becomes a `master_edit.py` operation.
+- Effort: step 2 (the merge operation across five tables and `images.csv`) is the real work; the rest is moving files.
 
 ## Not in scope / open questions
 - People mapping files (`outstanding_originator_mapping.csv` 1,716 undecided, `hybridizer_mapping.csv`) are not cultivar checks; keep them
   as they are unless you want them in the same file.
-- Whether the 2010-2019 supplements and the AVM registration lists/reports have undecided items is unknown until the inventory.
+- The 2003-2022 sources were inventoried (reports/inventory_2004_2022_sources.md; their checks are in outstanding_checks.csv).
 - Names in `outstanding_checks.csv` that First Class does not list: record as `not in First Class` in `note` (as done for
   Tennessee Mist, Alamo Bewitchin' Jeannie).
 - Risk: operations in step 3 re-implement part of the prep script's clustering rules on frozen rows; each operation gets a

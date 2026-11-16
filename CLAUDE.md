@@ -36,6 +36,9 @@ The core data point is the **cultivar name**.
 - Keep it lightweight; no server-side write infrastructure for the hosted site.
 
 ## Source data (in source/, read-only, never edit)
+**HISTORICAL SOURCES (decided with the user):** source/AfricanVioletAncestry.sqlite and source/AfricanVioletAncestry.xlsx are
+historical records that will never change. Whatever is decided and imported from them is not imported again (see
+notes/freeze-plan.md, phase 2); only work still to be decided goes to reports/outstanding_checks.csv.
 ### AfricanVioletAncestry.xlsx
 - 6 sheets. Verified: `Name`, `Hybridizer`, `Seed Parent`, `Pollen Parent` hold
   identical records (3,025 rows each, only sort order/formatting differ). Import
