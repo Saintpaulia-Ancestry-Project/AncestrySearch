@@ -140,7 +140,15 @@ hand-maintained data and stay as they are.
   `K()` follows `data/name_aliases.csv` (89 alias rows, generated once from the importer's alias map; `names_lib.K` equals
   `import_excel.K` for every name and alias). `master_edit.py` keeps that file current (rename / merge add an alias). Checked: the five
   master CSVs and the database fingerprint are identical after `import_excel.py` + `import_submissions.py apply` + `build_db.py`.
-- Still to do: step 2 (originally merged with step 1: the id redirect is only recorded in `data/id_redirects.csv`; the site does
+- Step 3 DONE (re-scoped): `apply_check_decisions.py` now works on the master through `master_edit.py` (rewritten; 8 decision types;
+  `scripts/test_apply_check_decisions.py` passes). `reports/outstanding_checks.csv` has `record_id` / `plant_key` columns (made by
+  `scripts/convert_outstanding_to_master.py` from a key map of one last importer run). A held supplement plant is imported into the
+  master when its decision is made. The routine pipeline no longer runs `import_excel.py`: `import_submissions.py apply` (83 rows
+  skipped as already applied) -> `build_db.py` -> export; master byte-identical and database fingerprint identical. The seven review
+  files stay where they are until step 4 (archive), because `import_excel.py` still reads them.
+- Limitation to remember: a held plant imported as `mlv` takes the MLV spelling and number, but its date and size are the supplement's
+  (the MLV date is not in the public check file).
+- Still to do (old list, partly done): step 2 (originally merged with step 1: the id redirect is only recorded in `data/id_redirects.csv`; the site does
   not use it yet), step 3 (switch `apply_check_decisions.py` to the master), step 4 (archive), step 5 (full compare).
 
 ### Risks and what stays outside

@@ -328,16 +328,21 @@ one-off source (AVM has issued none since 2019).
   scripts/freeze_mvl_supplements.py (one-time, kept for reference). source/MVL_Supplements_*.xlsx stay as the original sources.
 - EVERYTHING STILL TO CHECK is in ONE file, reports/outstanding_checks.csv (+ outstanding_checks.md summary): MVL spelling
   near-misses, held-back plants, shared registration numbers (tiers), same-name/hybridizer-differs matches, description splits,
-  the 1963 book matches and OCR review, and (added from the inventory reports/inventory_2004_2022_sources.md) 23 AVML 2010-2019 /
-  magazine rows that disagree with their record (size, hybridizer, number) and 25 possible duplicate or misspelled names.
-  Those 2003-2022 sources are NOT frozen: they are still read by import_excel.py every run (to freeze with the 2010-2019 To Do). Type `decision` (vocabulary: header of scripts/apply_check_decisions.py), then
-  `python scripts/apply_check_decisions.py --write` (dry run without --write): it edits the frozen CSVs (or, for the 1963 book,
-  masterlist_matches.csv / masterlist_ocr_review.csv), appends the applied rows to reports/decision_history/applied_checks.csv and
-  removes them from the outstanding file. The private First Class worksheets (AVAncestry-private/AVM/MVL_extracts/spelling_check/)
-  are working copies for these checks (they contain MLV text: never commit).
+  the 1963 book matches and OCR review, and (from reports/inventory_2004_2022_sources.md) 23 AVML 2010-2019 / magazine rows that
+  disagree with their record and 25 possible duplicate or misspelled names. Columns `record_id` (the cultivar's id in the master;
+  empty for a held plant) and `plant_key` (the frozen MVL plant) identify the row. Type `decision` (vocabulary: header of
+  scripts/apply_check_decisions.py), then `python scripts/apply_check_decisions.py --write` (dry run without --write): it changes
+  the MASTER data through scripts/master_edit.py (every edit logged in reports/decision_history/master_edits.csv; a held plant is
+  imported into the master when its decision is made), appends the applied rows to reports/decision_history/applied_checks.csv and
+  removes them from the outstanding file. The private First Class worksheet is a working copy
+  (AVAncestry-private/AVM/MVL_extracts/spelling_check/outstanding_checks_worksheet.xlsx; MLV text: never commit).
+- PHASE 2 (notes/freeze-plan.md): the master files data/cultivars.csv, parentage.csv, people.csv, cultivar_hybridizers.csv,
+  cultivar_links.csv (+ images.csv, name_aliases.csv, id_redirects.csv) are now edited ONLY through master_edit.py /
+  apply_check_decisions.py / import_submissions.py; import_excel.py is NOT part of the routine pipeline any more (it would overwrite the
+  master from the sources: do not run it; it moves to scripts/archive/ in step 4).
 - Shared helpers (names, dates, people, aliases) live in scripts/names_lib.py; submissions code no longer imports import_excel.py.
   data/name_aliases.csv = variant spellings that reach the same record (names_lib.K).
-- Pipeline (no prep/split step any more, ~1 min): import_excel.py -> import_submissions.py apply -> build_db.py ->
-  export_ancestry_xlsx.py.
+- Pipeline (~15 s): import_submissions.py apply -> build_db.py -> export_ancestry_xlsx.py; add `apply_check_decisions.py --write`
+  first when decisions were typed.
 - Recent-file plants whose number/date differed from the MLV were all decided `mlv` (the MLV dates); the decisions are in
   reports/decision_history/mvl_recent_conflicts.csv.
