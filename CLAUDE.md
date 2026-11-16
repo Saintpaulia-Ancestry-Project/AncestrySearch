@@ -254,6 +254,13 @@ Claude: remind the user of these steps (and do them, with approval to commit) wh
 Never push without being asked.
 
 ## To Do
+- **reports/outstanding_checks.csv: 41 rows left (as of 2026-11-16), to be decided after a First Class lookup by the user** (agreed with the user):
+  34 `same name, hybridizer differs or unknown` rows marked `later` (30 parent stubs shared by 2+ supplement plants, e.g. Blue Beacon
+  Pittman/Sorano; 4 from the SQLite file) and 7 `spelling near-miss of an MLV name` rows with no or the same hybridizer (Angel Wing, Diedre,
+  Helen, Jeanie, Lorena, Westwinds' Royal Frills, Golli G). The user types First Class values (`first_class_*`) / `decision`, then
+  `apply_check_decisions.py --write` -> build_db.py -> export_ancestry_xlsx.py. Worksheet for the 7:
+  AVAncestry-private/AVM/MVL_extracts/spelling_check/spelling_162_first_class_worksheet.xlsx (53 rows; 46 already decided).
+  If Python hits MemoryError, free memory (close browsers) and set OPENBLAS_NUM_THREADS=1.
 - **AVML 2010-2019 supplements: notes DONE** (decided with the user): every cultivar listed in them has "Listed in the AVSA Master List
   supplement YYYY." (years, comma separated) added to its notes by import_excel.py; the raw codes in source_note (Russ/Ukr, DAVS, ANZ,
   TX Hyb, Western) are left as they are. Still open: only 306 of the 1,584 AVML rows match a record from source/AfricanVioletAncestry.sqlite;
