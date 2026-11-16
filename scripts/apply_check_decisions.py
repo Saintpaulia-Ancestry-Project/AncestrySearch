@@ -16,10 +16,14 @@ Decisions by check_type (case-insensitive). `set:<field>=<value>` works on any r
                                       `first_class_size`) always wins; for `mlv` the MLV (`mlv_reg`, `mlv_date`, `mlv_size`) fills only
                                       what First Class does not give; the supplement's own values are the last resort. When the record
                                       already exists, its values stay except those you typed from First Class.
-  same name as another plant, no hybridizer  (held)  release | separate  (import as its own record)  |  join:<record id>
+  same name as another plant, no hybridizer  (held)  release | separate  (import as its own record)  |  join:<record id>  |
+                                                      release-unregistered (its own record WITHOUT the number the MLV match gave it:
+                                                      the plant was listed before that registration, so it cannot be that cultivar)  |
+                                                      release:<hybridizer> (its own record, with that hybridizer)
   description split needs review      (held)         accept             (import with the split as it is)
   same name, hybridizer differs or unknown            join  (merge record_id into target_key)  |  separate (nothing changes)
-  registration number shared by several plants        join (the same cultivar as the plant that keeps the number: merge record_id
+  registration number shared by several plants        holds (this record is the MLV holder: it takes the number, `mlv_date`, `mlv_size`)  |
+                                                      join (the same cultivar as the plant that keeps the number: merge record_id
                                                       into it)  |  rename:<Name>  (rename record_id, or merge it into the record of that
                                                       name)  |  different | keep (nothing changes: another plant, number stays with the holder)
   source row disagrees with record                    record (keep)  |  source (value in `proposal`)  |  set:<field>=<value>
@@ -85,13 +89,15 @@ class Applier:
         s = self.split[self.split.plant_key == key]
         return dict(p.iloc[0]), (dict(s.iloc[0]) if len(s) else {})
 
-    def import_plant(self, key, name=None, reg=None, join_id=None, date=None, size=None, hybridizer=None):
+    def import_plant(self, key, name=None, reg=None, join_id=None, date=None, size=None, hybridizer=None, unregistered=False):
         """put a held supplement plant into the master: as a new record, or filling the EMPTY fields of record join_id"""
         P, S = self.plant(key)
         m = self.m
         name = cname(name or P["name"])
         reg = P["registration_no"] if reg is None else reg
         date = P["registered_date"] if not date else date
+        if unregistered:                      # a plant that cannot be the registered cultivar: no number, no date, not registered
+            reg, date = "", ""
         size = P["size_class"] if not size else size
         hybridizer = P["hybridizer"] if not hybridizer else hybridizer
         if reg and any(r["registration_no"] == reg and r["id"] != join_id for r in m.cultivars.rows):
@@ -207,6 +213,11 @@ class Applier:
             if low in ("release", "separate"):
                 cid = self.import_plant(c["plant_key"])
                 return f"{c['name']} -> imported as its own record [{cid}]"
+            if low == "release-unregistered" or low.startswith("release:"):
+                # its own record; without a number (the one it carries came from the MLV by name only) or with a hybridizer you give
+                hyb = d.split(":", 1)[1].strip() if low.startswith("release:") else None
+                cid = self.import_plant(c["plant_key"], hybridizer=hyb, unregistered=(low == "release-unregistered"))
+                return f"{c['name']} -> imported as its own record [{cid}]"
             if low.startswith("join:"):
                 cid = self.import_plant(c["plant_key"], join_id=d.split(":", 1)[1].strip())
                 return f"{c['name']} -> joined [{cid}]"
@@ -232,6 +243,14 @@ class Applier:
                     return f"{c['name']}: already one record with the number"
                 m.merge(holder[0], self.rec(c), reason)
                 return f"{c['name']}: merged into {m.by_id[holder[0]]['name']} [{holder[0]}]"
+            if low == "holds":
+                # this record is the plant the MLV gives the number to: it takes the number, date and size from the row
+                rid = self.rec(c)
+                for fld, val in (("registration_no", c["reg_no"]), ("registered_date", c["mlv_date"]), ("size_class", c["mlv_size"])):
+                    if val and not m.by_id[rid][fld]:
+                        m.set_field(rid, fld, val, reason)
+                m.by_id[rid]["registered_mvl"] = "1"
+                return f"{c['name']}: now holds {c['reg_no']} [{rid}]"
             if low.startswith("rename:"):
                 return f"{c['name']}: {self.rename_or_merge(self.rec(c), d.split(':', 1)[1].strip(), reason)}"
             if low in ("different", "keep"):

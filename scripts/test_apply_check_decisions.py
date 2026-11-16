@@ -65,6 +65,9 @@ def main():
     setd(s2.check_id, "keep")
     nohyb = pick("same name as another plant, no hybridizer")
     setd(nohyb.check_id, "release")
+    # release-unregistered: its own record, WITHOUT the registration number the MLV match gave the plant
+    nr = chk[(chk.check_type == "same name as another plant, no hybridizer") & (chk.name == "Crystal")].iloc[0]
+    setd(nr.check_id, "release-unregistered")
     split = pick("description split needs review")
     setd(split.check_id, "accept")
     join = pick("same name, hybridizer differs or unknown", record_id="set", target_key="set")
@@ -73,7 +76,11 @@ def main():
     setd(shared.check_id, "rename:Test Renamed Cultivar")
     src = chk[(chk.check_type == "source row disagrees with record") & (chk.proposal != "")].iloc[0]
     setd(src.check_id, "source")
-    ocr = chk[(chk.check_type == "OCR review") & (chk.record_id != "")].iloc[1]
+    ocr = chk[(chk.check_type == "OCR review") & (chk.record_id != "")]
+    if len(ocr) < 2:       # the OCR rows were decided and closed: take any row that has a record id for the set: decision
+        ocr = chk[(chk.record_id != "") & ~chk.check_id.isin(marks) & (chk.check_type == "originator text vs person")]
+        ocr = ocr if len(ocr) else chk[(chk.record_id != "") & ~chk.check_id.isin(marks)]
+    ocr = ocr.iloc[1]
     setd(ocr.check_id, "set:notes=OCR note set by the test")
     bogus = chk[chk.check_type == "spelling near-miss of an MLV name"].iloc[3]
     setd(bogus.check_id, "no such decision")
@@ -123,6 +130,8 @@ def main():
     assert brow.iloc[0].size_class == both.mlv_size and brow.iloc[0].registration_no == both.mlv_reg, "the MLV fills what First Class lacks"
     frow = cv[(cv.registration_no == "987654")]
     assert len(frow) == 1 and frow.iloc[0].registered_date == "1970-01-02" and frow.iloc[0].size_class == "Miniature",         "a `keep` decision takes the First Class values typed by the user"
+    crystals = cv[(cv.name == "Crystal") & (cv.sources == "mvl_supp") & (cv.registration_no == "")]
+    assert len(crystals) >= 1, "release-unregistered must not carry the MLV number"
     rec = cv[cv.id == ocr.record_id].iloc[0]
     assert "OCR note set by the test" in rec.notes
     sup = rd(root / "data" / "mvl_supplements.csv")

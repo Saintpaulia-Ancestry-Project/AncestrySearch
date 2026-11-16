@@ -217,3 +217,33 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,merge,frankie,Frankie,id,feankie,frankie,"User confirmed against the First Class database (MLV.xls and the master: an OCR slip of Frankie (Maas, 2671), listed by Union County Chapter AVSA (a re-lister); size, flower and color agree)"
 2026-11-16,merge,granger-s-voyageur,Granger's Voyageur,id,granger-garden-s-voyageur,granger-s-voyageur,"User confirmed against the First Class database (MLV.xls and the master: Granger Garden is Granger; same number, size, flower and color as Granger's Voyageur)"
 2026-11-16,merge,cajun-delight,Cajun Delight,id,barbara-s-cajun-delight,cajun-delight,"User confirmed against the First Class database (MLV.xls and the master: Barbara's prefix variant of Cajun Delight (4038); hybridizer J & B Sick is Sisk misspelled; size, flower and color agree)"
+2026-11-16,import_plant,angel-wings,Angel Wings,plant,angel-wings-list1983,joined,released from the held supplement plants
+2026-11-16,add,betty,Betty,,,,released from the held supplement plants
+2026-11-16,import_plant,billy-penn,Billy Penn,plant,billy-penn-list1983,joined,released from the held supplement plants
+2026-11-16,add,crystal,Crystal,,,,released from the held supplement plants
+2026-11-16,import_plant,desiree-susans-av,Desiree,plant,desiree-list1981,joined,released from the held supplement plants
+2026-11-16,add,erica,Erica,,,,released from the held supplement plants
+2026-11-16,add,joanne,Joanne,,,,released from the held supplement plants
+2026-11-16,add,painted-orchid,Painted Orchid,,,,released from the held supplement plants
+2026-11-16,add,pink-velvet,Pink Velvet,,,,released from the held supplement plants
+2026-11-16,add,s-diplotricha-punter,S. diplotricha punter,,,,released from the held supplement plants
+2026-11-16,add,s-diplotricha-punter-2,S. diplotricha punter,,,,released from the held supplement plants
+2026-11-16,add,s-diplotricha-punter-3,S. diplotricha punter,,,,released from the held supplement plants
+2026-11-16,add,s-grandifolia-2,S. grandifolia,,,,released from the held supplement plants
+2026-11-16,add,s-grandifolia-3,S. grandifolia,,,,released from the held supplement plants
+2026-11-16,add,s-house-of-amani,S. House of Amani,,,,released from the held supplement plants
+2026-11-16,import_plant,s-house-of-amani,S. House of Amani,plant,s-house-of-amani-list1996,joined,released from the held supplement plants
+2026-11-16,add,s-sigi-falls,S. Sigi Falls,,,,released from the held supplement plants
+2026-11-16,import_plant,s-sigi-falls,S. Sigi Falls,plant,s-sigi-falls-list1996,joined,released from the held supplement plants
+2026-11-16,import_plant,twinkle-poisal,Twinkle,plant,twinkle-list1973,joined,released from the held supplement plants
+2026-11-16,import_plant,yellow-breakthrough,Yellow Breakthrough,plant,yellow-breakthrough-list1973,joined,released from the held supplement plants
+2026-11-16,set,pink-velvet-h-eyerdom,Pink Velvet,registration_no,,2344,User confirmed against the First Class database (MLV.xls: this is the MLV holder of the number (hybridizer matches); the held plant of that name was listed before the registration)
+2026-11-16,set,pink-velvet-h-eyerdom,Pink Velvet,registered_date,,1972-10-07,User confirmed against the First Class database (MLV.xls: this is the MLV holder of the number (hybridizer matches); the held plant of that name was listed before the registration)
+2026-11-16,set,painted-orchid-swifts-av,Painted Orchid,registration_no,,2848,User confirmed against the First Class database (MLV.xls: this is the MLV holder of the number (hybridizer matches); the held plant of that name was listed before the registration)
+2026-11-16,set,painted-orchid-swifts-av,Painted Orchid,registered_date,,1976-05-17,User confirmed against the First Class database (MLV.xls: this is the MLV holder of the number (hybridizer matches); the held plant of that name was listed before the registration)
+2026-11-16,set,joanne-lyon-gh,Joanne,registration_no,,3913,User confirmed against the First Class database (MLV.xls: this is the MLV holder of the number (hybridizer matches); the held plant of that name was listed before the registration)
+2026-11-16,set,joanne-lyon-gh,Joanne,registered_date,,1980-04-21,User confirmed against the First Class database (MLV.xls: this is the MLV holder of the number (hybridizer matches); the held plant of that name was listed before the registration)
+2026-11-16,set,betty-raskopf,Betty,registration_no,,4682,User confirmed against the First Class database (MLV.xls: this is the MLV holder of the number (hybridizer matches); the held plant of that name was listed before the registration)
+2026-11-16,set,betty-raskopf,Betty,registered_date,,1981-12-19,User confirmed against the First Class database (MLV.xls: this is the MLV holder of the number (hybridizer matches); the held plant of that name was listed before the registration)
+2026-11-16,set,crystal-l-hale,Crystal,registration_no,,6493,User confirmed against the First Class database (MLV.xls: this is the MLV holder of the number (hybridizer matches); the held plant of that name was listed before the registration)
+2026-11-16,set,crystal-l-hale,Crystal,registered_date,,1987-02-21,User confirmed against the First Class database (MLV.xls: this is the MLV holder of the number (hybridizer matches); the held plant of that name was listed before the registration)
