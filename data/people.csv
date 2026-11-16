@@ -6,7 +6,7 @@ miemietz-jenner,"Miemietz, Jenner",person,Germany,"Miemietz, Jenner (Germany)"
 johnson-bill,"Johnson, Bill",person,,"Johnson, B."
 brownlie-john,"Brownlie, John",person,,"Brownlie, J."
 domiano-jeanette,"Domiano, Jeanette",person,,"Domiano | Domiano, J. | J. Domiano | Jeannette's Jesneriads"
-stork-kent,"Stork, Kent",person,,"Stork, K."
+stork-kent,"Stork, Kent",person,,"Stork, K. | K. Stork"
 elkin-barbara,"Elkin, Barbara",person,,"Elkin, B."
 ness-d,"Ness, D",person,,"D. Ness | Ness, D."
 harrington-dolores,"Harrington, Dolores",person,,"Harrington, D."
@@ -47,7 +47,7 @@ champion-s-african-violets,Champion's African Violets,person,,
 mcdonald-george,"McDonald, George",person,,"McDonald, G."
 hobbs-h,"Hobbs, H",person,,H. Hobbs
 braun-nancy,"Braun, Nancy",person,,"Braun, N."
-lyon-lyndon,"Lyon, Lyndon",person,,"Lyon | Lyon, | Lyon, L."
+lyon-lyndon,"Lyon, Lyndon",person,,"Lyon | Lyon, | Lyon, L. | Lyndon Lyon"
 wangbichler-e,"Wangbichler, E.?",person,,
 kurzynski-robert,"Kurzynski, Robert",person,,"Kurzynski, R."
 dornbusch-heinz,"Dornbusch, Heinz",person,,"Dornbusch, H."
@@ -73,7 +73,7 @@ lloyd-e,"Lloyd, E",person,,"Lloyd, E."
 nicholas-richard,"Nicholas, Richard",person,,
 robinson-olive-ma,"Robinson, Olive Ma",person,,"Robinson, O."
 burns-marie,"Burns, Marie",person,,"Burns, M."
-nadeau-ronn,"Nadeau, Ronn",person,,"K. & R. Nadeau | Nadeau, R. | R. & K. Nadeau"
+nadeau-ronn,"Nadeau, Ronn",person,,"K. & R. Nadeau | Nadeau, R. | R. & K. Nadeau | Ronn Nadeau"
 species,Species,species,,
 armacost-royston,Armacost & Royston,organization,,A&R
 stahl-julia,"Stahl, Julia",person,,
@@ -103,7 +103,7 @@ hulleman-t,"Hulleman, T.",person,,
 ng-t,"Ng, T.",person,,
 stork-joyce,"Stork, Joyce",person,,"Stork, J."
 jones-sharlene,"Jones, Sharlene",person,,"Jones, S."
-smith-wilson,"Smith, Wilson",person,,"Smith, W."
+smith-wilson,"Smith, Wilson",person,,"Smith, W. | W. Smith"
 coleman-c-craig,"Coleman, C Craig",person,,"Coleman, C."
 stephens-a,"Stephens, A.",person,,
 dean-k,"Dean, K.",person,,
@@ -183,7 +183,7 @@ malinich-t,"Malinich, T.",person,,
 patton-k,"Patton, K.",person,,
 kosek-d,"Kosek, D.",person,,
 boyer-j,"Boyer, J.",person,,
-swift-j,"Swift, J.",person,,J. Swift
+swift-j,"Swift, J.",person,,J. Swift | Swifts' | Swift's AV | Swifts' AV
 ozherelyev-d,"Ozherelyev, D.",person,,
 tsentr-mini,Tsentr Mini,person,,
 lamphere-d,"Lamphere, D.",person,,
@@ -234,7 +234,7 @@ kawakami,Kawakami,person,,
 worrell-a,"Worrell, A.",person,,
 davidson-p,"Davidson, P.",person,,P. Davidson
 wilson-r,"Wilson, R.",person,,R. Wilson
-kolb-e,"Kolb, E.",person,,E. Kolb
+kolb-e,"Kolb, E.",person,,E. Kolb | Kolb
 breden-r,"Breden, R.",person,,R. Breden
 brenton,Brenton,person,,
 harris,Harris,person,,
@@ -417,7 +417,7 @@ maas,Maas,person,,
 hollada,Hollada,person,,
 brownlie,Brownlie,person,,
 harrington,Harrington,person,,
-granger-gardens,Granger Gardens,organization,,
+granger-gardens,Granger Gardens,organization,,Granger G
 lyon-gh,Lyon GH,person,,
 v-lorenze-park-n,"V. Lorenze, Park N",person,,"V. Lorenze, Park N."
 n-blansit,N. Blansit,person,,
@@ -427,7 +427,6 @@ b-johnson,B. Johnson,person,,
 j-eyerdom,J. Eyerdom,person,,
 h-eyerdom,H. Eyerdom,person,,
 j-stromborg,J. Stromborg,person,,
-lyndon-lyon,Lyndon Lyon,person,,. Lyndon Lyon
 b-bryant,B. Bryant,person,,
 mrs-carlos-smith,Mrs. Carlos Smith,person,,
 l-munk,L. Munk,person,,
@@ -435,7 +434,6 @@ j-munk,J. Munk,person,,
 i-fredette,I. Fredette,person,,
 granger-s,Granger's,person,,
 stork,Stork,person,,
-granger-g,Granger G,person,,Granger G.
 b-curcuruto,B. Curcuruto,person,,
 baker-s,Baker's,person,,
 fredette,Fredette,person,,
@@ -454,7 +452,7 @@ granger,Granger,person,,
 kahler,Kahler,person,,
 dates,Dates,person,,
 kolb-s-gh,Kolb's GH,person,,
-rita-luciano,Rita Luciano,person,,
+rita-luciano,Rita Luciano,person,,Luciano
 k-hobbs-gregg,K. Hobbs-Gregg,person,,
 sandra-leary,Sandra Leary,person,,
 union-country-ch,Union Country Ch,person,,Union Country Ch.
@@ -462,8 +460,6 @@ pittman,Pittman,person,,
 haywood,Haywood,person,,
 tremblay,Tremblay,person,,
 d-g-boone,D. G. Boone,person,,
-k-stork,K. Stork,person,,
-ronn-nadeau,Ronn Nadeau,person,,
 ticknor-s-av,Ticknor's AV,person,,
 baker,Baker,person,,
 geo-j-ball-inc,Geo. J. Ball Inc,person,,"Geo. J, Ball Inc. | Geo. J. Ball Inc."
@@ -481,7 +477,6 @@ annalee,Annalee,person,,
 dottie-wilson,Dottie Wilson,person,,
 hugh-eyerdom,Hugh Eyerdom,person,,
 reinhardt,Reinhardt,person,,
-swifts,Swifts',person,,Swifts
 nadeau,Nadeau,person,,
 reed,Reed,person,,
 johnson,Johnson,person,,
@@ -491,7 +486,6 @@ m-burs,M. Burs,person,,
 storytella,Storytella,person,,
 m-burns,M. Burns,person,,
 j-brownlie,J. Brownlie,person,,
-w-smith,W. Smith,person,,
 r-bann,R. Bann,person,,
 j-wells,J. Wells,person,,
 sidney-sorano,Sidney Sorano,person,,
@@ -503,7 +497,7 @@ lyon-s-gh,Lyon's GH,person,,
 alice-black,Alice Black,person,,
 c-hobbs,C. Hobbs,person,,
 h-hobbs,H. Hobbs,person,,
-susan-s-violets,Susan's Violets,organization,,
+susan-s-violets,Susan's Violets,organization,,Susan's AV
 williams,Williams,person,,
 d-croteau,D. Croteau,person,,
 mr-gene-thiel,Mr. Gene Thiel,person,,
@@ -519,7 +513,6 @@ jensen,Jensen,person,,
 wills,Wills,person,,
 price,Price,person,,
 paul,Paul,person,,
-naomi,Naomi,person,,
 baxter,Baxter,person,,
 spengler,Spengler,person,,
 rector,Rector,person,,
@@ -697,7 +690,6 @@ reaume,Reaume,person,,
 foster,Foster,person,,
 dawson,Dawson,person,,
 human,Human,person,,
-kolb,Kolb,person,,
 husted,Husted,person,,
 white-cloud,White Cloud,person,,
 huebscher,Huebscher,person,,
@@ -943,8 +935,6 @@ gander,Gander,person,,
 qvh,QVH,person,,
 c-miller,C. Miller,person,,
 downes,Downes,person,,
-manelta,Manelta,person,,
-luciano,Luciano,person,,
 doris,Doris,person,,
 elizabeth,Elizabeth,person,,
 mae,Mae,person,,
@@ -994,10 +984,8 @@ pat-tracey,Pat Tracey,person,,
 weyland,Weyland,person,,
 tinari-gh,Tinari GH,person,,Tinari Gh
 james-smith,James Smith,person,,
-swift-s-av,Swift's AV,person,,
 r-g-anderson,R. G. Anderson,person,,
 d-j-good,D. J. Good,person,,
-v-lorenzen-park-n,"V. Lorenzen, Park N",person,,"V. Lorenzen (Park N) | V. Lorenzen Park N | V. Lorenzen Park N. | V. Lorenzen, Park N."
 richter-s-gh,Richter's GH,person,,
 evlo,Evlo,person,,
 e,E,person,,
@@ -1023,7 +1011,7 @@ mrs-norman-patterson,Mrs. Norman Patterson,person,,
 d-thomas,D. Thomas,person,,
 fisher-s-av,Fisher's AV,person,,
 r-russell,R. Russell,person,,
-house-of-violets,House of Violets,person,,
+house-of-violets,House of Violets,organization,,
 mrs-john-nielson,Mrs. John Nielson,person,,
 mary-ray,Mary-Ray,person,,
 the-house-of-violets,The House of Violets,person,,
@@ -1034,7 +1022,6 @@ tony-foote,Tony Foote,person,,
 doris-intel,Doris Intel,person,,
 e-kiesling,E. Kiesling,person,,
 violets-are-blue,Violets Are Blue,person,,
-susan-s-av,Susan's AV,person,,
 m-corrigan,M. Corrigan,person,,
 mary-ann-corrigan,Mary Ann Corrigan,person,,
 fischer-greenhouse,Fischer Greenhouse,organization,,
@@ -1072,7 +1059,7 @@ hightower-s-violet-nook,Hightower's Violet Nook,person,,
 p-h-horne,P. H. Horne,person,,
 dr-j-b-jung,Dr. J. B. Jung,person,,
 sandra-williams,Sandra Williams,person,,
-manelta-lanigan,Manelta Lanigan,person,,
+manelta-lanigan,Manelta Lanigan,person,,Manelta
 e-trent,E. Trent,person,,
 g-beck,G. Beck,person,,
 reigning-violets,Reigning Violets,person,,
@@ -1130,7 +1117,6 @@ donald-baker,Donald Baker,person,,
 g-mecanne,G. MeCanne,person,,
 g-mccanne,G. McCanne,person,,
 mrs-c-r-ballard,Mrs. C. R. Ballard,person,,
-v-lorenzen,V. Lorenzen,person,,
 mrs-c-r-ballad,Mrs. C. R. Ballad,person,,
 v-e-ballirano,V. E. Ballirano,person,,
 arnold-fischer,Arnold Fischer,person,,
@@ -1149,7 +1135,6 @@ reeds,Reeds,person,,
 rachel-pfannstiel,Rachel Pfannstiel,person,,
 pat-tuminello,Pat Tuminello,person,,
 bob-kramer,Bob Kramer,person,,
-swifts-av,Swifts' AV,person,,
 c-beca,C. Beca,person,,
 union-county-chapter-avsa,Union County Chapter AVSA,person,,
 ernest-fisher,Ernest Fisher,person,,
@@ -1161,7 +1146,7 @@ nelly-levine,Nelly Levine,person,,
 elkin,Elkin,person,,
 mrs-c-s-hawley,Mrs. C.S. Hawley,person,,"Mrs. C, S. Hawley | Mrs. C. S. Hawley"
 dorothy-harris,Dorothy Harris,person,,
-v-lorenzen-park-nursery,"V. Lorenzen, Park Nursery",organization,,
+v-lorenzen-park-nursery,"V. Lorenzen, Park Nursery",organization,,"V. Lorenzen, Park N"
 wiesner,Wiesner,person,,
 muriel-t-kaiser,Muriel T. Kaiser,person,,
 kaiser,Kaiser,person,,
@@ -1323,7 +1308,7 @@ charlyne-reed,Charlyne Reed,person,,
 v-constantinov,"V, Constantinov",person,,
 catherine-m-hawley,Catherine M. Hawley,person,,
 evlo-a-v,Evlo A.V,person,,Evlo A.V.
-vern-lorenzen,Vern Lorenzen,person,,
+vern-lorenzen,Vern Lorenzen,person,,V. Lorenzen
 n-mallette,N Mallette,person,,
 mrs-s-grasso,Mrs. S. Grasso,person,,
 maude-cook,Maude Cook,person,,
@@ -1400,9 +1385,8 @@ david-k-feeter,David K. Feeter,person,,
 j-hatfield,J. Hatfield,person,,
 magee,Magee,person,,
 englert,Englert,person,,
-d-i-bearman,D. I. Bearman,person,,
 doris-i-bearman,Doris I. Bearman,person,,
-doris-bearman,Doris Bearman,person,,
+doris-bearman,Doris Bearman,person,,D. I. Bearman
 bearman,Bearman,person,,
 mrs-f-h-trimble,Mrs. F. H. Trimble,person,,
 jim-wright,Jim Wright,person,,
@@ -1584,7 +1568,7 @@ finger-s-av,Finger's AV,person,,
 c-l-keeler,C. L. Keeler,person,,
 keeler,Keeler,person,,
 j-muster,J. Muster,person,,
-naomi-weeks,Naomi Weeks,person,,
+naomi-weeks,Naomi Weeks,person,,Naomi
 helen-kavanaugh,Helen Kavanaugh,person,,
 goldie-l-kinne,Goldie L. Kinne,person,,
 mrs-w-f-kuhl,Mrs. W. F. Kuhl,person,,
