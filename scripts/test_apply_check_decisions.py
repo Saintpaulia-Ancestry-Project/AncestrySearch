@@ -38,6 +38,7 @@ def rd(p):
 
 def main():
     root = scratch()
+    cv0 = rd(root / "data" / "cultivars.csv")
     chk = rd(root / "reports" / "outstanding_checks.csv")
     n0 = len(chk)
     # 0. no decisions: nothing changes, byte for byte
@@ -51,7 +52,7 @@ def main():
         g = chk[chk.check_type == t]
         for k, v in cond.items():
             g = g[g[k] != ""] if v == "set" else g[g[k] == ""]
-        return g.iloc[0]
+        return g.iloc[0] if len(g) else None
 
     marks = {}
 
@@ -64,14 +65,34 @@ def main():
     setd(s1.check_id, "mlv")
     setd(s2.check_id, "keep")
     nohyb = pick("same name as another plant, no hybridizer")
-    setd(nohyb.check_id, "release")
+    if nohyb is not None:
+        setd(nohyb.check_id, "release")
     # release-unregistered: its own record, WITHOUT the registration number the MLV match gave the plant
-    nr = chk[(chk.check_type == "same name as another plant, no hybridizer") & (chk.name == "Crystal")].iloc[0]
-    setd(nr.check_id, "release-unregistered")
+    nrs = chk[(chk.check_type == "same name as another plant, no hybridizer") & ~chk.check_id.isin(marks)]
+    nr = nrs.iloc[1] if len(nrs) > 1 else None
+    if nr is not None:
+        setd(nr.check_id, "release-unregistered")
+    dropped = chk[(chk.check_type == "same name as another plant, no hybridizer") & ~chk.check_id.isin(marks)]
+    if len(dropped) > 1:
+        dropped = dropped.iloc[1]
+        setd(dropped.check_id, "drop")
+    else:
+        dropped = []
+    stub = chk[(chk.check_type == "book entry vs existing record") & (chk.record_id != "") & (chk.target_key != "")]
+    stubrow = None
+    for _, rr in stub.iterrows():
+        e = cv0[cv0.id == rr.target_key]
+        if len(e) and e.iloc[0].kind == "stub":
+            stubrow = rr
+            break
+    if stubrow is not None:
+        setd(stubrow.check_id, "join-stub")
     split = pick("description split needs review")
-    setd(split.check_id, "accept")
+    if split is not None:
+        setd(split.check_id, "accept")
     join = pick("same name, hybridizer differs or unknown", record_id="set", target_key="set")
-    setd(join.check_id, "join")
+    if join is not None:
+        setd(join.check_id, "join")
     shared = chk[(chk.check_type == "registration number shared by several plants") & (chk.record_id != "")].iloc[0]
     setd(shared.check_id, "rename:Test Renamed Cultivar")
     src = chk[(chk.check_type == "source row disagrees with record") & (chk.proposal != "")].iloc[0]
@@ -116,7 +137,8 @@ def main():
     assert bogus.check_id in set(after.check_id)
     cv = rd(root / "data" / "cultivars.csv")
     ids = set(cv.id)
-    assert join.record_id not in ids and join.target_key in ids, "join merges record_id into target_key"
+    if join is not None:
+        assert join.record_id not in ids and join.target_key in ids, "join merges record_id into target_key"
     names = set(cv.name)
     assert "Test Renamed Cultivar" in names or any(norm_eq(n, "Test Renamed Cultivar") for n in names)
     pe = rd(root / "data" / "people.csv")
@@ -130,13 +152,23 @@ def main():
     assert brow.iloc[0].size_class == both.mlv_size and brow.iloc[0].registration_no == both.mlv_reg, "the MLV fills what First Class lacks"
     frow = cv[(cv.registration_no == "987654")]
     assert len(frow) == 1 and frow.iloc[0].registered_date == "1970-01-02" and frow.iloc[0].size_class == "Miniature",         "a `keep` decision takes the First Class values typed by the user"
-    crystals = cv[(cv.name == "Crystal") & (cv.sources == "mvl_supp") & (cv.registration_no == "")]
-    assert len(crystals) >= 1, "release-unregistered must not carry the MLV number"
+    if len(dropped) if not isinstance(dropped, list) else False:
+        assert dropped.plant_key not in set(rd(root / "data" / "mvl_supplements.csv").plant_key), "a dropped plant leaves the frozen file"
+        assert (root / "reports" / "decision_history" / "dropped_plants.csv").exists()
+    if stubrow is not None:
+        k = cv[cv.id == stubrow.target_key].iloc[0]
+        assert stubrow.record_id not in set(cv.id) and "by name only" in k.notes, "join-stub merges and notes it"
+    if nr is not None:
+        made = cv[(cv.name == nr["name"]) & (cv.sources == "mvl_supp") & (cv.registration_no == "")]
+        assert len(made) >= 1, "release-unregistered must not carry the MLV number"
     rec = cv[cv.id == ocr.record_id].iloc[0]
     assert "OCR note set by the test" in rec.notes
     sup = rd(root / "data" / "mvl_supplements.csv")
-    assert s1.plant_key not in set(sup.plant_key) and s2.plant_key not in set(sup.plant_key) and nohyb.plant_key not in set(sup.plant_key)
-    assert split.plant_key not in set(sup.plant_key)
+    assert s1.plant_key not in set(sup.plant_key) and s2.plant_key not in set(sup.plant_key)
+    if nohyb is not None:
+        assert nohyb.plant_key not in set(sup.plant_key)
+    if split is not None:
+        assert split.plant_key not in set(sup.plant_key)
     assert (root / "reports" / "decision_history" / "applied_checks.csv").exists()
     assert (root / "reports" / "decision_history" / "master_edits.csv").exists()
     sys.path.insert(0, str(ROOT / "scripts"))

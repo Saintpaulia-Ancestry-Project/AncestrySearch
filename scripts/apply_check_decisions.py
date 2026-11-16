@@ -17,11 +17,15 @@ Decisions by check_type (case-insensitive). `set:<field>=<value>` works on any r
                                       what First Class does not give; the supplement's own values are the last resort. When the record
                                       already exists, its values stay except those you typed from First Class.
   same name as another plant, no hybridizer  (held)  release | separate  (import as its own record)  |  join:<record id>  |
+                                                      drop (not imported: of no use to the Ancestry project; kept in decision_history) |
                                                       release-unregistered (its own record WITHOUT the number the MLV match gave it:
                                                       the plant was listed before that registration, so it cannot be that cultivar)  |
                                                       release:<hybridizer> (its own record, with that hybridizer)
   description split needs review      (held)         accept             (import with the split as it is)
   same name, hybridizer differs or unknown            join  (merge record_id into target_key)  |  separate (nothing changes)
+  book entry vs existing record (1963)                delete (remove the 1963 record record_id from the master: no hybridizer and its name
+                                                      is not a parent anywhere; refused when it is a parent or has photos)  |  join-stub (user rule: the existing record is a parent-only stub and the book has exactly
+                                                      one plant of that name: merged by name, with a note on the record)
   registration number shared by several plants        holds (this record is the MLV holder: it takes the number, `mlv_date`, `mlv_size`)  |
                                                       join (the same cultivar as the plant that keeps the number: merge record_id
                                                       into it)  |  rename:<Name>  (rename record_id, or merge it into the record of that
@@ -79,6 +83,7 @@ class Applier:
         self.split = rd(d / "mvl_description_split.csv") if (d / "mvl_description_split.csv").exists() else pd.DataFrame()
         self.xrefs = rd(d / "mvl_crossrefs.csv") if (d / "mvl_crossrefs.csv").exists() else pd.DataFrame()
         self.released = set()
+        self.dropped = []                      # held plants thrown away (user decision: of no use to the Ancestry project)
         self.checks = pd.DataFrame()
 
     # ---------------------------------------------------------------- held MVL plants -> master
@@ -213,6 +218,11 @@ class Applier:
             if low in ("release", "separate"):
                 cid = self.import_plant(c["plant_key"])
                 return f"{c['name']} -> imported as its own record [{cid}]"
+            if low == "drop":
+                P_, S_ = self.plant(c["plant_key"])
+                self.dropped.append(P_)
+                self.released.add(c["plant_key"])
+                return f"{c['name']} ({c['lists_or_year']}): dropped, not imported"
             if low == "release-unregistered" or low.startswith("release:"):
                 # its own record; without a number (the one it carries came from the MLV by name only) or with a hybridizer you give
                 hyb = d.split(":", 1)[1].strip() if low.startswith("release:") else None
@@ -231,6 +241,24 @@ class Applier:
                     raise me.EditError(f"{c['name']}: no target record id")
                 m.merge(c["target_key"], self.rec(c), reason)
                 return f"{c['name']}: merged into {m.by_id[c['target_key']]['name']} [{c['target_key']}]"
+            if low == "join-stub":
+                # user rule: the existing record is only a parent-only name and the 1963 book lists exactly one plant of that name:
+                # they are joined by name alone, and the record says so
+                if not c["target_key"] or c["target_key"] not in m.by_id:
+                    raise me.EditError(f"{c['name']}: no target record id")
+                if m.by_id[c["target_key"]]["kind"] != "stub":
+                    raise me.EditError(f"{c['name']}: the existing record is not a parent-only stub")
+                m.merge(c["target_key"], self.rec(c), reason)
+                k = m.by_id[c["target_key"]]
+                k["notes"] = (k["notes"] + " " if k["notes"] else "") + (
+                    "Joined to the 1963 Master List entry by name only: this was a name known only as a parent, and the 1963 book "
+                    "lists exactly one plant of that name.")
+                return f"{c['name']}: joined to the parent-only record [{c['target_key']}] by name"
+            if low == "delete":
+                # user rule: a 1963 record with no hybridizer whose name is not a parent anywhere in the site is of no use: removed
+                rid = self.rec(c)
+                m.delete(rid, reason)
+                return f"{c['name']}: 1963 record [{rid}] removed from the master"
             if low == "separate":
                 return f"{c['name']}: kept separate"
         elif t == "registration number shared by several plants":
@@ -355,6 +383,11 @@ def main():
         print("master would be inconsistent, nothing written:", *errs[:5], sep="\n  ")
         return 1
     ap_.m.save()
+    if ap_.dropped:
+        dh = rep / "decision_history" / "dropped_plants.csv"
+        old_d = rd(dh) if dh.exists() and dh.stat().st_size else pd.DataFrame()
+        pd.concat([old_d, pd.DataFrame(ap_.dropped).assign(dropped=datetime.date.today().isoformat())], ignore_index=True).to_csv(
+            dh, index=False, encoding="utf-8-sig")
     if ap_.released:
         d = root / "data"
         ap_.plants[~ap_.plants.plant_key.isin(ap_.released)].to_csv(d / "mvl_supplements.csv", index=False, encoding="utf-8")
