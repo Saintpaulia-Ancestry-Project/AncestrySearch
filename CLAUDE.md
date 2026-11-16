@@ -120,8 +120,8 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
 - scripts/inspect_excel.py, scripts/propose_review.py: done (reports/).
 - scripts/import_excel.py: done; writes data/*.csv + reports/import_flags.csv and
   import_summary.md. Reads reviewer decisions from reports/review/ (re-runnable;
-  hybridizer_mapping.csv gets a `final_person(s)` column; name_near_misses.csv
-  `merge` decisions are applied on the next run).
+  hybridizer_mapping.csv gets a `final_person(s)` column; variant-spelling merges are decided in
+  name_corrections.csv, applied on the next run).
 - Raw PDFs and OCR page text are git-ignored; cleaned data derived from them is not.
 - Site text pages live in data/pages/<slug>.md (first line `# Title`, then paragraphs, `## ` headings,
   `- ` lists, **bold**, `code`, [links](url)); build_db.py loads them into the `pages` table. The
@@ -182,7 +182,7 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   originators agree, else a separate parent record carrying the originator; a name match with no known hybridizer
   goes to reports/review/parent_originator_matches.csv (decision `join`). (2) The 1963 book's 509 originator strings
   (and bracketed parent originators) become people exactly as printed, so hybridizer pages exist; they are linked to
-  an existing person ONLY where reports/review/originator_mapping.csv says so (decision `link`, or type the
+  an existing person ONLY where reports/review/outstanding_originator_mapping.csv says so (decision `link`, or type the
   person's name(s) separated by ;), because a 1960s originator and a modern hybridizer can share a surname. The `kind`
   column there (person/organization) is editable. 'A & B' / 'A and B' split into two people; 'A&R' does not.
   Pipeline order: parse (cross-check only) -> merge_masterlist1963.py -> import_excel.py -> build_db.py.
@@ -195,7 +195,7 @@ images/), source/ (originals), notes/, README.md. `.venv/` is local only.
   validates (FKs, integrity, ancestry cycles, query templates) and writes
   site/queries.sql (search, ancestors, descendants, sport family, cultivar page).
 - Pipeline: `import_excel.py` then `build_db.py`. Review inputs live in reports/review/
-  (sqlite_duplicates, hybridizer_mapping, name_near_misses, data_corrections, parent_corrections).
+  (sqlite_duplicates, hybridizer_mapping, data_corrections, parent_corrections, name_corrections).
   name_corrections.csv (cultivar, new_name, reason) corrects a cultivar's SPELLING: the new name is shown, both spellings are
   accepted in every source from then on, the id never changes, and the old spelling stays in the notes (searchable).
   Use it whenever a misspelling is reported (add one row; re-run the pipeline). parent_corrections.csv (cultivar, role seed|pollen, value, reason) overrides one parent cell of the xlsx `Name` sheet
@@ -244,6 +244,9 @@ Claude: remind the user of these steps (and do them, with approval to commit) wh
 Never push without being asked.
 
 ## To Do
+- **Revisit the AVML 2010-2019 supplements** (decided with the user): this data was already in source/AfricanVioletAncestry.sqlite, so
+  those cultivars are covered. Separately, go through them again to update the NOTES of those cultivars (the supplement provenance
+  such as "From the 2012 supplement" and prefixes like "(Russ/Ukr)", "(DAVS 2010)", "(ANZ 659, 2009)"). Not started.
 - **Hector Wong archive** (source/Hector Wong Archive - SAP Saintpaulia Ancestry Project/, LOCAL ONLY, git-ignored,
   never published): the contents of Hector Wong's Google Drive for this project (~1,200 files, 275 MB: ~1,035 jpg,
   80 pdf, 31 msg, plus doc/docx/xls/xlsx/htm/png/txt). Top-level folders: Start of the project (1990s);
@@ -306,26 +309,27 @@ receiver's pure validation code in headless Edge. Deployed: SUBMIT_URL in submit
    in-memory DB and merge in JS, or load user CSVs).
 3. Deploy to GitHub Pages; images via jsDelivr.
 
-## MVL supplements 1964-2002 (plan: notes/mvl-supplements-plan.md)
-Source source/MVL_Supplements_cultivars.xlsx (OCR of the AVSA Master List supplements; MLV.xls in the private Hector
-archive is the PRIMARY CHECK of spelling/number/date/size, nothing is imported from MLV-only rows). Pipeline:
-scripts/prep_mvl_supplements.py -> data/mvl_supplements.csv (one row per plant), mvl_crossrefs.csv, review files
-reports/review/mvl_spelling.csv (near-misses; `mlv` = use MLV spelling), mvl_regno.csv, mvl_matches.csv (`join`);
-scripts/split_mvl_descriptions.py -> data/mvl_description_split.csv (rule-based color/bloom/foliage; `needs review` rows
-in reports/review/mvl_split_review.csv, fill corrected_* or decision `use`); import_excel.py attach_mvl() joins plants to
-existing records only when name AND hybridizer/reg number agree (others: reports/review/mvl_join_matches.csv = undecided rows only; decided rows are history in mvl_join_matches_decided.csv; `join`),
-fills EMPTY fields only, source token `mvl_supp`, columns registered_mvl + mvl_lists. HELD BACK until reviewed (listed in
-reports/review/mvl_held_back.csv): split needs review, undecided spelling near-miss, same name without hybridizer.
-Decisions (user): not-in-MLV names imported flagged "spelling not checked"; unregistered supplement-only names hidden by
-the search checkbox "Exclude old names" (view column only_1963 now covers both); cross refs go into notes; "I. Surname"
-auto-links to an existing "Surname, I." person. After editing a review file re-run: prep -> split -> import_excel ->
-import_submissions apply -> import_sports_page -> build_db -> export_ancestry_xlsx. Needs xlrd (in .venv).
-RECENT ADDITIONS (plan + status: notes/mvl-supplements-recent-plan.md): source/MVL_Supplements_recent.xlsx (1969, 1975, 1976, 1981, 1983, 1985,
-1990, 1993, 2003; read together with the main file by prep_mvl_supplements.py). 1969-1985 have NO prose: description = text decoded from the
-AVSA registration code (desc_source `code`); split_mvl_descriptions.py builds color/bloom/foliage from the code columns; prose always beats code.
-A plant with rows in the recent file whose registration number/date differs from MLV is NOT imported until a decision is recorded in
-reports/review/mvl_recent_conflicts.csv (`mlv` | `supplement` | `custom` + final_reg/final_date). Plant keys of earlier runs are kept.
-LOCAL ONLY: scripts/prep_mvl_supplements.py reads MLV.xls (private Hector archive) and is git-ignored: never commit or push it. Its
-outputs (data/mvl_*.csv, reports/review/mvl_*.csv) and source/MVL_Supplements_cultivars.xlsx ARE committed; the Pages
-workflow (build_db.py + export only) and import_excel.py never need MLV.xls (shared helper: scripts/mvl_lib.py). Back up
-the script from the private repo side if needed; it is not in git.
+## MVL supplements 1964-2002: FROZEN (plan: notes/freeze-plan.md; history: notes/mvl-supplements-plan.md, mvl-supplements-recent-plan.md)
+PRINCIPLE (user): once content is imported and decided it is not imported again; the import only looks at the work still to
+decide, and decided work becomes the historical record (reports/decision_history/, read by no script). The supplements are a
+one-off source (AVM has issued none since 2019).
+- Frozen, hand-maintained data: data/mvl_supplements.csv (one row per plant; columns join_to / separate_from = existing-record
+  keys decided join / separate, hold_reason = still undecided and NOT imported), data/mvl_description_split.csv,
+  data/mvl_crossrefs.csv. import_excel.py attach_mvl() reads only these (joins a plant to an existing record when name AND
+  hybridizer/reg number agree, or when join_to says so; fills EMPTY fields only; source token `mvl_supp`; columns registered_mvl +
+  mvl_lists). Not-in-MLV names are flagged "spelling not checked"; unregistered supplement-only names are hidden by the
+  "Exclude old names" checkbox; 1969-1985 plants have code-decoded descriptions (desc_source `code`), prose beats code.
+- Made ONCE by scripts/prep_mvl_supplements.py + split_mvl_descriptions.py (local-only, they read MLV.xls from the private
+  Hector archive; now archived in AVAncestry-private/AVM/MVL_extracts/frozen_pipeline_tools/, no longer in this repo) and frozen by
+  scripts/freeze_mvl_supplements.py (one-time, kept for reference). source/MVL_Supplements_*.xlsx stay as the original sources.
+- EVERYTHING STILL TO CHECK is in ONE file, reports/outstanding_checks.csv (+ outstanding_checks.md summary): MVL spelling
+  near-misses, held-back plants, shared registration numbers (tiers), same-name/hybridizer-differs matches, description splits,
+  the 1963 book matches and OCR review. Type `decision` (vocabulary: header of scripts/apply_check_decisions.py), then
+  `python scripts/apply_check_decisions.py --write` (dry run without --write): it edits the frozen CSVs (or, for the 1963 book,
+  masterlist_matches.csv / masterlist_ocr_review.csv), appends the applied rows to reports/decision_history/applied_checks.csv and
+  removes them from the outstanding file. The private First Class worksheets (AVAncestry-private/AVM/MVL_extracts/spelling_check/)
+  are working copies for these checks (they contain MLV text: never commit).
+- Pipeline (no prep/split step any more, ~1 min): import_excel.py -> import_submissions.py apply -> build_db.py ->
+  export_ancestry_xlsx.py.
+- Recent-file plants whose number/date differed from the MLV were all decided `mlv` (the MLV dates); the decisions are in
+  reports/decision_history/mvl_recent_conflicts.csv.

@@ -9,8 +9,8 @@ Not imported (deferred): MasterListBook OCR, the Excel `Sports` sheet.
 Human decisions (reports/review/):
   sqlite_duplicates.csv   - which duplicate SQLite rows to drop ("delete <NameID>")
   hybridizer_mapping.csv  - `final_person(s)` column is authoritative; new strings are appended
-  name_near_misses.csv    - written on first run if absent; put `merge` in `decision` to
-                            fold a variant spelling into its target, then re-run.
+  name_corrections.csv    - spelling corrections / merges of variant names (the old name_near_misses.csv
+                            merge decisions now live here).
 
 Outputs: data/*.csv, reports/import_flags.csv, reports/import_summary.md
 Usage:  .venv\\Scripts\\python scripts\\import_excel.py
@@ -129,67 +129,8 @@ def load_sqlite_drops():
     return drops
 
 
-NEAR_MISS_COLS = ["variant", "target", "variant_kind", "target_kind", "variant_sources", "target_sources",
-                  "variant_parent_uses", "target_parent_uses", "similarity", "decision", "import_status"]
-
-# Decisions deliberately not applied, pending the reviewer's confirmation (keyed by variant text).
-HELD = {}
-
-
-def load_aliases():
-    """name_near_misses.csv decisions.
-
-    Returns (alias {key: canonical key}, canon {canonical key: display name}).
-    Understood decision forms: "merge, X is the correct form", "merge, X is the registered variety",
-    "merge, update both to X", plain "merge" (target is canonical), "keep separate ...".
-    Writes an `import_status` column back to the file saying what was done with each row.
-    """
-    path = REVIEW / "name_near_misses.csv"
-    alias, canon = {}, {}
-    if not path.exists():
-        return alias, canon
-    df = read_review_csv(path)
-    if "decision" not in df.columns:  # header cell was overwritten while editing: restore it
-        extra = [c for c in df.columns if c not in NEAR_MISS_COLS]
-        df = df.rename(columns={extra[-1]: "decision"})
-    if "import_status" not in df.columns:
-        df["import_status"] = ""
-    for i, r in df.iterrows():
-        d = r["decision"].strip()
-        low = d.lower()
-        status = ""
-        if not d:
-            status = "no decision"
-        elif low.startswith("keep"):
-            status = "kept separate"
-        elif low.startswith("merge"):
-            m = re.search(r"update both to\s+(.+?)\.?\s*$", d, re.I)
-            both = bool(m)
-            m = m or re.match(r"merge,?\s*(.+?)\s+is the (?:correct form|registered variety)", d, re.I)
-            can = cname(m.group(1)).rstrip(".") if m else cname(r["target"])
-            vk, tk, ck = norm(r["variant"]), norm(r["target"]), norm(can)
-            sim = max(difflib.SequenceMatcher(None, ck, vk).ratio(), difflib.SequenceMatcher(None, ck, tk).ratio())
-            if r["variant"] in HELD:
-                status = HELD[r["variant"]]
-            elif ck not in (vk, tk) and not both and sim < 0.85:
-                status = f"held: named correct form {can!r} is unrelated to either spelling; please re-check"
-            else:
-                for k_ in (vk, tk):
-                    if k_ != ck:
-                        alias[k_] = ck
-                canon[ck] = can
-                status = f"merged -> {can}"
-        else:
-            status = "unrecognised decision text; not applied"
-        df.at[i, "import_status"] = status
-        if status.startswith(("held", "unrecognised")):
-            flag("near_miss_decision_unapplied", f"{r['variant']} / {r['target']}", status)
-    df = df[[c for c in NEAR_MISS_COLS if c in df.columns]]
-    df.to_csv(path, index=False, encoding="utf-8-sig")
-    return alias, canon
-
-
-ALIAS, CANON = load_aliases()
+# {normalised variant: normalised canonical name} and {canonical key: display name}; filled by name_corrections.csv
+ALIAS, CANON = {}, {}
 
 CORRECTABLE = {"registration_no", "registered_date", "size_class", "color", "bloom_description",
                "foliage_description", "hybridizer_raw", "description", "notes"}
@@ -248,12 +189,24 @@ def load_name_corrections():
       (the two records merge and must keep the id the other tables and images.csv already use);
     - optional column `id`: rename ONLY the record with this id (use it when several plants share the name; the
       other plants keep the name, no alias is created and `cultivar` is just a label for the reader);
+    - optional column `mode`: `alias` = merge the variant spelling `cultivar` into the existing record `new_name` (no
+      note, no id_from needed)
     - the old spelling is kept in the cultivar's notes ("[name corrected from ...]"), which the search index covers.
     Returns {canonical key: (old name, new name, reason)}. Applies to cultivars and to parent-only records."""
     path = REVIEW / "name_corrections.csv"
     out = {}
     if path.exists():
-        for _, r in read_review_csv(path).iterrows():
+        df_ = read_review_csv(path)
+        # rows with mode `alias` (merges of variant spellings, formerly name_near_misses.csv) are applied FIRST and only
+        # register the alias: the variant folds into the canonical name's record, no note is added
+        if "mode" in df_.columns:
+            for _, r in df_[df_["mode"].str.strip().str.lower() == "alias"].iterrows():
+                old, new = cname(r["cultivar"]), cname(r["new_name"])
+                if old and new and norm(old) != norm(new):
+                    ALIAS[norm(old)] = norm(new)
+                    CANON[norm(new)] = new
+            df_ = df_[df_["mode"].str.strip().str.lower() != "alias"]
+        for _, r in df_.iterrows():
             old, new = cname(r["cultivar"]), cname(r["new_name"])
             if not old or not new:
                 flag("name_correction_unsupported", r["cultivar"], f"new_name={r['new_name']!r}")
@@ -264,7 +217,7 @@ def load_name_corrections():
                 ID_RENAMES[r["id"].strip()] = (old, new, r["reason"].strip())
                 continue
             ok = norm(old)
-            for _ in range(5):                      # follow merges decided in name_near_misses.csv
+            for _ in range(5):                      # follow earlier rows of this file
                 nxt = ALIAS.get(ok)
                 if nxt is None or nxt == ok:
                     break
@@ -617,17 +570,10 @@ def attach_masterlist(allrec):
 # data/mvl_supplements.csv (scripts/prep_mvl_supplements.py; spelling, registration number/date and size already checked
 # against MLV.xls) + data/mvl_description_split.csv (scripts/split_mvl_descriptions.py). Plan: notes/mvl-supplements-plan.md.
 # A plant joins an existing record automatically only when the name AND (the hybridizer or the registration number)
-# agree; every other name match is listed in reports/review/mvl_join_matches.csv (decision `join`) and is meanwhile a
-# separate record, as for the 1963 list. Existing values win: the supplement only fills EMPTY fields.
-# Plants that still need a human (description split, near-miss spelling, same name with an unknown hybridizer) are HELD
-# BACK and listed in reports/review/mvl_held_back.csv; they come in on the run after the review file is filled in.
-MVL_JOIN_REVIEW = REVIEW / "mvl_join_matches.csv"                 # only rows still waiting for a decision
-MVL_JOIN_DECIDED = REVIEW / "mvl_join_matches_decided.csv"        # rows with a decision (join / separate), kept as history
-MVL_JOIN_COLS = ["plant_key", "name", "supplement_hybridizer", "supplement_lists", "supplement_reg",
-                 "supplement_description", "existing_key", "existing_name", "existing_hybridizer",
-                 "existing_reg", "existing_sources", "existing_description", "existing_description_from", "reason",
-                 "decision"]
-MVL_HELD = REVIEW / "mvl_held_back.csv"
+# agree; every other name match is meanwhile a separate record (as for the 1963 list). The decisions already made are
+# FROZEN in data/mvl_supplements.csv (columns join_to / separate_from = existing-record keys; hold_reason = still undecided);
+# the entries still to decide are listed in reports/outstanding_checks.csv (notes/freeze-plan.md) and applied with
+# scripts/apply_check_decisions.py. Existing values win: the supplement only fills EMPTY fields.
 
 
 _ORIG_SURNAMES = None
@@ -669,16 +615,6 @@ def load_mvl():
         return [], []
     plants = read_review_csv(path).to_dict("records")
     split = {r["plant_key"]: r for r in read_review_csv(spath).to_dict("records")}
-    spell_open = set()
-    if (REVIEW / "mvl_spelling.csv").exists():
-        for r in read_review_csv(REVIEW / "mvl_spelling.csv").to_dict("records"):
-            if not r["decision"].strip():
-                spell_open.add(r["supplement_key"])
-    match_open = set()
-    if (REVIEW / "mvl_matches.csv").exists():
-        for r in read_review_csv(REVIEW / "mvl_matches.csv").to_dict("records"):
-            if not r["decision"].strip() and not r["hybridizer"].strip():
-                match_open.add(r["plant_key"])
     keep, held = [], []
     for pl in plants:
         sp = split.get(pl["plant_key"], {})
@@ -688,10 +624,6 @@ def load_mvl():
         reasons = []
         if sp.get("split_status", "needs review") == "needs review":
             reasons.append("description split needs review")
-        if norm(pl["supplement_spelling"] or pl["name"]) in spell_open:
-            reasons.append("spelling: near-miss of an MLV name, undecided")
-        if pl["plant_key"] in match_open:
-            reasons.append("same name as another plant and no hybridizer, undecided")
         if pl.get("hold_reason"):
             reasons.append(pl["hold_reason"])
         if reasons:
@@ -699,8 +631,6 @@ def load_mvl():
                          "reasons": "; ".join(reasons), "description": pl["description"]})
         else:
             keep.append(pl)
-    pd.DataFrame(held, columns=["plant_key", "name", "hybridizer", "lists", "reasons", "description"]).to_csv(
-        MVL_HELD, index=False, encoding="utf-8-sig")
     return keep, held
 
 
@@ -749,28 +679,18 @@ def attach_mvl(allrec):
     plants, held = load_mvl()
     if not plants and not held:
         return {"plants": 0}
-    # only `join` and `separate` are decisions; any other text (suggest_join, later, a note) keeps the row in the review file
-    decisions, decided_rows, pending_notes = {}, {}, {}
-    for f_ in (MVL_JOIN_DECIDED, MVL_JOIN_REVIEW):
-        if f_.exists():
-            for r in read_review_csv(f_).to_dict("records"):
-                dec_ = r["decision"].strip()
-                kk_ = (r["plant_key"], r["existing_key"])
-                if dec_.lower() in ("join", "separate"):
-                    decisions[kk_] = dec_.lower()
-                    decided_rows[kk_] = r
-                elif dec_:
-                    pending_notes[kk_] = dec_
     by_name = collections.defaultdict(list)
     for k, d in allrec.items():
         by_name[K(d["name"])].append((k, d))
     existing_reg = {d["registration_no"]: d for d in allrec.values() if d["registration_no"]}
-    stats, review, pk2rec = collections.Counter(), [], {}
+    stats, pk2rec = collections.Counter(), {}
     for pl in plants:
         cands = by_name.get(K(pl["name"]), [])
         ptoks = mvl_hyb_tokens(pl["hybridizer"], mapped=True)
+        joins = set(filter(None, pl.get("join_to", "").split(";")))
+        seps = set(filter(None, pl.get("separate_from", "").split(";")))
         agree = [(k, d) for k, d in cands
-                 if decisions.get((pl["plant_key"], k)) != "separate"       # an explicit `separate` is never overridden
+                 if k not in seps       # an explicit `separate` is never overridden
                  and ((pl["registration_no"] and d["registration_no"] == pl["registration_no"])
                       or (ptoks and ptoks & mvl_hyb_tokens(d["hybridizer_raw"], mapped=True)))]
         target, how = None, ""
@@ -778,7 +698,7 @@ def attach_mvl(allrec):
             target, how = agree[0], "joined_auto"
         else:
             for k, d in cands:
-                if decisions.get((pl["plant_key"], k)) == "join":
+                if k in joins:
                     target, how = (k, d), "joined_decision"
                     break
         if target:
@@ -804,24 +724,6 @@ def attach_mvl(allrec):
         if pl["spelling"] == "spelling_unchecked":
             stats["spelling_unchecked"] += 1
             rec_["source_note"] += "; spelling not checked against the AVSA Master Variety List"
-        for k, d in cands:
-            if target and target[0] == k:
-                continue
-            if not target and (k, d) in agree:
-                why = "name and hybridizer match several existing records"
-            elif not ptoks:
-                why = "supplement entry gives no hybridizer"
-            elif not d["hybridizer_raw"]:
-                why = "existing record has no known hybridizer"
-            else:
-                why = "hybridizers differ"
-            review.append({"plant_key": pl["plant_key"], "name": pl["name"], "supplement_hybridizer": pl["hybridizer"],
-                           "supplement_lists": pl["lists"], "supplement_reg": pl["registration_no"],
-                           "supplement_description": pl["description"][:160], "existing_key": k, "existing_name": d["name"],
-                           "existing_hybridizer": d["hybridizer_raw"], "existing_reg": d["registration_no"],
-                           "existing_sources": d["sources"], "_d": d,
-                           "reason": why,
-                           "decision": decisions.get((pl["plant_key"], k)) or pending_notes.get((pl["plant_key"], k), "")})
     # cross references -> notes of the target ("Also listed as X in the 1972 Master List supplement.")
     xr = DATA / "mvl_crossrefs.csv"
     if xr.exists():
@@ -832,32 +734,13 @@ def attach_mvl(allrec):
                 if line not in rec_["notes"]:
                     rec_["notes"] = (rec_["notes"] + " " if rec_["notes"] else "") + line
                     stats["crossrefs"] += 1
-    order = {"existing record has no known hybridizer": 0, "supplement entry gives no hybridizer": 1,
-             "name and hybridizer match several existing records": 2, "hybridizers differ": 3}
-    for r in review:   # description columns are filled now: a later plant may have filled an existing record
-        d_ = r.pop("_d")
-        r["existing_sources"] = d_["sources"]   # as of now (a later plant may have joined the record)
-        r["existing_description"] = d_["description"]
-        r["existing_description_from"] = ("" if not d_["description"] else
-                                          "supplement (filled by another plant)" if d_.get("_desc_from_mvl")
-                                          else "existing source")
-    review.sort(key=lambda r: (order[r["reason"]], r["name"].lower()))
-    # decided rows move to the history file; only undecided rows stay in the review file
-    for r in review:
-        if r["decision"] in ("join", "separate"):
-            decided_rows[(r["plant_key"], r["existing_key"])] = r
-    pd.DataFrame([r for r in review if r["decision"] not in ("join", "separate")], columns=MVL_JOIN_COLS).to_csv(
-        MVL_JOIN_REVIEW, index=False, encoding="utf-8-sig")
-    if decided_rows:
-        pd.DataFrame(sorted(decided_rows.values(), key=lambda r: (r["name"].lower(), r["existing_key"])),
-                     columns=MVL_JOIN_COLS).to_csv(MVL_JOIN_DECIDED, index=False, encoding="utf-8-sig")
-    stats["plants"], stats["held_back"], stats["review_rows"] = len(plants), len(held), len(review)
+    stats["plants"], stats["held_back"] = len(plants), len(held)
     return dict(stats)
 
 
 # ------------------------------------------------------------------ originators given as text
 PO_REVIEW = REVIEW / "parent_originator_matches.csv"
-OM_REVIEW = REVIEW / "originator_mapping.csv"
+OM_REVIEW = REVIEW / "outstanding_originator_mapping.csv"
 ORIG_SPLIT = re.compile(r"\s+(?:&|and)\s+|\s*[/;]\s*")   # "A & B" and "A and B" split; "A&R" does not
 
 
@@ -886,7 +769,7 @@ def mvl_auto_person(orig, by_norm):
 
 
 def load_originator_mapping(needed, base_people):
-    """reports/review/originator_mapping.csv: every originator written only as text, with a proposed link to an
+    """reports/review/outstanding_originator_mapping.csv: every originator written only as text, with a proposed link to an
     existing person where the surname matches exactly one. NOTHING is linked unless `decision` says `link`,
     because a 1960s originator and a modern hybridizer can share a surname. A decision may also be the person's
     name(s) typed out ("Lyon, Lyndon"; separate several with ;). Otherwise the originator becomes a person
@@ -1357,49 +1240,6 @@ def build():
                 po=dict(po_stats, review=len(rows_po)), om=o_stats)
 
 
-# ------------------------------------------------------------------ near-miss review file
-def write_near_misses(res):
-    path = REVIEW / "name_near_misses.csv"
-    if path.exists():
-        return None
-    allrec = res["allrec"]
-    par_uses = collections.Counter()
-    for r in res["parentage"]:
-        par_uses[r["parent_id"]] += 1
-    ids = {d["id"]: d for d in allrec.values()}
-    items = [(d["id"], d["name"]) for d in allrec.values()]
-    buckets = collections.defaultdict(list)
-    for i, n in items:
-        buckets[norm(n)[:2]].append((i, n, norm(n)))
-    rows = []
-    for b in buckets.values():
-        for ai in range(len(b)):
-            for bi in range(ai + 1, len(b)):
-                (ia, na, ka), (ib, nb, kb) = b[ai], b[bi]
-                if len(ka) < 6 or abs(len(ka) - len(kb)) > 2 or ka == kb:
-                    continue
-                if SEEDLING_CODE.match(na) or SEEDLING_CODE.match(nb):
-                    continue
-                if re.search(r"\d", na + nb) and not (ids[ia]["kind"] == ids[ib]["kind"] == "cultivar"):
-                    continue
-                ratio = difflib.SequenceMatcher(None, ka, kb).ratio()
-                if ratio < 0.92:
-                    continue
-                da, db = ids[ia], ids[ib]
-
-                def score(d):
-                    return (d["kind"] == "cultivar", d["sources"] != "parent", par_uses[d["id"]])
-                target, variant = (da, db) if score(da) >= score(db) else (db, da)
-                rows.append({"variant": variant["name"], "target": target["name"],
-                             "variant_kind": variant["kind"], "target_kind": target["kind"],
-                             "variant_sources": variant["sources"], "target_sources": target["sources"],
-                             "variant_parent_uses": par_uses[variant["id"]], "target_parent_uses": par_uses[target["id"]],
-                             "similarity": round(ratio, 3), "decision": ""})
-    rows.sort(key=lambda r: (-r["similarity"], r["variant"]))
-    pd.DataFrame(rows).to_csv(path, index=False, encoding="utf-8-sig")
-    return len(rows)
-
-
 # ------------------------------------------------------------------ write
 def write_all(res):
     allrec = res["allrec"]
@@ -1429,7 +1269,6 @@ def write_all(res):
 
 def main():
     res = build()
-    nm = write_near_misses(res)
     write_all(res)
     allrec = res["allrec"]
     kinds = collections.Counter(d["kind"] for d in allrec.values())
@@ -1450,7 +1289,7 @@ def main():
              f"- originators written as text, now people: {res['om']}",
              f"- sports linked: {sum(1 for d in allrec.values() if d['sport_of'])}",
              f"- with registration no.: {sum(1 for d in allrec.values() if d['registration_no'])}",
-             f"- name near-miss candidates written for review: {nm if nm is not None else '(file exists; decisions applied: ' + str(len(ALIAS)) + ')'}",
+             f"- name aliases from name_corrections.csv: {len(ALIAS)}",
              "", "## Flags by category", ""] + [f"- {k}: {v}" for k, v in fl.most_common()]
     (REPORTS / "import_summary.md").write_text("\n".join(lines), encoding="utf-8")
     print("\n".join(lines))

@@ -919,7 +919,7 @@ def write_summary(manifest, posts_info, evaluated, unmatched, nearm, credit_rev,
       "that apply to the images that follow (`credit_scope`). A watermark notice ('photos by Blue Mountain Violets are "
       "copyrighted') is **not** read as a credit; those images get the category default and a review flag.")
     A("- Posts in the Gesneriad categories (Sinningia, Streptocarpus) are non-Saintpaulia: kept in the manifest with keep=review.")
-    A("- Name aliases from name_near_misses.csv are not applied here; matching uses the final names in data/cultivars.csv.")
+    A("- Name aliases from name_corrections.csv are not applied here; matching uses the final names in data/cultivars.csv.")
     A("- The User-Agent names the project; no contact address was supplied, so none was sent (pass `--contact` if the cache is cleared).")
     (OUT / "summary.md").write_text("\n".join(L) + "\n", encoding="utf-8")
 

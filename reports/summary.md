@@ -46,5 +46,5 @@ Near-miss rules that produced candidates (all suggestions only):
 - Full-size URL = the link around the thumbnail when it points to an image file. 61 wrappers point to an attachment page or eBay instead; for those `data-orig-file` (or src without the query) is used (`full_url_source`).
 - Credit lines placed before the first image, or ending in ':' ('photos by Joan Baker:'), are treated as headers that apply to the images that follow (`credit_scope`). A watermark notice ('photos by Blue Mountain Violets are copyrighted') is **not** read as a credit; those images get the category default and a review flag.
 - Posts in the Gesneriad categories (Sinningia, Streptocarpus) are non-Saintpaulia: kept in the manifest with keep=review.
-- Name aliases from name_near_misses.csv are not applied here; matching uses the final names in data/cultivars.csv.
+- Name aliases from name_corrections.csv are not applied here; matching uses the final names in data/cultivars.csv.
 - The User-Agent names the project; no contact address was supplied, so none was sent (pass `--contact` if the cache is cleared).
