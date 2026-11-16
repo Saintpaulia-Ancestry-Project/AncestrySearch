@@ -80,6 +80,9 @@ class Master:
         self.links = Table(d / "cultivar_links.csv")
         self.images = Table(d / "images.csv", required=False)
         self.redirects = Table(d / "id_redirects.csv", required=False)
+        self.aliases = Table(d / "name_aliases.csv", required=False)
+        if not self.aliases.cols:
+            self.aliases.cols, self.aliases.eol = ["alias_key", "canonical_key"], "\r\n"
         if not self.redirects.cols:
             self.redirects.cols, self.redirects.eol = REDIRECT_COLS, "\n"
         self.hist_path = self.root / "reports" / "decision_history" / "master_edits.csv"
@@ -101,6 +104,15 @@ class Master:
         if cid not in self.by_id:
             raise EditError(f"no record with id {cid!r}")
         return self.by_id[cid]
+
+    def add_alias(self, old_name, new_name):
+        """both spellings keep reaching the same record (data/name_aliases.csv, used by names_lib.K for submissions)"""
+        a, c = norm(old_name), norm(new_name)
+        if a == c:
+            return
+        self.aliases.rows = [r for r in self.aliases.rows if not (r["alias_key"] == c and r["canonical_key"] == a)]
+        if not any(r["alias_key"] == a for r in self.aliases.rows):
+            self.aliases.rows.append({"alias_key": a, "canonical_key": c})
 
     def _log(self, op, cid, name, field="", old="", new="", reason=""):
         self.log.append({"date": datetime.date.today().isoformat(), "op": op, "cultivar_id": cid, "name": name,
@@ -142,6 +154,7 @@ class Master:
         if old == new_name:
             return False
         r["name"] = new_name
+        self.add_alias(old, new_name)
         r["notes"] = (r["notes"] + " " if r["notes"] else "") + f"[name corrected from {old}" + (f": {reason}" if reason else "") + "]"
         self._log("rename", cid, new_name, "name", old, new_name, reason)
         return True
@@ -150,11 +163,12 @@ class Master:
         """fold record drop_id into keep_id (empty fields are filled, relations re-pointed, the dropped id redirects)"""
         import copy
         k, d = self._one(keep_id), self._one(drop_id)
-        backup = [copy.deepcopy(t.rows) for t in (self.cultivars, self.parentage, self.hyb, self.links, self.images, self.redirects)]
+        tables = (self.cultivars, self.parentage, self.hyb, self.links, self.images, self.redirects, self.aliases)
+        backup = [copy.deepcopy(t.rows) for t in tables]
         try:
             self._merge(k, d, keep_id, drop_id, reason, force)
         except EditError:
-            for t, rows in zip((self.cultivars, self.parentage, self.hyb, self.links, self.images, self.redirects), backup):
+            for t, rows in zip(tables, backup):
                 t.rows = rows
             self.reindex()
             raise
@@ -213,6 +227,7 @@ class Master:
             if im["cultivar_id"] == drop_id:
                 im["cultivar_id"] = keep_id
         self.cultivars.rows = [r for r in self.cultivars.rows if r["id"] != drop_id]
+        self.add_alias(d["name"], k["name"])
         self.redirects.rows.append({"old_id": drop_id, "new_id": keep_id, "reason": reason, "date": datetime.date.today().isoformat()})
         for rd in self.redirects.rows:               # earlier redirects to the dropped id now point at the kept one
             if rd["new_id"] == drop_id:
@@ -320,6 +335,7 @@ class Master:
             self.images.save()
         if self.redirects.rows:
             self.redirects.save()
+        self.aliases.save()
         if self.log:
             hist = Table(self.hist_path, required=False)
             if not hist.cols:

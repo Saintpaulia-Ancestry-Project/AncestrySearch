@@ -1,7 +1,7 @@
 """Shared code for contributor submissions (see notes/submission-form-plan.md).
 
 Used by check_submissions.py (flags for the review Sheet) and import_submissions.py (ingest + apply).
-Reuses the name/placeholder/people helpers of import_excel.py so submissions are normalised exactly like the
+Reuses the name/placeholder/people helpers of names_lib.py so submissions are normalised exactly like the
 original sources.
 """
 import csv
@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import import_excel as ie  # noqa: E402  (importing it re-reads the review files; harmless and idempotent)
+import names_lib as ie  # noqa: E402  (the shared name/date/people helpers; not import_excel.py, a bootstrap tool)
 
 ROOT = ie.ROOT
 DATA = ie.DATA

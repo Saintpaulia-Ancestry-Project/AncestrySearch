@@ -335,6 +335,8 @@ one-off source (AVM has issued none since 2019).
   masterlist_matches.csv / masterlist_ocr_review.csv), appends the applied rows to reports/decision_history/applied_checks.csv and
   removes them from the outstanding file. The private First Class worksheets (AVAncestry-private/AVM/MVL_extracts/spelling_check/)
   are working copies for these checks (they contain MLV text: never commit).
+- Shared helpers (names, dates, people, aliases) live in scripts/names_lib.py; submissions code no longer imports import_excel.py.
+  data/name_aliases.csv = variant spellings that reach the same record (names_lib.K).
 - Pipeline (no prep/split step any more, ~1 min): import_excel.py -> import_submissions.py apply -> build_db.py ->
   export_ancestry_xlsx.py.
 - Recent-file plants whose number/date differed from the MLV were all decided `mlv` (the MLV dates); the decisions are in

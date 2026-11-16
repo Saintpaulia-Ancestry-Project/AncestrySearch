@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import master_edit as me  # noqa: E402
 
 REAL = Path(__file__).resolve().parents[1] / "data"
-FILES = ["cultivars", "parentage", "people", "cultivar_hybridizers", "cultivar_links", "images"]
+FILES = ["cultivars", "parentage", "people", "cultivar_hybridizers", "cultivar_links", "images", "name_aliases"]
 
 
 def scratch():
@@ -57,6 +57,7 @@ def main():
     m = me.Master(root)
     assert m.rename("spinnaker", "Spinnaker (test)", "unit test")
     assert m.by_id["spinnaker"]["name"] == "Spinnaker (test)" and "[name corrected from Spinnaker" in m.by_id["spinnaker"]["notes"]
+    assert {"alias_key": "spinnaker", "canonical_key": "spinnakertest"} in m.aliases.rows, "old spelling must still resolve"
     print("ok  rename")
 
     # 4. merge re-points parentage, hybridizers, links, images, sports; the dropped id redirects
@@ -79,6 +80,7 @@ def main():
     assert any(x["cultivar_id"] == a and x["url"].endswith("/x") for x in m.links.rows)
     assert m.by_id[c1]["sport_of_id"] == a
     assert m.redirects.rows[-1]["old_id"] == b and m.redirects.rows[-1]["new_id"] == a
+    assert {"alias_key": "mergedrop", "canonical_key": "mergekeep"} in m.aliases.rows
     assert m.validate() == []
     m.save()
     assert (root / "data" / "id_redirects.csv").exists()

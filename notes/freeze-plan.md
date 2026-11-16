@@ -135,9 +135,11 @@ hand-maintained data and stay as they are.
 - Step 1 DONE: baseline fingerprint of the database (`reports/decision_history/phase2_baseline_fingerprint.json`, made by
   `scripts/db_fingerprint.py`; compare after every step), `scripts/master_edit.py` + `scripts/test_master_edit.py` (round trip of the
   six master files is byte-identical; set / rename / merge / delete / validate tested; a refused merge leaves nothing half-done).
-- Found while preparing step 4: `submissions_lib.py` / `import_submissions.py` import `import_excel` for helpers (`cname`, `norm`, people
-  and name handling) and for the paths. Those helpers must move to a small shared module (`scripts/names_lib.py`) before
-  `import_excel.py` is archived.
+- Shared helpers step DONE: `scripts/names_lib.py` now holds `clean, cname, norm, slugify, parse_date, ORG_RE, COUNTRIES, pkey, PLACEHOLDER,
+  SELF_RE, stub_kind` and `K()`; `import_excel.py` imports them from there, `submissions_lib.py` no longer imports `import_excel` at all.
+  `K()` follows `data/name_aliases.csv` (89 alias rows, generated once from the importer's alias map; `names_lib.K` equals
+  `import_excel.K` for every name and alias). `master_edit.py` keeps that file current (rename / merge add an alias). Checked: the five
+  master CSVs and the database fingerprint are identical after `import_excel.py` + `import_submissions.py apply` + `build_db.py`.
 - Still to do: step 2 (originally merged with step 1: the id redirect is only recorded in `data/id_redirects.csv`; the site does
   not use it yet), step 3 (switch `apply_check_decisions.py` to the master), step 4 (archive), step 5 (full compare).
 

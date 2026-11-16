@@ -45,31 +45,9 @@ def flag(category, cultivar, detail):
 
 
 # ------------------------------------------------------------------ helpers
-QUOTES = str.maketrans({"‘": "'", "’": "'", "‚": "'", "‛": "'", "`": "'",
-                        "“": '"', "”": '"', "´": "'"})
-
-
-def clean(s):
-    if s is None or (isinstance(s, float) and pd.isna(s)):
-        return ""
-    return re.sub(r"\s+", " ", str(s).replace("\xa0", " ")).strip()
-
-
-def cname(s):
-    """Normalised display form: whitespace trimmed, curly quotes made straight."""
-    return clean(s).translate(QUOTES)
-
-
-def norm(s):
-    t = unicodedata.normalize("NFKD", str(s)).encode("ascii", "ignore").decode().lower()
-    t = re.sub(r"[^a-z0-9]+", "", t)
-    return t or re.sub(r"\W+", "", str(s).casefold())
-
-
-def slugify(s):
-    t = unicodedata.normalize("NFKD", str(s)).encode("ascii", "ignore").decode().lower()
-    t = re.sub(r"[^a-z0-9]+", "-", t).strip("-")
-    return t or "x"
+from names_lib import (QUOTES, clean, cname, norm, slugify, ORG_RE, COUNTRIES, pkey, PLACEHOLDER, SELF_RE,  # noqa: E402,F401
+                        stub_kind)
+import names_lib  # noqa: E402
 
 
 def read_review_csv(path):
@@ -82,18 +60,7 @@ def read_review_csv(path):
 
 
 def parse_date(v):
-    if v is None or (isinstance(v, float) and pd.isna(v)) or clean(v) == "":
-        return ""
-    if isinstance(v, (datetime.datetime, pd.Timestamp)):
-        return v.date().isoformat()
-    s = clean(v)
-    for fmt in ("%m/%d/%Y", "%m/%d/%y", "%Y-%m-%d", "%Y-%m-%d %H:%M:%S"):
-        try:
-            return datetime.datetime.strptime(s, fmt).date().isoformat()
-        except ValueError:
-            pass
-    flag("bad_date", "", s)
-    return ""
+    return names_lib.parse_date(v, lambda s: flag("bad_date", "", s))
 
 
 def parse_reg(v):
@@ -245,11 +212,6 @@ def K(name):
 
 
 # ------------------------------------------------------------------ hybridizer mapping
-ORG_RE = re.compile(r"nurser|universit|greenhouse|society|college|farm|garden|laborator|institute|\bclub\b|racks|\bbros\b", re.I)
-COUNTRIES = {"Germany", "Hungary", "Russia", "Ukraine", "Japan", "Canada", "Australia", "England", "Netherlands",
-             "Poland", "Latvia", "Lithuania", "Belarus", "Sweden", "Denmark", "France", "Italy", "New Zealand",
-             "Brazil", "Czech Republic", "Finland", "Norway", "Taiwan", "China", "Korea"}
-
 # Hand-applied reviewer decisions that differ from the proposal (hybridizer_mapping.csv `decision`)
 OVERRIDES = {
     "Dibley's Nursery": "Dibleys Nurseries",
@@ -261,11 +223,6 @@ OVERRIDES = {
 def split_people(s):
     parts = re.split(r"\s*[/;]\s*", s.strip().rstrip(","))
     return [p.strip().rstrip(",").strip() for p in parts if p.strip().rstrip(",").strip()]
-
-
-def pkey(p):
-    m = re.match(r"^([^,]+),\s*([A-Za-z])", p)
-    return (norm(m.group(1)), m.group(2).lower()) if m else (norm(p), "")
 
 
 def load_mapping(needed):
@@ -307,11 +264,7 @@ def load_mapping(needed):
 
 
 # ------------------------------------------------------------------ parents
-PLACEHOLDER = re.compile(
-    r"^(?:[\s?\-—–.]*|n/?a|none|lost|\(?record lost\)?|unknown.*|\?.*lost.*|\(?unreadable.*|\(?not listed\)?|"
-    r"unreadable record|diverse pollent parent|mixed .*seeds?|seeds? from .*|open pollinated)$", re.I)
 SPORT_MARK = re.compile(r"\(\s*(?:sport|spot)(?:\s+of)?\s*\)", re.I)
-SELF_RE = re.compile(r"\s*\(?\bx\s+self\)?\s*$", re.I)
 SEEDLING_CODE = re.compile(r"^\d{1,2}-\d{1,3}-\d{1,3}$")
 
 
@@ -352,14 +305,6 @@ def parse_cell(raw):
         t, r["orig"] = m.group(1).strip(), m.group(2).strip()
     r["name"] = t
     return r
-
-
-def stub_kind(name):
-    if re.match(r"^(S\.|Saintpaulia)\s", name):
-        return "species"
-    if re.search(r"seedling", name, re.I) or re.search(r"\sx\s", name, re.I) or name.startswith("["):
-        return "seedling"
-    return "stub"
 
 
 # ------------------------------------------------------------------ load sources
