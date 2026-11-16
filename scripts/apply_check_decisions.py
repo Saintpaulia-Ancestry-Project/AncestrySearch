@@ -8,7 +8,7 @@ Columns that matter: record_id = the cultivar's id in the master (empty for a HE
 plant_key = the frozen MVL plant (data/mvl_supplements.csv); target_key = the other record of a pair (an id; for name pairs a name).
 
 Decisions by check_type (case-insensitive). `set:<field>=<value>` works on any row that has a record_id.
-  spelling near-miss of an MLV name   (held plant)   mlv | keep | different | keep:<Name> (as keep, under this corrected spelling:
+  spelling near-miss of an MLV name   (held plant)   drop (not imported: the record already exists) | mlv | keep | different | keep:<Name> (as keep, under this corrected spelling:
                                       OCR noise in the printed name, e.g. "Optimara Nebraska I]" -> "Optimara Nebraska II")
                                       mlv = the supplement entry is the MLV spelling: imported under `mlv_name`, or merged into the record of
                                       that name; keep / different = it is NOT the MLV cultivar: imported under the supplement spelling.
@@ -201,6 +201,12 @@ class Applier:
                 low = "keep"
             fc_reg, fc_date = fc_parse(c["first_class_reg_date"])
             fc = dict(name=c["first_class_name"], hyb=c["first_class_hybridizer"], size=c["first_class_size"], reg=fc_reg, date=fc_date)
+            if low == "drop":
+                # the plant duplicates a record that already exists (e.g. a species updated from the species guide): not imported
+                P_, S_ = self.plant(c["plant_key"])
+                self.dropped.append(P_)
+                self.released.add(c["plant_key"])
+                return f"{c['name']} ({c['lists_or_year']}): dropped, not imported (the record already exists)"
             if low in ("mlv", "keep", "different"):
                 use_mlv = low == "mlv"
                 name = fc["name"] or fixed or (c["mlv_name"] if use_mlv else None)

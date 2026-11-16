@@ -845,3 +845,110 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,rename,s-magungensis-x-s-velutina,S. 5b. cl. magungensis x S. 5i. cl. velutinus,name,S. magungensis x S. velutina,S. 5b. cl. magungensis x S. 5i. cl. velutinus,"Species update 2026-11: names and descriptions from the Barbi species guide (2019) / Gesneriads 68(1), 2018; user decisions"
 2026-11-16,set,s-magungensis-x-s-velutina,S. 5b. cl. magungensis x S. 5i. cl. velutinus,notes,"[name corrected from S. magungensis x S. velutina: Species update 2026-11: names and descriptions from the Barbi species guide (2019) / Gesneriads 68(1), 2018; user decisions]",Hybrid of two species: S. 5b. cl. magungensis and S. 5i. cl. velutinus. Formerly listed as: S. magungensis x S. velutina.,"Species update 2026-11: names and descriptions from the Barbi species guide (2019) / Gesneriads 68(1), 2018; user decisions"
 2026-11-16,add_parentage,s-magungensis-x-s-velutina,S. 5b. cl. magungensis x S. 5i. cl. velutinus,parents,,S. 5b. cl. magungensis; S. 5i. cl. velutinus,"Species update 2026-11: names and descriptions from the Barbi species guide (2019) / Gesneriads 68(1), 2018; user decisions"
+2026-11-16,rename,buckeye-eye-candy,Buckeye Eye Candy,name,_ Buckeye Eye Candy,Buckeye Eye Candy,Leading '_ ' removed from the name (user decision)
+2026-11-16,rename,buckeye-kiss-n-tell,Buckeye Kiss 'n' Tell,name,_ Buckeye Kiss 'n' Tell,Buckeye Kiss 'n' Tell,Leading '_ ' removed from the name (user decision)
+2026-11-16,add,allan-s-toy,Allan's Toy,,,,released from the held supplement plants
+2026-11-16,import_plant,antique-coral,Antique Coral,plant,anitique-coral,joined,released from the held supplement plants
+2026-11-16,import_plant,arctic-snow,Arctic Snow,plant,artic-snow,joined,released from the held supplement plants
+2026-11-16,import_plant,bienvenu,Bienvenu,plant,bienvenue,joined,released from the held supplement plants
+2026-11-16,add,blue-and-gold,Blue and Gold,,,,released from the held supplement plants
+2026-11-16,add,blue-and-pink,Blue and Pink,,,,released from the held supplement plants
+2026-11-16,add,blue-bella,Blue Bella,,,,released from the held supplement plants
+2026-11-16,add,blue-bells,Blue Bells,,,,released from the held supplement plants
+2026-11-16,add,blue-glaze,Blue Glaze,,,,released from the held supplement plants
+2026-11-16,add,blue-stardust,Blue Stardust,,,,released from the held supplement plants
+2026-11-16,add,bright-promise,Bright Promise,,,,released from the held supplement plants
+2026-11-16,add,cameo-rose,Cameo Rose,,,,released from the held supplement plants
+2026-11-16,add,charade,Charade,,,,released from the held supplement plants
+2026-11-16,add,cheerie-2,Cheerie,,,,released from the held supplement plants
+2026-11-16,import_plant,cherry-limeade,Cherry Limeade,plant,cherry-limeaide,joined,released from the held supplement plants
+2026-11-16,import_plant,candy-trinket,Candy Trinket,plant,cindy-trinket,joined,released from the held supplement plants
+2026-11-16,add,classy-chassie,Classy Chassie,,,,released from the held supplement plants
+2026-11-16,add,clypso,Clypso,,,,released from the held supplement plants
+2026-11-16,add,dainty-dell,Dainty Dell,,,,released from the held supplement plants
+2026-11-16,add,dalene,Dalene,,,,released from the held supplement plants
+2026-11-16,add,dallasite,Dallasite,,,,released from the held supplement plants
+2026-11-16,add,dana,Dana,,,,released from the held supplement plants
+2026-11-16,add,dancing-prince,Dancing Prince,,,,released from the held supplement plants
+2026-11-16,add,dianta,Dianta,,,,released from the held supplement plants
+2026-11-16,add,fantasia-delight,Fantasia Delight,,,,released from the held supplement plants
+2026-11-16,add,fire-2,Fire,,,,released from the held supplement plants
+2026-11-16,import_plant,fiery-trail,Fiery Trail,plant,firery-trails,joined,released from the held supplement plants
+2026-11-16,import_plant,fort-worth-s-first,Fort Worth's First,plant,fort-worth-first,joined,released from the held supplement plants
+2026-11-16,add,french-bleu-2,French Bleu,,,,released from the held supplement plants
+2026-11-16,add,grape-expectations,Grape Expectations,,,,released from the held supplement plants
+2026-11-16,add,happy-ours,Happy 'Ours,,,,released from the held supplement plants
+2026-11-16,add,hearthrobs,Hearthrobs,,,,released from the held supplement plants
+2026-11-16,import_plant,hessel,Hessel,plant,hessell,joined,released from the held supplement plants
+2026-11-16,add,honey-bunny,Honey Bunny,,,,released from the held supplement plants
+2026-11-16,add,hyla-s-little-lira,Hyla's Little Lira,,,,released from the held supplement plants
+2026-11-16,import_plant,hyla-s-dark-forest,Hyla's Dark Forest,plant,hylas-dark-forrest,joined,released from the held supplement plants
+2026-11-16,import_plant,islamarado,Islamarado,plant,islamarada,joined,released from the held supplement plants
+2026-11-16,add,jazz,Jazz,,,,released from the held supplement plants
+2026-11-16,add,julie-b,Julie B.,,,,released from the held supplement plants
+2026-11-16,add,juliet,Juliet,,,,released from the held supplement plants
+2026-11-16,add,lavender-face,Lavender Face,,,,released from the held supplement plants
+2026-11-16,add,lavender-miss,Lavender Miss,,,,released from the held supplement plants
+2026-11-16,add,linda-j,Linda-J,,,,released from the held supplement plants
+2026-11-16,add,little-folly,Little Folly,,,,released from the held supplement plants
+2026-11-16,add,little-one-2,Little One,,,,released from the held supplement plants
+2026-11-16,add,little-one-3,Little One,,,,released from the held supplement plants
+2026-11-16,add,lucy-2,Lucy,,,,released from the held supplement plants
+2026-11-16,import_plant,lulubelle,Lulubelle,plant,lulu-bell,joined,released from the held supplement plants
+2026-11-16,add,mara,Mara,,,,released from the held supplement plants
+2026-11-16,add,mary-k,Mary K,,,,released from the held supplement plants
+2026-11-16,add,mary-lois-2,Mary Lois,,,,released from the held supplement plants
+2026-11-16,add,may-magic-2,May Magic,,,,released from the held supplement plants
+2026-11-16,add,merry-blue,Merry Blue,,,,released from the held supplement plants
+2026-11-16,add,midnight-bution,Midnight Bution,,,,released from the held supplement plants
+2026-11-16,add,midnight-mood,Midnight Mood,,,,released from the held supplement plants
+2026-11-16,add,ming,Ming,,,,released from the held supplement plants
+2026-11-16,add,miss-billie,Miss Billie,,,,released from the held supplement plants
+2026-11-16,add,mosaic,Mosaic,,,,released from the held supplement plants
+2026-11-16,import_plant,ness-snowy-daze,Ness' Snowy Daze,plant,nesss-snowy-daze,joined,released from the held supplement plants
+2026-11-16,add,ness-viking-queen,Ness' Viking Queen,,,,released from the held supplement plants
+2026-11-16,add,old-fashioned,Old Fashioned,,,,released from the held supplement plants
+2026-11-16,import_plant,one-and-only,One and Only,plant,one-n-only,joined,released from the held supplement plants
+2026-11-16,import_plant,optimara-leonardo-davinci,Optimara Leonardo Davinci,plant,optimara-leonardo-dvinci,joined,released from the held supplement plants
+2026-11-16,add,patricia-ann,Patricia Ann,,,,released from the held supplement plants
+2026-11-16,add,peggy-k,Peggy K,,,,released from the held supplement plants
+2026-11-16,add,peppermint,Peppermint,,,,released from the held supplement plants
+2026-11-16,add,pink,Pink,,,,released from the held supplement plants
+2026-11-16,import_plant,pink-cherub,Pink Cherub,plant,pink-cherubs,joined,released from the held supplement plants
+2026-11-16,add,pink-flake,Pink Flake,,,,released from the held supplement plants
+2026-11-16,add,pink-princess-2,Pink Princess,,,,released from the held supplement plants
+2026-11-16,add,pinkie-pride,Pinkie Pride,,,,released from the held supplement plants
+2026-11-16,add,pride-of-saint-louis,Pride of Saint Louis,,,,released from the held supplement plants
+2026-11-16,add,purple-thrills,Purple Thrills,,,,released from the held supplement plants
+2026-11-16,add,rainbow,Rainbow,,,,released from the held supplement plants
+2026-11-16,add,red-caps,Red Caps,,,,released from the held supplement plants
+2026-11-16,import_plant,red-marvel,Red Marvel,plant,red-marvil,joined,released from the held supplement plants
+2026-11-16,add,rhapsodie-ophelia,Rhapsodie Ophelia,,,,released from the held supplement plants
+2026-11-16,add,rhapsodie-ophelia-2,Rhapsodie Ophelia,,,,released from the held supplement plants
+2026-11-16,add,riviera-2,Riviera,,,,released from the held supplement plants
+2026-11-16,add,rosaline-2,Rosaline,,,,released from the held supplement plants
+2026-11-16,add,rose-mia,Rose Mia,,,,released from the held supplement plants
+2026-11-16,import_plant,satin-sheets,Satin Sheets,plant,satan-sheets,joined,released from the held supplement plants
+2026-11-16,add,shades-of-blush,Shades of Blush,,,,released from the held supplement plants
+2026-11-16,add,silly-lilly,Silly Lilly,,,,released from the held supplement plants
+2026-11-16,import_plant,silver-berry,Silver Berry,plant,silvery-berry,joined,released from the held supplement plants
+2026-11-16,add,sincerety,Sincerety,,,,released from the held supplement plants
+2026-11-16,add,sing-a-song,Sing-a-Song,,,,released from the held supplement plants
+2026-11-16,add,sky-liner,Sky Liner,,,,released from the held supplement plants
+2026-11-16,add,sky-trailer-2,Sky Trailer,,,,released from the held supplement plants
+2026-11-16,add,smiles,Smiles,,,,released from the held supplement plants
+2026-11-16,add,splashy,Splashy,,,,released from the held supplement plants
+2026-11-16,add,star-white,Star White,,,,released from the held supplement plants
+2026-11-16,add,stella-d,Stella D,,,,released from the held supplement plants
+2026-11-16,add,strawberry-fair,Strawberry Fair,,,,released from the held supplement plants
+2026-11-16,add,sugarene,Sugarene,,,,released from the held supplement plants
+2026-11-16,add,swanee-delight,Swanee Delight,,,,released from the held supplement plants
+2026-11-16,add,talley-ho,Talley Ho,,,,released from the held supplement plants
+2026-11-16,add,touch-o-frost,Touch O' Frost,,,,released from the held supplement plants
+2026-11-16,add,trina,Trina,,,,released from the held supplement plants
+2026-11-16,add,twinkles-2,Twinkles,,,,released from the held supplement plants
+2026-11-16,add,violet-n-pink,Violet'n Pink,,,,released from the held supplement plants
+2026-11-16,add,viviana-2,Viviana,,,,released from the held supplement plants
+2026-11-16,add,vulcan-red,Vulcan Red,,,,released from the held supplement plants
+2026-11-16,add,westdale-burgundy-wine,Westdale Burgundy Wine,,,,released from the held supplement plants
+2026-11-16,add,zula-queen,Zula Queen,,,,released from the held supplement plants
