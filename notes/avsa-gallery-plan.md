@@ -1,4 +1,4 @@
-# Link-out to the AVSA Photo Gallery (plan, 2026-11-16)
+# Link-out to the AVSA Photo Gallery (plan, 2026-11-16; FINISHED 2026-11-17: 185 open review rows were left undecided on purpose, files in reports/historical/avsa_gallery/)
 
 ONE-OFF (decided with the user): we link to photos on https://africanvioletsocietyofamerica.org/look/photo-gallery/ ; we never copy
 the images, thumbnails or the AVSA captions. Once the links are in the database, the matching script, the review/unmatched reports

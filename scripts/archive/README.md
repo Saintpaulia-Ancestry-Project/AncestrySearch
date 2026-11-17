@@ -27,3 +27,6 @@ Added with the reports clean-up: `scrape_wp_download.py`, `scrape_wp_fetch.py`, 
 they read and write `reports/historical/wordpress_photos/`) and `import_sports_page.py` (the AVSA sports page import; its source HTML is not
 on this machine; it writes `reports/historical/sports_page/`; `build_db.py` still applies `data/sports_page.csv`). Reports written by the
 other archived scripts now go to `reports/historical/<source>/`.
+
+Added with the AVSA gallery wrap-up (2026-11-17): `match_avsa_gallery.py` (matched the saved AVSA Photo Gallery pages to cultivars; its
+review files are in `reports/historical/avsa_gallery/`, git-ignored because they hold AVSA captions; the result is `data/external_photos.csv`).

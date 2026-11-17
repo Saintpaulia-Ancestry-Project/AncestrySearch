@@ -258,12 +258,11 @@ Never push without being asked.
   differs or unknown` rows = `separate`; the 7 `spelling near-miss` rows (Angel Wing, Diedre, Helen, Jeanie, Lorena, Westwinds' Royal Frills,
   Golli G) = `different` (imported under their own spelling). No First Class lookup is needed any more. New checks can still appear
   in that file; decisions go through `apply_check_decisions.py --write` as before.
-- **AVSA Photo Gallery link-out (one-off; plan in notes/avsa-gallery-plan.md): the user is going through reports/avsa_review.xlsx over the
-  following days** (185 open rows: review rows + near-miss names; gitignored; the 70 decided rows are in reports/avsa_review_decided.csv, also
-  gitignored). `decision` = link | link:<record id> | skip. When it is done: add the decided links to data/external_photos.csv (columns
-  cultivar_id, url, source, gallery_title, item_id, matched_by, checked_at; ALREADY holds 2,757 auto + decided links), rebuild, then DELETE the review
-  files, the scratch HTML (scratchpad of the 2026-11-15 session, 468 MB) and the temporary match script. We link only: never copy AVSA images or captions.
-  Links use https://africanvioletsocietyofamerica.org/look/photo-gallery/<letter>/[<page>/]#envira-gallery-item-<id>.
+- **AVSA Photo Gallery link-out: FINISHED 2026-11-17 (decided with the user: the 185 open review rows will NOT be reviewed; we go with what we have).** data/external_photos.csv
+  holds the 2,757 AVSA links (auto + the 70 decided rows); cultivars with no link just have none. The review files are history in
+  reports/historical/avsa_gallery/ (git-ignored: they hold AVSA captions, never publish), the matching script is scripts/archive/match_avsa_gallery.py (cannot run: the saved
+  pages are gone), plan in notes/avsa-gallery-plan.md. The 468 MB scratch HTML in the 2026-11-15 session's scratchpad is not needed any more (delete when convenient).
+  We link only: never copy AVSA images or captions. Links use https://africanvioletsocietyofamerica.org/look/photo-gallery/<letter>/[<page>/]#envira-gallery-item-<id>.
 - **Search speed/precision + advanced search: DONE 2026-11-17 (not committed yet; user to try it).** Cause of the slowness: counting through the
   view v_cultivar_list took 5-60 s per search; build_db.py now materializes it as table `cultivar_list` (FTS docid = its rowid; the view stays),
   search joins on rowid and counts all hidden groups in ONE query (now ~5 ms in sqlite), stats/sizes are cached. Several words: names containing ALL
