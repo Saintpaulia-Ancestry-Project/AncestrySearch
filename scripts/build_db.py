@@ -104,6 +104,15 @@ CREATE TABLE images (
   added_at    TEXT
 );
 
+-- Ids that were merged or renamed (old -> current), so a reference saved earlier (for example by the Saintpaulia Hybridizer app)
+-- still finds its cultivar. Built from data/id_redirects.csv; one hop only (checked below).
+CREATE TABLE id_redirects (
+  old_id TEXT PRIMARY KEY,
+  new_id TEXT NOT NULL REFERENCES cultivars(id),
+  reason TEXT,
+  date   TEXT
+);
+
 -- Links to photos hosted elsewhere (AVSA Photo Gallery, Gesneriad Reference Web). We link only; no image or caption is copied.
 -- credit/license only where the other site states them; description is our own short wording; page_url = the page the photo is on;
 -- at most 3 links per cultivar from the Gesneriad Reference Web (checked below).
@@ -394,6 +403,12 @@ def main():
                 " VALUES (?,?,?,?,?,?,?,?,?)",
                 [(r["cultivar_id"], r["file"], nz(r["caption"]), r["credit"], to_int(r["sort_order"]) or 1,
                   to_int(r["width"]), to_int(r["height"]), nz(r["source_url"]), nz(r["added_at"])) for r in rows])
+        red_csv = DATA / "id_redirects.csv"
+        if red_csv.exists():
+            with open(red_csv, newline="", encoding="utf-8") as f:
+                red = list(csv.DictReader(f))
+            con.executemany("INSERT INTO id_redirects VALUES (?,?,?,?)",
+                            [(r["old_id"], r["new_id"], nz(r["reason"]), nz(r["date"])) for r in red])
         ext_csv = DATA / "external_photos.csv"
         if ext_csv.exists():
             with open(ext_csv, newline="", encoding="utf-8") as f:
@@ -430,6 +445,10 @@ def main():
     ic = con.execute("PRAGMA integrity_check").fetchone()[0]
     if ic != "ok":
         problems.append(f"integrity_check: {ic}")
+    bad_red = con.execute("""SELECT old_id FROM id_redirects r
+                             WHERE r.old_id IN (SELECT id FROM cultivars) OR r.new_id IN (SELECT old_id FROM id_redirects)""").fetchall()
+    if bad_red:
+        problems.append(f"id_redirects: old id still exists as a cultivar, or the target is itself redirected (chain): {bad_red[:3]}")
     over = con.execute("SELECT cultivar_id, count(*) FROM external_photos WHERE source = 'gesneriads-reference-web' "
                        "GROUP BY cultivar_id HAVING count(*) > 3").fetchall()
     if over:
