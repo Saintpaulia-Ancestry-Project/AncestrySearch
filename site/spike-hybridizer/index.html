@@ -28,12 +28,16 @@ pre { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px
 <button id="all" class="s">Run 1 to 8</button>
 <h2>Your own photos (the real resize pipeline)</h2>
 <p class="note">Choose a few real photos from this device (5 to 30). They are resized here, nothing is uploaded or kept (except in the test database, deleted with “Delete all test data”). The test checks the rotation is applied and all location and camera data is removed.</p>
-<input type="file" id="files" accept="image/*" multiple> <button id="t9" class="s">9 Resize my photos</button>
+<p><b>A.</b> Photos (gallery picker): <input type="file" id="files" accept="image/*" multiple></p>
+<p><b>B.</b> Files (system file browser, any file): <input type="file" id="files2" multiple></p>
+<p>Pick photos, wait for the “copied” message in the log, then press <button id="t9" class="s">9 Resize my photos</button>. If one box fails, try the other.</p>
 <h2>Sharing and saving (needs a tap; run after test 5 or 6)</h2>
 <button id="b-share" class="s">Share the zip…</button><button id="b-pick" class="s">Choose where to save…</button><button id="b-dl" class="s">Download the zip</button>
 <h2>Housekeeping</h2>
 <button id="b-copy" class="s">Copy results</button><button id="b-clear" class="s">Delete all test data</button>
-<h2>Log</h2><pre id="log"></pre>
+<h2>Log</h2>
+<button id="b-clearlog" class="s">Clear log</button><button id="b-clearres" class="s">Clear results (what “Copy results” sends)</button>
+<pre id="log"></pre>
 <script src="vendor/fflate.min.js"></script>
 <script>
 "use strict";
@@ -271,8 +275,9 @@ function hasMeta(u8) {  // look for EXIF/XMP/IPTC/COM segments in the JPEG heade
 }
 async function processOne(file) {
   const o = { name: file.name, inKB: Math.round(file.size / 1024) }; const t0 = performance.now();
-  const inBytes = new Uint8Array(await file.slice(0, 200000).arrayBuffer()); o.inputMeta = hasMeta(inBytes);
-  const bmp = await createImageBitmap(file, { imageOrientation: "from-image" }); o.decoded = `${bmp.width}x${bmp.height}`;
+  let step = "reading the header";
+  try { const inBytes = new Uint8Array(await file.slice(0, 200000).arrayBuffer()); o.inputMeta = hasMeta(inBytes);
+  step = "decoding with rotation (createImageBitmap)"; var bmp = await createImageBitmap(file, { imageOrientation: "from-image" }); o.decoded = `${bmp.width}x${bmp.height}`; } catch (x) { x.message = "[step: " + step + "] " + x.message; throw x; }
   const sc = Math.min(1, 1000 / Math.max(bmp.width, bmp.height)); const w = Math.round(bmp.width * sc), h = Math.round(bmp.height * sc);
   const cv = typeof OffscreenCanvas !== "undefined" ? new OffscreenCanvas(w, h) : Object.assign(document.createElement("canvas"), { width: w, height: h }); cv.getContext("2d").drawImage(bmp, 0, 0, w, h); bmp.close && bmp.close();
   const full = await toBlob(cv, 0.82), th = await toBlob(drawPhoto2(cv, 300), 0.82); const out = new Uint8Array(await full.arrayBuffer()); o.outMeta = hasMeta(out); o.outSize = `${w}x${h}`; o.outKB = Math.round(full.size / 1024); o.thumbKB = Math.round(th.size / 1024); o.ms = Math.round(performance.now() - t0);
@@ -285,7 +290,19 @@ async function processFiles(files) {
   const okc = res.filter((r) => r.metadataRemoved).length;
   rec("own photos", { count: list.length, metadataRemoved: okc, withProblems: res.filter((r) => r.error || !r.metadataRemoved).length, avgMs: Math.round(res.reduce((a, r) => a + (r.ms || 0), 0) / Math.max(1, list.length)), jsHeapPeak: peak ? mb(peak) : "n/a", details: res.slice(0, 8) });
 }
-async function t9() { const f = $("files").files; if (!f.length) { log("Choose some photos first (the file box above the button)."); $("status").textContent = "Choose photos first."; return; } await processFiles(f); }
+const STASH = [];
+function wirePick(id) {
+  $(id).addEventListener("change", async () => {
+    STASH.length = 0; const rows = []; $("status").textContent = "Copying the chosen photos into memory…";
+    for (const f of $(id).files) { const r = { box: id, name: f.name, size: f.size, type: f.type };
+      try { const ab = await f.arrayBuffer(); STASH.push({ name: f.name, blob: new Blob([ab], { type: f.type || "image/jpeg" }) }); r.copied = true; }
+      catch (x) { r.error = x.name + ": " + x.message; r.step = "reading the file right after choosing it"; } rows.push(r); }
+    rec("picked files " + id, { chosen: rows.length, copied: rows.filter((r) => r.copied).length, failed: rows.filter((r) => r.error).length, details: rows.slice(0, 6) });
+    $("status").textContent = `${STASH.length} of ${rows.length} photos copied. Now press “9 Resize my photos”.`;
+  });
+}
+wirePick("files"); wirePick("files2");
+async function t9() { if (!STASH.length) { log("No photo was copied. Choose photos in box A or B first and wait for the message."); $("status").textContent = "Choose photos first."; return; } await processFiles(STASH.map((x) => Object.assign(x.blob, { name: x.name }))); }
 async function selfTest9() {  // synthetic JPEG with a fake EXIF/GPS segment injected after SOI: the output must have none
   const blob = await toBlob(drawPhoto(1, 1600, 1200), 0.9); const u = new Uint8Array(await blob.arrayBuffer());
   const payload = new TextEncoder().encode("Exif\0\0GPSLatitude=51.5;Model=Pixel"); const seg = new Uint8Array(4 + payload.length); seg[0] = 0xff; seg[1] = 0xe1; seg[2] = (payload.length + 2) >> 8; seg[3] = (payload.length + 2) & 255; seg.set(payload, 4);
@@ -314,6 +331,8 @@ async function run(name) { const b = document.querySelectorAll("button"); b.forE
 Object.keys(TESTS).forEach((k) => ($(k).onclick = () => run(k)));
 $("all").onclick = async () => { for (const k of ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"]) await run(k); log("ALL DONE"); document.title = "DONE"; };
 $("b-share").onclick = doShare; $("b-pick").onclick = doPick; $("b-dl").onclick = doDownload;
+$("b-clearlog").onclick = () => { $("log").textContent = ""; $("status").textContent = "Log cleared (results are kept for Copy results)."; };
+$("b-clearres").onclick = () => { R.tests.length = 0; $("log").textContent = ""; $("status").textContent = "Log and results cleared."; };
 $("b-copy").onclick = async () => { const txt = JSON.stringify(R, null, 1); try { await navigator.clipboard.writeText(txt); $("status").textContent = "Results copied."; } catch (x) { $("log").textContent += "\n\n" + txt; $("status").textContent = "Copy failed: the results are at the end of the log; select and copy them."; } };
 $("b-clear").onclick = async () => { const d = await db(); d.close(); dbp = null; await new Promise((r) => { const q = indexedDB.deleteDatabase(DB); q.onsuccess = q.onerror = q.onblocked = r; }); try { localStorage.removeItem("hs_last"); } catch (e) { /* ignore */ } $("status").textContent = "All test data deleted."; log("Test database deleted."); };
 try { const p = JSON.parse(localStorage.getItem("hs_last") || "null"); if (p && p.step !== "idle") { $("prev").hidden = false; $("prev").textContent = `The last run stopped during “${p.step}” (${new Date(p.at).toLocaleString()}). The page probably ran out of memory there.`; } } catch (e) { /* ignore */ }
