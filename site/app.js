@@ -876,7 +876,9 @@ function speciesCodeKey(code) {
 function renderSpecies(app) {
   const pg = q1("SELECT title, body FROM pages WHERE slug = 'species'");
   const rows = q(`SELECT c.id, c.name, c.description, c.notes,
-                         (SELECT count(*) FROM parentage p WHERE p.parent_id = c.id) AS uses
+                         (SELECT count(*) FROM parentage p WHERE p.parent_id = c.id) AS uses,
+                         (SELECT count(*) FROM images i WHERE i.cultivar_id = c.id) AS photos,
+                         (SELECT count(*) FROM external_photos e WHERE e.cultivar_id = c.id) AS ext
                   FROM cultivars c WHERE c.kind = 'species'`);
   const groups = new Map();
   for (const r of rows) {
@@ -899,6 +901,8 @@ function renderSpecies(app) {
   };
   const item = (r) => `<li class="card"><a class="title" href="#/c/${encodeURIComponent(r.id)}">${esc(r.name)}</a>
       <div class="badges">${/Not in cultivation/.test(r.notes) ? `<span class="badge kind">not in cultivation</span>` : ""}${
+        r.photos ? `<span class="badge">photo</span>` : ""}${
+        r.ext ? `<span class="badge" title="Links to photos on other sites">${r.ext === 1 ? "photo link" : r.ext + " photo links"}</span>` : ""}${
         r.uses ? `<span class="badge">parent of ${num(r.uses)}</span>` : ""}</div>
       ${r.description ? `<div class="meta"><span>${esc(excerpt(r.description))}</span></div>` : ""}</li>`;
   const label = (g) => g.code === "other" ? "Other" : (g.head[0] ? g.head[0].name.replace(/^S\.\s+/, "") : g.code + ". clones");
