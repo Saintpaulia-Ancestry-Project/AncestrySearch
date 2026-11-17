@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hybridizer storage tests</title>
+<!-- TEMPORARY test page for the Saintpaulia Hybridizer planning (storage, zip, share, official database). Synthetic data only, nothing is sent anywhere. Delete when the tests are done. -->
+<style>
+body { font: 16px/1.45 system-ui, sans-serif; margin: 0; padding: 12px; background: #fbf9fc; color: #241d2b; }
+h1 { font-size: 1.3rem; margin: 0 0 6px; } h2 { font-size: 1.05rem; margin: 18px 0 6px; }
+button { font: inherit; padding: 9px 12px; margin: 3px 4px 3px 0; border-radius: 8px; border: 1px solid #6a3d9a; background: #6a3d9a; color: #fff; }
+button.s { background: #fff; color: #6a3d9a; } button:disabled { opacity: .45; }
+label { display: inline-block; margin-right: 12px; } input { font: inherit; width: 6em; padding: 4px 6px; }
+pre { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px; white-space: pre-wrap; word-break: break-word; font-size: .8rem; max-height: 55vh; overflow: auto; }
+.bar { height: 10px; background: #e5dcee; border-radius: 5px; overflow: hidden; margin: 6px 0; } .bar i { display: block; height: 100%; width: 0; background: #6a3d9a; }
+.note { background: #efe7f6; border-radius: 8px; padding: 8px 10px; font-size: .9rem; }
+</style>
+</head>
+<body>
+<h1>Hybridizer storage tests</h1>
+<p class="note">Synthetic data only: nothing here is your data, and nothing leaves this device. Run the tests in order (or “Run 1 to 8”). When done press <b>Copy results</b> and paste them into the chat. If the page crashes or reloads, open it again: it reports where the last run stopped.</p>
+<div id="prev" class="note" hidden></div>
+<p><label>Photos <input id="n" type="number" value="1200" min="10" max="5000"></label><label>Crosses <input id="nc" type="number" value="3" min="1" max="20"></label></p>
+<div class="bar"><i id="prog"></i></div><div id="status" class="note">Ready.</div>
+<h2>Tests</h2>
+<button id="t1">1 Environment</button><button id="t2">2 Persistence</button><button id="t3">3 Make photos</button><button id="t4">4 Records</button>
+<button id="t5">5 Zip: thumbnails</button><button id="t6">6 Zip: all photos</button><button id="t7">7 Zip: read back</button><button id="t8">8 Official database + my data</button>
+<button id="all" class="s">Run 1 to 8</button>
+<h2>Your own photos (the real resize pipeline)</h2>
+<p class="note">Choose a few real photos from this device (5 to 30). They are resized here, nothing is uploaded or kept (except in the test database, deleted with “Delete all test data”). The test checks the rotation is applied and all location and camera data is removed.</p>
+<input type="file" id="files" accept="image/*" multiple> <button id="t9" class="s">9 Resize my photos</button>
+<h2>Sharing and saving (needs a tap; run after test 5 or 6)</h2>
+<button id="b-share" class="s">Share the zip…</button><button id="b-pick" class="s">Choose where to save…</button><button id="b-dl" class="s">Download the zip</button>
+<h2>Housekeeping</h2>
+<button id="b-copy" class="s">Copy results</button><button id="b-clear" class="s">Delete all test data</button>
+<h2>Log</h2><pre id="log"></pre>
+<script src="vendor/fflate.min.js"></script>
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const R = { started: new Date().toISOString(), ua: navigator.userAgent, tests: [] };
+let LASTZIP = null, LASTZIPNAME = "";
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const mb = (b) => (b / 1048576).toFixed(1) + " MB";
+const heap = () => (performance.memory ? performance.memory.usedJSHeapSize : null);
+function log(m) { const t = ((performance.now() - T0) / 1000).toFixed(1).padStart(6); $("log").textContent += `[${t}s] ${m}\n`; $("log").scrollTop = 1e9; }
+const T0 = performance.now();
+function mark(step) { try { localStorage.setItem("hs_last", JSON.stringify({ step, at: Date.now() })); } catch (e) { /* ignore */ } }
+function setProg(f, msg) { $("prog").style.width = Math.round(100 * f) + "%"; if (msg) $("status").textContent = msg; }
+function rec(name, o) { R.tests.push({ name, ...o }); log(`RESULT ${name}: ${JSON.stringify(o)}`); }
+
+/* ---------------- IndexedDB helpers */
+const DB = "hybridizer-spike";
+let dbp = null;
+function db() {
+  return dbp || (dbp = new Promise((res, rej) => {
+    const r = indexedDB.open(DB, 1);
+    r.onupgradeneeded = () => { const d = r.result; d.createObjectStore("photos", { keyPath: "sha" }); d.createObjectStore("thumbs", { keyPath: "sha" }); d.createObjectStore("records", { keyPath: "id" }); d.createObjectStore("meta", { keyPath: "k" }); };
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  }));
+}
+async function tx(stores, mode, fn) {
+  const d = await db();
+  return new Promise((res, rej) => { const t = d.transaction(stores, mode); let out; t.oncomplete = () => res(out); t.onerror = () => rej(t.error); t.onabort = () => rej(t.error || new Error("aborted")); out = fn(t); });
+}
+const req = (r) => new Promise((res, rej) => { r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+async function allKeys(store) { const d = await db(); return req(d.transaction(store).objectStore(store).getAllKeys()); }
+const hex = (buf) => [...new Uint8Array(buf)].map((x) => x.toString(16).padStart(2, "0")).join("");
+async function sha(blobOrBuf) { const b = blobOrBuf instanceof Blob ? await blobOrBuf.arrayBuffer() : blobOrBuf; return hex(await crypto.subtle.digest("SHA-256", b)); }
+let rs = 12345; const rnd = () => (rs = (rs * 16807) % 2147483647) / 2147483647;
+const uuid = () => (crypto.randomUUID ? crypto.randomUUID() : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => { const r = (Math.random() * 16) | 0; return (c === "x" ? r : (r & 3) | 8).toString(16); }));
+
+/* ---------------- 1 environment */
+async function t1() {
+  mark("env");
+  const e = {
+    secureContext: window.isSecureContext, url: location.origin, standalone: matchMedia("(display-mode: standalone)").matches,
+    deviceMemoryGB: navigator.deviceMemory || "n/a", cores: navigator.hardwareConcurrency, online: navigator.onLine,
+    indexedDB: !!window.indexedDB, cryptoSubtle: !!(crypto && crypto.subtle), randomUUID: !!(crypto && crypto.randomUUID), workers: !!window.Worker, serviceWorker: "serviceWorker" in navigator,
+    createImageBitmap: typeof createImageBitmap, offscreenCanvas: typeof OffscreenCanvas, blobStream: typeof Blob.prototype.stream,
+    storagePersist: !!(navigator.storage && navigator.storage.persist), opfs: !!(navigator.storage && navigator.storage.getDirectory),
+    shareApi: !!navigator.share, canShareFiles: false, showSaveFilePicker: typeof window.showSaveFilePicker, perfMemory: !!performance.memory,
+  };
+  try { const f = new File([new Uint8Array(10)], "t.zip", { type: "application/zip" }); e.canShareFiles = !!(navigator.canShare && navigator.canShare({ files: [f] })); } catch (x) { e.canShareFiles = "error " + x.name; }
+  try { if (navigator.storage && navigator.storage.estimate) { const s = await navigator.storage.estimate(); e.quotaMB = Math.round(s.quota / 1048576); e.usageMB = Math.round(s.usage / 1048576); } } catch (x) { e.estimateError = x.name; }
+  rec("environment", e);
+}
+
+/* ---------------- 2 persistence + canary */
+async function t2() {
+  mark("persist");
+  const o = {};
+  try { o.persistedBefore = navigator.storage.persisted ? await navigator.storage.persisted() : "n/a"; o.persistResult = navigator.storage.persist ? await Promise.race([navigator.storage.persist(), sleep(8000).then(() => "no answer in 8 s (a permission prompt may be waiting)")]) : "n/a"; o.persistedAfter = navigator.storage.persisted ? await navigator.storage.persisted() : "n/a"; } catch (x) { o.error = x.name + ": " + x.message; }
+  const d = await db(); let c = await req(d.transaction("meta").objectStore("meta").get("canary"));
+  if (!c) { c = { k: "canary", created: Date.now() }; await tx(["meta"], "readwrite", (t) => t.objectStore("meta").put(c)); o.canary = "created now (open this page again in a few days: it will show how old the canary is, i.e. whether storage survived)"; }
+  else o.canary = `exists, created ${((Date.now() - c.created) / 86400000).toFixed(2)} days ago`;
+  rec("persistence", o);
+}
+
+/* ---------------- 3 photos */
+function drawPhoto(i, w, h) {
+  const cv = typeof OffscreenCanvas !== "undefined" ? new OffscreenCanvas(w, h) : Object.assign(document.createElement("canvas"), { width: w, height: h });
+  const g = cv.getContext("2d"); const hue = (i * 37) % 360;
+  const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, `hsl(${hue} 40% 30%)`); gr.addColorStop(1, `hsl(${(hue + 60) % 360} 50% 55%)`); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  for (let k = 0; k < 70; k++) { g.fillStyle = `hsla(${(hue + k * 11) % 360} 70% ${30 + (k * 7) % 50}% / .55)`; g.beginPath(); g.arc(rnd() * w, rnd() * h, 10 + rnd() * 90, 0, 7); g.fill(); }
+  const id = g.getImageData(0, 0, w, h), px = id.data; for (let p = 0; p < px.length; p += 4) { const n = (rnd() - .5) * 26; px[p] += n; px[p + 1] += n; px[p + 2] += n; } g.putImageData(id, 0, 0);
+  return cv;
+}
+const toBlob = (cv, q) => (cv.convertToBlob ? cv.convertToBlob({ type: "image/jpeg", quality: q }) : new Promise((r) => cv.toBlob(r, "image/jpeg", q)));
+async function t3() {
+  const N = +$("n").value; mark("photos"); rs = 999; await clearStore("photos"); await clearStore("thumbs");
+  const t0 = performance.now(), h0 = heap(); let tEnc = 0, tHash = 0, tPut = 0, fullBytes = 0, thBytes = 0, peak = h0 || 0, batch = [];
+  const flush = async () => { const b = batch; batch = []; const a = performance.now(); await tx(["photos", "thumbs"], "readwrite", (t) => { for (const x of b) { t.objectStore("photos").put({ sha: x.sha, blob: x.full, w: 1000, h: 750 }); t.objectStore("thumbs").put({ sha: x.sha, blob: x.th }); } }); tPut += performance.now() - a; };
+  for (let i = 0; i < N; i++) {
+    let a = performance.now(); const cv = drawPhoto(i, 1000, 750); const full = await toBlob(cv, 0.82); const sm = drawPhoto2(cv, 300); const th = await toBlob(sm, 0.82); tEnc += performance.now() - a;
+    a = performance.now(); const s = await sha(full); tHash += performance.now() - a; fullBytes += full.size; thBytes += th.size; batch.push({ sha: s, full, th });
+    if (batch.length >= 25) await flush(); if (heap() > peak) peak = heap();
+    if (i % 20 === 0) { setProg(i / N, `Photos ${i}/${N}`); await sleep(0); }
+  }
+  await flush(); const ms = performance.now() - t0; const est = navigator.storage.estimate ? await navigator.storage.estimate() : {};
+  rec("photos", { count: N, totalSec: +(ms / 1000).toFixed(1), perPhotoMs: +(ms / N).toFixed(0), encodeSec: +(tEnc / 1000).toFixed(1), hashSec: +(tHash / 1000).toFixed(1), storeSec: +(tPut / 1000).toFixed(1), avgFullKB: Math.round(fullBytes / N / 1024), avgThumbKB: Math.round(thBytes / N / 1024), totalFull: mb(fullBytes), totalThumbs: mb(thBytes), jsHeapPeak: peak ? mb(peak) : "n/a", storageUsage: est.usage ? mb(est.usage) : "n/a", storageQuota: est.quota ? mb(est.quota) : "n/a" });
+  setProg(1, "Photos done");
+}
+function drawPhoto2(cv, w) { const h = Math.round(cv.height * w / cv.width); const o = typeof OffscreenCanvas !== "undefined" ? new OffscreenCanvas(w, h) : Object.assign(document.createElement("canvas"), { width: w, height: h }); o.getContext("2d").drawImage(cv, 0, 0, w, h); return o; }
+async function clearStore(s) { await tx([s], "readwrite", (t) => t.objectStore(s).clear()); }
+
+/* ---------------- 4 records */
+const STAT = ["growing", "flowering", "keeping", "culled", "released"];
+async function t4() {
+  const NC = +$("nc").value, N = +$("n").value, per = Math.floor(N / NC); mark("records"); await clearStore("records");
+  const shas = await allKeys("thumbs"); const dev = "dev-" + uuid().slice(0, 8), now = new Date().toISOString();
+  const ts = (v) => ({ v, t: now, d: dev });
+  const crosses = [], seeds = [];
+  for (let c = 0; c < NC; c++) { const cid = uuid(); crosses.push({ id: cid, table: "cross", code: `GG-26-${String(c + 1).padStart(3, "0")}`, created_at: now, updated_at: now, device_id: dev, deleted: 0, f: { seed_parent_ref: ts("official:x"), pollen_parent_ref: ts(null), date_made: ts("2026-03-02"), date_sown: ts("2026-09-03"), notes: ts("sample") } });
+    for (let k = 1; k <= per; k++) seeds.push({ id: uuid(), table: "seedling", cross_id: cid, label: k, created_at: now, updated_at: now, device_id: dev, deleted: 0, photo: shas.length ? shas[(c * per + k) % shas.length] : null, f: { description: ts("Double pink, wavy edge " + k), status: ts(STAT[k % 5]), notes: ts("") } }); }
+  const a = performance.now(); await tx(["records"], "readwrite", (t) => { const s = t.objectStore("records"); crosses.forEach((x) => s.put(x)); seeds.forEach((x) => s.put(x)); }); const tw = performance.now() - a;
+  const b = performance.now(); const d = await db(); const all = await req(d.transaction("records").objectStore("records").getAll()); const tr = performance.now() - b;
+  const c2 = performance.now(); await tx(["records"], "readwrite", (t) => { const s = t.objectStore("records"); all.filter((x) => x.table === "seedling").forEach((x) => { x.f.notes = ts("edited"); x.updated_at = new Date().toISOString(); s.put(x); }); }); const tu = performance.now() - c2;
+  rec("records", { crosses: NC, seedlings: seeds.length, writeMs: Math.round(tw), readAllMs: Math.round(tr), updateAllMs: Math.round(tu), jsonKB: Math.round(JSON.stringify(all).length / 1024) });
+}
+
+/* ---------------- 5/6 zip build, 7 read back */
+async function buildZip(kind) {
+  mark("zip-" + kind); const d = await db();
+  const records = await req(d.transaction("records").objectStore("records").getAll());
+  const shas = await allKeys(kind === "all" ? "photos" : "thumbs");
+  const store = kind === "all" ? "photos" : "thumbs";
+  const parts = [], blobs = []; let pend = 0, total = 0, peak = heap() || 0; const h0 = peak; const t0 = performance.now();
+  const zip = new fflate.Zip((err, chunk, final) => { if (err) throw err; parts.push(chunk); pend += chunk.length; total += chunk.length; if (pend > 8e6 || final) { blobs.push(new Blob(parts)); parts.length = 0; pend = 0; } });
+  const te = new TextEncoder(); const addText = (name, text) => { const f = new fflate.ZipDeflate(name, { level: 6 }); zip.add(f); f.push(te.encode(text), true); };
+  addText("manifest.json", JSON.stringify({ format_version: 1, schema_version: 1, app_version: "spike", device_id: "spike", exported_at: new Date().toISOString(), photos: kind, counts: { records: records.length, photos: shas.length } }, null, 1));
+  addText("crosses.jsonl", records.filter((r) => r.table === "cross").map((r) => JSON.stringify(r)).join("\n"));
+  addText("seedlings.jsonl", records.filter((r) => r.table === "seedling").map((r) => JSON.stringify(r)).join("\n"));
+  let i = 0;
+  for (const s of shas) {
+    const rec1 = await req(d.transaction(store).objectStore(store).get(s)); const u8 = new Uint8Array(await rec1.blob.arrayBuffer());
+    const f = new fflate.ZipPassThrough((kind === "all" ? "photos/" : "thumbs/") + s + ".jpg"); zip.add(f); f.push(u8, true);
+    if (heap() > peak) peak = heap(); if (++i % 25 === 0) { setProg(i / shas.length, `Zip ${kind}: ${i}/${shas.length}`); await sleep(0); }
+  }
+  zip.end(); await sleep(0); const blob = new Blob(blobs, { type: "application/zip" });
+  return { blob, sec: (performance.now() - t0) / 1000, peak, h0, files: shas.length };
+}
+async function t5() { const r = await buildZip("thumbs"); LASTZIP = r.blob; LASTZIPNAME = "my-hybridizer-thumbs-test.zip"; rec("zip thumbnails", { files: r.files, size: mb(r.blob.size), sec: +r.sec.toFixed(1), jsHeapStart: r.h0 ? mb(r.h0) : "n/a", jsHeapPeak: r.peak ? mb(r.peak) : "n/a" }); setProg(1, "Zip thumbnails done"); }
+async function t6() { const r = await buildZip("all"); LASTZIP = r.blob; LASTZIPNAME = "my-hybridizer-all-test.zip"; rec("zip all photos", { files: r.files, size: mb(r.blob.size), sec: +r.sec.toFixed(1), jsHeapStart: r.h0 ? mb(r.h0) : "n/a", jsHeapPeak: r.peak ? mb(r.peak) : "n/a" }); setProg(1, "Zip all photos done"); }
+/* random-access zip reader: reads the central directory at the END of the file, then each entry by its exact offset (no scanning, memory stays small) */
+const LIM = { maxEntries: 20000, maxEntryBytes: 60e6, maxTotalBytes: 2e9 };
+async function zipDirectory(blob) {
+  if (blob.size < 22) throw new Error("not a zip file (too small)");
+  const tail = new Uint8Array(await blob.slice(Math.max(0, blob.size - 70000)).arrayBuffer()); let e = -1;
+  for (let i = tail.length - 22; i >= 0; i--) if (tail[i] === 0x50 && tail[i + 1] === 0x4b && tail[i + 2] === 5 && tail[i + 3] === 6) { e = i; break; }
+  if (e < 0) throw new Error("zip is damaged or cut off (no end record)");
+  const dv = new DataView(tail.buffer, tail.byteOffset), total = dv.getUint16(e + 10, true), cdSize = dv.getUint32(e + 12, true), cdOff = dv.getUint32(e + 16, true);
+  if (total === 0xffff || cdSize === 0xffffffff || cdOff === 0xffffffff) throw new Error("zip64 files are not supported");
+  if (total > LIM.maxEntries) throw new Error("too many entries: " + total);
+  if (cdOff + cdSize > blob.size) throw new Error("zip is damaged (directory outside the file)");
+  const cd = new DataView(await blob.slice(cdOff, cdOff + cdSize).arrayBuffer()), td = new TextDecoder(), out = []; let p = 0, sum = 0;
+  for (let k = 0; k < total; k++) {
+    if (p + 46 > cd.byteLength || cd.getUint32(p, true) !== 0x02014b50) throw new Error("zip directory is damaged");
+    const method = cd.getUint16(p + 10, true), csize = cd.getUint32(p + 20, true), usize = cd.getUint32(p + 24, true), nlen = cd.getUint16(p + 28, true), elen = cd.getUint16(p + 30, true), clen = cd.getUint16(p + 32, true), off = cd.getUint32(p + 42, true);
+    const name = td.decode(new Uint8Array(cd.buffer, cd.byteOffset + p + 46, nlen)); p += 46 + nlen + elen + clen;
+    if (name.includes("..") || name.startsWith("/") || name.includes("\\") || /^[a-zA-Z]:/.test(name) || name.includes("\0")) throw new Error("unsafe file name in zip: " + name);
+    if (usize > LIM.maxEntryBytes || csize > LIM.maxEntryBytes) throw new Error("entry too large: " + name);
+    if (method !== 0 && method !== 8) throw new Error("unsupported compression in " + name);
+    sum += usize; if (sum > LIM.maxTotalBytes) throw new Error("zip is larger than the limit when unpacked");
+    out.push({ name, method, csize, usize, off });
+  }
+  return out;
+}
+async function zipEntryBytes(blob, en) {
+  const h = new DataView(await blob.slice(en.off, en.off + 30).arrayBuffer()); if (h.getUint32(0, true) !== 0x04034b50) throw new Error("damaged entry header: " + en.name);
+  const start = en.off + 30 + h.getUint16(26, true) + h.getUint16(28, true); if (start + en.csize > blob.size) throw new Error("entry runs past the end of the file: " + en.name);
+  const raw = new Uint8Array(await blob.slice(start, start + en.csize).arrayBuffer());
+  if (en.method === 0) return raw; const u = fflate.inflateSync(raw); if (u.length !== en.usize) throw new Error("size mismatch in " + en.name); return u;
+}
+async function t7() {
+  if (!LASTZIP) { log("Make a zip first (test 5 or 6)."); return; } mark("zip-read");
+  const o = {}; let peak = heap() || 0; const t0 = performance.now();
+  // A. random access by central directory
+  const dir = await zipDirectory(LASTZIP); let ok = 0, bad = 0, other = 0, bytes = 0;
+  for (const en of dir) {
+    const m = /^(?:photos|thumbs)\/([0-9a-f]{64})\.jpg$/.exec(en.name); const u = await zipEntryBytes(LASTZIP, en); bytes += u.length;
+    if (m) { (await sha(u.buffer.slice(u.byteOffset, u.byteOffset + u.length))) === m[1] ? ok++ : bad++; } else other++;
+    if (heap() > peak) peak = heap();
+  }
+  o.directory = { entries: dir.length, photosVerified: ok, hashMismatches: bad, otherFiles: other, uncompressed: mb(bytes), sec: +((performance.now() - t0) / 1000).toFixed(1), jsHeapPeak: peak ? mb(peak) : "n/a" };
+  // tamper: flip one byte of one photo and make sure the hash check notices
+  const ph = dir.find((x) => x.name.startsWith("photos/") || x.name.startsWith("thumbs/")); const tu = await zipEntryBytes(LASTZIP, ph); const copy = tu.slice(); copy[Math.floor(copy.length / 2)] ^= 0xff;
+  o.tamperDetected = (await sha(copy.buffer)) !== /([0-9a-f]{64})/.exec(ph.name)[1];
+  // B. bad files must be refused with a clear message
+  const bads = {}; const te = new TextEncoder();
+  const attempt = async (label, blobFn) => { try { const bl = await blobFn(); await zipDirectory(bl); bads[label] = "ACCEPTED (bad)"; } catch (x) { bads[label] = "refused: " + x.message; } };
+  await attempt("truncated (last 1000 bytes cut)", async () => LASTZIP.slice(0, LASTZIP.size - 1000));
+  await attempt("not a zip", async () => new Blob([te.encode("hello, this is not a zip file at all, just text.")]));
+  await attempt("path with ../", async () => new Blob([fflate.zipSync({ "../evil.txt": te.encode("x") })]));
+  await attempt("absolute path", async () => new Blob([fflate.zipSync({ "/etc/evil.txt": te.encode("x") })]));
+  await attempt("windows path", async () => new Blob([fflate.zipSync({ ["a" + String.fromCharCode(92) + "b.txt"]: te.encode("x") })]));
+  await attempt("entry larger than limit", async () => { const z = fflate.zipSync({ "big.bin": new Uint8Array(1000) }); const dv = new DataView(z.buffer); let e = z.length - 22; const cdOff = dv.getUint32(e + 16, true); dv.setUint32(cdOff + 24, 70e6, true); return new Blob([z]); });
+  o.badFiles = bads;
+  // C. the older streaming reader, for comparison (it must find where each stored photo ends by scanning for a marker)
+  const t1 = performance.now(); let files = 0, ok2 = 0, bad2 = 0, unsafe2 = 0; const pending = []; const unz = new fflate.Unzip(); unz.register(fflate.UnzipInflate);
+  unz.onfile = (f) => { files++; const n = f.name; if (n.includes("..") || n.startsWith("/") || n.includes("\\") || /^[a-zA-Z]:/.test(n)) { unsafe2++; return; } const ch = []; f.ondata = (err, c, fin) => { if (err) throw err; ch.push(c); if (fin) { const m = /^(?:photos|thumbs)\/([0-9a-f]{64})\.jpg$/.exec(n); if (m) { const u = new Uint8Array(ch.reduce((a, x) => a + x.length, 0)); let q = 0; ch.forEach((x) => { u.set(x, q); q += x.length; }); pending.push(sha(u.buffer).then((h) => { h === m[1] ? ok2++ : bad2++; })); } } }; f.start(); };
+  const rd = LASTZIP.stream().getReader(); for (;;) { const { value, done } = await rd.read(); if (done) { unz.push(new Uint8Array(0), true); break; } unz.push(value, false); }
+  await Promise.all(pending);
+  o.streamingReaderComparison = { files, photosVerified: ok2, hashMismatches: bad2, unsafeNamesSeen: unsafe2, sec: +((performance.now() - t1) / 1000).toFixed(1) };
+  rec("zip read back", o); setProg(1, "Read back done");
+}
+
+/* ---------------- 8 official database + user data in one sql.js engine */
+function loadScript(src) { return new Promise((r, j) => { const s = document.createElement("script"); s.src = src; s.onload = r; s.onerror = () => j(new Error("cannot load " + src)); document.head.appendChild(s); }); }
+async function t8() {
+  mark("official"); const o = {};
+  try {
+    await loadScript("../vendor/sql-wasm.js"); const SQL = await initSqlJs({ locateFile: (f) => "../vendor/" + f });
+    let a = performance.now(); const resp = await fetch("../avancestry.sqlite"); if (!resp.ok) throw new Error("official database HTTP " + resp.status); const buf = new Uint8Array(await resp.arrayBuffer()); o.downloadMs = Math.round(performance.now() - a); o.dbMB = +(buf.length / 1048576).toFixed(1);
+    const h0 = heap(); a = performance.now(); const sdb = new SQL.Database(buf); o.openMs = Math.round(performance.now() - a);
+    const q1 = (sql, p) => { const s = sdb.prepare(sql); s.bind(p || []); const r = s.step() ? s.getAsObject() : null; s.free(); return r; };
+    o.cultivars = q1("SELECT count(*) AS n FROM cultivars").n; o.redirects = q1("SELECT count(*) AS n FROM id_redirects").n;
+    a = performance.now(); o.ftsHits = q1("SELECT count(*) AS n FROM cultivars_fts WHERE cultivars_fts MATCH 'name:baby* name:pink*'").n; o.ftsMs = Math.round(performance.now() - a);
+    // user tables in the SAME engine
+    sdb.run("CREATE TABLE u_cross (id TEXT PRIMARY KEY, code TEXT, seed_ref TEXT, pollen_ref TEXT); CREATE TABLE u_seedling (id TEXT PRIMARY KEY, cross_id TEXT, label INTEGER, status TEXT, promoted_name TEXT);");
+    const pick = sdb.exec("SELECT id FROM cultivar_list WHERE kind='cultivar' AND has_ancestry = 1 ORDER BY rowid LIMIT 40")[0].values.map((v) => v[0]);
+    const old = sdb.exec("SELECT old_id FROM id_redirects LIMIT 5")[0].values.map((v) => v[0]);
+    const NC = +$("nc").value, per = Math.floor(+$("n").value / NC);
+    a = performance.now(); sdb.run("BEGIN");
+    const ic = sdb.prepare("INSERT INTO u_cross VALUES (?,?,?,?)"), is = sdb.prepare("INSERT INTO u_seedling VALUES (?,?,?,?,?)");
+    for (let c = 0; c < NC; c++) { const cid = "c" + c; ic.run([cid, "GG-26-" + (c + 1), c === 0 ? old[0] : pick[c], pick[c + 10]]); for (let k = 1; k <= per; k++) is.run([cid + "-" + k, cid, k, STAT[k % 5], null]); }
+    ic.free(); is.free(); sdb.run("COMMIT"); o.insertMs = Math.round(performance.now() - a); o.userRows = NC + NC * per;
+    // join: parents resolved through id_redirects, official names, seedling counts
+    a = performance.now();
+    const j = sdb.exec(`SELECT c.code, coalesce(p1.name, '?') AS seed, coalesce(p2.name, '?') AS pollen, (SELECT count(*) FROM u_seedling s WHERE s.cross_id = c.id) AS n
+       FROM u_cross c LEFT JOIN id_redirects r1 ON r1.old_id = c.seed_ref LEFT JOIN cultivars p1 ON p1.id = coalesce(r1.new_id, c.seed_ref) LEFT JOIN cultivars p2 ON p2.id = c.pollen_ref`);
+    o.joinMs = Math.round(performance.now() - a); o.joinRows = j[0].values.length; o.joinSample = j[0].values[0];
+    // ancestors of a local seedling across official + local edges (recursive CTE)
+    a = performance.now();
+    const anc = sdb.exec(`WITH RECURSIVE local_edges(child, parent) AS (SELECT s.id, c.seed_ref FROM u_seedling s JOIN u_cross c ON c.id = s.cross_id WHERE c.seed_ref IS NOT NULL UNION ALL SELECT s.id, c.pollen_ref FROM u_seedling s JOIN u_cross c ON c.id = s.cross_id WHERE c.pollen_ref IS NOT NULL),
+       all_edges(child, parent) AS (SELECT child, coalesce((SELECT new_id FROM id_redirects WHERE old_id = parent), parent) FROM local_edges UNION ALL SELECT child_id, parent_id FROM edges),
+       anc(id, depth) AS (SELECT 'c0-1', 0 UNION SELECT e.parent, anc.depth + 1 FROM anc JOIN all_edges e ON e.child = anc.id WHERE anc.depth < 6) SELECT count(*), max(depth) FROM anc`);
+    o.ancestorQueryMs = Math.round(performance.now() - a); o.ancestorsFound = anc[0].values[0][0]; o.maxDepth = anc[0].values[0][1];
+    const h1 = heap(); if (h0 && h1) o.jsHeapDeltaMB = +((h1 - h0) / 1048576).toFixed(1);
+    sdb.close();
+  } catch (x) { o.error = x.name + ": " + x.message; }
+  rec("official database + my data", o);
+}
+
+/* ---------------- 9 the real resize pipeline: rotate by EXIF, 1000 px, JPEG 0.82, thumbnail 300 px, no metadata */
+function hasMeta(u8) {  // look for EXIF/XMP/IPTC/COM segments in the JPEG header area
+  const found = []; let i = 2; if (u8[0] !== 0xff || u8[1] !== 0xd8) return ["not a JPEG"];
+  while (i + 4 < u8.length && u8[i] === 0xff) { const m = u8[i + 1]; if (m === 0xda) break; const len = (u8[i + 2] << 8) | u8[i + 3]; const seg = u8.subarray(i + 4, i + 2 + len); const txt = String.fromCharCode(...seg.subarray(0, 24));
+    if (m === 0xe1 && txt.startsWith("Exif")) found.push("EXIF"); else if (m === 0xe1 && txt.includes("xmp")) found.push("XMP"); else if (m === 0xed) found.push("IPTC"); else if (m === 0xfe) found.push("comment"); else if (m === 0xe2 && txt.startsWith("MPF")) found.push("MPF");
+    i += 2 + len; } return found;
+}
+async function processOne(file) {
+  const o = { name: file.name, inKB: Math.round(file.size / 1024) }; const t0 = performance.now();
+  const inBytes = new Uint8Array(await file.slice(0, 200000).arrayBuffer()); o.inputMeta = hasMeta(inBytes);
+  const bmp = await createImageBitmap(file, { imageOrientation: "from-image" }); o.decoded = `${bmp.width}x${bmp.height}`;
+  const sc = Math.min(1, 1000 / Math.max(bmp.width, bmp.height)); const w = Math.round(bmp.width * sc), h = Math.round(bmp.height * sc);
+  const cv = typeof OffscreenCanvas !== "undefined" ? new OffscreenCanvas(w, h) : Object.assign(document.createElement("canvas"), { width: w, height: h }); cv.getContext("2d").drawImage(bmp, 0, 0, w, h); bmp.close && bmp.close();
+  const full = await toBlob(cv, 0.82), th = await toBlob(drawPhoto2(cv, 300), 0.82); const out = new Uint8Array(await full.arrayBuffer()); o.outMeta = hasMeta(out); o.outSize = `${w}x${h}`; o.outKB = Math.round(full.size / 1024); o.thumbKB = Math.round(th.size / 1024); o.ms = Math.round(performance.now() - t0);
+  const sha1 = await sha(out.buffer); await tx(["photos", "thumbs"], "readwrite", (t) => { t.objectStore("photos").put({ sha: sha1, blob: full, w, h }); t.objectStore("thumbs").put({ sha: sha1, blob: th }); });
+  o.metadataRemoved = o.outMeta.length === 0; return o;
+}
+async function processFiles(files) {
+  mark("own-photos"); const list = [...files]; const res = []; let peak = heap() || 0;
+  for (let i = 0; i < list.length; i++) { try { res.push(await processOne(list[i])); } catch (x) { res.push({ name: list[i].name, error: x.name + ": " + x.message }); } setProg((i + 1) / list.length, `Photo ${i + 1}/${list.length}`); if (heap() > peak) peak = heap(); }
+  const okc = res.filter((r) => r.metadataRemoved).length;
+  rec("own photos", { count: list.length, metadataRemoved: okc, withProblems: res.filter((r) => r.error || !r.metadataRemoved).length, avgMs: Math.round(res.reduce((a, r) => a + (r.ms || 0), 0) / Math.max(1, list.length)), jsHeapPeak: peak ? mb(peak) : "n/a", details: res.slice(0, 8) });
+}
+async function t9() { const f = $("files").files; if (!f.length) { log("Choose some photos first (the file box above the button)."); $("status").textContent = "Choose photos first."; return; } await processFiles(f); }
+async function selfTest9() {  // synthetic JPEG with a fake EXIF/GPS segment injected after SOI: the output must have none
+  const blob = await toBlob(drawPhoto(1, 1600, 1200), 0.9); const u = new Uint8Array(await blob.arrayBuffer());
+  const payload = new TextEncoder().encode("Exif\0\0GPSLatitude=51.5;Model=Pixel"); const seg = new Uint8Array(4 + payload.length); seg[0] = 0xff; seg[1] = 0xe1; seg[2] = (payload.length + 2) >> 8; seg[3] = (payload.length + 2) & 255; seg.set(payload, 4);
+  const withExif = new Uint8Array(u.length + seg.length); withExif.set(u.subarray(0, 2), 0); withExif.set(seg, 2); withExif.set(u.subarray(2), 2 + seg.length);
+  const files = [0, 1, 2, 3, 4].map((i) => new File([withExif], `synthetic-${i}.jpg`, { type: "image/jpeg" })); await processFiles(files);
+}
+
+/* ---------------- share / save / download */
+async function doShare() {
+  if (!LASTZIP) return log("Make a zip first (test 5 or 6).");
+  const f = new File([LASTZIP], LASTZIPNAME, { type: "application/zip" }); const o = { size: mb(LASTZIP.size) };
+  try { o.canShare = !!(navigator.canShare && navigator.canShare({ files: [f] })); if (!o.canShare) o.result = "device says it cannot share this file"; else { await navigator.share({ files: [f], title: "Hybridizer test file" }); o.result = "shared (or sheet closed without error)"; } } catch (x) { o.result = "error " + x.name + ": " + x.message; }
+  rec("share", o);
+}
+async function doPick() {
+  if (!LASTZIP) return log("Make a zip first (test 5 or 6).");
+  const o = { size: mb(LASTZIP.size) };
+  try { if (!window.showSaveFilePicker) o.result = "showSaveFilePicker not available in this browser"; else { const h = await showSaveFilePicker({ suggestedName: LASTZIPNAME, types: [{ description: "Zip", accept: { "application/zip": [".zip"] } }] }); const w = await h.createWritable(); await w.write(LASTZIP); await w.close(); o.result = "saved"; } } catch (x) { o.result = "error " + x.name + ": " + x.message; }
+  rec("save picker", o);
+}
+function doDownload() { if (!LASTZIP) return log("Make a zip first (test 5 or 6)."); const u = URL.createObjectURL(LASTZIP), a = Object.assign(document.createElement("a"), { href: u, download: LASTZIPNAME }); document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 60000); rec("download", { size: mb(LASTZIP.size), result: "download started (check your Downloads)" }); }
+
+/* ---------------- wiring */
+const TESTS = { t1, t2, t3, t4, t5, t6, t7, t8, t9 };
+async function run(name) { const b = document.querySelectorAll("button"); b.forEach((x) => (x.disabled = true)); try { log("START " + name); await TESTS[name](); } catch (x) { rec(name + " FAILED", { error: x.name + ": " + x.message }); } b.forEach((x) => (x.disabled = false)); mark("idle"); }
+Object.keys(TESTS).forEach((k) => ($(k).onclick = () => run(k)));
+$("all").onclick = async () => { for (const k of ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"]) await run(k); log("ALL DONE"); document.title = "DONE"; };
+$("b-share").onclick = doShare; $("b-pick").onclick = doPick; $("b-dl").onclick = doDownload;
+$("b-copy").onclick = async () => { const txt = JSON.stringify(R, null, 1); try { await navigator.clipboard.writeText(txt); $("status").textContent = "Results copied."; } catch (x) { $("log").textContent += "\n\n" + txt; $("status").textContent = "Copy failed: the results are at the end of the log; select and copy them."; } };
+$("b-clear").onclick = async () => { const d = await db(); d.close(); dbp = null; await new Promise((r) => { const q = indexedDB.deleteDatabase(DB); q.onsuccess = q.onerror = q.onblocked = r; }); try { localStorage.removeItem("hs_last"); } catch (e) { /* ignore */ } $("status").textContent = "All test data deleted."; log("Test database deleted."); };
+try { const p = JSON.parse(localStorage.getItem("hs_last") || "null"); if (p && p.step !== "idle") { $("prev").hidden = false; $("prev").textContent = `The last run stopped during “${p.step}” (${new Date(p.at).toLocaleString()}). The page probably ran out of memory there.`; } } catch (e) { /* ignore */ }
+if (new URLSearchParams(location.search).has("n")) $("n").value = new URLSearchParams(location.search).get("n");
+if (new URLSearchParams(location.search).has("auto")) { $("all").click(); }
+if (new URLSearchParams(location.search).has("selftest")) { run("t3").then(() => run("t4")).then(() => selfTest9()).then(() => { document.title = "DONE"; }); }
+</script>
+</body>
+</html>

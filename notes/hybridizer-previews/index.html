@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saintpaulia Hybridizer: planning preview</title>
+<!-- PLANNING PREVIEW ONLY: sample data, nothing is stored or sent anywhere except the theme choice (kept in this browser). Not part of the site. -->
+<style>
+:root {
+  --bg: #fbf9fc; --surface: #ffffff; --text: #241d2b; --muted: #6b6275; --border: #e3dce9;
+  --accent: #6a3d9a; --accent-ink: #ffffff; --accent-soft: #efe7f6; --link: #5b2f8a;
+  --good: #1f7a4d; --warn: #9a5b00; --bad: #b3261e; --focus: #1b6ac9; --radius: 10px; --bw: 1px;
+  --pad: 14px; --gap: 12px; --cellpad: 8px 10px;
+  --st-growing: #2d6d90; --st-flowering: #a8397d; --st-keeping: #1a6b42; --st-culled: #655e58; --st-released: #7a5c00;
+}
+/* no-script fallback: follow the device (violet scheme) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode]) {
+    --bg: #17131c; --surface: #211b29; --text: #ece6f2; --muted: #a89fb4; --border: #3a3045;
+    --accent: #b88be0; --accent-ink: #1a1222; --accent-soft: #2e2339; --link: #cfaef0; --good: #5fcf9a; --warn: #e0a64a; --bad: #ff8a80; --focus: #8cc2ff;
+    --st-growing: #6cb6dc; --st-flowering: #ec7fae; --st-keeping: #5fcf9a; --st-culled: #a0a8b4; --st-released: #e0c050;
+  }
+}
+/* generated: 4 modes (light, dark, hc-light, hc-dark) x 6 color schemes; every pair is checked for WCAG contrast */
+:root[data-mode="light"] { --st-growing: #2d6d90; --st-flowering: #a8397d; --st-keeping: #1a6b42; --st-culled: #655e58; --st-released: #7a5c00; --good: #1f6b3f; --warn: #8a4f00; --bad: #a3231b; --focus: #1b5fb8; --bw: 1px; }
+:root[data-mode="light"][data-scheme="violet"] { --bg: #fbf9fc; --surface: #ffffff; --text: #241d2b; --muted: #6b6275; --border: #e3dce9; --accent: #6a3d9a; --accent-ink: #ffffff; --accent-soft: #efe7f6; --link: #5b2f8a; }
+:root[data-mode="light"][data-scheme="blue"] { --bg: #f1f6fc; --surface: #ffffff; --text: #14243a; --muted: #4f627c; --border: #cddbed; --accent: #1d5fa8; --accent-ink: #ffffff; --accent-soft: #e1edfa; --link: #174f8c; }
+:root[data-mode="light"][data-scheme="green"] { --bg: #eef6ee; --surface: #fbfff9; --text: #1c2e20; --muted: #4b6054; --border: #cfe0d0; --accent: #1f7a4d; --accent-ink: #ffffff; --accent-soft: #dcefe0; --link: #17623d; }
+:root[data-mode="light"][data-scheme="red"] { --bg: #fdf1f5; --surface: #fffafc; --text: #3a1a26; --muted: #764f5f; --border: #f0cdd9; --accent: #b3306b; --accent-ink: #ffffff; --accent-soft: #fadce8; --link: #98265a; }
+:root[data-mode="light"][data-scheme="brown"] { --bg: #f6efe2; --surface: #fffaf0; --text: #3a2c1d; --muted: #6f5f4c; --border: #dccfb8; --accent: #8a4b12; --accent-ink: #ffffff; --accent-soft: #f1e2c8; --link: #7a3f0c; }
+:root[data-mode="light"][data-scheme="grey"] { --bg: #f2f2f3; --surface: #ffffff; --text: #202124; --muted: #595d64; --border: #d5d7da; --accent: #4a5568; --accent-ink: #ffffff; --accent-soft: #e4e6ea; --link: #384152; }
+:root[data-mode="dark"] { --st-growing: #6cb6dc; --st-flowering: #ec7fae; --st-keeping: #5fcf9a; --st-culled: #a0a8b4; --st-released: #e0c050; --good: #5fcf9a; --warn: #e0a64a; --bad: #ff8a80; --focus: #8cc2ff; --bw: 1px; }
+:root[data-mode="dark"][data-scheme="violet"] { --bg: #17131c; --surface: #211b29; --text: #ece6f2; --muted: #a89fb4; --border: #3a3045; --accent: #b88be0; --accent-ink: #1a1222; --accent-soft: #2e2339; --link: #cfaef0; }
+:root[data-mode="dark"][data-scheme="blue"] { --bg: #0e1726; --surface: #16233a; --text: #e6edf8; --muted: #9db0cc; --border: #2a3b57; --accent: #6fb1ff; --accent-ink: #08121f; --accent-soft: #1d3150; --link: #9ccaff; }
+:root[data-mode="dark"][data-scheme="green"] { --bg: #0f1a13; --surface: #17261c; --text: #e4f1e8; --muted: #9fb8a8; --border: #2b4033; --accent: #6fd0a0; --accent-ink: #0a1810; --accent-soft: #1f3527; --link: #9be3bf; }
+:root[data-mode="dark"][data-scheme="red"] { --bg: #1d0f14; --surface: #2a1620; --text: #f3e4ea; --muted: #c4a3b1; --border: #4a2a37; --accent: #f08ab5; --accent-ink: #240c15; --accent-soft: #3d1f2c; --link: #f6b3cf; }
+:root[data-mode="dark"][data-scheme="brown"] { --bg: #1c1510; --surface: #271e17; --text: #efe6da; --muted: #b8a794; --border: #44362a; --accent: #e0a860; --accent-ink: #1c1206; --accent-soft: #3a2c1e; --link: #ecc58f; }
+:root[data-mode="dark"][data-scheme="grey"] { --bg: #151618; --surface: #1f2124; --text: #e8e9ea; --muted: #a0a4aa; --border: #373a3f; --accent: #aeb6c4; --accent-ink: #14161a; --accent-soft: #2b2e33; --link: #c5cde0; }
+:root[data-mode="hc-light"] { --st-growing: #004d73; --st-flowering: #8a0057; --st-keeping: #005a2b; --st-culled: #333333; --st-released: #5a4400; --good: #005a2b; --warn: #6b3a00; --bad: #8a0000; --focus: #0044cc; --bw: 2px; }
+:root[data-mode="hc-light"][data-scheme="violet"] { --bg: #ffffff; --surface: #ffffff; --text: #000000; --muted: #2b2b2b; --border: #000000; --accent: #3b0a78; --accent-ink: #ffffff; --accent-soft: #ececec; --link: #3b0a78; }
+:root[data-mode="hc-light"][data-scheme="blue"] { --bg: #ffffff; --surface: #ffffff; --text: #000000; --muted: #2b2b2b; --border: #000000; --accent: #0b3d91; --accent-ink: #ffffff; --accent-soft: #ececec; --link: #0b3d91; }
+:root[data-mode="hc-light"][data-scheme="green"] { --bg: #ffffff; --surface: #ffffff; --text: #000000; --muted: #2b2b2b; --border: #000000; --accent: #005a2b; --accent-ink: #ffffff; --accent-soft: #ececec; --link: #005a2b; }
+:root[data-mode="hc-light"][data-scheme="red"] { --bg: #ffffff; --surface: #ffffff; --text: #000000; --muted: #2b2b2b; --border: #000000; --accent: #8a0030; --accent-ink: #ffffff; --accent-soft: #ececec; --link: #8a0030; }
+:root[data-mode="hc-light"][data-scheme="brown"] { --bg: #ffffff; --surface: #ffffff; --text: #000000; --muted: #2b2b2b; --border: #000000; --accent: #5a2e00; --accent-ink: #ffffff; --accent-soft: #ececec; --link: #5a2e00; }
+:root[data-mode="hc-light"][data-scheme="grey"] { --bg: #ffffff; --surface: #ffffff; --text: #000000; --muted: #2b2b2b; --border: #000000; --accent: #222222; --accent-ink: #ffffff; --accent-soft: #ececec; --link: #222222; }
+:root[data-mode="hc-dark"] { --st-growing: #7fd0ff; --st-flowering: #ff9ccb; --st-keeping: #8af0b8; --st-culled: #d0d0d0; --st-released: #ffd75a; --good: #8af0b8; --warn: #ffd75a; --bad: #ff9a9a; --focus: #8cc2ff; --bw: 2px; }
+:root[data-mode="hc-dark"][data-scheme="violet"] { --bg: #000000; --surface: #000000; --text: #ffffff; --muted: #d9d9d9; --border: #ffffff; --accent: #d9b8ff; --accent-ink: #000000; --accent-soft: #1c1c1c; --link: #d9b8ff; }
+:root[data-mode="hc-dark"][data-scheme="blue"] { --bg: #000000; --surface: #000000; --text: #ffffff; --muted: #d9d9d9; --border: #ffffff; --accent: #9cc8ff; --accent-ink: #000000; --accent-soft: #1c1c1c; --link: #9cc8ff; }
+:root[data-mode="hc-dark"][data-scheme="green"] { --bg: #000000; --surface: #000000; --text: #ffffff; --muted: #d9d9d9; --border: #ffffff; --accent: #8af0b8; --accent-ink: #000000; --accent-soft: #1c1c1c; --link: #8af0b8; }
+:root[data-mode="hc-dark"][data-scheme="red"] { --bg: #000000; --surface: #000000; --text: #ffffff; --muted: #d9d9d9; --border: #ffffff; --accent: #ffb0cc; --accent-ink: #000000; --accent-soft: #1c1c1c; --link: #ffb0cc; }
+:root[data-mode="hc-dark"][data-scheme="brown"] { --bg: #000000; --surface: #000000; --text: #ffffff; --muted: #d9d9d9; --border: #ffffff; --accent: #ffc880; --accent-ink: #000000; --accent-soft: #1c1c1c; --link: #ffc880; }
+:root[data-mode="hc-dark"][data-scheme="grey"] { --bg: #000000; --surface: #000000; --text: #ffffff; --muted: #d9d9d9; --border: #ffffff; --accent: #e6e6e6; --accent-ink: #000000; --accent-soft: #1c1c1c; --link: #e6e6e6; }
+[data-density="compact"] { --pad: 8px; --gap: 8px; --cellpad: 3px 6px; }
+html[data-size="small"] { font-size: 14px; } html[data-size="large"] { font-size: 19px; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 1rem/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+a { color: var(--link); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+h1 { font-size: 1.6rem; margin: 0 0 4px; } h2 { font-size: 1.1rem; margin: 22px 0 8px; } h3 { font-size: 1rem; margin: 0 0 6px; }
+.muted { color: var(--muted); } .small { font-size: .875rem; }
+button, .btn { font: inherit; padding: 8px 14px; border-radius: var(--radius); border: var(--bw) solid var(--accent); background: var(--accent); color: var(--accent-ink); cursor: pointer; text-decoration: none; display: inline-block; }
+button.secondary, .btn.secondary { background: transparent; color: var(--accent); }
+button.danger { background: transparent; color: var(--bad); border-color: var(--bad); }
+input, select, textarea { font: inherit; padding: 8px 10px; border: var(--bw) solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); max-width: 100%; }
+.preview-bar { background: #fff4c2; color: #3a2e00; border-bottom: 1px solid #d8c36a; padding: 8px 16px; font-size: .85rem; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.preview-bar select, .preview-bar button { padding: 3px 8px; font-size: .85rem; background: #fff; color: #000; border: 1px solid #999; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+#stage.phone { max-width: 390px; margin: 12px auto; border: 6px solid #333; border-radius: 28px; overflow: hidden; background: var(--bg); box-shadow: 0 6px 30px #0006; }
+header.top { background: var(--surface); border-bottom: var(--bw) solid var(--border); }
+header.top .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; min-height: 54px; }
+.brand { font-weight: 700; color: var(--accent); font-size: 1.1rem; text-decoration: none; }
+nav.main { display: flex; flex-wrap: wrap; gap: 0 14px; } nav.main a { color: var(--text); text-decoration: none; padding: 6px 2px; border-bottom: 2px solid transparent; }
+nav.main a.on { border-bottom-color: var(--accent); font-weight: 600; }
+.status-line { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; font-size: .8rem; }
+main { padding: 18px 0 40px; }
+.panel { background: var(--surface); border: var(--bw) solid var(--border); border-radius: var(--radius); padding: var(--pad); }
+.grid { display: grid; gap: var(--gap); } .tiles { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+.cols { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.tile { text-align: center; padding: 10px; } .tile b { display: block; font-size: 1.7rem; line-height: 1.1; } .tile a { text-decoration: none; color: inherit; }
+.row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.chip { display: inline-flex; gap: 4px; align-items: center; font-size: .78rem; padding: 1px 9px; border-radius: 999px; border: var(--bw) solid currentColor; white-space: nowrap; background: var(--surface); }
+.chip.growing { color: var(--st-growing); } .chip.flowering { color: var(--st-flowering); } .chip.keeping { color: var(--st-keeping); }
+.chip.culled { color: var(--st-culled); } .chip.released { color: var(--st-released); }
+.badge { font-size: .75rem; padding: 1px 8px; border-radius: 999px; border: var(--bw) solid var(--border); background: var(--accent-soft); white-space: nowrap; }
+.ph { display: inline-block; width: var(--s, 56px); height: var(--s, 56px); border-radius: 8px; flex: none;
+  background: radial-gradient(circle at 50% 50%, hsl(var(--h) 85% 88%) 0 14%, hsl(var(--h) 65% 52%) 15% 46%, #4f7a4a 47% 100%); border: 1px solid #0003; }
+.ph.round { border-radius: 50%; }
+.nophoto { display: inline-flex; align-items: center; justify-content: center; width: var(--s, 56px); height: var(--s, 56px); border-radius: 8px; border: 1px dashed var(--border); color: var(--muted); font-size: .7rem; text-align: center; }
+:root { --th: 44px; } [data-density="compact"] { --th: 28px; }
+table.sheet td:first-child a { white-space: nowrap; }
+table.sheet td.thumb { min-width: 0; width: calc(var(--th) + 22px); } table.sheet td.thumb > a { display: flex; align-items: center; gap: 4px; padding: 3px 6px; text-decoration: none; }
+.cards { display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.card { background: var(--surface); border: var(--bw) solid var(--border); border-radius: var(--radius); padding: var(--pad); display: grid; gap: 8px; align-content: start; }
+.card a.title { font-weight: 650; text-decoration: none; font-size: 1.02rem; } .card a.title:hover { text-decoration: underline; }
+.bar-stack { display: flex; height: 10px; border-radius: 5px; overflow: hidden; border: 1px solid var(--border); }
+.bar-stack i { display: block; } .seg-growing { background: var(--st-growing); } .seg-flowering { background: var(--st-flowering); } .seg-keeping { background: var(--st-keeping); } .seg-culled { background: var(--st-culled); } .seg-released { background: var(--st-released); }
+.thumbs { display: flex; gap: 4px; flex-wrap: wrap; }
+.seed-grid { display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+.scard { background: var(--surface); border: var(--bw) solid var(--border); border-radius: var(--radius); padding: 8px; display: grid; gap: 4px; text-decoration: none; color: var(--text); }
+.scard .ph { width: 100%; height: auto; aspect-ratio: 1; }
+.timeline { display: flex; flex-wrap: wrap; gap: 0; margin: 6px 0; }
+.step { flex: 1 1 120px; padding: 6px 10px; border-left: 3px solid var(--border); font-size: .85rem; } .step.done { border-left-color: var(--accent); } .step b { display: block; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin: 10px 0; font-size: .92rem; }
+.toolbar label { display: inline-flex; gap: 6px; align-items: center; }
+.seg { display: inline-flex; border: var(--bw) solid var(--accent); border-radius: var(--radius); overflow: hidden; }
+.seg button { border: 0; border-radius: 0; background: transparent; color: var(--accent); padding: 5px 12px; } .seg button.on { background: var(--accent); color: var(--accent-ink); }
+.sheet-wrap { overflow: auto; max-height: 70vh; border: var(--bw) solid var(--border); border-radius: var(--radius); background: var(--surface); }
+table.sheet { border-collapse: separate; border-spacing: 0; min-width: 100%; font-size: .9rem; }
+table.sheet th { position: sticky; top: 0; background: var(--accent-soft); text-align: left; padding: var(--cellpad); border-bottom: var(--bw) solid var(--border); white-space: nowrap; z-index: 2; cursor: default; }
+table.sheet td { padding: 0; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); vertical-align: top; min-width: 90px; }
+table.sheet td > [contenteditable], table.sheet td > select, table.sheet td > input, table.sheet td > span { display: block; padding: var(--cellpad); width: 100%; min-height: 1.6em; border: 0; border-radius: 0; background: transparent; outline-offset: -2px; }
+table.sheet td:first-child, table.sheet th:first-child { position: sticky; left: 0; background: var(--surface); z-index: 1; } table.sheet th:first-child { background: var(--accent-soft); z-index: 3; }
+table.sheet tr.group td { background: var(--accent-soft); font-weight: 600; padding: var(--cellpad); }
+table.sheet td.edited { box-shadow: inset 3px 0 0 var(--good); }
+td.gen1 > span:first-child, .gen-ind { color: var(--muted); }
+.combo { position: relative; display: inline-block; min-width: 280px; } .combo input { width: 100%; } .combo-list { position: absolute; z-index: 20; left: 0; right: 0; top: 100%; background: var(--surface); border: var(--bw) solid var(--border); border-radius: 8px; box-shadow: 0 4px 16px #0003; max-height: 320px; overflow: auto; min-width: 320px; } .combo-list > div { padding: 7px 10px; border-bottom: 1px solid var(--border); cursor: pointer; } .combo-list > div:hover { background: var(--accent-soft); } .combo-h { font-size: .75rem; color: var(--muted); cursor: default !important; }
+.menu { position: relative; display: inline-block; } .menu .pop { position: absolute; z-index: 10; background: var(--surface); border: var(--bw) solid var(--border); border-radius: 8px; padding: 8px 12px; display: none; min-width: 190px; box-shadow: 0 4px 16px #0003; }
+.menu.open .pop { display: grid; gap: 4px; }
+form.f { display: grid; gap: 14px; max-width: 720px; } form.f label { display: grid; gap: 4px; font-weight: 600; } form.f label small { font-weight: 400; color: var(--muted); }
+fieldset { border: var(--bw) solid var(--border); border-radius: var(--radius); padding: 10px 14px; display: grid; gap: 10px; } legend { font-weight: 600; padding: 0 6px; }
+.picker-results { border: var(--bw) solid var(--border); border-radius: 8px; background: var(--surface); } .picker-results div { padding: 8px 10px; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: center; } .picker-results div:last-child { border: 0; }
+.note { background: var(--accent-soft); border-radius: 8px; padding: 8px 12px; font-size: .9rem; }
+.warn { background: color-mix(in srgb, var(--warn) 14%, var(--surface)); border: var(--bw) solid var(--warn); border-radius: 8px; padding: 8px 12px; font-size: .9rem; }
+dl.facts { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; } dl.facts dt { color: var(--muted); } dl.facts dd { margin: 0; }
+.flash { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); background: #222; color: #fff; padding: 8px 16px; border-radius: 8px; font-size: .9rem; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 50; } .flash.show { opacity: .95; }
+svg text { fill: var(--text); font: 12px system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<div class="preview-bar" role="region" aria-label="Preview controls">
+  <strong>PLANNING PREVIEW</strong> (sample data; edits are not saved)
+  <label>Mode <select id="pv-mode"><option value="">Match device (default)</option><option value="light">Light</option><option value="dark">Dark</option><option value="hc-light">High contrast, light</option><option value="hc-dark">High contrast, dark</option></select></label>
+  <label>Color scheme <select id="pv-scheme"><option value="violet">Violet (site default)</option><option value="blue">Blue</option><option value="green">Green</option><option value="red">Red (pinks / maroon)</option><option value="brown">Brown</option><option value="grey">Grey</option></select></label>
+  <label>Text <select id="pv-size"><option value="">Normal</option><option value="small">Small</option><option value="large">Large</option></select></label>
+  <label>Density <select id="pv-density"><option value="">Comfortable</option><option value="compact">Compact</option></select></label>
+  <button id="pv-phone" type="button">Phone width: off</button>
+  <button id="pv-reset-edit" type="button">Reset sample data</button>
+</div>
+<div id="stage">
+<header class="top"><div class="wrap bar">
+  <a class="brand" href="#/home">Saintpaulia Hybridizer</a>
+  <nav class="main" aria-label="Main" id="nav"></nav>
+  <div class="status-line"><span class="badge" title="Storage persistence">Storage: persistent</span><span class="badge" id="onl">Online</span></div>
+</div></header>
+<main class="wrap" id="app"></main>
+</div>
+<div class="flash" id="flash" role="status"></div>
+<script>
+/* ---------------------------------------------------------------- sample data (invented seedlings; official parent names are only examples) */
+const OFFICIAL = {
+  sticky: { name: "Rob's Sticky Wicket", hyb: "R. Robinson", size: "Standard", hue: 285, desc: "Double dark purple, ruffled. Variegated foliage." },
+  babypink: { name: "Baby Pink", hyb: "(sample)", size: "Miniature", hue: 335, desc: "Single pink. Girl foliage." },
+  boysen: { name: "Buckeye Boysenberry", hyb: "(sample)", size: "Standard", hue: 305, desc: "Semidouble boysenberry. Medium green foliage." },
+  chiffon: { name: "Chiffon Blush", hyb: "(sample)", size: "Standard", hue: 350, desc: "Pink fringed. Wavy foliage." },
+  ionanthus: { name: "S. 5c1. variety ionanthus", hyb: "Species", size: "Species", hue: 255, desc: "Single blue-violet. Wild species." },
+};
+const DESCS = ["Single dark blue, plain leaf", "Double pink, wavy edge", "Semidouble lavender, girl foliage", "Single white, blue edge", "Double purple, ruffled", "Fringed pink, quilted leaf", "Single pale blue, variegated leaf", "Semidouble magenta, wavy leaf"];
+const ST = ["growing", "flowering", "keeping", "culled", "released"];
+const ICON = { growing: "◔", flowering: "✿", keeping: "★", culled: "✕", released: "⚑" };
+const rnd = (() => { let s = 7; return () => (s = (s * 16807) % 2147483647) / 2147483647; })();
+function mk(cross, n, dist, extra) {
+  const out = []; let i = 1;
+  for (const [st, cnt] of dist) for (let k = 0; k < cnt; k++, i++) {
+    out.push({ id: cross + "-" + String(i).padStart(2, "0"), cross, label: i, status: st, desc: DESCS[Math.floor(rnd() * DESCS.length)], flower: ["blue", "pink", "purple", "white", "lavender"][Math.floor(rnd() * 5)],
+      double: rnd() > .5 ? "double" : "single", added: "2026-10-" + String(2 + Math.floor(rnd() * 25)).padStart(2, "0"), notes: rnd() > .7 ? "Strong grower" : "", promoted: "", hue: 250 + Math.floor(rnd() * 120), photos: Math.floor(rnd() * 4), ...(extra && extra[i]) });
+  } return out;
+}
+const SAMPLE = () => ({
+  crosses: [
+    { id: "GG-26-014", seed: { t: "o", id: "sticky" }, pollen: { t: "o", id: "babypink" }, made: "2026-03-02", harvested: "2026-05-09", stored: 1, from: "2026-05-09", to: "2026-09-01", storeNote: "Refrigerated in a film canister", sown: "2026-09-03", sownN: 120, notes: "Second try after GG-25-009 failed.", remakeOf: "GG-25-009", deleted: 0 },
+    { id: "GG-26-016", seed: { t: "o", id: "boysen" }, pollen: null, made: "2026-06-20", harvested: "2026-09-12", stored: 0, from: "", to: "", storeNote: "", sown: "", sownN: 0, notes: "Pollen parent not recorded (bees?).", remakeOf: "", deleted: 0 },
+    { id: "GG-25-021", seed: { t: "l", id: "GG-25-003-07" }, pollen: { t: "o", id: "chiffon" }, made: "2025-10-11", harvested: "2026-01-18", stored: 0, from: "", to: "", storeNote: "", sown: "2026-01-20", sownN: 60, notes: "Second generation: uses my own release.", remakeOf: "", deleted: 0 },
+    { id: "GG-25-009", seed: { t: "o", id: "sticky" }, pollen: { t: "o", id: "babypink" }, made: "2025-04-14", harvested: "2025-06-20", stored: 1, from: "2025-06-20", to: "2025-08-30", storeNote: "Room temperature", sown: "2025-09-01", sownN: 80, notes: "Nothing germinated.", remakeOf: "", deleted: 0 },
+    { id: "GG-25-003", seed: { t: "o", id: "boysen" }, pollen: { t: "o", id: "ionanthus" }, made: "2025-02-08", harvested: "2025-04-25", stored: 0, from: "", to: "", storeNote: "", sown: "2025-04-27", sownN: 90, notes: "Species cross.", remakeOf: "", deleted: 0 },
+    ...Array.from({ length: 21 }, (_, i) => { const n = i + 1, yr = n <= 9 ? 2024 : 2025; return { id: `GG-${String(yr).slice(2)}-${String(n).padStart(3, "0")}`, seed: { t: "o", id: ["sticky", "babypink", "boysen", "chiffon"][n % 4] }, pollen: { t: "o", id: ["chiffon", "ionanthus", "sticky", "babypink"][(n + 1) % 4] }, made: `${yr}-0${1 + (n % 9)}-1${n % 9}`, harvested: "", stored: null, from: "", to: "", storeNote: "", sown: "", sownN: 0, notes: "", remakeOf: "", deleted: 0 }; }).filter((c) => !["GG-25-009", "GG-25-021", "GG-25-003"].includes(c.id)),
+  ],
+  seedlings: [
+    ...mk("GG-26-014", 24, [["growing", 7], ["flowering", 8], ["keeping", 3], ["culled", 5], ["growing", 1]]),
+    ...mk("GG-25-021", 12, [["growing", 6], ["flowering", 4], ["culled", 2]]),
+    ...mk("GG-25-003", 16, [["flowering", 5], ["keeping", 4], ["culled", 7]], { 7: { status: "released", promoted: "Plum Pudding", desc: "Double plum, ruffled, variegated leaf" } }),
+  ],
+});
+let D = SAMPLE();
+// the seedling released from GG-25-003 is a parent of GG-25-021
+D.seedlings.forEach((s) => { s.sid = s.cross + "-" + String(s.label).padStart(2, "0"); });
+const sById = (id) => D.seedlings.find((s) => s.sid === id);
+const cById = (id) => D.crosses.find((c) => c.id === id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const ph = (h, s, round) => `<span class="ph${round ? " round" : ""}" style="--h:${h};--s:${s || 56}px" role="img" aria-label="Sample photo"></span>`;
+const chip = (st) => `<span class="chip ${st}">${ICON[st]} ${st}</span>`;
+function parentName(p) {
+  if (!p) return `<span class="muted">unknown</span>`;
+  if (p.t === "o") return esc(OFFICIAL[p.id].name);
+  const s = sById(p.id); return esc((s && s.promoted) || p.id) + ` <span class="badge">my seedling</span>`;
+}
+const parentText = (p) => !p ? "unknown" : p.t === "o" ? OFFICIAL[p.id].name : ((sById(p.id) || {}).promoted || p.id);
+const seedsOf = (cid) => D.seedlings.filter((s) => s.cross === cid);
+const counts = (arr) => Object.fromEntries(ST.map((k) => [k, arr.filter((s) => s.status === k).length]));
+const stack = (c, n) => `<div class="bar-stack" role="img" aria-label="${ST.map((k) => c[k] + " " + k).join(", ")}">${ST.map((k) => c[k] ? `<i class="seg-${k}" style="width:${100 * c[k] / n}%"></i>` : "").join("")}</div>`;
+function flash(m) { const f = document.getElementById("flash"); f.textContent = m; f.classList.add("show"); clearTimeout(flash.t); flash.t = setTimeout(() => f.classList.remove("show"), 1600); }
+
+/* searchable picker: a plain list up to 20 items, a type-to-filter box above that */
+function crossLabel(c) { return `${c.id}: ${parentText(c.seed)} × ${parentText(c.pollen)} (${seedsOf(c.id).length} seedlings)`; }
+function crossPicker(name, value, opts) {
+  const list = D.crosses.filter((c) => !c.deleted);
+  const none = opts && opts.none ? `<option value="">${esc(opts.none)}</option>` : "";
+  if (list.length <= 20) return `<select id="${name}" data-pick="${name}">${none}${list.map((c) => `<option value="${c.id}"${c.id === value ? " selected" : ""}>${esc(crossLabel(c))}</option>`).join("")}</select>`;
+  const cur = list.find((c) => c.id === value);
+  return `<span class="combo" data-combo="${name}"><input type="search" id="${name}" role="combobox" aria-expanded="false" aria-controls="${name}-list" autocomplete="off" placeholder="Type a code, a parent or a year (${list.length} crosses)" value="${cur ? esc(cur.id) : ""}" data-value="${value || ""}">
+    <span class="combo-list" id="${name}-list" role="listbox" hidden></span></span>`;
+}
+function wireCombos(onPick) {
+  document.querySelectorAll("[data-combo]").forEach((box) => {
+    const inp = box.querySelector("input"), lst = box.querySelector(".combo-list");
+    const show = (all) => {
+      const w = (all === true ? "" : inp.value).toLowerCase().split(/\s+/).filter(Boolean), recent = D.crosses.slice(0, 3).map((c) => c.id);
+      let items = D.crosses.filter((c) => !c.deleted && w.every((x) => (c.id + " " + parentText(c.seed) + " " + parentText(c.pollen) + " " + c.made.slice(0, 4)).toLowerCase().includes(x)));
+      if (!w.length) items = [...items.filter((c) => recent.includes(c.id)), ...items.filter((c) => !recent.includes(c.id))];
+      lst.innerHTML = (!w.length ? '<div class="combo-h">Recent crosses first</div>' : "") + (items.slice(0, 12).map((c) => `<div role="option" data-id="${c.id}" tabindex="-1"><b>${c.id}</b> ${esc(parentText(c.seed))} × ${esc(parentText(c.pollen))} <span class="muted small">${seedsOf(c.id).length} seedlings, ${c.made.slice(0, 4)}</span></div>`).join("") || '<div class="muted">No cross matches</div>') + (items.length > 12 ? `<div class="combo-h">${items.length - 12} more: keep typing</div>` : "");
+      lst.hidden = false; inp.setAttribute("aria-expanded", "true");
+    };
+    inp.addEventListener("focus", () => { inp.select(); show(true); }); inp.addEventListener("input", show);
+    lst.addEventListener("mousedown", (e) => { const o = e.target.closest("[data-id]"); if (!o) return; inp.value = o.dataset.id; inp.dataset.value = o.dataset.id; lst.hidden = true; inp.setAttribute("aria-expanded", "false"); onPick(box.dataset.combo, o.dataset.id); });
+    inp.addEventListener("blur", () => setTimeout(() => { lst.hidden = true; }, 150));
+    inp.addEventListener("keydown", (e) => { if (e.key === "Escape") lst.hidden = true; if (e.key === "Enter") { e.preventDefault(); const f = lst.querySelector("[data-id]"); if (f) f.dispatchEvent(new MouseEvent("mousedown", { bubbles: true })); } });
+  });
+}
+
+/* ---------------------------------------------------------------- views */
+const NAV = [["home", "Home"], ["crosses", "Crosses"], ["sheet", "Spreadsheet"], ["new", "+ New cross"], ["sync", "Sync & backup"], ["settings", "Settings"], ["trash", "Trash"]];
+function viewHome() {
+  const all = D.seedlings, c = counts(all);
+  const todo = [
+    [`${c.flowering} seedlings are flowering and not yet judged`, "#/sheet", "Review them"],
+    [`GG-26-016 has seed harvested but no sowing date`, "#/cross/GG-26-016", "Open cross"],
+    [`Last backup was 12 days ago`, "#/sync", "Back up now"],
+  ];
+  return `<h1>Home</h1><p class="muted">${D.crosses.length} crosses &middot; ${all.length} seedlings &middot; ${c.keeping} keepers &middot; ${c.released} released</p>
+  <div class="grid tiles">${ST.map((k) => `<div class="panel tile"><a href="#/sheet?status=${k}"><b>${c[k]}</b>${chip(k)}</a></div>`).join("")}</div>
+  <h2>Needs attention</h2><div class="grid">${todo.map((t) => `<div class="panel row">${t[0]} <a class="btn secondary" style="margin-left:auto" href="${t[1]}">${t[2]}</a></div>`).join("")}</div>
+  <h2>Recent crosses</h2><div class="cards">${D.crosses.slice(0, 3).map(crossCard).join("")}</div>
+  <p class="row" style="margin-top:16px"><a class="btn" href="#/new">New cross</a> <button class="secondary" type="button" onclick="flash('Camera opens here on a phone')">Add seedling with camera</button></p>`;
+}
+function crossCard(c) {
+  const s = seedsOf(c.id), k = counts(s);
+  return `<div class="card"><a class="title" href="#/cross/${c.id}">${esc(c.id)}: ${parentName(c.seed)} &times; ${parentName(c.pollen)}</a>
+   <div class="row small muted"><span>Made ${c.made}</span>${c.sown ? `<span>Sown ${c.sown}${c.sownN ? ` (${c.sownN} seeds)` : ""}</span>` : `<span>Not sown yet</span>`}${c.remakeOf ? `<span class="badge">remake of ${c.remakeOf}</span>` : ""}</div>
+   ${s.length ? `${stack(k, s.length)}<div class="row small">${ST.filter((x) => k[x]).map((x) => `<span class="chip ${x}">${ICON[x]} ${k[x]} ${x}</span>`).join("")}</div>
+   <div class="thumbs">${s.slice(0, 6).map((x) => ph(x.hue, 40)).join("")}${s.length > 6 ? `<span class="muted small" style="align-self:center">+${s.length - 6}</span>` : ""}</div>` : `<span class="muted small">No seedlings entered${c.notes ? ": " + esc(c.notes) : ""}</span>`}</div>`;
+}
+function viewCrosses(q) {
+  const term = (q.get("q") || "").toLowerCase(), st = q.get("status") || "", yr = q.get("year") || "", mode = q.get("mode") || "cards";
+  let list = D.crosses.filter((c) => !c.deleted);
+  if (term) { const w = term.split(/\s+/).filter(Boolean); list = list.filter((c) => { const hay = (c.id + " " + parentText(c.seed) + " " + parentText(c.pollen) + " " + c.notes + " " + seedsOf(c.id).map((s) => s.desc + " " + s.notes + " " + s.promoted).join(" ")).toLowerCase(); return w.every((x) => hay.includes(x)); }); }
+  if (st) list = list.filter((c) => seedsOf(c.id).some((s) => s.status === st));
+  if (yr) list = list.filter((c) => c.made.startsWith(yr));
+  const href = (o) => "#/crosses?" + new URLSearchParams({ q: term, status: st, year: yr, mode, ...o });
+  return `<h1>Crosses</h1><form class="toolbar" id="cf"><input type="search" name="q" value="${esc(term)}" placeholder="Search parents, code, notes, descriptions" aria-label="Search crosses" style="flex:1;min-width:200px">
+    <label>Seedling status <select name="status"><option value="">Any</option>${ST.map((k) => `<option${k === st ? " selected" : ""}>${k}</option>`).join("")}</select></label>
+    <label>Year <select name="year"><option value="">Any</option><option${yr === "2026" ? " selected" : ""}>2026</option><option${yr === "2025" ? " selected" : ""}>2025</option><option${yr === "2024" ? " selected" : ""}>2024</option></select></label>
+    <span class="seg"><a class="btn secondary ${mode === "cards" ? "on" : ""}" href="${href({ mode: "cards" })}" style="border:0">Cards</a><a class="btn secondary ${mode === "table" ? "on" : ""}" href="${href({ mode: "table" })}" style="border:0">Table</a></span><button>Search</button></form>
+   <p class="muted small">${list.length} crosses. Parents are found in either order and by name even when offline (names are saved with each cross).</p>
+   ${mode === "table" ? `<div class="sheet-wrap"><table class="sheet"><thead><tr><th>Code</th><th>Seed parent</th><th>Pollen parent</th><th>Made</th><th>Sown</th><th>Seedlings</th><th>Keepers</th></tr></thead><tbody>${list.map((c) => { const s = seedsOf(c.id); return `<tr><td><span><a href="#/cross/${c.id}">${c.id}</a></span></td><td><span>${parentName(c.seed)}</span></td><td><span>${parentName(c.pollen)}</span></td><td><span>${c.made}</span></td><td><span>${c.sown || "–"}</span></td><td><span>${s.length}</span></td><td><span>${s.filter((x) => x.status === "keeping" || x.status === "released").length}</span></td></tr>`; }).join("")}</tbody></table></div>`
+   : `<div class="cards">${list.map(crossCard).join("") || "<p>No crosses match.</p>"}</div>`}`;
+}
+function parentPanel(label, p) {
+  if (!p) return `<div class="panel"><h3>${label}</h3><p class="muted">Unknown</p><button class="secondary" type="button">Set parent</button></div>`;
+  if (p.t === "l") { const s = sById(p.id); return `<div class="panel"><h3>${label}</h3><div class="row">${ph(s.hue, 64)}<div><a href="#/seedling/${s.sid}"><b>${esc(s.promoted || s.sid)}</b></a><br><span class="muted small">My own seedling ${s.sid}<br>${esc(s.desc)}</span></div></div></div>`; }
+  const o = OFFICIAL[p.id];
+  return `<div class="panel"><h3>${label}</h3><div class="row">${ph(o.hue, 64)}<div><b>${esc(o.name)}</b><br><span class="muted small">${esc(o.hyb)} &middot; ${esc(o.size)}<br>${esc(o.desc)}</span></div></div>
+   <p class="row small"><a href="#" onclick="flash('Opens the cultivar page on the Saintpaulia Ancestry site (needs internet)');return false">View on Saintpaulia Ancestry (online)</a>
+   <label><input type="checkbox" onchange="flash(this.checked?'Photos of this parent will be kept on this device':'Photos removed from this device')"> Keep its photos offline</label></p></div>`;
+}
+function viewCross(id, q) {
+  const c = cById(id); if (!c) return "<p>Cross not found.</p>";
+  const s = seedsOf(id), k = counts(s), mode = q.get("mode") || "grid";
+  const step = (t, d, ok) => `<div class="step ${ok ? "done" : ""}"><b>${t}</b>${d || "–"}</div>`;
+  return `<p class="small"><a href="#/crosses">&larr; Crosses</a></p><h1>${esc(c.id)}</h1><p class="lede" style="margin:0 0 10px;font-size:1.1rem">${parentName(c.seed)} &times; ${parentName(c.pollen)}</p>
+   ${c.remakeOf ? `<p class="note">This cross was remade. Earlier attempt: <a href="#/cross/${c.remakeOf}">${c.remakeOf}</a>.</p>` : ""}
+   <div class="grid cols">${parentPanel("Seed parent", c.seed)}${parentPanel("Pollen parent", c.pollen)}</div>
+   <h2>Timeline</h2><div class="panel"><div class="timeline">${step("Date of cross", c.made, 1)}${step("Seed harvested", c.harvested, c.harvested)}${step("Seed stored", c.stored ? c.from + " to " + c.to : (c.stored === 0 && c.harvested ? "not stored" : ""), c.stored)}${step("Seed sown", c.sown ? c.sown + (c.sownN ? ", " + c.sownN + " seeds" : "") : "", c.sown)}${step("Seedlings", s.length ? s.length + " entered" : "", s.length)}</div>
+   ${c.storeNote ? `<p class="small muted">Storage: ${esc(c.storeNote)}</p>` : ""}<p class="small">${esc(c.notes)}</p><button class="secondary" type="button" onclick="location.hash='#/new?edit=${c.id}'">Edit cross</button> <button class="danger" type="button" onclick="flash('Moved to Trash (restorable for 30 days)')">Delete…</button></div>
+   <h2>Seedlings</h2><div class="toolbar"><span>${s.length} seedlings: ${ST.filter((x) => k[x]).map((x) => `${k[x]} ${x}`).join(", ") || "none yet"}</span>
+    <span class="seg"><button class="${mode === "grid" ? "on" : ""}" onclick="location.hash='#/cross/${id}?mode=grid'">Photo grid</button><button class="${mode === "table" ? "on" : ""}" onclick="location.hash='#/cross/${id}?mode=table'">Table</button></span>
+    <button type="button" onclick="flash('Camera opens, one photo per seedling')">+ Seedling (camera)</button><button class="secondary" type="button" onclick="flash('Dialog: add N seedlings at once, numbered from ${s.length + 1}')">+ Add many</button><a class="btn secondary" href="#/sheet?cross=${id}">Open in spreadsheet</a></div>
+   ${mode === "grid" ? `<div class="seed-grid">${s.map((x) => `<a class="scard" href="#/seedling/${x.sid}">${x.photos ? ph(x.hue, 100) : '<span class="nophoto" style="--s:100px;width:100%;height:auto;aspect-ratio:1">no photo</span>'}<b>#${x.label}${x.promoted ? ` “${esc(x.promoted)}”` : ""}</b>${chip(x.status)}<span class="small muted">${esc(x.desc)}</span></a>`).join("") || `<p class="muted">No seedlings entered.</p>`}</div>`
+    : `<div class="sheet-wrap"><table class="sheet"><thead><tr><th>#</th><th>Status</th><th>Description</th><th>Flower</th><th>Added</th><th>Notes</th></tr></thead><tbody>${s.map((x) => `<tr><td><span><a href="#/seedling/${x.sid}">${x.label}</a></span></td><td><span>${chip(x.status)}</span></td><td><span>${esc(x.desc)}</span></td><td><span>${x.flower}</span></td><td><span>${x.added}</span></td><td><span>${esc(x.notes)}</span></td></tr>`).join("")}</tbody></table></div>`}`;
+}
+function lineageSvg(c, label) {
+  const sn = parentText(c.seed), pn = parentText(c.pollen);
+  const box = (x, y, t, o) => `<g><rect x="${x}" y="${y}" width="150" height="34" rx="8" fill="${o ? "var(--accent-soft)" : "var(--surface)"}" stroke="var(--accent)" stroke-width="${o ? 2 : 1}"/><text x="${x + 75}" y="${y + 21}" text-anchor="middle">${esc(t.length > 22 ? t.slice(0, 21) + "…" : t)}</text></g>`;
+  return `<svg viewBox="0 0 520 190" width="100%" role="img" aria-label="Lineage graph (sample)"><path d="M150 84 L260 140 M370 84 L260 140" stroke="var(--accent)" stroke-width="2" fill="none"/><path d="M370 84 L260 140" stroke="#c2417a" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
+   ${box(75, 50, sn)}${box(295, 50, pn)}${box(185, 140, label, 1)}
+   <g opacity=".7"><text x="75" y="22">…official ancestry continues</text><text x="295" y="22">…official ancestry continues</text></g></svg><p class="small muted">Sample drawing: the real view reuses the ancestry graph and joins your cross to the official ancestry of both parents.</p>`;
+}
+function viewSeedling(id) {
+  const s = sById(id); if (!s) return "<p>Not found.</p>"; const c = cById(s.cross);
+  return `<p class="small"><a href="#/cross/${c.id}">&larr; ${c.id}</a></p><h1>${esc(s.promoted ? "“" + s.promoted + "” (" + s.sid + ")" : s.sid)}</h1><p class="muted">${parentName(c.seed)} &times; ${parentName(c.pollen)}</p>
+   <div class="grid cols"><div class="panel"><div class="row">${Array.from({ length: s.photos }, (_, i) => ph(s.hue + i * 8, 120)).join("")}</div><p class="row"><button type="button" onclick="flash('Camera opens')">+ Photo</button><span class="small muted">Photos are resized to 1000 px and all location data is removed.</span></p></div>
+   <div class="panel"><h3>Status</h3><div class="seg" role="group" aria-label="Status">${ST.map((k) => `<button class="${s.status === k ? "on" : ""}" onclick="flash('Status set to ${k}')">${ICON[k]} ${k}</button>`).join("")}</div>
+    <dl class="facts" style="margin-top:12px"><dt>Description</dt><dd contenteditable="true">${esc(s.desc)}</dd><dt>Flower</dt><dd>${s.flower}, ${s.double}</dd><dt>Added</dt><dd>${s.added}</dd><dt>Notes</dt><dd contenteditable="true">${esc(s.notes) || "<span class='muted'>(tap to add)</span>"}</dd>
+    <dt>Promoted name</dt><dd>${esc(s.promoted) || "<span class='muted'>none</span>"}</dd><dt>Official plant</dt><dd>${s.promoted ? "Not registered yet" : "–"}</dd></dl>
+    ${s.status === "keeping" ? `<p class="note">Keeper. When you name it, you can use it as a parent in a new cross, and later prepare it as a submission.</p><button type="button" onclick="flash('Dialog: enter the name; the seedling can then be picked as a parent')">Promote (give it a name)</button>` : ""}</div></div>
+   <h2>Lineage</h2><div class="panel">${lineageSvg(c, s.promoted || s.sid)}</div>
+   <h2>Traits</h2><div class="panel small muted">Structured traits (color, form, size, foliage) are planned for later; today the description is free text.</div>
+   <p style="margin-top:14px"><button class="danger" type="button" onclick="flash('Moved to Trash (restorable for 30 days)')">Delete…</button></p>`;
+}
+function viewNew(q) {
+  const edit = q.get("edit") ? cById(q.get("edit")) : null;
+  const v = (k, d) => esc(edit ? edit[k] : d || "");
+  return `<h1>${edit ? "Edit cross " + edit.id : "New cross"}</h1>
+  <form class="f" onsubmit="flash('Saved on this device (sample: nothing is stored)');location.hash='#/crosses';return false">
+   <label>Cross code <input value="${edit ? edit.id : "GG-26-017"}"><small>Suggested: your initials, the year and the next number. You can change it. If another device uses the same code, both are kept and you are asked to fix one.</small></label>
+   ${edit && edit.remakeOf ? "" : `<label>This is a remake of an earlier cross ${crossPicker("remake", "", { none: "No, a new cross" })}<small>A remade cross is a new cross with its own code. Linking it keeps the history together.</small></label>`}
+   <fieldset><legend>Parents</legend>
+     <label>Seed parent (mother) <input type="search" id="pk1" placeholder="Type a name: official cultivar or one of your seedlings" value="${edit ? esc(parentText(edit.seed)) : ""}"><small>Search the Saintpaulia Ancestry data (and your own seedlings). Leave empty if unknown.</small></label>
+     <div class="picker-results" id="pr1" aria-live="polite">
+       <div>${ph(285, 36)}<span><b>Rob's Sticky Wicket</b><br><span class="small muted">R. Robinson · Standard · official</span></span></div>
+       <div>${ph(250, 36)}<span><b>Plum Pudding</b><br><span class="small muted">GG-25-003-07 · my seedling (released)</span></span></div>
+       <div><span class="ph" style="--s:36px;background:var(--border)"></span><span><b>Unknown / not recorded</b></span></div></div>
+     <label>Pollen parent (father) <input type="search" placeholder="Type a name" value="${edit ? esc(parentText(edit.pollen)) : ""}"></label></fieldset>
+   <fieldset><legend>Dates</legend>
+     <label>Date of cross <input type="date" value="${v("made", "2026-11-17")}"></label>
+     <label>Date seed harvested <input type="date" value="${v("harvested")}"></label>
+     <label>Seed was stored <select><option>Not stored</option><option${edit && edit.stored ? " selected" : ""}>Stored</option></select></label>
+     <div class="row"><label>Stored from <input type="date" value="${v("from")}"></label><label>Stored to <input type="date" value="${v("to")}"></label></div>
+     <label>Storage notes <input value="${v("storeNote")}" placeholder="e.g. refrigerated in a film canister"></label>
+     <div class="row"><label>Date seed sown <input type="date" value="${v("sown")}"></label><label>Seeds sown <input type="number" min="0" value="${edit ? edit.sownN : ""}" style="width:7em"></label></div></fieldset>
+   <label>Notes <textarea rows="3">${v("notes")}</textarea></label>
+   <div class="row"><button>Save cross</button><a class="btn secondary" href="#/crosses">Cancel</a></div></form>`;
+}
+/* spreadsheet */
+const COLS = [["cross", "Cross"], ["photo", "Photo"], ["label", "#"], ["status", "Status"], ["desc", "Description"], ["flower", "Flower"], ["double", "Form"], ["added", "Added"], ["notes", "Notes"], ["promoted", "Promoted name"]];
+let SH = { group: true, family: false, hidden: new Set(["double"]), undo: [], root: "GG-25-003" };
+function familyRows(rootId) {
+  const out = []; const walk = (cid, gen) => { for (const s of seedsOf(cid)) { out.push({ s, gen }); D.crosses.filter((c) => c.seed && c.seed.t === "l" && c.seed.id === s.sid || c.pollen && c.pollen.t === "l" && c.pollen.id === s.sid).forEach((c2) => walk(c2.id, gen + 1)); } }; walk(rootId, 1); return out;
+}
+function viewSheet(q) {
+  if (q.get("family") === "1") SH.family = true;
+  const f = q.get("status") || "", cr = q.get("cross") || "";
+  let rows = SH.family ? familyRows(SH.root) : D.seedlings.map((s) => ({ s, gen: 0 }));
+  if (f) rows = rows.filter((r) => r.s.status === f); if (cr) rows = rows.filter((r) => r.s.cross === cr);
+  const cols = COLS.filter((c) => !SH.hidden.has(c[0]));
+  const cell = (r, c) => {
+    const s = r.s, k = c[0];
+    if (k === "status") return `<td><select data-k="status" data-id="${s.sid}">${ST.map((x) => `<option${x === s.status ? " selected" : ""}>${x}</option>`).join("")}</select></td>`;
+    if (k === "added") return `<td><input type="date" data-k="added" data-id="${s.sid}" value="${s.added}"></td>`;
+    if (k === "cross") return `<td><span>${SH.family ? `<span class="gen-ind">${"↳ ".repeat(r.gen - 1)}</span>` : ""}<a href="#/cross/${s.cross}">${s.cross}</a></span></td>`;
+    if (k === "photo") return s.photos ? `<td class="thumb"><a href="#/seedling/${s.sid}" aria-label="Open seedling ${s.sid}"><span class="ph" style="--h:${s.hue};--s:var(--th)" role="img" aria-label="Sample photo"></span><span class="badge">${s.photos}</span></a></td>` : `<td class="thumb"><a href="#" onclick="flash('Camera opens to add a photo to ${s.sid}');return false" aria-label="Add photo to ${s.sid}"><span class="nophoto" style="--s:var(--th)">+</span></a></td>`;
+    if (k === "label") return `<td><span><a href="#/seedling/${s.sid}">${s.label}</a></span></td>`;
+    return `<td><div contenteditable="plaintext-only" data-k="${k}" data-id="${s.sid}" spellcheck="false">${esc(s[k])}</div></td>`;
+  };
+  let body = "", last = "";
+  rows.sort((a, b) => SH.family ? 0 : a.s.cross.localeCompare(b.s.cross) || a.s.label - b.s.label);
+  for (const r of rows) {
+    if (SH.group && !SH.family && r.s.cross !== last) { last = r.s.cross; const c = cById(last); body += `<tr class="group"><td colspan="${cols.length + (SH.family ? 1 : 0)}">${last}: ${esc(parentText(c.seed))} × ${esc(parentText(c.pollen))}</td></tr>`; }
+    body += `<tr>${SH.family ? `<td><span>${r.gen}</span></td>` : ""}${cols.map((c) => cell(r, c)).join("")}</tr>`;
+  }
+  return `<h1>Spreadsheet</h1><p class="muted small">One row per seedling, with a thumbnail of its first photo (“+” = no photo yet; tap to add one). Thumbnails load as you scroll, and only the visible rows are drawn, so thousands of rows stay fast. Click a cell to edit; Tab and Enter move between cells; paste from Excel works. Edited cells show a green mark. Every edit is saved on this device straight away.</p>
+  <div class="toolbar"><span class="seg"><button class="${SH.family ? "" : "on"}" id="m-all">All seedlings</button><button class="${SH.family ? "on" : ""}" id="m-fam">Family of one cross</button></span>
+   ${SH.family ? `<label>Cross ${crossPicker("root", SH.root)}</label>` : `<label><input type="checkbox" id="grp"${SH.group ? " checked" : ""}> Group by cross</label>`}
+   <label>Status <select id="fs"><option value="">Any</option>${ST.map((x) => `<option${x === f ? " selected" : ""}>${x}</option>`).join("")}</select></label>
+   <span class="menu" id="cm"><button class="secondary" type="button" id="cmb">Columns ▾</button><span class="pop">${COLS.map((c) => `<label><input type="checkbox" data-col="${c[0]}"${SH.hidden.has(c[0]) ? "" : " checked"}> ${c[1]}</label>`).join("")}</span></span>
+   <button class="secondary" type="button" id="addrow">+ Row</button><button class="secondary" type="button" id="undo">Undo (${SH.undo.length})</button><button class="secondary" type="button" onclick="flash('Downloads a .csv file')">Export CSV</button><span class="muted small">${rows.length} rows</span></div>
+  ${SH.family ? `<p class="note">Family view: the seedlings of ${SH.root} (generation 1) and the seedlings of every later cross that used one of them as a parent (generation 2, 3, …).</p>` : ""}
+  <div class="sheet-wrap"><table class="sheet"><thead><tr>${SH.family ? "<th>Gen</th>" : ""}${cols.map((c) => `<th>${c[1]}</th>`).join("")}</tr></thead><tbody>${body}</tbody></table></div>`;
+}
+function wireSheet() {
+  const app = document.getElementById("app");
+  const save = (el, val) => { const s = sById(el.dataset.id), k = el.dataset.k; if (s[k] === val) return; SH.undo.push([s, k, s[k]]); s[k] = val; el.closest("td").classList.add("edited"); document.getElementById("undo").textContent = `Undo (${SH.undo.length})`; flash("Saved on this device"); };
+  app.querySelectorAll("[contenteditable]").forEach((el) => { el.addEventListener("blur", () => save(el, el.textContent.trim())); el.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); const rows = [...el.closest("table").querySelectorAll(`[data-k="${el.dataset.k}"]`)]; const n = rows[rows.indexOf(el) + 1]; el.blur(); if (n) n.focus(); } }); });
+  app.querySelectorAll("select[data-k],input[data-k]").forEach((el) => el.addEventListener("change", () => save(el, el.value)));
+  const on = (id, fn) => { const e = document.getElementById(id); if (e) e.addEventListener("click", fn); };
+  on("m-all", () => { SH.family = false; render(); }); on("m-fam", () => { SH.family = true; render(); });
+  const g = document.getElementById("grp"); if (g) g.onchange = () => { SH.group = g.checked; render(); };
+  const rt = document.getElementById("root"); if (rt && rt.tagName === "SELECT") rt.onchange = () => { SH.root = rt.value; render(); };
+  wireCombos((n, id) => { SH.root = id; render(); });
+  document.getElementById("fs").onchange = (e) => { location.hash = "#/sheet" + (e.target.value ? "?status=" + e.target.value : ""); };
+  on("cmb", () => document.getElementById("cm").classList.toggle("open"));
+  app.querySelectorAll("[data-col]").forEach((c) => c.onchange = () => { c.checked ? SH.hidden.delete(c.dataset.col) : SH.hidden.add(c.dataset.col); render(); document.getElementById("cm").classList.add("open"); });
+  on("undo", () => { const u = SH.undo.pop(); if (u) { u[0][u[1]] = u[2]; render(); flash("Edit undone"); } });
+  on("addrow", () => flash("A new seedling row is added at the end of the selected cross"));
+}
+function viewSync() {
+  return `<h1>Sync & backup</h1><p class="muted">Your data stays on this device. To use it on another device, make a file here and open it there. The file is also your backup.</p>
+  <div class="note warn">Last backup: <b>12 days ago</b>. Browsers can clear stored data (for example on iPhones after weeks without use), so save a backup file regularly.</div>
+  <div class="grid cols" style="margin-top:12px"><div class="panel"><h2 style="margin-top:0">Make a file</h2>
+   <form class="f"><fieldset><legend>What to include</legend>
+    <label><span><input type="radio" name="w" checked> Changes since the last sync with</span> <select><option>Pixel phone</option><option>Home PC</option></select></label>
+    <label><span><input type="radio" name="w"> Everything (full backup)</span></label></fieldset>
+   <fieldset><legend>Photos</legend><label><span><input type="radio" name="p" checked> Thumbnails (small, recommended)</span></label><label><span><input type="radio" name="p"> All photos (large file)</span></label><label><span><input type="radio" name="p"> No photos (data only)</span></label>
+    <small class="muted">Estimated size now: thumbnails 8 MB, all photos 190 MB, data only 0.3 MB.</small></fieldset>
+   <fieldset><legend>Protection</legend><label><span><input type="checkbox" id="enc"> Protect the file with a passphrase</span><small>Optional. The file is encrypted on this device, so it is safe to keep in a cloud folder. If you forget the passphrase the file cannot be opened by anyone, including us.</small></label>
+    <input type="password" placeholder="Passphrase (needed again to open the file)" aria-label="Passphrase" id="pass" disabled></fieldset>
+   <fieldset><legend>Save the file</legend>
+    <div class="row"><button type="button" id="b-share" onclick="flash('Phone/computer share sheet opens: Drive, Dropbox, OneDrive, iCloud, email…')">Save to… (Drive, Dropbox, iCloud, email)</button>
+     <button type="button" class="secondary" id="b-pick" onclick="flash('Save-file dialog opens: pick any folder, including a synced cloud folder')">Choose where to save…</button>
+     <button type="button" class="secondary" onclick="flash('Downloads my-hybridizer-2026-11-17.zip')">Download</button></div>
+    <small class="muted">The app never contacts Google, Dropbox or any other site itself. “Save to…” hands the file to the app you pick (phones, and recent Windows and Mac browsers); “Choose where to save…” works in Chrome and Edge on a computer. Buttons your device cannot do are hidden. Before sending a file to an online service, consider turning on the passphrase above.</small>
+    <div class="warn" id="share-warn" hidden>This file will leave your device. Without a passphrase anyone with access to that online account or link can read your crosses and photos.</div></fieldset></form></div>
+  <div class="panel"><h2 style="margin-top:0">Open a file from another device</h2><p><button type="button" id="pick">Choose file…</button></p>
+   <p class="small muted">On a phone the file chooser also reaches Google Drive, Dropbox, OneDrive, iCloud and your downloads. On Android, once the app is installed, you can also use <b>Share → Saintpaulia Hybridizer</b> from the Files app or an email. Files are not fetched from web addresses: that would let the app contact other sites, and we want it to be unable to.</p><div id="dry" class="small muted">The app first checks the file and shows what would change. Nothing changes until you confirm.</div></div></div>
+  <h2>This device</h2><div class="panel"><dl class="facts"><dt>Device name</dt><dd>Home PC</dd><dt>Persistent storage</dt><dd>Granted</dd><dt>Last syncs</dt><dd>Pixel phone, 12 days ago (imported 9 new, 14 updated)</dd></dl></div>`;
+}
+function viewSettings() {
+  return `<h1>Settings</h1><div class="grid cols">
+  <div class="panel"><h2 style="margin-top:0">Appearance</h2><p class="small muted">Use the yellow preview bar for the live pickers in this preview. The finished app has these in Settings: <b>Mode</b> (Match device, Light, Dark, High contrast light, High contrast dark) and, separately, <b>Color scheme</b> (Violet, Blue, Green, Red, Brown, Grey; each has a light and a dark version that change backgrounds, panels, text and accent colors), plus text size and density.</p></div>
+  <div class="panel"><h2 style="margin-top:0">Saintpaulia Ancestry data on this device</h2><form class="f">
+   <label><span><input type="radio" name="a" checked> <b>Online only</b></span><small>Nothing downloaded. Parents show the names and basics saved with your crosses. Ancestry graphs and the official photos need internet.</small></label>
+   <label><span><input type="radio" name="a"> <b>Data downloaded</b> (about 38 MB)</span><small>Search and ancestry work offline. You choose when to update.</small></label>
+   <label><span><input type="radio" name="a"> <b>Data and images</b> (about 38 MB + photos, size to be measured)</span><small>Adds the photos hosted by Saintpaulia Ancestry: all of them, or only parents you mark. Photos only linked from other sites cannot be downloaded.</small></label></form></div>
+  <div class="panel"><h2 style="margin-top:0">About you</h2><form class="f"><label>Hybridizer initials (used in cross codes) <input value="GG" style="width:6em"></label><label>Device name <input value="Home PC"></label></form></div>
+  <div class="panel"><h2 style="margin-top:0">Trash</h2><form class="f"><label>Keep deleted items for <select><option>7 days</option><option selected>30 days</option><option>90 days</option><option>Never erase automatically</option></select></label></form></div></div>`;
+}
+function viewTrash() {
+  return `<h1>Trash</h1><p class="muted">Deleted items can be restored until they are erased. After that only an empty marker is kept, so the other devices erase them too. Backups and sync files saved earlier still contain the data.</p>
+  <div class="grid">${[["Seedling GG-26-014-19 (culled)", "deleted 2 days ago, erased in 28 days"], ["Cross GG-24-006 and its 5 seedlings", "deleted 25 days ago, erased in 5 days"]].map((t) => `<div class="panel row"><span><b>${t[0]}</b><br><span class="small muted">${t[1]}</span></span><span style="margin-left:auto" class="row"><button class="secondary" onclick="flash('Restored')">Restore</button><button class="danger" onclick="confirm('Erase permanently? This cannot be undone.') && flash('Erased')">Erase now…</button></span></div>`).join("")}</div>
+  <p style="margin-top:14px"><button class="danger" onclick="confirm('Erase everything in the Trash permanently?') && flash('Trash emptied')">Empty Trash…</button></p>`;
+}
+/* ---------------------------------------------------------------- router and preview controls */
+function render() {
+  const raw = location.hash.replace(/^#/, "") || "/home"; const [path, qs = ""] = raw.split("?"); const parts = path.split("/").filter(Boolean); const q = new URLSearchParams(qs);
+  const v = parts[0] || "home"; const app = document.getElementById("app");
+  const map = { home: viewHome, crosses: () => viewCrosses(q), cross: () => viewCross(decodeURIComponent(parts[1] || ""), q), seedling: () => viewSeedling(decodeURIComponent(parts[1] || "")), new: () => viewNew(q), sheet: () => viewSheet(q), sync: viewSync, settings: viewSettings, trash: viewTrash };
+  app.innerHTML = (map[v] || viewHome)();
+  document.getElementById("nav").innerHTML = NAV.map(([k, t]) => `<a href="#/${k}" class="${k === v || (v === "cross" || v === "seedling") && k === "crosses" ? "on" : ""}">${t}</a>`).join("");
+  if (v === "sheet") wireSheet();
+  if (v === "sheet" && q.get("open") === "1") { const r = document.getElementById("root"); if (r && r.tagName === "INPUT") r.focus(); }
+  if (v === "new") wireCombos(() => {});
+  const cf = document.getElementById("cf"); if (cf) cf.onsubmit = (e) => { e.preventDefault(); const f = new FormData(cf); location.hash = "#/crosses?" + new URLSearchParams({ q: f.get("q"), status: f.get("status"), year: f.get("year"), mode: q.get("mode") || "cards" }); };
+  const sh = document.getElementById("b-share"); if (sh) sh.addEventListener("click", () => { const w = document.getElementById("share-warn"); w.hidden = document.getElementById("enc").checked; });
+  const enc = document.getElementById("enc"); if (enc) enc.onchange = () => { document.getElementById("pass").disabled = !enc.checked; };
+  const pick = document.getElementById("pick"); if (pick) pick.onclick = () => { document.getElementById("dry").innerHTML = `<div class="panel" style="color:var(--text)"><b>Check of “my-hybridizer-2026-11-05.zip” (from Pixel phone)</b><br><span class="small muted">(If the file is protected, a passphrase box appears first.)</span><br>9 new &middot; 14 updated &middot; 212 unchanged &middot; 2 conflicts &middot; 31 photos to add<ul class="small"><li>Seedling GG-26-014-07, <b>notes</b>: edited on both devices. Newer edit (phone, Nov 4) will be kept; yours is saved in its history.</li><li>Seedling GG-25-021-03 and a seedling with the same number were added on both devices: <b>both kept</b>; please renumber one.</li></ul><button type="button" onclick="flash('Imported (sample)')">Import</button> <button class="secondary" type="button">Cancel</button></div>`; };
+}
+const pv = (id) => document.getElementById(id);
+const mq = matchMedia("(prefers-color-scheme: dark)");
+function applyLook() {
+  const r = document.documentElement, m = pv("pv-mode").value;
+  r.setAttribute("data-mode", m || (mq.matches ? "dark" : "light"));
+  r.setAttribute("data-scheme", pv("pv-scheme").value || "violet");
+  pv("pv-size").value ? r.setAttribute("data-size", pv("pv-size").value) : r.removeAttribute("data-size");
+  pv("pv-density").value ? r.setAttribute("data-density", pv("pv-density").value) : r.removeAttribute("data-density");
+  try { localStorage.setItem("hyb-preview3", JSON.stringify(["pv-mode", "pv-scheme", "pv-size", "pv-density"].map((i) => pv(i).value))); } catch (e) { /* ignore */ }
+}
+mq.addEventListener("change", () => { if (!pv("pv-mode").value) applyLook(); });
+try { (JSON.parse(localStorage.getItem("hyb-preview3")) || []).forEach((val, i) => { pv(["pv-mode", "pv-scheme", "pv-size", "pv-density"][i]).value = val; }); } catch (e) { /* ignore */ }
+["pv-mode", "pv-scheme", "pv-size", "pv-density"].forEach((i) => pv(i).addEventListener("change", applyLook));
+pv("pv-phone").onclick = () => { const on = pv("stage").classList.toggle("phone"); pv("pv-phone").textContent = "Phone width: " + (on ? "on" : "off"); };
+pv("pv-reset-edit").onclick = () => { D = SAMPLE(); D.seedlings.forEach((s) => { s.sid = s.cross + "-" + String(s.label).padStart(2, "0"); }); SH.undo = []; render(); flash("Sample data reset"); };
+window.addEventListener("hashchange", () => { render(); window.scrollTo(0, 0); });
+addEventListener("online", () => pv("onl").textContent = "Online"); addEventListener("offline", () => pv("onl").textContent = "Offline");
+{ const u = new URLSearchParams(location.search); if (u.has("mode")) pv("pv-mode").value = u.get("mode"); if (u.has("scheme")) pv("pv-scheme").value = u.get("scheme"); if (u.get("density")) pv("pv-density").value = u.get("density"); if (u.get("phone")) pv("pv-phone").click(); }
+applyLook(); render();
+</script>
+</body>
+</html>

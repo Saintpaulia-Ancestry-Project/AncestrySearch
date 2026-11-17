@@ -133,6 +133,53 @@ Photos that are only link-outs (AVSA Photo Gallery, Gesneriad Reference Web) can
   initials are a setting on the device (default from the user's name, editable). Duplicates across devices are flagged, never overwritten.
 - **Seed storage:** `seed_stored` (0/1/null) plus `stored_from` and `stored_to` (dates) and an optional `storage_notes`.
 
+## Decisions, round 5 (user, 2026-11-17, from the first preview review)
+- **Themes change the whole look (backgrounds, panels, text, borders, accent, status colors), not only text colors.** Default "Match site" (follows the device light/dark) plus SIX
+  themes: Light, Dark, High contrast, Paper (warm cream, brown), Garden (pale green), Midnight (deep blue, dark). The separate Accent picker is dropped. Contrast of text, muted
+  text, links and buttons passes WCAG AA (4.5:1) in every theme; status chip colors were adjusted until they passed on each theme's panels. A Node test will re-check the palettes.
+- **Spreadsheet shows a thumbnail** of each seedling's first photo (a count badge; "+" opens the camera when there is none). Thumbnails load lazily and only the visible
+  rows are rendered (virtual rows) so thousands of rows stay fast on a phone. Compact density uses smaller thumbnails.
+- **Cross picker with search:** a plain list up to 20 crosses, a type-to-filter box above 20 (matches code, either parent, year; recent crosses first; shows seedling count). Used
+  in Family mode and in "remake of". Needs full keyboard and screen-reader support (combobox pattern).
+- **No "open from a web address".** Decided against it: it would force the app to be allowed to contact any site (weakening the "cannot send data anywhere" policy) and Google Drive,
+  Dropbox and OneDrive links cannot be fetched by a web page anyway. Instead: the file chooser (which reaches Drive, Dropbox, OneDrive, iCloud and Downloads on phones) and, on Android,
+  Web Share Target (installed PWA appears in the Share menu; needs the manifest `share_target` and a service worker; NOT available on iPhone).
+- **Optional passphrase for sync files** (off by default): the zip is encrypted in the browser (WebCrypto AES-GCM, key from the passphrase with PBKDF2 or Argon2-class derivation,
+  random salt and nonce stored in the file header, manifest format_version says "encrypted"). A lost passphrase means the file cannot be opened. To specify in docs/sync-format.md.
+
+## Decisions, round 6 (user, 2026-11-17) - supersedes the theme list of round 5
+- **Two separate choices:** **Mode** = Match device (default), Light, Dark, High contrast light (black on white), High contrast dark (white on black); and **Color scheme** =
+  Violet (the site's own palette, default), Blue, Green, Red, Brown, Grey. Each scheme has a light and a dark version that change backgrounds, panels, text, borders and
+  accent: Red is pinks for light and dark maroon for dark; Brown is cream/tan and deep brown; Grey is neutral; Blue is pale blue and navy; Green is pale green and deep green.
+  High contrast uses the scheme only for its accent hue (in colors that pass 7:1). 24 palettes, all generated from one table and checked: AA 4.5:1 for light and dark,
+  AAA 7:1 for both high contrast modes, covering text, muted text, links, button text and every status chip color on the scheme's background and panels. The check script
+  (palettes.py in the preview work) becomes a Node test in the app. Implemented in the page as data-mode + data-scheme attributes on the root element.
+- **Saving a sync file:** three buttons, each shown only if the device supports it, and the app itself never contacts any online service:
+  1. "Save to..." = Web Share API with the file (phones; Windows and Mac Chrome/Edge/Safari): the OS share sheet lets the user pick Drive, Dropbox, OneDrive, iCloud, email.
+  2. "Choose where to save..." = File System Access API showSaveFilePicker (Chrome and Edge on a computer; picks any folder, including a synced cloud folder).
+  3. "Download" = plain download (works everywhere, the fallback).
+  Using option 1 without a passphrase shows a warning that the file leaves the device; the passphrase checkbox sits just above the buttons. Share-sheet file size limits and phone memory
+  must be tested in the storage tests (a 200 MB file may fail to share on some phones).
+
+## Stage 1 storage tests: PC results (2026-11-17; Edge 157 on Windows, localhost, synthetic data)
+Test page: site/spike-hybridizer/index.html (temporary, untracked; fflate 0.8.2 MIT vendored in site/spike-hybridizer/vendor/). Driven by notes-free Node script over the DevTools
+protocol (headless Edge dump-dom cannot wait for IndexedDB; use CDP). Scale: 3 crosses, 1,200 seedlings, 1,200 photos (1000 px JPEG q0.82 + 300 px thumbnail).
+- **IndexedDB:** 1,200 photos (178 MB full + 17 MB thumbnails, average 152 KB and 15 KB) stored in 4.2 s; 1,200 records written in 117 ms, all read in 21 ms, all updated in 123 ms.
+  Quota was 10 GB, usage 198 MB. JS heap peaked at 47 MB (blobs live outside the JS heap). Making the photos took 58 ms each (dominated by JPEG encoding, synthetic images).
+- **Sync zip (fflate, streamed, photos stored not compressed):** thumbnails-only 17.4 MB in 1.4 s (heap peak 20 MB); all photos 178.8 MB in 5.9 s (heap peak 53 MB). The zip is built from
+  8 MB Blob parts so it never sits whole in JS memory.
+- **Reading a zip back:** FINDING: fflate's streaming Unzip is NOT reliable for stored photos (it scans for a data-descriptor marker that can occur inside JPEG bytes): 2 hash mismatches
+  and 1 garbage name in 1,200 photos, reproducibly. DECISION: read zips with a small central-directory reader (end record, then each entry by exact offset): 1,200/1,200 photos verified
+  in 2.2 s, heap peak 65 MB; a flipped byte was detected; refused with clear messages: truncated file, not a zip, `../` names, absolute paths, backslash names, an entry bigger than the
+  limit. Limits used: 20,000 entries, 60 MB per entry, 2 GB unpacked; zip64 refused. This code is the base for the real importer and its tests.
+- **Official database and user data in ONE sql.js engine: works.** Official DB 36.7 MB: download 0.2 s (localhost), open 21 ms; user tables created inside the same in-memory database,
+  1,203 rows inserted in 12 ms; a join resolving parents through `id_redirects` (an old id resolved correctly) in 1 ms; a recursive ancestor query across official and local edges in 26 ms;
+  the existing FTS name search 8 ms; extra JS heap 42 MB. So the plan "user records live in IndexedDB, loaded into the same sql.js database as the official data" is confirmed on the PC.
+- **Photo pipeline (self-test with a synthetic JPEG carrying an injected EXIF/GPS segment):** output has no EXIF/XMP/IPTC/comment segments (5 of 5). Rotation from the EXIF orientation tag still needs
+  real phone photos (test 9 on the phone).
+- **Not yet known (needs the phone):** real memory and speed on Android Chrome (and an iPhone, if available), whether navigator.storage.persist() is granted, the Share and Save buttons with a
+  large file, real camera photos (orientation, speed), and the canary (open the page again after several days to see whether the stored data survived; mandatory on iPhone).
+- Headless Edge: persist() returned false (not granted); normal browsers decide by their own rules (Chrome grants for installed or frequently used sites).
+
 ## Open questions (waiting on the user)
-- How a promoted seedling becomes an official submission (later; reuse the #/submit CSV format).
-- Next step: a revised prompt for Stages 1 to 4 (the other chat's prompt updated with all decisions in this note), then Stage 1 (spike + report).
+- How to run the phone tests (see chat). 
