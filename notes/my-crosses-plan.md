@@ -206,5 +206,29 @@ protocol (headless Edge dump-dom cannot wait for IndexedDB; use CDP). Scale: 3 c
   (images, audio, video, text, PDF...), probably not zip. Test page now has variants (octet-stream, no type, text file, photo) to find out what works. If no zip variant works the Share button is replaced
   by Download plus "open your Downloads in the Files app and share from there" (or the passphrase-protected file saved to a cloud folder through the Files app), and the preview text must say so.
 
+## Android: second round (2026-11-17) - supersedes the first-round file picking and share notes
+- **Picking photos:** with copy-at-selection (read the file into memory in the `change` event) ALL THREE routes worked: gallery picker (7 of 7), file browser (9 of 9) and camera (1 of 1). The first failure
+  was reading the file later, after the picker had given it up. A camera photo (1.5 MB, 2296x4080) came out upright at 563x1000, EXIF removed, in 292 ms.
+- **Sharing a zip does not work on Android Chrome:** NotAllowedError "Permission denied" for application/zip, application/octet-stream and an empty type, while a text file and a photo shared fine (so the
+  .zip file extension itself is blocked by the browser; canShare() wrongly says true, so it cannot be used to detect this). The File System Access SAVE dialog worked ("saved") and so did Download.
+- **DESIGN (supersedes round 6 buttons):** **Save...** (showSaveFilePicker where it exists; the system dialog reaches Drive and other apps) is the main button; **Share...** is shown only where a zip is
+  accepted (to be tested on iPhone, Mac, Windows; hide it after the first NotAllowedError and remember that); **Download** is the fallback everywhere. The preview's Sync page now says this.
+
+## Getting data from the phone to the PC without e-mail (discussion and decisions, 2026-11-17)
+Principle (user): content added on the phone must be usable on the PC/Mac. Answers: the PC has NO webcam (or none wanted), cloud = Google Drive, phone and PC are normally on the SAME Wi-Fi at
+home, PC browser = Chrome or Edge.
+- **Route A, main: Google Drive folder.** Phone: Save... (the system save dialog worked on Android and reaches Drive); the file name is stable per device (my-hybridizer-<device>.zip) so each device
+  writes its own file and reads the others' (no overwrite conflicts). PC: the app asks for the folder ONCE (showDirectoryPicker, handle kept in IndexedDB, permission re-requested with one click per
+  session), then "Sync" reads the newest file of each other device automatically. The PC can use the Drive for desktop folder or any folder. Test page has "Choose folder / Reuse saved folder" to see
+  whether Chrome/Edge keep the permission between sessions. Phone cannot pick a folder (no showDirectoryPicker on Android): it uses the save dialog each time.
+- **Route B, bonus: direct link over home Wi-Fi (WebRTC data channel, no server, no STUN).** Loopback test: link in 0.2 s, 6 MB/s; each side's connection text is only about 590 characters
+  (one mDNS host candidate), small enough for a QR code. With no PC webcam the pairing is: PC shows a QR, the phone scans it (or the text is copied once), the phone shows its answer, which must get
+  back to the PC as text (paste or a short typed code). To test on the real devices (test page buttons). May fail on Wi-Fi with client isolation; never the only route.
+- **Route C: QR streams** only for text changes (about 2.9 KB per code; a thumbnail would need 6 to 10 codes, so photos cannot travel this way); the PC cannot receive them without a webcam: DROPPED
+  as a receiving route; the phone may still scan a code shown on the PC screen (used for pairing in route B).
+- **Not chosen:** data hidden in a PNG (looks like noise in the gallery, gets uploaded with photo backups, apps may recompress it); copy and paste through a messenger (only text, and an extra service);
+  e-mail. USB cable remains a documented offline fallback.
+- **Share of a zip on Android:** extra test "share the zip named .zip.txt as text/plain" (Chrome only allows some file extensions). If it works, Share returns on Android; if not, the plan stands.
+
 ## Open questions (waiting on the user)
 - How to run the phone tests (see chat). 

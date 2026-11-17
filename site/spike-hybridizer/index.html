@@ -34,6 +34,16 @@ pre { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px
 <p>Pick photos, wait for the “copied” message in the log, then press <button id="t9" class="s">9 Resize my photos</button>. If one box fails, try the other.</p>
 <h2>Sharing and saving (needs a tap; run after test 5 or 6)</h2>
 <button id="b-share" class="s">Share the zip…</button><button id="b-share2" class="s">Share as “octet-stream”</button><button id="b-share3" class="s">Share zip without a type</button><button id="b-share4" class="s">Share a text file (control)</button><button id="b-share5" class="s">Share a photo (control)</button><button id="b-pick" class="s">Choose where to save…</button><button id="b-dl" class="s">Download the zip</button>
+<h2>Share the zip with a .txt name (does Android then accept it?)</h2>
+<button id="b-share6" class="s">Share zip named “….zip.txt”</button>
+<h2>Computer: remember a folder (Chrome or Edge on the PC)</h2>
+<p class="note">For the “cloud folder” route: the PC app picks a folder once (for example your Google Drive folder), remembers it, and reads the phone's file from it later. Press <b>Choose folder</b> and pick any test folder; the page writes a small file there and lists the folder. Close the browser, open this page again and press <b>Reuse saved folder</b> to see whether the permission was kept.</p>
+<button id="f-pick" class="s">Choose folder</button><button id="f-reuse" class="s">Reuse saved folder</button>
+<h2>Direct link phone ⇄ PC (same Wi-Fi, no server)</h2>
+<p class="note">Step 1, on the PC: press <b>PC: make offer</b> and copy the text from the first box. Step 2, on the phone: paste it in the second box, press <b>Phone: answer</b>, copy the answer from the first box. Step 3, on the PC: paste the answer in the second box and press <b>PC: connect</b>. Then press <b>Send 20 MB</b> on either side. To move the text between the devices use anything you like for this test (a message to yourself is fine).</p>
+<button id="r-offer" class="s">PC: make offer</button><button id="r-answer" class="s">Phone: answer</button><button id="r-connect" class="s">PC: connect</button><button id="r-send" class="s">Send 20 MB</button><button id="r-loop" class="s">Loopback self-test</button><br>
+<textarea id="sdp-out" rows="4" style="width:98%" placeholder="This device's text appears here"></textarea>
+<textarea id="sdp-in" rows="4" style="width:98%" placeholder="Paste the other device's text here"></textarea>
 <h2>Housekeeping</h2>
 <button id="b-copy" class="s">Copy results</button><button id="b-clear" class="s">Delete all test data</button>
 <h2>Log</h2>
@@ -336,6 +346,53 @@ $("b-share2").onclick = () => needZip() && shareVariant("zip as application/octe
 $("b-share3").onclick = () => needZip() && shareVariant("zip with empty type", async () => new File([LASTZIP], LASTZIPNAME, { type: "" }));
 $("b-share4").onclick = () => shareVariant("small text file", async () => new File([new Blob(["hybridizer share test"])], "hybridizer-test.txt", { type: "text/plain" }));
 $("b-share5").onclick = async () => { try { const k = await allKeys("thumbs"); const d = await db(); const r = await req(d.transaction("thumbs").objectStore("thumbs").get(k[0])); shareVariant("one photo (jpeg)", async () => new File([r.blob], "hybridizer-test.jpg", { type: "image/jpeg" })); } catch (x) { rec("share variant", { variant: "photo", result: "no photo stored: run test 3 or the photo test first" }); } };
+
+/* ---------------- share the zip under a .txt name */
+$("b-share6").onclick = () => needZip() && shareVariant("zip bytes named .zip.txt as text/plain", async () => new File([LASTZIP], "my-hybridizer-test.zip.txt", { type: "text/plain" }));
+
+/* ---------------- remembered folder (File System Access, desktop Chrome/Edge) */
+async function listDir(h) { const names = []; for await (const [n, x] of h.entries()) names.push(x.kind === "file" ? n : n + "/"); return names.slice(0, 30); }
+$("f-pick").onclick = async () => {
+  const o = {}; try {
+    if (!window.showDirectoryPicker) throw new Error("showDirectoryPicker is not available in this browser");
+    const h = await showDirectoryPicker({ id: "hybridizer-test", mode: "readwrite" }); o.folder = h.name;
+    const f = await h.getFileHandle("hybridizer-spike-test.txt", { create: true }); const w = await f.createWritable(); await w.write("written by the Hybridizer test page at " + new Date().toISOString()); await w.close(); o.wrote = "hybridizer-spike-test.txt";
+    await tx(["meta"], "readwrite", (t) => t.objectStore("meta").put({ k: "dir", handle: h })); o.handleSaved = true; o.files = await listDir(h);
+  } catch (x) { o.error = x.name + ": " + x.message; } rec("folder choose", o);
+};
+$("f-reuse").onclick = async () => {
+  const o = {}; try {
+    const d = await db(); const r = await req(d.transaction("meta").objectStore("meta").get("dir")); if (!r) throw new Error("no folder saved yet: press Choose folder first");
+    const h = r.handle; o.folder = h.name; o.permissionBefore = await h.queryPermission({ mode: "readwrite" });
+    if (o.permissionBefore !== "granted") o.permissionAfterAsking = await h.requestPermission({ mode: "readwrite" });
+    o.files = await listDir(h);
+  } catch (x) { o.error = x.name + ": " + x.message; } rec("folder reuse", o);
+};
+
+/* ---------------- direct link (WebRTC data channel, no signaling server, no STUN) */
+function newLink(label) { return { label, pc: null, ch: null, rx: 0, t0: 0 }; }
+let GL = newLink("device");
+function mkPC(L) { L.pc = new RTCPeerConnection({ iceServers: [] }); L.pc.onconnectionstatechange = () => log(`${L.label}: link ${L.pc.connectionState}`); return L.pc; }
+const gather = (L) => new Promise((r) => { if (L.pc.iceGatheringState === "complete") return r(); const t = setTimeout(r, 6000); L.pc.addEventListener("icegatheringstatechange", () => { if (L.pc.iceGatheringState === "complete") { clearTimeout(t); r(); } }); });
+function setupChannel(L, c) {
+  L.ch = c; c.binaryType = "arraybuffer"; c.onopen = () => { log(`${L.label}: data channel open`); $("status").textContent = "Linked: you can send data now."; };
+  c.onmessage = (e) => { if (typeof e.data === "string") { if (e.data === "START") { L.rx = 0; L.t0 = performance.now(); } else if (e.data === "END") { const sec = (performance.now() - L.t0) / 1000; rec("direct link received (" + L.label + ")", { MB: +(L.rx / 1048576).toFixed(1), sec: +sec.toFixed(1), MBperSec: +(L.rx / 1048576 / sec).toFixed(2) }); } } else L.rx += e.data.byteLength; };
+}
+function sdpInfo(sdp) { return { sdpChars: sdp.length, candidates: (sdp.match(/a=candidate/g) || []).length, usesMdnsNames: /\.local/.test(sdp), hostIPs: (sdp.match(/candidate:\S+ \d+ udp \d+ ([0-9a-f.:]+) /g) || []).slice(0, 4) }; }
+async function makeOffer(L) { mkPC(L); setupChannel(L, L.pc.createDataChannel("sync")); await L.pc.setLocalDescription(await L.pc.createOffer()); await gather(L); return L.pc.localDescription; }
+async function makeAnswer(L, offer) { mkPC(L); L.pc.ondatachannel = (e) => setupChannel(L, e.channel); await L.pc.setRemoteDescription(offer); await L.pc.setLocalDescription(await L.pc.createAnswer()); await gather(L); return L.pc.localDescription; }
+async function sendBig(L, MB) {
+  const ch = L.ch; if (!ch || ch.readyState !== "open") throw new Error("not linked yet"); const chunk = new Uint8Array(16384); ch.bufferedAmountLowThreshold = 1 << 20; ch.send("START"); const t0 = performance.now(); let sent = 0; const total = MB * 1048576;
+  while (sent < total) { if (ch.bufferedAmount > (4 << 20)) await new Promise((r) => { ch.onbufferedamountlow = () => { ch.onbufferedamountlow = null; r(); }; }); ch.send(chunk); sent += chunk.length; }
+  while (ch.bufferedAmount > 0) await sleep(50); ch.send("END"); const sec = (performance.now() - t0) / 1000; rec("direct link sent (" + L.label + ")", { MB, sec: +sec.toFixed(1), MBperSec: +(MB / sec).toFixed(2) });
+}
+const parseIn = () => { try { return JSON.parse($("sdp-in").value.trim()); } catch (x) { throw new Error("the pasted text is not valid: copy the whole box"); } };
+$("r-offer").onclick = async () => { try { GL = newLink("PC"); const d = await makeOffer(GL); $("sdp-out").value = JSON.stringify({ type: d.type, sdp: d.sdp }); rec("direct link offer", sdpInfo(d.sdp)); $("status").textContent = "Offer ready: copy the first box to the phone."; } catch (x) { rec("direct link offer FAILED", { error: x.name + ": " + x.message }); } };
+$("r-answer").onclick = async () => { try { GL = newLink("phone"); const d = await makeAnswer(GL, parseIn()); $("sdp-out").value = JSON.stringify({ type: d.type, sdp: d.sdp }); rec("direct link answer", sdpInfo(d.sdp)); $("status").textContent = "Answer ready: copy the first box back to the PC."; } catch (x) { rec("direct link answer FAILED", { error: x.name + ": " + x.message }); } };
+$("r-connect").onclick = async () => { try { await GL.pc.setRemoteDescription(parseIn()); $("status").textContent = "Connecting…"; await sleep(4000); rec("direct link state", { connection: GL.pc.connectionState, ice: GL.pc.iceConnectionState, channel: GL.ch && GL.ch.readyState }); } catch (x) { rec("direct link connect FAILED", { error: x.name + ": " + x.message }); } };
+$("r-send").onclick = async () => { try { await sendBig(GL, 20); } catch (x) { rec("direct link send FAILED", { error: x.name + ": " + x.message }); } };
+$("r-loop").onclick = async () => { try { const A = newLink("loop-A"), B = newLink("loop-B"); const off = await makeOffer(A); const ans = await makeAnswer(B, off); await A.pc.setRemoteDescription(ans); for (let i = 0; i < 50 && !(A.ch && A.ch.readyState === "open" && B.ch && B.ch.readyState === "open"); i++) await sleep(100); rec("loopback offer", sdpInfo(off.sdp)); await sendBig(A, 5); await sleep(300); A.pc.close(); B.pc.close(); } catch (x) { rec("loopback FAILED", { error: x.name + ": " + x.message }); } };
+if (new URLSearchParams(location.search).has("looptest")) { $("r-loop").click(); setTimeout(() => { document.title = "DONE"; }, 8000); }
 
 /* ---------------- wiring */
 const TESTS = { t1, t2, t3, t4, t5, t6, t7, t8, t9 };
