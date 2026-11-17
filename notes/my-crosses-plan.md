@@ -230,5 +230,22 @@ home, PC browser = Chrome or Edge.
   e-mail. USB cable remains a documented offline fallback.
 - **Share of a zip on Android:** extra test "share the zip named .zip.txt as text/plain" (Chrome only allows some file extensions). If it works, Share returns on Android; if not, the plan stands.
 
+## Android: third round (2026-11-17)
+- **Sharing works if the zip is named `<name>.zip.txt` and typed `text/plain`** (the earlier refusals were about the .zip extension). So Android gets a working **Share...**: the app shares
+  `my-hybridizer-<date>.zip.txt`; the importer accepts both `.zip` and `.zip.txt` (it checks the content, not the name). Not yet tried: what Drive or other apps do with the odd name (they just store it).
+- **showDirectoryPicker EXISTS on Android Chrome 157**: the phone chose a folder ("Hybridzer"), wrote a file into it and saved the handle. So the phone can also use the "remembered folder" route
+  (open question: is the permission kept after the browser is closed? "Reuse saved folder" must be tried on the phone and on the PC after a restart).
+- **Direct link works on the user's home Wi-Fi:** the phone produced an answer of 567 characters with a real LAN address (192.168.0.121, not an mDNS name), and the connection reached
+  `connected`, ICE `connected`, data channel `open`. Throughput not yet measured on real devices (loopback was 6 MB/s).
+- The gallery picker works with copy-at-selection (3 of 3); real photos again upright, metadata removed (228 ms each).
+- STILL NEEDED: the PC side results (folder reuse after a browser restart, direct link throughput "Send 20 MB" in both directions), the canary after several days, an iPhone.
+
+## PC results (2026-11-17)
+- **Remembered folder: WORKS in Chrome on the PC** (user report: the folder handle saved in IndexedDB was reused after restarting the browser). Route A is confirmed for the PC side.
+  (Exact permission prompt behavior to be written down when the app is built.)
+- **Direct link, big send: nothing visible happened from either side** although both reported "connected". The old test page logged only at the END of a transfer, so a stall looked like "nothing".
+  Test page updated: progress lines every 2 MB, a 3-second no-progress watchdog, a "Send hello" ping with round-trip time, "Send 5 MB", "Link info" (nominated candidate pair, RTT, bytes) and
+  channel open/close/error logs; "PC: connect" now refuses to run on the wrong device. Needs a retest on the real devices.
+
 ## Open questions (waiting on the user)
 - How to run the phone tests (see chat). 
