@@ -380,9 +380,16 @@ $("f-reuse").onclick = async () => {
 };
 
 /* ---------------- direct link (WebRTC data channel, no signaling server, no STUN) */
+async function dumpPairs(L) {
+  try {
+    const st = await L.pc.getStats(), loc = {}, rem = {}, pairs = [];
+    st.forEach((r) => { if (r.type === "local-candidate") loc[r.id] = (r.address || r.ip || "?") + ":" + r.port + " " + (r.candidateType || "") + " " + (r.networkType || ""); if (r.type === "remote-candidate") rem[r.id] = (r.address || r.ip || "?") + ":" + r.port + " " + (r.candidateType || ""); if (r.type === "candidate-pair") pairs.push(r); });
+    rec("link failed: address pairs", { local: Object.values(loc), remote: Object.values(rem), pairs: pairs.map((r) => (loc[r.localCandidateId] || "?") + " -> " + (rem[r.remoteCandidateId] || "?") + " : " + r.state + (r.nominated ? " nominated" : "")) });
+  } catch (x) { log("pair dump failed: " + x.message); }
+}
 function newLink(label) { return { label, pc: null, ch: null, rx: 0, t0: 0 }; }
 let GL = newLink("device");
-function mkPC(L) { L.pc = new RTCPeerConnection({ iceServers: [] }); L.pc.onconnectionstatechange = () => log(`${L.label}: link ${L.pc.connectionState}`); return L.pc; }
+function mkPC(L) { L.pc = new RTCPeerConnection({ iceServers: [] }); L.pc.onconnectionstatechange = () => { log(`${L.label}: link ${L.pc.connectionState}`); if (L.pc.connectionState === "failed") dumpPairs(L); }; return L.pc; }
 const gather = (L) => new Promise((r) => { if (L.pc.iceGatheringState === "complete") return r(); const t = setTimeout(r, 6000); L.pc.addEventListener("icegatheringstatechange", () => { if (L.pc.iceGatheringState === "complete") { clearTimeout(t); r(); } }); });
 function setupChannel(L, c) {
   L.ch = c; c.binaryType = "arraybuffer";
@@ -398,8 +405,12 @@ function setupChannel(L, c) {
   };
 }
 function sdpInfo(sdp) { return { sdpChars: sdp.length, candidates: (sdp.match(/a=candidate/g) || []).length, usesMdnsNames: /\.local/.test(sdp), hostIPs: (sdp.match(/candidate:\S+ \d+ udp \d+ ([0-9a-f.:]+) /g) || []).slice(0, 4) }; }
-async function makeOffer(L) { mkPC(L); setupChannel(L, L.pc.createDataChannel("sync")); await L.pc.setLocalDescription(await L.pc.createOffer()); await gather(L); return L.pc.localDescription; }
-async function makeAnswer(L, offer) { mkPC(L); L.pc.ondatachannel = (e) => setupChannel(L, e.channel); await L.pc.setRemoteDescription(offer); await L.pc.setLocalDescription(await L.pc.createAnswer()); await gather(L); return L.pc.localDescription; }
+async function revealAddress() {
+  try { const s = await Promise.race([navigator.mediaDevices.getUserMedia({ audio: true }), new Promise((_, j) => setTimeout(() => j(new Error("no answer to the permission question")), 15000))]); s.getTracks().forEach((t) => t.stop()); log("Microphone permission granted: the real network address is shown."); return true; }
+  catch (x) { log("Microphone permission not given (" + x.name + "): the PC address stays hidden behind a .local name."); return false; }
+}
+async function makeOffer(L) { if (!window.__revealed) { window.__revealed = true; await revealAddress(); } mkPC(L); setupChannel(L, L.pc.createDataChannel("sync")); await L.pc.setLocalDescription(await L.pc.createOffer()); await gather(L); return L.pc.localDescription; }
+async function makeAnswer(L, offer) { if (!window.__revealed) { window.__revealed = true; await revealAddress(); } mkPC(L); L.pc.ondatachannel = (e) => setupChannel(L, e.channel); await L.pc.setRemoteDescription(offer); await L.pc.setLocalDescription(await L.pc.createAnswer()); await gather(L); return L.pc.localDescription; }
 async function sendBig(L, MB) {
   const ch = L.ch; if (!ch) throw new Error("no data channel on this device: pair first (offer on the PC, answer on the phone, connect on the PC)");
   if (ch.readyState !== "open") throw new Error("data channel is " + ch.readyState + " (not open)");
