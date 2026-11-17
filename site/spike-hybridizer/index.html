@@ -41,7 +41,9 @@ pre { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px
 <button id="f-pick" class="s">Choose folder</button><button id="f-reuse" class="s">Reuse saved folder</button>
 <h2>Direct link phone ⇄ PC (same Wi-Fi, no server)</h2>
 <p class="note">Step 1, on the PC: press <b>PC: make offer</b> and copy the text from the first box. Step 2, on the phone: paste it in the second box, press <b>Phone: answer</b>, copy the answer from the first box. Step 3, on the PC: paste the answer in the second box and press <b>PC: connect</b>. Then press <b>Send 20 MB</b> on either side. To move the text between the devices use anything you like for this test (a message to yourself is fine).</p>
-<button id="r-offer" class="s">PC: make offer</button><button id="r-answer" class="s">Phone: answer</button><button id="r-connect" class="s">PC: connect</button><button id="r-hello" class="s">Send “hello” (ping)</button><button id="r-send" class="s">Send 20 MB</button><button id="r-send5" class="s">Send 5 MB</button><button id="r-info" class="s">Link info</button><button id="r-loop" class="s">Loopback self-test</button><br>
+<button id="r-offer" class="s">PC: make offer</button><button id="r-answer" class="s">Phone: answer</button><button id="r-connect" class="s">PC: connect</button><label>Message size <select id="r-chunk"><option value="16">16 KB</option><option value="64" selected>64 KB</option><option value="256">256 KB</option></select></label>
+<label>Send buffer <select id="r-hi"><option value="1">1 MB</option><option value="4">4 MB</option><option value="16" selected>16 MB</option></select></label><br>
+<button id="r-hello" class="s">Send “hello” (ping)</button><button id="r-send" class="s">Send 20 MB</button><button id="r-send5" class="s">Send 5 MB</button><button id="r-info" class="s">Link info</button><button id="r-loop" class="s">Loopback self-test</button><br>
 <textarea id="sdp-out" rows="4" style="width:98%" placeholder="This device's text appears here"></textarea>
 <textarea id="sdp-in" rows="4" style="width:98%" placeholder="Paste the other device's text here"></textarea>
 <h2>Housekeeping</h2>
@@ -393,12 +395,12 @@ async function makeAnswer(L, offer) { mkPC(L); L.pc.ondatachannel = (e) => setup
 async function sendBig(L, MB) {
   const ch = L.ch; if (!ch) throw new Error("no data channel on this device: pair first (offer on the PC, answer on the phone, connect on the PC)");
   if (ch.readyState !== "open") throw new Error("data channel is " + ch.readyState + " (not open)");
-  const chunk = new Uint8Array(16384); ch.bufferedAmountLowThreshold = 1 << 20; ch.send("START"); const t0 = performance.now(); let sent = 0, lastLog = 0, lastSeen = 0; const total = MB * 1048576;
+  const csz = (+($("r-chunk") ? $("r-chunk").value : 16)) * 1024, hi = (+($("r-hi") ? $("r-hi").value : 4)) << 20; const chunk = new Uint8Array(csz); ch.bufferedAmountLowThreshold = hi >> 2; ch.send("START"); log(`${L.label}: message ${csz >> 10} KB, buffer ${hi >> 20} MB`); const t0 = performance.now(); let sent = 0, lastLog = 0, lastSeen = 0; const total = MB * 1048576;
   log(`${L.label}: sending ${MB} MB…`);
   const dog = setInterval(() => { if (sent === lastSeen) log(`${L.label}: no progress for 3 s (sent ${(sent / 1048576).toFixed(1)} MB, buffered ${(ch.bufferedAmount / 1048576).toFixed(1)} MB, channel ${ch.readyState}, link ${L.pc.connectionState})`); lastSeen = sent; }, 3000);
   try {
     while (sent < total) {
-      if (ch.bufferedAmount > (4 << 20)) await new Promise((r) => { const t = setTimeout(r, 2000); ch.onbufferedamountlow = () => { clearTimeout(t); ch.onbufferedamountlow = null; r(); }; });
+      if (ch.bufferedAmount > hi) await new Promise((r) => { const t = setTimeout(r, 2000); ch.onbufferedamountlow = () => { clearTimeout(t); ch.onbufferedamountlow = null; r(); }; });
       if (ch.readyState !== "open") throw new Error("channel closed while sending at " + (sent / 1048576).toFixed(1) + " MB");
       ch.send(chunk); sent += chunk.length; if (sent - lastLog >= 2097152) { lastLog = sent; log(`${L.label}: sent ${(sent / 1048576).toFixed(0)} MB`); }
     }
