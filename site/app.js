@@ -470,7 +470,7 @@ function renderCultivar(app, id) {
   const showAll = (arr, render, n = 25) => arr.length <= n ? `<ul class="plain">${arr.map(render).join("")}</ul>`
     : `<ul class="plain">${arr.slice(0, n).map(render).join("")}</ul><details><summary>Show all ${arr.length}</summary><ul class="plain">${arr.slice(n).map(render).join("")}</ul></details>`;
 
-  const SOURCE_LABEL = { xlsx: "Saintpaulia Ancestry spreadsheet", sqlite: "AVSA registry database", supplement: "AVSA Master List supplements",
+  const SOURCE_LABEL = { xlsx: "Saintpaulia Ancestry spreadsheet", sqlite: "Saintpaulia Ancestry database", supplement: "AVSA Master List supplements",
     masterlist1963: "1963 Master List", mvl_supp: "AVSA Master List supplements 1964–2002", submission: "contributed by a hybridizer", parent: "named as a parent in other records" };
   const sourceText = (c.sources || "").split("+").map((x) => SOURCE_LABEL[x] || x).join(", ");
   const sources = [c.sources && `Sources: ${esc(sourceText)}`, c.supplement_year && `AVSA Master List supplement ${esc(c.supplement_year)}`, c.source_note && esc(c.source_note)].filter(Boolean);
