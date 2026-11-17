@@ -247,5 +247,35 @@ home, PC browser = Chrome or Edge.
   Test page updated: progress lines every 2 MB, a 3-second no-progress watchdog, a "Send hello" ping with round-trip time, "Send 5 MB", "Link info" (nominated candidate pair, RTT, bytes) and
   channel open/close/error logs; "PC: connect" now refuses to run on the wrong device. Needs a retest on the real devices.
 
+## Direct link: measured results and what we learned (2026-11-17, evening)
+- **Pairing, simplified and working:** PC shows a QR code (the offer, about 590-700 characters, readable with BarcodeDetector or the vendored jsQR); the phone scans it, makes the answer and
+  opens the share sheet; the user sends it to themselves in WhatsApp; on the PC the text is pasted or the file loaded and the link connects by itself (about 0.2 s once the answer is applied).
+  The return leg stays manual because the PC has no camera. A short typed code (8 digits) would need a rendezvous service (PeerJS public server, or our own small Cloudflare Worker): explained
+  to the user, NOT built; only worth doing if throughput proves good.
+- **The PC hides its address behind a `.local` (mDNS) name** unless the page holds microphone permission; the phone often cannot resolve it. The test page now asks for microphone permission once
+  (nothing is recorded) before it makes an offer or answer; after that the offer carries the real address (192.168.0.x) and the link connects. One earlier failed pairing (connecting then failed after
+  15 s) was probably this.
+- **Browser cache trap:** GitHub Pages sends `Cache-Control: max-age=600`, so a new tab or normal reload can serve a page up to 10 minutes old. Hard reload (Ctrl+Shift+R) or a new `?v=N` address.
+  The test page shows "(page build N ...)" next to the "Quick pairing" heading. The real app must version its files (service worker with a version, or hashed file names).
+- **Throughput, PC to phone, 5 MB sends:** 0.12 to 0.55 MB/s for EVERY combination of message size (16, 64, 256 KB) and send buffer (1, 4, 16 MB); ping round trip 30 ms. Earlier: phone received 5 MB at
+  0.37 MB/s, phone sent 20 MB at 0.19 MB/s. The page hands the browser all 5 MB within about a second and the buffer then drains at a steady 0.2 to 0.5 MB/s, so the limit is BELOW the page. Loopback
+  on the same PC: 6 MB/s.
+- **Likely cause: the office PC's Wi-Fi.** It has only a TP-Link Wireless Nano USB adapter (802.11n, 2.4 GHz, 45 to 60 Mbit/s link, 59% signal, USB 3 port and 3 m cable) at the far end from the router,
+  in a room with several other devices and many neighboring networks. The router's 2.4 GHz channel was 3 (overlaps the neighbors on 1 and 6); the user moved it to channel 6 with a 20 MHz width
+  (confirmed: link rate fell from 60 to 28.9 Mbit/s as expected for 20 MHz). Result: slightly better (0.2 to 0.55 MB/s), same ceiling.
+- **Not yet tested (decides whether the direct link is kept):** a PC close to the router or on Ethernet (the user will try a PC inside the house). Expect several MB/s if the office adapter was the
+  limit. Windows also marks the home network "Public" (blocks incoming connections by default); WebRTC does not need that, but a plain local web server does.
+- **What the plan assumes until then:** the direct link is a bonus for text changes and thumbnails (a 1,200-seedling text sync is about 0.3 MB, a couple of seconds even at 0.2 MB/s); big photo syncs go
+  through the Drive folder (route A). If a good PC also shows under about 1 MB/s, drop route B from the app.
+- **Later the same evening (decisive):** (1) office PC to its router: ping 1 to 3 ms, 0% loss; internet download 1.8 to 2.1 MB/s; 1,400-byte pings average 8 ms. So the office PC's Wi-Fi is NOT the limit;
+  the USB 2 port made no difference (0.3 to 0.38 MB/s). (2) Laptop in the house to the SAME Android phone: 0.55 to 0.58 MB/s, ping 44 ms. (3) **Laptop in the house to an iPad: 1.8 to 4.2 MB/s for 5 MB, and
+  20 MB in 3.8 s = 5.3 MB/s** (64 KB messages, 4 MB buffer). **Conclusion: the direct link is fast; the Android 10 phone (Chrome 157) is the slow end** (ping always 30 to 44 ms, Wi-Fi power saving
+  probably); nothing the page can fix. DECISION: route B (direct link) STAYS as the optional quick route. Phone to PC direction on a good network and the Android phone sending to the laptop in the
+  house are still unmeasured (the earlier 0.19 MB/s was on the office setup).
+- **Sender rules learned for the real app:** 64 KB messages; keep `bufferedAmount` at 4 MB or less and wait for `bufferedamountlow` (256 KB messages with a 16 MB buffer failed at 14 MB with
+  "RTCDataChannel send queue is full"); send zip entries in 64 KB pieces with a length header; show progress and a cancel button; a first connection can take about 12 s (answer 628 to 766 characters).
+- **Pairing note:** an iPad could scan/answer (answer 628 characters); the PC still needs microphone permission to expose its real address.
+- Test page extras still on the live site until the Stage 1 report: speed-test server was local only (stopped, nothing left running, no firewall rule added).
+
 ## Open questions (waiting on the user)
 - How to run the phone tests (see chat). 
