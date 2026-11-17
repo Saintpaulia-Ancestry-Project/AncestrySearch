@@ -185,13 +185,15 @@ QUERIES_SQL = """\
 -- Lineage query templates for the front end (sql.js). Named parameters: :id, :max_depth, :q.
 -- `edges` is child -> parent, covering seed/pollen/unordered parentage and 'sport' links.
 
--- 1. Search (FTS4, because sql.js has no FTS5). Build :q from the user's words as prefix terms, e.g.
---    "rob*" "sticky*"  (every word must match). FTS4 has no bm25, so rank names that start with the
---    first word ahead of other matches. :first is the first word, e.g. 'rob'.
+-- 1. Search (FTS4, because sql.js has no FTS5). `cultivar_list` is a materialized copy of v_cultivar_list whose
+--    rowid is the FTS docid (joining through the view made counting 5-60 s in the browser). Build :q from the
+--    user's words as prefix terms, e.g.  name:rob* name:sticky*  (every word must be in the NAME, the app tries
+--    this first for several words) or  "rob*" "sticky*"  (anywhere). FTS4 has no bm25, so rank names that
+--    contain the whole phrase ahead of other matches. :ph is the words joined by a space, e.g. 'baby pink'.
 SELECT l.id, l.name, l.kind
-FROM cultivars_fts f JOIN v_cultivar_list l ON l.id = f.id
+FROM cultivars_fts f JOIN cultivar_list l ON l.rowid = f.docid
 WHERE cultivars_fts MATCH :q
-ORDER BY CASE WHEN l.name LIKE :first || '%' THEN 0 WHEN l.name LIKE '%' || :first || '%' THEN 1 ELSE 2 END,
+ORDER BY CASE WHEN l.name LIKE :ph || '%' THEN 0 WHEN l.name LIKE '%' || :ph || '%' THEN 1 ELSE 2 END,
          l.name COLLATE NOCASE
 LIMIT 50;
 
@@ -392,15 +394,23 @@ def main():
                             [(r["cultivar_id"], r["url"], r["source"], nz(r["gallery_title"])) for r in ext])
         con.executemany("INSERT INTO cultivar_links VALUES (?,?,?)",
                         [(r["cultivar_id"], r["url"], r["kind"]) for r in links])
+        # Materialized copy of v_cultivar_list for the search page. The view has correlated subqueries and a
+        # grouped join, so counting through it per FTS hit took 5-60 s in the browser. Same columns, plus rowid
+        # = the FTS docid (search joins on rowid).
+        con.execute("CREATE TABLE cultivar_list AS SELECT * FROM v_cultivar_list ORDER BY name COLLATE NOCASE, id")
+        con.execute("CREATE UNIQUE INDEX idx_cl_id ON cultivar_list(id)")
+        con.execute("CREATE INDEX idx_cl_flags ON cultivar_list(kind, only_1963, only_supp_unreg)")
+        con.execute("CREATE INDEX idx_cl_regno ON cultivar_list(registration_no)")
         con.execute("""
-            INSERT INTO cultivars_fts (id, kind, name, hybridizers, size_class, color, bloom_description,
+            INSERT INTO cultivars_fts (docid, id, kind, name, hybridizers, size_class, color, bloom_description,
                                        foliage_description, description, notes)
-            SELECT c.id, c.kind, c.name,
+            SELECT cl.rowid, c.id, c.kind, c.name,
                    trim(coalesce(h.hybridizers, c.hybridizer_raw, '') || ' ' || coalesce((
                        SELECT group_concat(p.aliases, ' ') FROM cultivar_hybridizers x
                        JOIN people p ON p.id = x.person_id WHERE x.cultivar_id = c.id AND p.aliases IS NOT NULL), '')),
                    c.size_class, c.color, c.bloom_description, c.foliage_description, c.description, c.notes
-            FROM cultivars c LEFT JOIN cultivar_hybridizer_names h ON h.cultivar_id = c.id""")
+            FROM cultivars c JOIN cultivar_list cl ON cl.id = c.id
+            LEFT JOIN cultivar_hybridizer_names h ON h.cultivar_id = c.id""")
         con.execute("INSERT INTO cultivars_fts(cultivars_fts) VALUES ('optimize')")
 
     # ------------------------------------------------------------ validation
@@ -450,7 +460,7 @@ def main():
             continue
         try:
             con.execute(body, {"id": sport_sample if "sport_of_id IS NULL" in body else sample,
-                               "max_depth": 8, "q": '"sticky*"', "first": "sticky"}).fetchall()
+                               "max_depth": 8, "q": '"sticky*"', "ph": "sticky"}).fetchall()
             ran += 1
         except sqlite3.Error as e:
             problems.append(f"queries.sql template failed: {e}: {body[:60]!r}")

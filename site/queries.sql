@@ -1,13 +1,15 @@
 -- Lineage query templates for the front end (sql.js). Named parameters: :id, :max_depth, :q.
 -- `edges` is child -> parent, covering seed/pollen/unordered parentage and 'sport' links.
 
--- 1. Search (FTS4, because sql.js has no FTS5). Build :q from the user's words as prefix terms, e.g.
---    "rob*" "sticky*"  (every word must match). FTS4 has no bm25, so rank names that start with the
---    first word ahead of other matches. :first is the first word, e.g. 'rob'.
+-- 1. Search (FTS4, because sql.js has no FTS5). `cultivar_list` is a materialized copy of v_cultivar_list whose
+--    rowid is the FTS docid (joining through the view made counting 5-60 s in the browser). Build :q from the
+--    user's words as prefix terms, e.g.  name:rob* name:sticky*  (every word must be in the NAME, the app tries
+--    this first for several words) or  "rob*" "sticky*"  (anywhere). FTS4 has no bm25, so rank names that
+--    contain the whole phrase ahead of other matches. :ph is the words joined by a space, e.g. 'baby pink'.
 SELECT l.id, l.name, l.kind
-FROM cultivars_fts f JOIN v_cultivar_list l ON l.id = f.id
+FROM cultivars_fts f JOIN cultivar_list l ON l.rowid = f.docid
 WHERE cultivars_fts MATCH :q
-ORDER BY CASE WHEN l.name LIKE :first || '%' THEN 0 WHEN l.name LIKE '%' || :first || '%' THEN 1 ELSE 2 END,
+ORDER BY CASE WHEN l.name LIKE :ph || '%' THEN 0 WHEN l.name LIKE '%' || :ph || '%' THEN 1 ELSE 2 END,
          l.name COLLATE NOCASE
 LIMIT 50;
 

@@ -264,7 +264,13 @@ Never push without being asked.
   cultivar_id, url, source, gallery_title, item_id, matched_by, checked_at; ALREADY holds 2,757 auto + decided links), rebuild, then DELETE the review
   files, the scratch HTML (scratchpad of the 2026-11-15 session, 468 MB) and the temporary match script. We link only: never copy AVSA images or captions.
   Links use https://africanvioletsocietyofamerica.org/look/photo-gallery/<letter>/[<page>/]#envira-gallery-item-<id>.
-- **Search speed/precision (requested 2026-11-16):** searching "Baby Pink" should return only cultivars whose name contains "Baby Pink" ("Baby Pink", "Baby Pink <anything>"), not Baby Ann, Baby Darryl, Baby Doe etc. Look at how the multi-word query is built in site/app.js / queries.sql (FTS4 prefix terms) and make a multi-word query require the words together/in order (phrase or name-prefix match first), while keeping the speed. Check with the user whether other-word-order matches ("Pink Baby") should still appear, ranked lower.
+- **Search speed/precision + advanced search: DONE 2026-11-17 (not committed yet; user to try it).** Cause of the slowness: counting through the
+  view v_cultivar_list took 5-60 s per search; build_db.py now materializes it as table `cultivar_list` (FTS docid = its rowid; the view stays),
+  search joins on rowid and counts all hidden groups in ONE query (now ~5 ms in sqlite), stats/sizes are cached. Several words: names containing ALL
+  the words are shown (phrase first, other order after, e.g. "Pink Baby"); if there are any, a note offers "Show N more" (`wide=1`: descriptions,
+  hybridizer, notes); no name match falls back to the old any-field search. FTS4 column filters must be UNQUOTED (`name:baby*`; `name:"x"` matches
+  nothing). Advanced search page `#/advanced` (params nm, hy, co, tx, y1, y2, sd, po, pa, rg, sort) feeds the same results page, with filter chips.
+  Tested with headless Edge dump-dom only; the DB grew ~3.4 MB (38 MB). Possible later: sql.js-httpvfs if size matters.
 - **AVML 2010-2019 supplements: notes DONE** (decided with the user): every cultivar listed in them has "Listed in the AVSA Master List
   supplement YYYY." (years, comma separated) added to its notes by import_excel.py; the raw codes in source_note (Russ/Ukr, DAVS, ANZ,
   TX Hyb, Western) are left as they are. Still open: only 306 of the 1,584 AVML rows match a record from source/AfricanVioletAncestry.sqlite;

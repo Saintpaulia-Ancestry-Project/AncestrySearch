@@ -100,6 +100,7 @@ function route() {
     if (parts[0] === "c" && parts[1]) renderCultivar(app, decodeURIComponent(parts[1]));
     else if (parts[0] === "p" && parts[1]) renderPerson(app, decodeURIComponent(parts[1]), params);
     else if (parts[0] === "species") renderSpecies(app);
+    else if (parts[0] === "advanced") renderAdvanced(app, params);
     else if (parts[0] === "about") renderAbout(app);
     else if (parts[0] === "downloads") renderDownloads(app);
     else if (parts[0] === "submit") renderSubmit(app);   // submit.js
@@ -149,8 +150,13 @@ function linkCultivar(id, name) { return `<a href="#/c/${encodeURIComponent(id)}
 function searchWords(text) {
   return (text.match(/[\p{L}\p{N}]+/gu) || []).slice(0, 12);
 }
-/** FTS4 query: every word is a quoted prefix term (quoting keeps AND/OR/NOT typed by a user literal). */
-const ftsQuery = (words) => words.map((w) => `"${w}*"`).join(" ");
+/** One FTS4 prefix term per word. Anywhere: "baby*" (quoted, so AND/OR/NOT stay literal words). Limited to one
+ *  column: name:baby* (FTS4 does not accept a quoted term after a column name; the words are letters/digits only). */
+const ftsTerms = (words, col) => words.map((w) => (col ? `${col}:${w}*` : `"${w}*"`));
+
+// Advanced-search parameters (URL keys) and what they mean; see renderAdvanced.
+const ADV_KEYS = ["nm", "hy", "co", "tx", "y1", "y2", "pa", "sd", "po", "rg", "sort"];
+let _stats = null, _sizes = null; // the same on every search: computed once
 
 /* ------------------------------------------------------------------ search page */
 function renderSearch(app, params) {
@@ -166,72 +172,108 @@ function renderSearch(app, params) {
     photo: params.get("photo") === "1",
     old: params.get("old") === "1", // include names found only in the 1963 Master List (hidden by default)
     supp: params.get("supp") === "1", // include old unregistered names found only in the 1964-2002 supplements (hidden by default)
+    wide: params.get("wide") === "1", // multi-word search: also show matches outside the name
     page: Math.max(1, parseInt(params.get("page") || "1", 10) || 1),
   };
+  for (const k of ADV_KEYS) state[k] = (params.get(k) || "").trim();
+  const t0 = performance.now();
+
+  // ---- filters that do not depend on the text search
   const where = [];
   const bind = {};
-  if (!state.all) where.push("l.kind = 'cultivar'");
   if (state.size) { where.push("l.size_class = :size"); bind.size = state.size; }
   if (state.sport) where.push("l.is_sport = 1");
   if (state.anc) where.push("l.has_ancestry = 1");
   if (state.desc) where.push("l.has_description = 1");
   if (state.photo) where.push("l.has_photo = 1");
-  if (!state.old) where.push("l.only_1963 = 0");
-  if (!state.supp) where.push("l.only_supp_unreg = 0");
+  if (state.rg === "1") where.push("l.registration_no IS NOT NULL");
+  const y1 = parseInt(state.y1, 10), y2 = parseInt(state.y2, 10);
+  if (y1) { where.push("l.registered_year >= :y1"); bind.y1 = y1; }
+  if (y2) { where.push("l.registered_year <= :y2"); bind.y2 = y2; }
+  const plain = (s) => s.replace(/[%_\\]/g, " ").trim();
+  for (const [key, role] of [["pa", null], ["sd", "seed"], ["po", "pollen"]]) {
+    if (!state[key]) continue;
+    where.push(`EXISTS (SELECT 1 FROM edges e JOIN cultivars pc ON pc.id = e.parent_id WHERE e.child_id = l.id
+                        AND pc.name LIKE '%' || :${key} || '%'${role ? ` AND e.role = '${role}'` : ""})`);
+    bind[key] = plain(state[key]);
+  }
 
-  let from, order, orderBind = {};
+  // ---- text search
   const words = searchWords(state.q);
-  const ftsq = ftsQuery(words);
   const reg = /^\d{3,6}$/.test(state.q) ? parseInt(state.q, 10) : null;
-  if (reg) {
-    from = "v_cultivar_list l"; where.push("l.registration_no = :reg"); bind.reg = reg; order = "l.name COLLATE NOCASE";
-  } else if (ftsq) {
-    from = "cultivars_fts f JOIN v_cultivar_list l ON l.id = f.id";
-    where.push("cultivars_fts MATCH :m"); bind.m = ftsq;
-    // FTS4 has no relevance ranking: put names starting with / containing the first word first
-    const rankBind = { first: words[0] };
-    order = "CASE WHEN l.name LIKE :first || '%' THEN 0 WHEN l.name LIKE '%' || :first || '%' THEN 1 ELSE 2 END, l.name COLLATE NOCASE";
-    orderBind = rankBind;
-  } else {
-    from = "v_cultivar_list l"; order = "l.name COLLATE NOCASE";
-  }
-  const w = where.length ? "WHERE " + where.join(" AND ") : "";
-  const total = q1(`SELECT count(*) AS n FROM ${from} ${w}`, bind).n;
-  const rows = q(`SELECT l.* FROM ${from} ${w} ORDER BY ${order} LIMIT ${PAGE_SIZE} OFFSET ${(state.page - 1) * PAGE_SIZE}`, { ...bind, ...orderBind });
-  // names that appear only as parents (stubs, seedlings, species) are hidden by default: say so
-  let hidden = 0;
-  if (!state.all && (ftsq || reg)) {
-    const w2 = where.filter((x) => x !== "l.kind = 'cultivar'");
-    hidden = q1(`SELECT count(*) AS n FROM ${from} ${w2.length ? "WHERE " + w2.join(" AND ") : ""}`, bind).n - total;
-  }
-  // names found only in the 1963 Master List are hidden by default: say how many matches that hides
-  let hidden63 = 0;
-  if (!state.old && (ftsq || reg)) {
-    const w3 = where.filter((x) => x !== "l.only_1963 = 0");
-    hidden63 = q1(`SELECT count(*) AS n FROM ${from} ${w3.length ? "WHERE " + w3.join(" AND ") : ""}`, bind).n - total;
-  }
-  // old unregistered names found only in the 1964-2002 supplements: also hidden by default
-  let hiddenSupp = 0;
-  if (!state.supp && (ftsq || reg)) {
-    const w4 = where.filter((x) => x !== "l.only_supp_unreg = 0");
-    hiddenSupp = q1(`SELECT count(*) AS n FROM ${from} ${w4.length ? "WHERE " + w4.join(" AND ") : ""}`, bind).n - total;
-  }
-  const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-  const sizes = q("SELECT DISTINCT size_class AS s FROM cultivars WHERE size_class IS NOT NULL ORDER BY 1").map((r) => r.s);
-  const st = q1(`SELECT (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0) AS n,
-                        (SELECT count(*) FROM v_cultivar_list WHERE only_1963 = 1) AS old,
-                        (SELECT count(*) FROM v_cultivar_list WHERE only_supp_unreg = 1) AS supp,
-                        (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0 AND has_ancestry) AS a,
-                        (SELECT count(*) FROM v_cultivar_list WHERE kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0 AND has_description) AS d`);
+  const nmWords = searchWords(state.nm);
+  const advFts = [...ftsTerms(nmWords, "name"), ...ftsTerms(searchWords(state.hy), "hybridizers"),
+    ...ftsTerms(searchWords(state.co), "color"), ...ftsTerms(searchWords(state.tx))];
+  const hasText = !!(words.length || advFts.length);
+  const useFts = hasText && !reg;
+  const from = useFts ? "cultivars_fts f JOIN cultivar_list l ON l.rowid = f.docid" : "cultivar_list l";
+  if (reg) { where.push("l.registration_no = :reg"); bind.reg = reg; }
 
-  const link = (page) => hashFor("/", { q: state.q, size: state.size, all: state.all, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, old: state.old, supp: state.supp, page: page > 1 ? page : "" });
+  // Which kinds of record are shown by default, and how many more matches each hidden group holds.
+  const K = state.all ? "1" : "l.kind = 'cultivar'";
+  const A = state.old ? "1" : "l.only_1963 = 0";
+  const B = state.supp ? "1" : "l.only_supp_unreg = 0";
+  const counts = (mainFts) => {
+    const m = [...mainFts, ...advFts];
+    const w = [...where, ...(useFts ? ["cultivars_fts MATCH :m"] : [])];
+    const b = useFts ? { ...bind, m: m.join(" ") } : bind;
+    const sum = (e) => `coalesce(sum(${e}), 0)`;
+    const r = q1(`SELECT ${sum(`${K} AND ${A} AND ${B}`)} AS total, ${sum(`NOT (${K}) AND ${A} AND ${B}`)} AS hk,
+                         ${sum(`(${K}) AND NOT (${A}) AND ${B}`)} AS h63, ${sum(`(${K}) AND (${A}) AND NOT (${B})`)} AS hs
+                  FROM ${from} ${w.length ? "WHERE " + w.join(" AND ") : ""}`, b);
+    return { ...r, any: r.total + r.hk + r.h63 + r.hs, where: w, bind: b };
+  };
+  // Several words: names that contain ALL the words (the phrase first, other word order after it) come first
+  // and, when there are any, are the only matches shown; "Show N more" widens to descriptions, hybridizers etc.
+  let c, moreElsewhere = 0;
+  if (words.length > 1 && !state.wide && !reg) {
+    c = counts(ftsTerms(words, "name"));
+    if (c.total > 0) moreElsewhere = counts(ftsTerms(words)).total - c.total;
+    else c = counts(ftsTerms(words));
+  } else {
+    c = counts(reg ? [] : ftsTerms(words));
+  }
+  const rankWords = words.length ? words : nmWords;
+  const phrase = rankWords.join(" ").toLowerCase();
+  const sortSql = { new: "l.registered_year IS NULL, l.registered_year DESC, ", old: "l.registered_year IS NULL, l.registered_year ASC, " }[state.sort] || "";
+  let order = sortSql + "l.name COLLATE NOCASE", orderBind = {};
+  if (rankWords.length && !reg) {
+    // FTS4 has no relevance ranking: name starts with the phrase, then contains it, then contains the first word
+    order = sortSql + "CASE WHEN l.name LIKE :ph || '%' THEN 0 WHEN l.name LIKE '%' || :ph || '%' THEN 1 WHEN l.name LIKE '%' || :w1 || '%' THEN 2 ELSE 3 END, l.name COLLATE NOCASE";
+    orderBind = { ph: phrase, w1: rankWords[0] };
+  }
+  const total = c.total;
+  const rowWhere = [...c.where, K, A, B].filter((x) => x !== "1");
+  const rows = q(`SELECT l.* FROM ${from} ${rowWhere.length ? "WHERE " + rowWhere.join(" AND ") : ""} ORDER BY ${order} LIMIT ${PAGE_SIZE} OFFSET ${(state.page - 1) * PAGE_SIZE}`, { ...c.bind, ...orderBind });
+  const searching = hasText || !!reg;
+  const hidden = searching ? c.hk : 0, hidden63 = searching ? c.h63 : 0, hiddenSupp = searching ? c.hs : 0;
+  const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  if (!_sizes) _sizes = q("SELECT DISTINCT size_class AS s FROM cultivars WHERE size_class IS NOT NULL ORDER BY 1").map((r) => r.s);
+  if (!_stats) _stats = q1(`SELECT coalesce(sum(kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0), 0) AS n,
+                        coalesce(sum(only_1963 = 1), 0) AS old, coalesce(sum(only_supp_unreg = 1), 0) AS supp,
+                        coalesce(sum(kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0 AND has_ancestry), 0) AS a,
+                        coalesce(sum(kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0 AND has_description), 0) AS d
+                      FROM cultivar_list`);
+  const st = _stats, sizes = _sizes;
+  const ms = Math.round(performance.now() - t0);
+
+  const cur = { q: state.q, size: state.size, all: state.all, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, old: state.old, supp: state.supp, wide: state.wide };
+  for (const k of ADV_KEYS) cur[k] = state[k];
+  const mk = (o) => hashFor("/", { ...cur, ...o });
+  const hasAdv = ADV_KEYS.some((k) => state[k]);
+  const ADV_LABEL = { nm: "name contains", hy: "hybridizer", co: "color", tx: "text", y1: "registered from", y2: "registered to", pa: "any parent", sd: "seed parent", po: "pollen parent" };
+  const chips = ADV_KEYS.filter((k) => ADV_LABEL[k] && state[k]).map((k) => `<span class="chip">${ADV_LABEL[k]}: ${esc(state[k])}</span>`)
+    .concat(state.rg === "1" ? ['<span class="chip">AVSA-registered only</span>'] : [],
+      state.sort ? [`<span class="chip">sorted by registration year, ${state.sort === "new" ? "newest" : "oldest"} first</span>`] : []);
+
   app.innerHTML = `
     <h1>African violet cultivars</h1>
     <p class="lede">${num(st.n)} cultivars${st.old ? ` and ${num(st.old)} older names from the 1963 Master List` : ""}${st.supp ? `${st.old ? " and" : " and"} ${num(st.supp)} old unregistered names from the 1964–2002 supplements` : ""} &middot; ${num(st.a)} with ancestry &middot; ${num(st.d)} with descriptions.
       Search by name, hybridizer, color or description, or enter an AVSA registration number.</p>
     <form class="search-form" id="sform" role="search">
+      ${ADV_KEYS.map((k) => (state[k] ? `<input type="hidden" name="${k}" value="${esc(state[k])}">` : "")).join("")}
       <div class="search-row">
-        <input type="search" id="sq" name="q" value="${esc(state.q)}" placeholder="e.g. Rob's, Ness, pink ruffled, 10627" aria-label="Search cultivars" autocomplete="off">
+        <input type="search" id="sq" name="q" value="${esc(state.q)}" placeholder="e.g. Rob's, Baby Pink, pink ruffled, 10627" aria-label="Search cultivars" autocomplete="off">
         <button type="submit">Search</button>
       </div>
       <div class="filters">
@@ -243,27 +285,78 @@ function renderSearch(app, params) {
         <label><input type="checkbox" name="excl63"${state.old ? "" : " checked"}> Exclude names found only in the 1963 Master List</label>
         <label><input type="checkbox" name="exclsupp"${state.supp ? "" : " checked"}> Exclude old unregistered names</label>
         <label><input type="checkbox" name="all"${state.all ? " checked" : ""}> Include seedlings, species &amp; unlisted parents</label>
+        <a href="${hashFor("/advanced", cur)}">Advanced search</a>
       </div>
+      ${chips.length ? `<div class="chips">${chips.join("")} <a href="${hashFor("/advanced", cur)}">Edit</a> &middot; <a href="${mk(Object.fromEntries(ADV_KEYS.map((k) => [k, ""])))}">Clear</a></div>` : ""}
     </form>
-    <p class="stats" role="status">${num(total)} ${total === 1 ? "result" : "results"}${state.q ? ` for “${esc(state.q)}”` : ""}${total > PAGE_SIZE ? ` &middot; page ${state.page} of ${pages}` : ""}</p>
+    <p class="stats" role="status">${num(total)} ${total === 1 ? "result" : "results"}${state.q ? ` for “${esc(state.q)}”` : ""}${total > PAGE_SIZE ? ` &middot; page ${state.page} of ${pages}` : ""}${searching || hasAdv ? ` <span class="muted">(${ms} ms)</span>` : ""}</p>
+    ${moreElsewhere > 0 ? `<p class="note-box">Showing cultivars whose <em>name</em> contains ${words.map((w) => `“${esc(w)}”`).join(" and ")}. ${num(moreElsewhere)} more ${moreElsewhere === 1 ? "cultivar mentions" : "cultivars mention"} these words elsewhere (descriptions, hybridizer, notes).
+        <a href="${mk({ wide: true, page: "" })}">Show ${moreElsewhere === 1 ? "it" : "them"}</a></p>` : ""}
     ${hidden > 0 ? `<p class="note-box">${num(hidden)} more ${hidden === 1 ? "match is a name that appears only as a parent, seedling or species." : "matches are names that appear only as parents, seedlings or species."}
-        <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, old: state.old, supp: state.supp, all: true })}">Include ${hidden === 1 ? "it" : "them"}</a></p>` : ""}
+        <a href="${mk({ all: true, page: "" })}">Include ${hidden === 1 ? "it" : "them"}</a></p>` : ""}
     ${hidden63 > 0 ? `<p class="note-box">${num(hidden63)} more ${hidden63 === 1 ? "match is a name" : "matches are names"} found only in the 1963 Master List.
-        <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, all: state.all, supp: state.supp, old: true })}">Include ${hidden63 === 1 ? "it" : "them"}</a></p>` : ""}
+        <a href="${mk({ old: true, page: "" })}">Include ${hidden63 === 1 ? "it" : "them"}</a></p>` : ""}
     ${hiddenSupp > 0 ? `<p class="note-box">${num(hiddenSupp)} more ${hiddenSupp === 1 ? "match is an old unregistered name" : "matches are old unregistered names"} found only in the 1964–2002 supplements.
-        <a href="${hashFor("/", { q: state.q, size: state.size, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, all: state.all, old: state.old, supp: true })}">Include ${hiddenSupp === 1 ? "it" : "them"}</a></p>` : ""}
+        <a href="${mk({ supp: true, page: "" })}">Include ${hiddenSupp === 1 ? "it" : "them"}</a></p>` : ""}
     ${rows.length ? `<ul class="results">${rows.map(card).join("")}</ul>` : `<p>No cultivars match. Try fewer words or clear a filter.</p>`}
     ${pages > 1 ? `<div class="pager">
-        <a class="btn secondary" ${state.page > 1 ? `href="${link(state.page - 1)}"` : 'aria-disabled="true" style="visibility:hidden"'}>&larr; Previous</a>
+        <a class="btn secondary" ${state.page > 1 ? `href="${mk({ page: state.page - 1 > 1 ? state.page - 1 : "" })}"` : 'aria-disabled="true" style="visibility:hidden"'}>&larr; Previous</a>
         <span class="muted">Page ${state.page} of ${pages}</span>
-        <a class="btn secondary" ${state.page < pages ? `href="${link(state.page + 1)}"` : 'aria-disabled="true" style="visibility:hidden"'}>Next &rarr;</a></div>` : ""}`;
+        <a class="btn secondary" ${state.page < pages ? `href="${mk({ page: state.page + 1 })}"` : 'aria-disabled="true" style="visibility:hidden"'}>Next &rarr;</a></div>` : ""}`;
 
   $("#sform").addEventListener("submit", (e) => {
     e.preventDefault();
     const f = new FormData(e.target);
-    location.hash = hashFor("/", { q: (f.get("q") || "").trim(), size: f.get("size"), sport: !!f.get("sport"), anc: !!f.get("anc"), desc: !!f.get("desc"), photo: !!f.get("photo"), all: !!f.get("all"), old: f.get("excl63") ? "" : "1", supp: f.get("exclsupp") ? "" : "1" });
+    const p = { q: (f.get("q") || "").trim(), size: f.get("size"), sport: !!f.get("sport"), anc: !!f.get("anc"), desc: !!f.get("desc"), photo: !!f.get("photo"), all: !!f.get("all"), old: f.get("excl63") ? "" : "1", supp: f.get("exclsupp") ? "" : "1" };
+    for (const k of ADV_KEYS) p[k] = f.get(k) || "";
+    location.hash = hashFor("/", p);
   });
   $("#sform").addEventListener("change", (e) => { if (e.target.type !== "search") $("#sform").requestSubmit(); });
+}
+
+/* ------------------------------------------------------------------ advanced search page */
+function renderAdvanced(app, params) {
+  const v = (k) => esc(params.get(k) || "");
+  const on = (k) => (params.get(k) === "1" ? " checked" : "");
+  if (!_sizes) _sizes = q("SELECT DISTINCT size_class AS s FROM cultivars WHERE size_class IS NOT NULL ORDER BY 1").map((r) => r.s);
+  const yr = q1("SELECT min(registered_year) AS a, max(registered_year) AS b FROM cultivar_list WHERE registered_year IS NOT NULL");
+  const size = params.get("size") || "", sort = params.get("sort") || "";
+  app.innerHTML = `
+    <h1>Advanced search</h1>
+    <p class="lede">Fill in any of the boxes; every box you fill must match. Words are matched from the start (“rob” finds Robin and Rob's). Leave a box empty to ignore it.</p>
+    <form class="adv-form" id="aform">
+      <label>Name contains <input type="search" name="nm" value="${v("nm")}" placeholder="e.g. Baby Pink"><small>Every word must be in the name; names with the words together come first.</small></label>
+      <label>Any text <input type="search" name="q" value="${v("q")}" placeholder="e.g. pink ruffled"><small>Words anywhere: name, hybridizer, description. If several words are in cultivar names, only those are shown.</small></label>
+      <label>Hybridizer <input type="search" name="hy" value="${v("hy")}" placeholder="e.g. Sorano"></label>
+      <label>Color <input type="search" name="co" value="${v("co")}" placeholder="e.g. lavender"></label>
+      <label>Description words <input type="search" name="tx" value="${v("tx")}" placeholder="e.g. girl foliage"></label>
+      <fieldset><legend>Registered (year)</legend>
+        <span><input type="number" name="y1" min="${yr.a}" max="${yr.b}" value="${v("y1")}" aria-label="From year" placeholder="${yr.a}"> to
+        <input type="number" name="y2" min="${yr.a}" max="${yr.b}" value="${v("y2")}" aria-label="To year" placeholder="${yr.b}"></span></fieldset>
+      <fieldset><legend>Parents (the name contains)</legend>
+        <label>Seed parent <input type="search" name="sd" value="${v("sd")}"></label>
+        <label>Pollen parent <input type="search" name="po" value="${v("po")}"></label>
+        <label>Either parent, or sport of <input type="search" name="pa" value="${v("pa")}"></label></fieldset>
+      <div class="filters">
+        <label>Size <select name="size"><option value="">Any</option>${_sizes.map((s) => `<option${s === size ? " selected" : ""}>${esc(s)}</option>`).join("")}</select></label>
+        <label>Sort <select name="sort"><option value="">Name</option><option value="new"${sort === "new" ? " selected" : ""}>Registration year, newest first</option><option value="old"${sort === "old" ? " selected" : ""}>Registration year, oldest first</option></select></label>
+        <label><input type="checkbox" name="rg"${on("rg")}> AVSA-registered only</label>
+        <label><input type="checkbox" name="sport"${on("sport")}> Sports only</label>
+        <label><input type="checkbox" name="anc"${on("anc")}> Has ancestry</label>
+        <label><input type="checkbox" name="desc"${on("desc")}> Has description</label>
+        <label><input type="checkbox" name="photo"${on("photo")}> Has photo</label>
+        <label><input type="checkbox" name="all"${on("all")}> Include seedlings, species &amp; unlisted parents</label>
+      </div>
+      <div class="search-row"><button type="submit">Search</button> <a class="btn secondary" href="#/advanced">Clear</a> <a class="btn secondary" href="#/">Simple search</a></div>
+    </form>`;
+  $("#aform").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const p = {};
+    for (const [k, val] of f.entries()) p[k] = typeof val === "string" ? val.trim() : val;
+    p.old = params.get("old") || ""; p.supp = params.get("supp") || "";
+    location.hash = hashFor("/", p);
+  });
 }
 
 /* ------------------------------------------------------------------ photos */
@@ -741,7 +834,7 @@ function renderPerson(app, id, params) {
   if (!p) { app.innerHTML = `<h1>Not found</h1><p><a href="${searchHref()}">Back to search</a></p>`; return; }
   const page = Math.max(1, parseInt(params.get("page") || "1", 10) || 1);
   const total = q1(`SELECT count(*) AS n FROM cultivar_hybridizers ch JOIN cultivars c ON c.id = ch.cultivar_id WHERE ch.person_id = :id AND c.kind = 'cultivar'`, { id }).n;
-  const rows = q(`SELECT l.* FROM cultivar_hybridizers ch JOIN v_cultivar_list l ON l.id = ch.cultivar_id
+  const rows = q(`SELECT l.* FROM cultivar_hybridizers ch JOIN cultivar_list l ON l.id = ch.cultivar_id
                   WHERE ch.person_id = :id AND l.kind = 'cultivar' ORDER BY l.name COLLATE NOCASE LIMIT ${PAGE_SIZE} OFFSET ${(page - 1) * PAGE_SIZE}`, { id });
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const link = (n) => hashFor("/p/" + encodeURIComponent(id), { page: n > 1 ? n : "" });
