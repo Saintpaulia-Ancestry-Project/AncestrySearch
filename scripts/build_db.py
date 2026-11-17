@@ -104,12 +104,19 @@ CREATE TABLE images (
   added_at    TEXT
 );
 
--- Links to photos hosted elsewhere (AVSA Photo Gallery). We link only; no image or caption is copied.
+-- Links to photos hosted elsewhere (AVSA Photo Gallery, Gesneriad Reference Web). We link only; no image or caption is copied.
+-- credit/license only where the other site states them; description is our own short wording; page_url = the page the photo is on;
+-- at most 3 links per cultivar from the Gesneriad Reference Web (checked below).
 CREATE TABLE external_photos (
   cultivar_id   TEXT NOT NULL REFERENCES cultivars(id),
   url           TEXT NOT NULL,
   source        TEXT NOT NULL,
   gallery_title TEXT,
+  credit        TEXT,
+  license       TEXT,
+  description   TEXT,
+  page_url      TEXT,
+  sort_order    INTEGER,
   PRIMARY KEY (cultivar_id, url)
 );
 
@@ -390,8 +397,9 @@ def main():
         if ext_csv.exists():
             with open(ext_csv, newline="", encoding="utf-8") as f:
                 ext = list(csv.DictReader(f))
-            con.executemany("INSERT INTO external_photos VALUES (?,?,?,?)",
-                            [(r["cultivar_id"], r["url"], r["source"], nz(r["gallery_title"])) for r in ext])
+            con.executemany("INSERT INTO external_photos VALUES (?,?,?,?,?,?,?,?,?)",
+                            [(r["cultivar_id"], r["url"], r["source"], nz(r["gallery_title"]), nz(r.get("credit")), nz(r.get("license")),
+                              nz(r.get("description")), nz(r.get("page_url")), to_int(r.get("sort_order"))) for r in ext])
         con.executemany("INSERT INTO cultivar_links VALUES (?,?,?)",
                         [(r["cultivar_id"], r["url"], r["kind"]) for r in links])
         # Materialized copy of v_cultivar_list for the search page. The view has correlated subqueries and a
@@ -421,6 +429,10 @@ def main():
     ic = con.execute("PRAGMA integrity_check").fetchone()[0]
     if ic != "ok":
         problems.append(f"integrity_check: {ic}")
+    over = con.execute("SELECT cultivar_id, count(*) FROM external_photos WHERE source = 'gesneriads-reference-web' "
+                       "GROUP BY cultivar_id HAVING count(*) > 3").fetchall()
+    if over:
+        problems.append(f"more than 3 Gesneriad Reference Web links for: {over[:3]}")
     cycles = find_cycles(con)
     if cycles:
         problems.append(f"{len(cycles)} ancestry cycle(s), e.g. {' -> '.join(cycles[0])}")

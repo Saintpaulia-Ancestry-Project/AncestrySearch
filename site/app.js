@@ -377,12 +377,28 @@ function renderGallery(c, photos) {
   </section>`;
 }
 
-/* Link-out to photos hosted by the AVSA Photo Gallery (we never copy the images). */
+/* Link-outs to photos hosted elsewhere: the AVSA Photo Gallery and the Gesneriad Reference Web (we never copy the images). */
 function renderExternalPhotos(ext, hasOwn) {
   if (!ext.length) return "";
-  const links = ext.map((e, i) => `<a href="${esc(e.url)}" rel="noopener" target="_blank">Photo at the AVSA Photo Gallery${ext.length > 1 ? " (" + (i + 1) + ")" : ""}</a>`);
-  return `<section class="ext-photos" aria-label="Photo elsewhere"><h2>${hasOwn ? "More photos" : "Photo"}</h2>
-    <p>${links.join(" &middot; ")} <span class="muted">(submitted by AVSA members)</span></p></section>`;
+  const avsa = ext.filter((e) => e.source !== "gesneriads-reference-web");
+  const gr = ext.filter((e) => e.source === "gesneriads-reference-web");
+  const first = hasOwn ? "More photos" : "Photos";
+  let html = "";
+  if (avsa.length) {
+    const links = avsa.map((e, i) => `<a href="${esc(e.url)}" rel="noopener" target="_blank">Photo at the AVSA Photo Gallery${avsa.length > 1 ? " (" + (i + 1) + ")" : ""}</a>`);
+    html += `<section class="ext-photos" aria-label="Photo elsewhere"><h2>${first}</h2>
+      <p>${links.join(" &middot; ")} <span class="muted">(submitted by AVSA members)</span></p></section>`;
+  }
+  if (gr.length) {
+    const page = gr[0].page_url;
+    const items = gr.map((e) => `<li><a href="${esc(e.url)}" rel="noopener" target="_blank">${esc(e.description || "Photo")}</a>
+      <span class="muted">${[e.credit && "photo: " + esc(e.credit), e.license && esc(e.license)].filter(Boolean).join(", ")}</span></li>`);
+    html += `<section class="ext-photos" aria-label="Photos at the Gesneriad Reference Web"><h2>${avsa.length || hasOwn ? "More photos" : "Photos"}: Gesneriad Reference Web</h2>
+      <ul class="plain">${items.join("")}</ul>
+      <p class="muted">Photos on the <a href="${esc(page || "https://gesneriads.info")}" rel="noopener" target="_blank">Gesneriad Reference Web</a>, a project of the Gesneriad Society.
+        They belong to their photographers; the photographer is named on that page where known. Where no license is shown here, see that page.</p></section>`;
+  }
+  return html;
 }
 
 function wireGallery(c, photos) {
@@ -434,7 +450,7 @@ function renderCultivar(app, id) {
   const sports = q(`SELECT id, name FROM cultivars WHERE sport_of_id = :id ORDER BY name`, { id });
   const links = q(`SELECT url, kind FROM cultivar_links WHERE cultivar_id = :id`, { id });
   const photos = q(`SELECT * FROM images WHERE cultivar_id = :id ORDER BY sort_order, id`, { id });
-  const extPhotos = q(`SELECT url FROM external_photos WHERE cultivar_id = :id ORDER BY url`, { id });
+  const extPhotos = q(`SELECT url, source, credit, license, description, page_url FROM external_photos WHERE cultivar_id = :id ORDER BY source, sort_order, url`, { id });
   const family = q(`
     WITH RECURSIVE up(id) AS (SELECT :id UNION SELECT c.sport_of_id FROM cultivars c JOIN up ON c.id = up.id WHERE c.sport_of_id IS NOT NULL),
     fam(id, depth) AS (SELECT c.id, 0 FROM up JOIN cultivars c ON c.id = up.id WHERE c.sport_of_id IS NULL

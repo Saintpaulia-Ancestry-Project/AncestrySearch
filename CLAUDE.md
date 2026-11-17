@@ -271,6 +271,11 @@ Never push without being asked.
   hybridizer, notes); no name match falls back to the old any-field search. FTS4 column filters must be UNQUOTED (`name:baby*`; `name:"x"` matches
   nothing). Advanced search page `#/advanced` (params nm, hy, co, tx, y1, y2, sd, po, pa, rg, sort) feeds the same results page, with filter chips.
   Tested with headless Edge dump-dom only; the DB grew ~3.4 MB (38 MB). Possible later: sql.js-httpvfs if size matters.
+- **Species photo link-outs (Gesneriad Reference Web): LINKS DONE 2026-11-17 (64 links, 34 species records, max 3 each; plan in notes/gesneriads-species-photos-plan.md).**
+  Rows are in data/external_photos.csv (source `gesneriads-reference-web`; new columns credit, license, description, page_url, sort_order; credit/license only
+  where the taxon page states them). Direct image-file links (they may move: re-check with a HEAD request now and then). Cultivar page shows them under their own
+  heading; About page has a "Species photo links" bullet. STILL OPEN: the message to the Site Editors (draft in the plan) asking to HOST resized copies; until they
+  answer in writing we link only. Record their answer in the plan and here. Not done: a camera marker on the #/species page.
 - **AVML 2010-2019 supplements: notes DONE** (decided with the user): every cultivar listed in them has "Listed in the AVSA Master List
   supplement YYYY." (years, comma separated) added to its notes by import_excel.py; the raw codes in source_note (Russ/Ukr, DAVS, ANZ,
   TX Hyb, Western) are left as they are. Still open: only 306 of the 1,584 AVML rows match a record from source/AfricanVioletAncestry.sqlite;
