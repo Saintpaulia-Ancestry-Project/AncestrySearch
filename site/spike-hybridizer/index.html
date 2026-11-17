@@ -30,9 +30,10 @@ pre { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px
 <p class="note">Choose a few real photos from this device (5 to 30). They are resized here, nothing is uploaded or kept (except in the test database, deleted with “Delete all test data”). The test checks the rotation is applied and all location and camera data is removed.</p>
 <p><b>A.</b> Photos (gallery picker): <input type="file" id="files" accept="image/*" multiple></p>
 <p><b>B.</b> Files (system file browser, any file): <input type="file" id="files2" multiple></p>
+<p><b>C.</b> Camera (opens the camera, one photo at a time): <input type="file" id="files3" accept="image/*" capture="environment"></p>
 <p>Pick photos, wait for the “copied” message in the log, then press <button id="t9" class="s">9 Resize my photos</button>. If one box fails, try the other.</p>
 <h2>Sharing and saving (needs a tap; run after test 5 or 6)</h2>
-<button id="b-share" class="s">Share the zip…</button><button id="b-pick" class="s">Choose where to save…</button><button id="b-dl" class="s">Download the zip</button>
+<button id="b-share" class="s">Share the zip…</button><button id="b-share2" class="s">Share as “octet-stream”</button><button id="b-share3" class="s">Share zip without a type</button><button id="b-share4" class="s">Share a text file (control)</button><button id="b-share5" class="s">Share a photo (control)</button><button id="b-pick" class="s">Choose where to save…</button><button id="b-dl" class="s">Download the zip</button>
 <h2>Housekeeping</h2>
 <button id="b-copy" class="s">Copy results</button><button id="b-clear" class="s">Delete all test data</button>
 <h2>Log</h2>
@@ -301,7 +302,7 @@ function wirePick(id) {
     $("status").textContent = `${STASH.length} of ${rows.length} photos copied. Now press “9 Resize my photos”.`;
   });
 }
-wirePick("files"); wirePick("files2");
+wirePick("files"); wirePick("files2"); wirePick("files3");
 async function t9() { if (!STASH.length) { log("No photo was copied. Choose photos in box A or B first and wait for the message."); $("status").textContent = "Choose photos first."; return; } await processFiles(STASH.map((x) => Object.assign(x.blob, { name: x.name }))); }
 async function selfTest9() {  // synthetic JPEG with a fake EXIF/GPS segment injected after SOI: the output must have none
   const blob = await toBlob(drawPhoto(1, 1600, 1200), 0.9); const u = new Uint8Array(await blob.arrayBuffer());
@@ -324,6 +325,17 @@ async function doPick() {
   rec("save picker", o);
 }
 function doDownload() { if (!LASTZIP) return log("Make a zip first (test 5 or 6)."); const u = URL.createObjectURL(LASTZIP), a = Object.assign(document.createElement("a"), { href: u, download: LASTZIPNAME }); document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 60000); rec("download", { size: mb(LASTZIP.size), result: "download started (check your Downloads)" }); }
+
+/* ---------------- share variants: which file types does the share sheet accept? (each needs its own tap) */
+async function shareVariant(label, makeFile) {
+  const o = { variant: label }; try { const f = await makeFile(); o.name = f.name; o.type = f.type || "(none)"; o.size = mb(f.size); o.canShare = !!(navigator.canShare && navigator.canShare({ files: [f] }));
+    await navigator.share({ files: [f], title: "Hybridizer test" }); o.result = "OK (sheet opened; closing it without choosing is also fine)"; } catch (x) { o.result = "error " + x.name + ": " + x.message; } rec("share variant", o);
+}
+const needZip = () => { if (!LASTZIP) { log("Make a zip first (test 5 or 6)."); return false; } return true; };
+$("b-share2").onclick = () => needZip() && shareVariant("zip as application/octet-stream", async () => new File([LASTZIP], LASTZIPNAME, { type: "application/octet-stream" }));
+$("b-share3").onclick = () => needZip() && shareVariant("zip with empty type", async () => new File([LASTZIP], LASTZIPNAME, { type: "" }));
+$("b-share4").onclick = () => shareVariant("small text file", async () => new File([new Blob(["hybridizer share test"])], "hybridizer-test.txt", { type: "text/plain" }));
+$("b-share5").onclick = async () => { try { const k = await allKeys("thumbs"); const d = await db(); const r = await req(d.transaction("thumbs").objectStore("thumbs").get(k[0])); shareVariant("one photo (jpeg)", async () => new File([r.blob], "hybridizer-test.jpg", { type: "image/jpeg" })); } catch (x) { rec("share variant", { variant: "photo", result: "no photo stored: run test 3 or the photo test first" }); } };
 
 /* ---------------- wiring */
 const TESTS = { t1, t2, t3, t4, t5, t6, t7, t8, t9 };

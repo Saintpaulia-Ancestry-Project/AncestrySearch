@@ -177,9 +177,34 @@ protocol (headless Edge dump-dom cannot wait for IndexedDB; use CDP). Scale: 3 c
   the existing FTS name search 8 ms; extra JS heap 42 MB. So the plan "user records live in IndexedDB, loaded into the same sql.js database as the official data" is confirmed on the PC.
 - **Photo pipeline (self-test with a synthetic JPEG carrying an injected EXIF/GPS segment):** output has no EXIF/XMP/IPTC/comment segments (5 of 5). Rotation from the EXIF orientation tag still needs
   real phone photos (test 9 on the phone).
-- **Not yet known (needs the phone):** real memory and speed on Android Chrome (and an iPhone, if available), whether navigator.storage.persist() is granted, the Share and Save buttons with a
+## Stage 1 storage tests: ANDROID results (2026-11-17; Android 10, Chrome 157, 4 GB RAM, 8 cores, live https page, Wi-Fi or mobile data)
+- Everything ran to the end at full scale; no crash, no reload. IndexedDB quota 10 GB (same as the PC).
+- 1,200 photos made, hashed and stored in 132 s (110 ms each; encoding dominated; average 152 KB and 14 KB, 197 MB stored); records: write 238 ms, read all 29 ms, update all 250 ms.
+- Zip: thumbnails 17.2 MB in 4.8 s; all photos 178.3 MB in 7.8 s. Reading back by central directory: 1,200/1,200 verified in 6.6 s, tamper detected, all six bad-file cases refused.
+  The streaming reader failed again (4 mismatches and 2 bad names in 1,200): confirms the decision to read by central directory.
+- Official database 36.7 MB: download 17.8 s on the phone's connection (!), open 46 ms, a join through id_redirects 3 ms, a recursive ancestor query across official and local data 55 ms, FTS search 21 ms.
+  So one sql.js engine for both data sets works on the phone; the download time is what matters: cache the database in the browser (Cache Storage, with a version check against meta.built_at) and
+  show progress; "Online only" must mean "download once per update", not once per visit.
+- navigator.storage.persist() was NOT granted (persisted false before and after). Chrome decides by engagement (installed to the Home Screen, bookmarked, regular use). Consequence: the app
+  asks again after install, explains in plain words, and the backup reminder is essential (a visible "last backup" age on the home screen, as in the preview).
+- JS heap reading was flat at 9.5 MB on Android (performance.memory is coarse there), so memory could not be measured precisely; the real evidence is that the 178 MB build and read-back completed.
+- STILL MISSING from this paste: the Share / Save / Download results (they appear in the results only after the buttons are pressed), test 9 with real camera photos (rotation, metadata removal),
+  the canary check after several days, and an iPhone.
+
+- **Original list of unknowns (kept for reference):** real memory and speed on Android Chrome (and an iPhone, if available), whether navigator.storage.persist() is granted, the Share and Save buttons with a
   large file, real camera photos (orientation, speed), and the canary (open the page again after several days to see whether the stored data survived; mandatory on iPhone).
 - Headless Edge: persist() returned false (not granted); normal browsers decide by their own rules (Chrome grants for installed or frequently used sites).
+
+## Android: real photos and sharing (2026-11-17)
+- **Picking files:** reading the photos failed with NotReadableError when they were chosen with the GALLERY picker (`<input type=file accept="image/*">`, box A); it WORKED with the system FILE
+  BROWSER picker (`<input type=file>` without accept, box B): 9 of 9 copied into memory at selection time. DESIGN CONSEQUENCE: copy a chosen file into memory immediately on the change event
+  (never read it later); offer the camera (`capture`, box C, test pending) and the file browser as the ways to add photos; do not rely on the gallery picker on Android 10.
+- **Photo pipeline on real camera photos (9 photos, 0.6 to 2.2 MB, 12 MP class phone):** metadata removed in 9 of 9 (all had EXIF; none left in the output); portraits come out upright (decoded
+  as 2085x2794, 2296x4080 and so on, resized to 746x1000, 563x1000); 123 to 218 ms each (average 171 ms); outputs are SMALL: 45 to 91 KB full size and 15 to 31 KB thumbnails, so the real storage need
+  is far below the synthetic test (1,200 photos is about 90 MB, not 180 MB; a "large" sync of all photos is about 90 MB).
+- **Share of a zip FAILED:** `navigator.share({files:[zip]})` gave NotAllowedError "Permission denied" although canShare() said true. Chrome only allows a short list of file types in the share sheet
+  (images, audio, video, text, PDF...), probably not zip. Test page now has variants (octet-stream, no type, text file, photo) to find out what works. If no zip variant works the Share button is replaced
+  by Download plus "open your Downloads in the Files app and share from there" (or the passphrase-protected file saved to a cloud folder through the Files app), and the preview text must say so.
 
 ## Open questions (waiting on the user)
 - How to run the phone tests (see chat). 
