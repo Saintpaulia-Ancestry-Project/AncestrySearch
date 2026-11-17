@@ -174,7 +174,8 @@ CREATE VIEW v_cultivar_list AS
          (c.bloom_description IS NOT NULL OR c.foliage_description IS NOT NULL
             OR c.color IS NOT NULL OR c.description IS NOT NULL) AS has_description,
          (SELECT i.file FROM images i WHERE i.cultivar_id = c.id ORDER BY i.sort_order, i.id LIMIT 1) AS photo,
-         EXISTS (SELECT 1 FROM images i WHERE i.cultivar_id = c.id) AS has_photo
+         EXISTS (SELECT 1 FROM images i WHERE i.cultivar_id = c.id) AS has_photo,
+         EXISTS (SELECT 1 FROM external_photos x WHERE x.cultivar_id = c.id) AS has_link_photo
   FROM cultivars c
   LEFT JOIN cultivar_hybridizer_names h ON h.cultivar_id = c.id;
 

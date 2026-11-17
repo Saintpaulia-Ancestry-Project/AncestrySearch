@@ -123,6 +123,7 @@ function badges(r) {
   if (r.is_sport) b.push(`<span class="badge">sport</span>`);
   if (r.has_description) b.push(`<span class="badge">description</span>`);
   if (r.has_photo) b.push(`<span class="badge">photo</span>`);
+  if (r.has_link_photo) b.push(`<span class="badge" title="Links to a photo on another site">photo link</span>`);
   if (r.in_masterlist_1963) b.push(`<span class="badge">1963 list</span>`);
   if (r.has_ancestry) b.push(`<span class="badge">ancestry</span>`);
   if (r.registration_no) b.push(`<span class="badge">AVSA #${esc(r.registration_no)}</span>`);
@@ -170,6 +171,7 @@ function renderSearch(app, params) {
     anc: params.get("anc") === "1",
     desc: params.get("desc") === "1",
     photo: params.get("photo") === "1",
+    plink: params.get("plink") === "1", // has a photo here OR a link to a photo on another site
     old: params.get("old") === "1", // include names found only in the 1963 Master List (hidden by default)
     supp: params.get("supp") === "1", // include old unregistered names found only in the 1964-2002 supplements (hidden by default)
     wide: params.get("wide") === "1", // multi-word search: also show matches outside the name
@@ -186,6 +188,7 @@ function renderSearch(app, params) {
   if (state.anc) where.push("l.has_ancestry = 1");
   if (state.desc) where.push("l.has_description = 1");
   if (state.photo) where.push("l.has_photo = 1");
+  if (state.plink) where.push("(l.has_photo = 1 OR l.has_link_photo = 1)");
   if (state.rg === "1") where.push("l.registration_no IS NOT NULL");
   const y1 = parseInt(state.y1, 10), y2 = parseInt(state.y2, 10);
   if (y1) { where.push("l.registered_year >= :y1"); bind.y1 = y1; }
@@ -257,7 +260,7 @@ function renderSearch(app, params) {
   const st = _stats, sizes = _sizes;
   const ms = Math.round(performance.now() - t0);
 
-  const cur = { q: state.q, size: state.size, all: state.all, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, old: state.old, supp: state.supp, wide: state.wide };
+  const cur = { q: state.q, size: state.size, all: state.all, sport: state.sport, anc: state.anc, desc: state.desc, photo: state.photo, plink: state.plink, old: state.old, supp: state.supp, wide: state.wide };
   for (const k of ADV_KEYS) cur[k] = state[k];
   const mk = (o) => hashFor("/", { ...cur, ...o });
   const hasAdv = ADV_KEYS.some((k) => state[k]);
@@ -282,6 +285,7 @@ function renderSearch(app, params) {
         <label><input type="checkbox" name="anc"${state.anc ? " checked" : ""}> Has ancestry</label>
         <label><input type="checkbox" name="desc"${state.desc ? " checked" : ""}> Has description</label>
         <label><input type="checkbox" name="photo"${state.photo ? " checked" : ""}> Has photo</label>
+        <label><input type="checkbox" name="plink"${state.plink ? " checked" : ""}> Has photo or photo link</label>
         <label><input type="checkbox" name="excl63"${state.old ? "" : " checked"}> Exclude names found only in the 1963 Master List</label>
         <label><input type="checkbox" name="exclsupp"${state.supp ? "" : " checked"}> Exclude old unregistered names</label>
         <label><input type="checkbox" name="all"${state.all ? " checked" : ""}> Include seedlings, species &amp; unlisted parents</label>
@@ -307,7 +311,7 @@ function renderSearch(app, params) {
   $("#sform").addEventListener("submit", (e) => {
     e.preventDefault();
     const f = new FormData(e.target);
-    const p = { q: (f.get("q") || "").trim(), size: f.get("size"), sport: !!f.get("sport"), anc: !!f.get("anc"), desc: !!f.get("desc"), photo: !!f.get("photo"), all: !!f.get("all"), old: f.get("excl63") ? "" : "1", supp: f.get("exclsupp") ? "" : "1" };
+    const p = { q: (f.get("q") || "").trim(), size: f.get("size"), sport: !!f.get("sport"), anc: !!f.get("anc"), desc: !!f.get("desc"), photo: !!f.get("photo"), plink: !!f.get("plink"), all: !!f.get("all"), old: f.get("excl63") ? "" : "1", supp: f.get("exclsupp") ? "" : "1" };
     for (const k of ADV_KEYS) p[k] = f.get(k) || "";
     location.hash = hashFor("/", p);
   });
@@ -345,6 +349,7 @@ function renderAdvanced(app, params) {
         <label><input type="checkbox" name="anc"${on("anc")}> Has ancestry</label>
         <label><input type="checkbox" name="desc"${on("desc")}> Has description</label>
         <label><input type="checkbox" name="photo"${on("photo")}> Has photo</label>
+        <label><input type="checkbox" name="plink"${on("plink")}> Has photo or photo link</label>
         <label><input type="checkbox" name="all"${on("all")}> Include seedlings, species &amp; unlisted parents</label>
       </div>
       <div class="search-row"><button type="submit">Search</button> <a class="btn secondary" href="#/advanced">Clear</a> <a class="btn secondary" href="#/">Simple search</a></div>
