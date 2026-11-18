@@ -275,6 +275,9 @@ Never push without being asked.
   where the taxon page states them). Direct image-file links (they may move: re-check with a HEAD request now and then). Cultivar page shows them under their own
   heading; About page has a "Species photo links" bullet. STILL OPEN: the message to the Site Editors (draft in the plan) asking to HOST resized copies; until they
   answer in writing we link only. Record their answer in the plan and here. Not done: a camera marker on the #/species page.
+- **Database load time: DONE 2026-11-18 (uncommitted until the user says so; notes/search-index-size.md).** The search index is contentless and the database is split in
+  two files: site/avancestry.sqlite (11 MB, everything except the names hidden by default) and site/avancestry-old.sqlite (the 1963-only and old supplement-only
+  names, loaded in the background and ATTACHed). `build_db.py --full` writes one complete file. The page shows a download progress bar. Commit BOTH sqlite files with a data change.
 - **AVML 2010-2019 supplements: notes DONE** (decided with the user): every cultivar listed in them has "Listed in the AVSA Master List
   supplement YYYY." (years, comma separated) added to its notes by import_excel.py; the raw codes in source_note (Russ/Ukr, DAVS, ANZ,
   TX Hyb, Western) are left as they are. Still open: only 306 of the 1,584 AVML rows match a record from source/AfricanVioletAncestry.sqlite;

@@ -13,6 +13,7 @@ import csv
 import datetime
 import os
 import re
+import shutil
 import sqlite3
 import sys
 from pathlib import Path
@@ -143,13 +144,14 @@ CREATE INDEX idx_images_cultivar     ON images(cultivar_id);
 CREATE INDEX idx_external_photos_cultivar ON external_photos(cultivar_id);
 
 -- Full-text search. FTS4, not FTS5: the sql.js WebAssembly builds (which run this in the browser)
--- include FTS3/FTS4 but not FTS5. `id` and `kind` are stored but not indexed so the UI can filter by them.
+-- include FTS3/FTS4 but not FTS5. CONTENTLESS (content="") and with no prefix index: the index only answers MATCH
+-- and returns the docid (= cultivar_list.rowid); the text itself lives in cultivars/cultivar_list. This made the
+-- database 14 MB smaller (notes/search-index-size.md); searches stay a few milliseconds. Never SELECT a column from
+-- this table (contentless tables return NULL) and do not UPDATE or DELETE rows in it (the build recreates it).
 CREATE VIRTUAL TABLE cultivars_fts USING fts4(
-  id, kind,
   name, hybridizers, size_class, color, bloom_description, foliage_description, description, notes,
-  notindexed=id, notindexed=kind,
-  tokenize=unicode61 "remove_diacritics=2",
-  prefix="2,3,4"
+  content="",
+  tokenize=unicode61 "remove_diacritics=2"
 );
 
 -- All lineage edges, parentage plus sport links, in one shape (child -> parent).
@@ -319,11 +321,68 @@ def find_cycles(con):
     return cycles
 
 
+FTS_DDL = re.search(r"CREATE VIRTUAL TABLE cultivars_fts.*?\n\);", SCHEMA, re.S).group(0)
+OLD_COND = "cl.only_1963 = 1 OR cl.only_supp_unreg = 1"          # records hidden by default (the "old names")
+SPLIT_TABLES = ("cultivars", "cultivar_list", "cultivar_hybridizers", "cultivar_links", "external_photos", "images")
+
+
+def fill_fts(con, cond):
+    """(Re)fill the contentless search index with the records of cultivar_list matching `cond` (docid = cultivar_list.rid)."""
+    con.execute(f"""
+        INSERT INTO cultivars_fts (docid, name, hybridizers, size_class, color, bloom_description,
+                                   foliage_description, description, notes)
+        SELECT cl.rid, c.name,
+               trim(coalesce(h.hybridizers, c.hybridizer_raw, '') || ' ' || coalesce((
+                   SELECT group_concat(p.aliases, ' ') FROM cultivar_hybridizers x
+                   JOIN people p ON p.id = x.person_id WHERE x.cultivar_id = c.id AND p.aliases IS NOT NULL), '')),
+               c.size_class, c.color, c.bloom_description, c.foliage_description, c.description, c.notes
+        FROM cultivars c JOIN cultivar_list cl ON cl.id = c.id
+        LEFT JOIN cultivar_hybridizer_names h ON h.cultivar_id = c.id
+        WHERE {cond}""")
+    con.execute("INSERT INTO cultivars_fts(cultivars_fts) VALUES ('optimize')")
+
+
+def split_database(full, out_main, out_old, built_at):
+    """Writes the two files the site loads from the validated full database `full`:
+    out_main = every record EXCEPT the old names (hidden by default; none of them is a parent, a child or a sport, so
+               lineage never needs them); the page opens as soon as this is loaded.
+    out_old  = only the old names (cultivars, cultivar_list, cultivar_hybridizers, cultivar_links, external_photos,
+               images and their search index), loaded in the background and ATTACHed by the page."""
+    for target, part in ((out_main, "main"), (out_old, "old")):
+        tmpf = Path(str(target) + ".part")
+        shutil.copy(full, tmpf)
+        c = sqlite3.connect(tmpf)
+        c.execute("PRAGMA foreign_keys = OFF")
+        c.execute("DROP TABLE cultivars_fts")                     # contentless: rows cannot be deleted, so rebuild it
+        c.execute(FTS_DDL)
+        fill_fts(c, f"({OLD_COND})" if part == "old" else f"NOT ({OLD_COND})")
+        c.execute("CREATE TEMP TABLE old_ids AS SELECT id FROM cultivar_list cl WHERE " + OLD_COND)
+        keep = "IN" if part == "old" else "NOT IN"
+        for t, col in (("cultivar_hybridizers", "cultivar_id"), ("cultivar_links", "cultivar_id"), ("external_photos", "cultivar_id"),
+                       ("images", "cultivar_id"), ("cultivar_list", "id"), ("cultivars", "id")):
+            c.execute(f"DELETE FROM {t} WHERE {col} {'NOT IN' if part == 'old' else 'IN'} (SELECT id FROM old_ids)")
+        if part == "old":
+            for (name,) in c.execute("SELECT name FROM sqlite_master WHERE type='view'").fetchall():
+                c.execute(f'DROP VIEW "{name}"')
+            for (name,) in c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' "
+                                     "AND name NOT LIKE 'cultivars_fts%'").fetchall():
+                if name not in SPLIT_TABLES and name != "meta":
+                    c.execute(f'DROP TABLE "{name}"')
+            c.execute("DELETE FROM meta")
+        c.execute("INSERT OR REPLACE INTO meta VALUES ('part', ?)", (part,))
+        c.execute("INSERT OR REPLACE INTO meta VALUES ('built_at', ?)", (built_at,))
+        c.commit()
+        c.execute("VACUUM")
+        c.close()
+        os.replace(tmpf, target)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(DEFAULT_OUT))
     ap.add_argument("--image-base-url", default=os.environ.get("AV_IMAGE_BASE_URL", DEFAULT_IMAGE_BASE_URL))
     ap.add_argument("--images-csv", default=str(DATA / "images.csv"))
+    ap.add_argument("--full", action="store_true", help="write ONE complete database (no split into main + old-names files)")
     args = ap.parse_args()
     out = Path(args.out)
     image_base = args.image_base_url if args.image_base_url.endswith("/") else args.image_base_url + "/"
@@ -421,30 +480,29 @@ def main():
         # Materialized copy of v_cultivar_list for the search page. The view has correlated subqueries and a
         # grouped join, so counting through it per FTS hit took 5-60 s in the browser. Same columns, plus rowid
         # = the FTS docid (search joins on rowid).
-        con.execute("CREATE TABLE cultivar_list AS SELECT * FROM v_cultivar_list ORDER BY name COLLATE NOCASE, id")
+        # `rid` is an explicit INTEGER PRIMARY KEY (= the FTS docid): VACUUM may renumber plain rowids when rows are
+        # deleted, and the split into two files deletes rows.
+        con.execute("CREATE TEMP TABLE cl0 AS SELECT * FROM v_cultivar_list ORDER BY name COLLATE NOCASE, id")
+        info = con.execute("PRAGMA table_info(cl0)").fetchall()
+        con.execute("CREATE TABLE cultivar_list (rid INTEGER PRIMARY KEY, " + ", ".join(f'"{r[1]}" {r[2]}' for r in info) + ")")
+        con.execute("INSERT INTO cultivar_list (" + ", ".join(f'"{r[1]}"' for r in info) + ") SELECT * FROM cl0")
+        con.execute("DROP TABLE cl0")
         con.execute("CREATE UNIQUE INDEX idx_cl_id ON cultivar_list(id)")
         con.execute("CREATE INDEX idx_cl_flags ON cultivar_list(kind, only_1963, only_supp_unreg)")
         con.execute("CREATE INDEX idx_cl_regno ON cultivar_list(registration_no)")
-        con.execute("""
-            INSERT INTO cultivars_fts (docid, id, kind, name, hybridizers, size_class, color, bloom_description,
-                                       foliage_description, description, notes)
-            SELECT cl.rowid, c.id, c.kind, c.name,
-                   trim(coalesce(h.hybridizers, c.hybridizer_raw, '') || ' ' || coalesce((
-                       SELECT group_concat(p.aliases, ' ') FROM cultivar_hybridizers x
-                       JOIN people p ON p.id = x.person_id WHERE x.cultivar_id = c.id AND p.aliases IS NOT NULL), '')),
-                   c.size_class, c.color, c.bloom_description, c.foliage_description, c.description, c.notes
-            FROM cultivars c JOIN cultivar_list cl ON cl.id = c.id
-            LEFT JOIN cultivar_hybridizer_names h ON h.cultivar_id = c.id""")
-        con.execute("INSERT INTO cultivars_fts(cultivars_fts) VALUES ('optimize')")
+        fill_fts(con, "1")
+
 
     # ------------------------------------------------------------ validation
     problems = []
     fk = con.execute("PRAGMA foreign_key_check").fetchall()
     if fk:
         problems.append(f"foreign key violations: {len(fk)} (first: {fk[:3]})")
-    ic = con.execute("PRAGMA integrity_check").fetchone()[0]
-    if ic != "ok":
-        problems.append(f"integrity_check: {ic}")
+    # SQLite cannot validate the inverted index of a CONTENTLESS FTS4 table (it has no text to compare with), so that one
+    # message is ignored; the index is checked by the row count and the search smoke tests below.
+    ic = [r[0] for r in con.execute("PRAGMA integrity_check") if r[0] != "ok" and "cultivars_fts" not in r[0]]
+    if ic:
+        problems.append(f"integrity_check: {ic[:3]}")
     bad_red = con.execute("""SELECT old_id FROM id_redirects r
                              WHERE r.old_id IN (SELECT id FROM cultivars) OR r.new_id IN (SELECT old_id FROM id_redirects)""").fetchall()
     if bad_red:
@@ -459,7 +517,8 @@ def main():
 
     one = lambda sql, *a: con.execute(sql, a).fetchone()[0]
     counts = {t: one(f"SELECT count(*) FROM {t}") for t in
-              ("cultivars", "people", "parentage", "cultivar_hybridizers", "cultivar_links", "images", "external_photos", "cultivars_fts")}
+              ("cultivars", "people", "parentage", "cultivar_hybridizers", "cultivar_links", "images", "external_photos")}
+    counts["cultivars_fts"] = one("SELECT count(*) FROM cultivars_fts_docsize")  # a contentless table cannot be counted directly
     if counts["cultivars_fts"] != counts["cultivars"]:
         problems.append("FTS row count differs from cultivars")
     if counts["cultivars"] != len(cultivars) or counts["parentage"] != len(par):
@@ -482,7 +541,7 @@ def main():
           WHERE anc.depth < 25)
         SELECT root, max(depth) d FROM anc GROUP BY root ORDER BY d DESC LIMIT 1""").fetchone() if not cycles else None
     fts = con.execute("SELECT count(*) FROM cultivars_fts WHERE cultivars_fts MATCH ?", ('"rob*" "sticky*"',)).fetchone()[0]
-    fts2 = con.execute("SELECT name FROM cultivars_fts WHERE cultivars_fts MATCH ? ORDER BY name LIMIT 3", ('"lavender*" "ruffled*"',)).fetchall()
+    fts2 = con.execute("SELECT l.name FROM cultivars_fts f JOIN cultivar_list l ON l.rowid = f.docid WHERE cultivars_fts MATCH ? ORDER BY l.name LIMIT 3", ('"lavender*" "ruffled*"',)).fetchall()
 
     sport_sample = one("SELECT id FROM cultivars WHERE sport_of_id IS NOT NULL ORDER BY id LIMIT 1")
     ran = 0
@@ -501,14 +560,28 @@ def main():
     con.executemany("INSERT INTO meta VALUES (?,?)", [
         ("built_at", now), ("schema_version", "3"), ("image_base_url", image_base),
         *[(f"count_{k}", str(v)) for k, v in counts.items()]])
+    # numbers for the search page's header, kept in meta so the page does not have to count (the old names are loaded later)
+    st = con.execute("""SELECT coalesce(sum(kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0), 0), coalesce(sum(only_1963 = 1), 0),
+                               coalesce(sum(only_supp_unreg = 1), 0),
+                               coalesce(sum(kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0 AND has_ancestry), 0),
+                               coalesce(sum(kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0 AND has_description), 0)
+                        FROM cultivar_list""").fetchone()
+    con.executemany("INSERT INTO meta VALUES (?,?)", [(k, str(v)) for k, v in zip(("stat_n", "stat_old", "stat_supp", "stat_anc", "stat_desc"), st)])
+    kinds = dict(con.execute("SELECT kind, count(*) FROM cultivars GROUP BY kind").fetchall())
     con.commit()
     con.execute("VACUUM")
     con.close()
-    os.replace(tmp, out)
+    old_out = out.with_name(out.stem + "-old" + out.suffix)
+    if args.full:
+        os.replace(tmp, out)
+        if old_out.exists():
+            old_out.unlink()
+    else:
+        split_database(tmp, out, old_out, now)
+        tmp.unlink()
     (out.parent / "queries.sql").write_text(QUERIES_SQL, encoding="utf-8")
 
-    kinds = dict(sqlite3.connect(out).execute("SELECT kind, count(*) FROM cultivars GROUP BY kind").fetchall())
-    print(f"Built {out}  ({out.stat().st_size/1024:.0f} KB)")
+    print(f"Built {out}  ({out.stat().st_size/1024:.0f} KB)" + ("" if args.full else f" + {old_out.name} ({old_out.stat().st_size/1024:.0f} KB)"))
     print("rows:", counts)
     print("cultivars by kind:", kinds)
     print(f"smoke: ancestors of {sample!r}: {rec_anc[0]} edges, depth {rec_anc[1]}; "

@@ -28,6 +28,8 @@ const MAX_GRAPH_NODES = 220;
 const MAX_FAN = 8;  // most children drawn under one parent; the full list is on the page
 
 let db = null;
+let SQLJS = null;     // the sql.js module (needed again when the old names are attached)
+let oldDb = null;
 let IMG_BASE = ""; // where photo files are served from (database meta: image_base_url)
 let cy = null;
 
@@ -68,13 +70,49 @@ try { lastSearch = sessionStorage.getItem("lastSearch") || "#/"; } catch (e) { /
 const searchHref = () => lastSearch;
 
 /* ------------------------------------------------------------------ boot */
+// Download the database with a progress bar. The bytes counted are the unpacked ones (the server sends the file gzipped),
+// so the total is the size remembered from the last visit, or a rough guess on the first one.
+const DB_GUESS_BYTES = 38600000;
+async function fetchDb(onProgress, url = DB_URL, opts = { cache: "no-cache" }) {
+  const res = await fetch(url, opts);
+  if (!res.ok) throw new Error("Could not load " + url.split("?")[0] + " (HTTP " + res.status + ")");
+  if (!res.body || !res.body.getReader) return new Uint8Array(await res.arrayBuffer());
+  const reader = res.body.getReader();
+  const chunks = [];
+  let got = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    got += value.length;
+    onProgress(got);
+  }
+  const out = new Uint8Array(got);
+  let at = 0;
+  for (const c of chunks) { out.set(c, at); at += c.length; }
+  return out;
+}
 async function boot() {
   const app = $("#app");
+  let known = DB_GUESS_BYTES;
+  try { known = parseInt(localStorage.getItem("dbBytes"), 10) || DB_GUESS_BYTES; } catch (e) { /* storage may be blocked */ }
+  app.innerHTML = `<div class="loading"><p class="muted" id="load-text">Loading the database&hellip;</p>
+    <progress id="load-bar" max="100" value="0" aria-label="Loading the database" style="width:100%;max-width:26rem"></progress></div>`;
+  const text = $("#load-text"), bar = $("#load-bar");
+  const showStep = (msg, pct) => { if (text) text.textContent = msg; if (bar && pct != null) bar.value = pct; };
   try {
-    const SQL = await initSqlJs({ locateFile: (f) => "vendor/" + f });
-    const res = await fetch(DB_URL, { cache: "no-cache" });
-    if (!res.ok) throw new Error("Could not load " + DB_URL + " (HTTP " + res.status + ")");
-    db = new SQL.Database(new Uint8Array(await res.arrayBuffer()));
+    showStep("Loading the search engine…", 0);
+    const SQL = SQLJS = await initSqlJs({ locateFile: (f) => "vendor/" + f });
+    let lastShown = 0;
+    const bytes = await fetchDb((got) => {
+      if (got - lastShown < 200000) return; // update about every 0.2 MB
+      lastShown = got;
+      showStep(`Loading the database… ${(got / 1048576).toFixed(1)} MB of about ${(known / 1048576).toFixed(0)} MB`, Math.min(99, (got / known) * 100));
+    });
+    try { localStorage.setItem("dbBytes", String(bytes.length)); } catch (e) { /* storage may be blocked */ }
+    showStep("Opening the database…", 100);
+    await new Promise((r) => setTimeout(r, 0)); // let the browser paint the message before the (blocking) open
+    db = new SQL.Database(bytes);
   } catch (err) {
     const file = location.protocol === "file:";
     app.innerHTML = `<div class="error" role="alert"><strong>The database could not be loaded.</strong><br>
@@ -86,13 +124,69 @@ async function boot() {
   IMG_BASE = ib ? ib.value : "";
   const built = q1("SELECT value FROM meta WHERE key='built_at'");
   if (built) $("#footer").insertAdjacentHTML("beforeend", ` <span class="muted">Database built ${esc(built.value)}.</span>`);
-  window.addEventListener("hashchange", route);
+  window.addEventListener("hashchange", () => route());
   route();
+  // The old names (1963 list, old supplement-only names) are a second file: load it quietly once the page is up.
+  if (OLD.needed()) (window.requestIdleCallback || ((f) => setTimeout(f, 800)))(() => ensureOld().then(() => { if (OLD.state === "ready") refreshAfterOld(); }, () => {}), { timeout: 4000 });
 }
 
-function route() {
+/* ------------------------------------------------------------------ the old names (second database file) */
+// The build splits the database in two: avancestry.sqlite (everything except the names hidden by default) and
+// avancestry-old.sqlite (the 1963-only and old supplement-only names; none of them has parents, children or sports).
+// The page opens on the first file; the second is ATTACHed in the background. Temp views with the table names then
+// show both files together, so the rest of the code does not need to know about the split.
+const SPLIT_TABLES = ["cultivars", "cultivar_list", "cultivar_hybridizers", "cultivar_links", "external_photos", "images"];
+const OLD = { state: "idle", promise: null, error: null, got: 0, listener: null, needed() { return this.state === "idle" && metaValue("part") === "main"; } };
+function metaValue(key) { const r = db && q1("SELECT value FROM meta WHERE key = :k", { k: key }); return r ? r.value : null; }
+function ensureOld() {
+  if (OLD.state === "ready" || OLD.state === "failed") return Promise.resolve();
+  if (metaValue("part") !== "main") { OLD.state = "ready"; return Promise.resolve(); } // a complete database: nothing to load
+  if (OLD.promise) return OLD.promise;
+  OLD.state = "loading";
+  OLD.promise = (async () => {
+    try {
+      const built = metaValue("built_at") || "";
+      const bytes = await fetchDb((got) => { OLD.got = got; if (OLD.listener) OLD.listener(got); }, "avancestry-old.sqlite?v=" + encodeURIComponent(built), { priority: "low" });
+      await new Promise((r) => setTimeout(r, 0));
+      oldDb = new SQLJS.Database(bytes);
+      db.run(`ATTACH DATABASE '${oldDb.filename}' AS old`);
+      for (const t of SPLIT_TABLES) db.run(`CREATE TEMP VIEW ${t} AS SELECT * FROM main.${t} UNION ALL SELECT * FROM old.${t}`);
+      // the database's own views must see the combined tables: recreate them as temp views (temp objects win)
+      for (const v of q("SELECT sql FROM main.sqlite_master WHERE type = 'view'")) db.run(v.sql.replace(/^\s*CREATE\s+VIEW/i, "CREATE TEMP VIEW"));
+      _stats = null; _sizes = null;
+      OLD.state = "ready";
+    } catch (err) {
+      OLD.state = "failed"; OLD.error = err; OLD.promise = null;
+      console.error(err);
+    }
+  })();
+  return OLD.promise;
+}
+/** The page changed under the visitor's feet while the old names loaded: refresh only what shows hidden-match counts. */
+function refreshAfterOld() {
+  const { parts } = parseHash();
+  if (!parts[0] || parts[0] === "advanced") route(true);
+}
+/** Loading screen with progress while a page needs the old names and they are not here yet. */
+function waitForOld(app) {
+  app.innerHTML = `<div class="loading"><p class="muted" id="load-text">Loading the older names&hellip;</p>
+    <progress id="load-bar" max="100" value="0" aria-label="Loading the older names" style="width:100%;max-width:26rem"></progress></div>`;
+  const known = 12400000;
+  OLD.listener = (got) => { const t = $("#load-text"), b = $("#load-bar"); if (t) t.textContent = `Loading the older names… ${(got / 1048576).toFixed(1)} MB`; if (b) b.value = Math.min(99, (got / known) * 100); };
+  ensureOld().then(() => { OLD.listener = null; route(); });
+  OLD.listener(OLD.got);
+}
+
+function route(keepScroll) {
   const { parts, params } = parseHash();
   const app = $("#app");
+  // pages that need the old names: a record that is not in the first file, a hybridizer's full list, and searches with
+  // the "include old names" boxes ticked
+  if (OLD.state !== "ready" && OLD.state !== "failed" && metaValue("part") === "main") {
+    const missing = parts[0] === "c" && parts[1] && !q1("SELECT 1 AS x FROM cultivars WHERE id = :id", { id: decodeURIComponent(parts[1]) });
+    const wants = (!parts[0] || parts[0] === "advanced") && (params.get("old") || params.get("supp"));
+    if (missing || parts[0] === "p" || wants) { waitForOld(app); return; }
+  }
   if (cy) { cy.destroy(); cy = null; }
   const lb = $("#lightbox");
   if (lb && lb.open) lb.close();
@@ -110,7 +204,7 @@ function route() {
     app.innerHTML = `<div class="error" role="alert">Something went wrong showing this page: ${esc(err.message)}</div>`;
   }
   document.title = ($("h1", app)?.textContent ? $("h1", app).textContent + " – " : "") + "Saintpaulia Ancestry";
-  if (!route.first) route.first = true; else window.scrollTo(0, 0);
+  if (!route.first) route.first = true; else if (!keepScroll) window.scrollTo(0, 0);
 }
 
 /* ------------------------------------------------------------------ shared bits */
@@ -209,7 +303,9 @@ function renderSearch(app, params) {
     ...ftsTerms(searchWords(state.co), "color"), ...ftsTerms(searchWords(state.tx))];
   const hasText = !!(words.length || advFts.length);
   const useFts = hasText && !reg;
-  const from = useFts ? "cultivars_fts f JOIN cultivar_list l ON l.rowid = f.docid" : "cultivar_list l";
+  // each file has its own index; with the old names attached the matches of both are combined
+  const ftsPart = (s) => `SELECT l.* FROM ${s}cultivars_fts JOIN ${s}cultivar_list l ON l.rid = cultivars_fts.docid WHERE cultivars_fts MATCH :m`;
+  const from = useFts ? (OLD.state === "ready" && oldDb ? `(${ftsPart("main.")} UNION ALL ${ftsPart("old.")}) l` : `(${ftsPart("")}) l`) : "cultivar_list l";
   if (reg) { where.push("l.registration_no = :reg"); bind.reg = reg; }
 
   // Which kinds of record are shown by default, and how many more matches each hidden group holds.
@@ -218,7 +314,7 @@ function renderSearch(app, params) {
   const B = state.supp ? "1" : "l.only_supp_unreg = 0";
   const counts = (mainFts) => {
     const m = [...mainFts, ...advFts];
-    const w = [...where, ...(useFts ? ["cultivars_fts MATCH :m"] : [])];
+    const w = [...where];
     const b = useFts ? { ...bind, m: m.join(" ") } : bind;
     const sum = (e) => `coalesce(sum(${e}), 0)`;
     const r = q1(`SELECT ${sum(`${K} AND ${A} AND ${B}`)} AS total, ${sum(`NOT (${K}) AND ${A} AND ${B}`)} AS hk,
@@ -239,10 +335,10 @@ function renderSearch(app, params) {
   const rankWords = words.length ? words : nmWords;
   const phrase = rankWords.join(" ").toLowerCase();
   const sortSql = { new: "l.registered_year IS NULL, l.registered_year DESC, ", old: "l.registered_year IS NULL, l.registered_year ASC, " }[state.sort] || "";
-  let order = sortSql + "l.name COLLATE NOCASE", orderBind = {};
+  let order = sortSql + "l.name COLLATE NOCASE, l.id", orderBind = {};
   if (rankWords.length && !reg) {
     // FTS4 has no relevance ranking: name starts with the phrase, then contains it, then contains the first word
-    order = sortSql + "CASE WHEN l.name LIKE :ph || '%' THEN 0 WHEN l.name LIKE '%' || :ph || '%' THEN 1 WHEN l.name LIKE '%' || :w1 || '%' THEN 2 ELSE 3 END, l.name COLLATE NOCASE";
+    order = sortSql + "CASE WHEN l.name LIKE :ph || '%' THEN 0 WHEN l.name LIKE '%' || :ph || '%' THEN 1 WHEN l.name LIKE '%' || :w1 || '%' THEN 2 ELSE 3 END, l.name COLLATE NOCASE, l.id";
     orderBind = { ph: phrase, w1: rankWords[0] };
   }
   const total = c.total;
@@ -252,11 +348,15 @@ function renderSearch(app, params) {
   const hidden = searching ? c.hk : 0, hidden63 = searching ? c.h63 : 0, hiddenSupp = searching ? c.hs : 0;
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   if (!_sizes) _sizes = q("SELECT DISTINCT size_class AS s FROM cultivars WHERE size_class IS NOT NULL ORDER BY 1").map((r) => r.s);
-  if (!_stats) _stats = q1(`SELECT coalesce(sum(kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0), 0) AS n,
+  // header numbers: precomputed by the build (the old names are loaded later, so counting them here would be wrong)
+  if (!_stats) {
+    const m = (k) => parseInt(metaValue(k), 10);
+    _stats = isNaN(m("stat_n")) ? q1(`SELECT coalesce(sum(kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0), 0) AS n,
                         coalesce(sum(only_1963 = 1), 0) AS old, coalesce(sum(only_supp_unreg = 1), 0) AS supp,
                         coalesce(sum(kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0 AND has_ancestry), 0) AS a,
                         coalesce(sum(kind='cultivar' AND only_1963 = 0 AND only_supp_unreg = 0 AND has_description), 0) AS d
-                      FROM cultivar_list`);
+                      FROM cultivar_list`) : { n: m("stat_n"), old: m("stat_old"), supp: m("stat_supp"), a: m("stat_anc"), d: m("stat_desc") };
+  }
   const st = _stats, sizes = _sizes;
   const ms = Math.round(performance.now() - t0);
 
@@ -856,7 +956,7 @@ function renderPerson(app, id, params) {
   const page = Math.max(1, parseInt(params.get("page") || "1", 10) || 1);
   const total = q1(`SELECT count(*) AS n FROM cultivar_hybridizers ch JOIN cultivars c ON c.id = ch.cultivar_id WHERE ch.person_id = :id AND c.kind = 'cultivar'`, { id }).n;
   const rows = q(`SELECT l.* FROM cultivar_hybridizers ch JOIN cultivar_list l ON l.id = ch.cultivar_id
-                  WHERE ch.person_id = :id AND l.kind = 'cultivar' ORDER BY l.name COLLATE NOCASE LIMIT ${PAGE_SIZE} OFFSET ${(page - 1) * PAGE_SIZE}`, { id });
+                  WHERE ch.person_id = :id AND l.kind = 'cultivar' ORDER BY l.name COLLATE NOCASE, l.id LIMIT ${PAGE_SIZE} OFFSET ${(page - 1) * PAGE_SIZE}`, { id });
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const link = (n) => hashFor("/p/" + encodeURIComponent(id), { page: n > 1 ? n : "" });
   const aliases = p.aliases ? p.aliases.split(" | ") : [];
