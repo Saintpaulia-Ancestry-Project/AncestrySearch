@@ -1027,3 +1027,15 @@ date,op,cultivar_id,name,field,old_value,new_value,reason
 2026-11-16,add,jeanie-2,Jeanie,,,,released from the held supplement plants
 2026-11-16,add,lorena,Lorena,,,,released from the held supplement plants
 2026-11-16,add,westwinds-royal-frills,Westwinds' Royal Frills,,,,released from the held supplement plants
+2026-11-18,rename,all-aglow-supreme,All Aglow Supreme,name,'All Aglow Supreme,All Aglow Supreme,1963 Master List OCR artifact: stray leading apostrophe
+2026-11-18,rename,greenfield-s-double-beauty,Greenfield's Double Beauty,name,'Greenfield's Double Beauty,Greenfield's Double Beauty,1963 Master List OCR artifact: stray leading apostrophe
+2026-11-18,rename,perfection-1963,Perfection,name,'Perfection,Perfection,1963 Master List OCR artifact: stray leading apostrophe
+2026-11-18,rename,pink-cushion-supreme,Pink Cushion Supreme,name,'Pink Cushion Supreme,Pink Cushion Supreme,1963 Master List OCR artifact: stray leading apostrophe
+2026-11-18,rename,sea-shadows,Sea Shadows,name,'Sea Shadows,Sea Shadows,1963 Master List OCR artifact: stray leading apostrophe
+2026-11-18,rename,rose-fringe-1963,Rose Fringe,name,'Rose Fringe,Rose Fringe,1963 Master List OCR artifact: stray leading apostrophe
+2026-11-18,set,all-aglow-supreme,All Aglow Supreme,notes,[name corrected from 'All Aglow Supreme: 1963 Master List OCR artifact: stray leading apostrophe],,remove the automatic name-correction note for an OCR artifact
+2026-11-18,set,greenfield-s-double-beauty,Greenfield's Double Beauty,notes,[name corrected from 'Greenfield's Double Beauty: 1963 Master List OCR artifact: stray leading apostrophe],,remove the automatic name-correction note for an OCR artifact
+2026-11-18,set,perfection-1963,Perfection,notes,[name corrected from 'Perfection: 1963 Master List OCR artifact: stray leading apostrophe],,remove the automatic name-correction note for an OCR artifact
+2026-11-18,set,pink-cushion-supreme,Pink Cushion Supreme,notes,[name corrected from 'Pink Cushion Supreme: 1963 Master List OCR artifact: stray leading apostrophe],,remove the automatic name-correction note for an OCR artifact
+2026-11-18,set,sea-shadows,Sea Shadows,notes,[name corrected from 'Sea Shadows: 1963 Master List OCR artifact: stray leading apostrophe],,remove the automatic name-correction note for an OCR artifact
+2026-11-18,set,rose-fringe-1963,Rose Fringe,notes,[name corrected from 'Rose Fringe: 1963 Master List OCR artifact: stray leading apostrophe],,remove the automatic name-correction note for an OCR artifact
