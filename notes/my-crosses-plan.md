@@ -272,6 +272,13 @@ home, PC browser = Chrome or Edge.
   20 MB in 3.8 s = 5.3 MB/s** (64 KB messages, 4 MB buffer). **Conclusion: the direct link is fast; the Android 10 phone (Chrome 157) is the slow end** (ping always 30 to 44 ms, Wi-Fi power saving
   probably); nothing the page can fix. DECISION: route B (direct link) STAYS as the optional quick route. Phone to PC direction on a good network and the Android phone sending to the laptop in the
   house are still unmeasured (the earlier 0.19 MB/s was on the office setup).
+- **iPad to PC (2026-11-18): the direction users will use works fast.** iPad (iPadOS, Chrome for iOS = WebKit) as ANSWERER, sending to the PC: 5 MB at 1.75 MB/s (first send), then 5.8 MB/s;
+  20 MB in 3.5 s = 5.8 MB/s (64 KB messages, 4 MB buffer). Estimates: thumbnails (about 17 MB) about 3 s, all photos (about 90 MB) about 16 s. The QR code (766 characters) was read at once by the
+  iPad camera page. So the Android 10 phone really is the slow end (same Wi-Fi, same PC).
+  **iOS limits:** a 16 MB send buffer fails with "OperationError: Trying to send too much data" (at about 14 to 16 MB queued), same family as Chrome's "send queue is full": keep `bufferedAmount` at 4 MB or less.
+  **Share sheet:** `navigator.share` right after the scan fails with NotAllowedError (needs a tap); the manual "Send my answer" button worked. The real app must show that button, never auto-share.
+  **Answerer timeout:** the answerer's link went to `failed` 15 s after the answer was made (the PC had not received it yet: the WhatsApp round trip took about 15 s) and recovered by itself when the PC connected
+  (connected at 99 s). The app must treat `failed` on the answerer as "still waiting", keep the screen saying "waiting for the PC", and not give up for several minutes. (This probably explains some earlier failed pairings.)
 - **Sender rules learned for the real app:** 64 KB messages; keep `bufferedAmount` at 4 MB or less and wait for `bufferedamountlow` (256 KB messages with a 16 MB buffer failed at 14 MB with
   "RTCDataChannel send queue is full"); send zip entries in 64 KB pieces with a length header; show progress and a cancel button; a first connection can take about 12 s (answer 628 to 766 characters).
 - **Pairing note:** an iPad could scan/answer (answer 628 characters); the PC still needs microphone permission to expose its real address.

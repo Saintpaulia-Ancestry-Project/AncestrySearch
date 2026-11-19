@@ -49,6 +49,9 @@ Keep `COLUMNS` in `Code.gs` identical to `SHEET_COLUMNS` in `scripts/submissions
 
 - Up to 100 cultivars and 40 photos per submission; photos must be JPEG (the form converts and shrinks them to
   1600 px), at most 4 MB each and 20 MB in total.
+- Photos must also end properly (a cut-off JPEG is refused). All photos together are capped at 150 MB per day, and photos are
+  refused when your Google storage is 90% full (you get an e-mail, at most one a day, at 80% and again at 90%). The storage
+  is shared with Gmail, so a flood of photos must not be able to fill it.
 - Up to 300 new rows per day in total. Past that it asks people to try again tomorrow or email the file.
 - Every row needs a name, the contributor's name and the license box; duplicate names in one submission are refused.
 - A hidden form field catches simple bots. Text is stored as plain text (never as a formula) and capped at

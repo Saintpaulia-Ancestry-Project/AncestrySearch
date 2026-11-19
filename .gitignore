@@ -37,3 +37,6 @@ scripts/prep_mvl_supplements.py
 
 # AVSA gallery link-out review (finished 2026-11-17, kept locally as history; contains AVSA captions, never publish)
 reports/historical/avsa_gallery/
+
+# Waiting for permission from the Gesneriad Council of Australia and New Zealand: never commit until it is recorded (notes/anz-catalogue-plan.md)
+source/AV-Australian catalogue.csv

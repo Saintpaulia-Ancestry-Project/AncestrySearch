@@ -31,7 +31,10 @@ var COLUMNS = [
 ];
 var FORM_COLUMNS = COLUMNS.slice(0, COLUMNS.indexOf('decision'));
 var DECISIONS = ['accept', 'join', 'different', 'reject', 'hold'];
-var LIMITS = { rows: 100, photos: 40, photoBytes: 4 * 1024 * 1024, totalBytes: 20 * 1024 * 1024, dayRows: 300, field: 5000 };
+// dayPhotoBytes: all photos accepted in one UTC day, together (the Drive quota is shared with the owner's Gmail, so a flood
+// of photos must not be able to fill it); driveStop / driveWarn: fraction of the Drive quota at which photos are refused / the owner is warned.
+var LIMITS = { rows: 100, photos: 40, photoBytes: 4 * 1024 * 1024, totalBytes: 20 * 1024 * 1024, dayRows: 300, field: 5000,
+               dayPhotoBytes: 150 * 1024 * 1024, driveStop: 0.9, driveWarn: 0.8 };
 var SID_RE = /^[A-Za-z0-9_-]{3,60}$/;
 
 /** Trim, drop control characters and cap the length of one submitted value. */
@@ -50,6 +53,28 @@ function safePhotoName_(name) {
 /** True when the base64 text decodes to something starting like a JPEG (FF D8 FF). */
 function looksLikeJpegBase64_(b64) {
   return typeof b64 === 'string' && b64.slice(0, 4) === '/9j/';
+}
+
+/** True when the base64 text ends with the JPEG end marker (FF D9): a cut-off or padded upload is refused. */
+function jpegEndsOk_(b64) {
+  if (typeof b64 !== 'string') return false;
+  var s = b64.replace(/\s+$/, '');
+  if (s.length < 8 || s.length % 4 !== 0) return false;
+  var A = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/', bytes = [];
+  var tail = s.slice(-8);
+  for (var i = 0; i < 8; i += 4) {
+    var q = tail.slice(i, i + 4), n = 0, pad = 0;
+    for (var j = 0; j < 4; j++) {
+      var ch = q.charAt(j);
+      if (ch === '=') { pad++; n = n * 64; continue; }
+      var idx = A.indexOf(ch);
+      if (idx < 0) return false;
+      n = n * 64 + idx;
+    }
+    var three = [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    bytes = bytes.concat(three.slice(0, 3 - pad));
+  }
+  return bytes.length >= 2 && bytes[bytes.length - 2] === 0xFF && bytes[bytes.length - 1] === 0xD9;
 }
 
 /**
@@ -83,7 +108,7 @@ function validatePayload_(p) {
   if (ph.length > LIMITS.photos) return { ok: false, error: 'Too many photos in one submission (limit ' + LIMITS.photos + ').' };
   for (var k = 0; k < ph.length; k++) {
     var name = safePhotoName_(ph[k] && ph[k].name), data = ph[k] && ph[k].data;
-    if (!looksLikeJpegBase64_(data)) return { ok: false, error: 'Photo ' + name + ' is not a JPEG image.' };
+    if (!looksLikeJpegBase64_(data) || !jpegEndsOk_(data)) return { ok: false, error: 'Photo ' + name + ' is not a complete JPEG image.' };
     var bytes = Math.floor(data.length * 3 / 4);
     if (bytes > LIMITS.photoBytes) return { ok: false, error: 'Photo ' + name + ' is too large.' };
     total += bytes;
@@ -92,7 +117,7 @@ function validatePayload_(p) {
     names[name] = true;
     photos.push({ name: name, data: data, bytes: bytes });
   }
-  return { ok: true, sid: sid, rows: rows, photos: photos };
+  return { ok: true, sid: sid, rows: rows, photos: photos, photoBytes: total };
 }
 
 /** Row object -> array in sheet column order (header names -> values; unknown headers stay blank). */
@@ -126,6 +151,13 @@ function doPost(e) {
     var used = Number(props.getProperty('rows_' + day) || 0);
     if (used + v.rows.length > LIMITS.dayRows) return jsonOut_({ ok: false, error: 'The inbox is full for today. Please try again tomorrow, or email the file.' });
 
+    if (v.photos.length) {                                   // photos: daily cap and Drive quota (checked before anything is saved)
+      var photoDay = Number(props.getProperty('photobytes_' + day) || 0);
+      if (photoDay + v.photoBytes > LIMITS.dayPhotoBytes) return jsonOut_({ ok: false, error: 'The photo inbox is full for today. Please send without photos, try again tomorrow, or email the photos.' });
+      var frac = driveUsedFraction_();
+      if (frac >= LIMITS.driveStop) { warnDrive_(frac, day, true); return jsonOut_({ ok: false, error: 'Photos cannot be accepted right now. Please send without photos or email them.' }); }
+      if (frac >= LIMITS.driveWarn) warnDrive_(frac, day, false);
+    }
     var sheet = inbox_();
     var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
     var last = sheet.getLastRow();
@@ -168,6 +200,7 @@ function doPost(e) {
       });
     }
     props.setProperty('rows_' + day, String(used + added));
+    if (saved) props.setProperty('photobytes_' + day, String(Number(props.getProperty('photobytes_' + day) || 0) + v.photoBytes));
     notify_(v, added, refreshed, saved);
     return jsonOut_({ ok: true, received: added + refreshed, kept: kept, photos: saved, sid: v.sid });
   } catch (err) {
@@ -175,6 +208,32 @@ function doPost(e) {
   } finally {
     try { lock.releaseLock(); } catch (x) { /* not held */ }
   }
+}
+
+/** Fraction (0 to 1) of the owner's Google storage quota in use; 0 when it cannot be read. */
+function driveUsedFraction_() {
+  try {
+    var limit = DriveApp.getStorageLimit();
+    return limit > 0 ? DriveApp.getStorageUsed() / limit : 0;
+  } catch (err) { return 0; }
+}
+
+/** E-mails the owner at most once a day when the Drive quota is nearly full (or photos are being refused). */
+function warnDrive_(frac, day, refusing) {
+  try {
+    var props = PropertiesService.getScriptProperties();
+    var key = refusing ? 'drive_stop_day' : 'drive_warn_day';
+    if (props.getProperty(key) === day) return;
+    props.setProperty(key, day);
+    MailApp.sendEmail(Session.getEffectiveUser().getEmail(),
+      refusing ? 'Submission photos are being refused: Google storage is almost full' : 'Google storage is getting full',
+      'Your Google storage is ' + Math.round(frac * 100) + '% used. ' +
+      (refusing ? 'The submission form now refuses photos until space is freed (limit ' + Math.round(LIMITS.driveStop * 100) + '%).'
+                : 'Photos will be refused at ' + Math.round(LIMITS.driveStop * 100) + '%.') +
+      '
+Check Drive > "AV Submissions photos" for spam or old submissions.
+');
+  } catch (err) { /* a warning must never block a submission */ }
 }
 
 function inbox_() {
