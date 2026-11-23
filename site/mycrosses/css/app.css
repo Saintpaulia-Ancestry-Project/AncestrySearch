@@ -76,3 +76,5 @@ dialog img { max-width: 90vw; max-height: 75vh; display: block; }
 label.f > input:not([type=checkbox]):not([type=radio]), label.f > select, label.f > textarea { display: block; margin-top: .4rem; }
 label.f { margin: .9rem 0; }
 .fgrid > label.f, .pick > label.f { margin-top: .5rem; margin-bottom: .5rem; }
+
+a.stat { display: block; color: inherit; text-decoration: none; } a.stat:hover, a.stat:focus-visible { border-color: var(--accent); } a.stat .linktext { color: var(--link); text-decoration: underline; }
