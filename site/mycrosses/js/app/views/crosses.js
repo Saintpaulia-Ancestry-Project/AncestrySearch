@@ -145,6 +145,7 @@ export async function crossPage(app, parts) {
   root.append(h("dl", { class: "kv" }, ...rows.flatMap(([k, x]) => [h("dt", {}, k), h("dd", {}, String(x))]),
     remake ? [h("dt", {}, "Repeats"), h("dd", {}, h("a", { href: "#/cross/" + remake.id }, remake.code || crossTitle(remake)))] : null));
   root.append(h("div", { class: "row" }, h("a", { class: "btn secondary", href: `#/cross/${c.id}/edit` }, "Edit cross"),
+    h("a", { class: "btn secondary", href: "#/sheet?cross=" + c.id }, "Spreadsheet"),
     h("button", { class: "danger", onclick: async () => { if (!confirm("Move this cross, its seedlings and photos to the Trash? You can bring them back from the Trash.")) return; await repo.softDelete("crosses", c.id); app.dirty(); app.toast("Moved to the Trash."); location.hash = "#/crosses"; } }, "Delete…")));
 
   root.append(h("h2", {}, `Seedlings (${seedlings.length})`));

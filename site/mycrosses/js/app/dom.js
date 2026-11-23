@@ -35,4 +35,5 @@ export function daysAgo(iso, now = Date.now()) {
 /** Object URLs for photo files; revoked when the screen changes so a long session does not pile up memory. */
 const urls = new Set();
 export function blobUrl(bytes, type = "image/jpeg") { const u = URL.createObjectURL(new Blob([bytes], { type })); urls.add(u); return u; }
-export function revokeUrls() { for (const u of urls) URL.revokeObjectURL(u); urls.clear(); }
+// Revoked a little later, not at once: an image that was just given its address may not have started loading yet (the browser would log an error).
+export function revokeUrls() { const old = [...urls]; urls.clear(); setTimeout(() => { for (const u of old) URL.revokeObjectURL(u); }, 4000); }

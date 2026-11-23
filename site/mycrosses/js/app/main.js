@@ -9,13 +9,14 @@ import { seedlingPage } from "./views/seedling.js";
 import { trashPage } from "./views/trash.js";
 import { syncPage } from "./views/sync.js";
 import { settingsPage } from "./views/settings.js";
+import { sheetPage } from "./views/sheet.js";
 
 const params = new URLSearchParams(location.search);
 // ?db=name opens a separate database (for testing); the real one is "hybridizer"
 const DB_NAME = params.get("db") ? "hybridizer-" + params.get("db").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 20) : "hybridizer";
 
-const NAV = [["#/", "Home", "home"], ["#/crosses", "Crosses", "crosses"], ["#/sync", "Sync", "sync"], ["#/trash", "Trash", "trash"], ["#/settings", "Settings", "settings"]];
-const ROUTES = { "": home, crosses: crossesList, cross: crossPage, seedling: seedlingPage, trash: trashPage, sync: syncPage, settings: settingsPage };
+const NAV = [["#/", "Home", "home"], ["#/crosses", "Crosses", "crosses"], ["#/sheet", "Spreadsheet", "sheet"], ["#/sync", "Sync", "sync"], ["#/trash", "Trash", "trash"], ["#/settings", "Settings", "settings"]];
+const ROUTES = { "": home, crosses: crossesList, sheet: sheetPage, cross: crossPage, seedling: seedlingPage, trash: trashPage, sync: syncPage, settings: settingsPage };
 const main = document.getElementById("main");
 
 const app = {
