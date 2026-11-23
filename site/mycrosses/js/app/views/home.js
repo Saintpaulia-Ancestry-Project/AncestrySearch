@@ -12,7 +12,7 @@ export async function home(app) {
   const age = lastFile ? daysAgo(lastFile) : null;
   const p = app.persistence;
 
-  const root = h("div", {}, h("h1", {}, "Home"));
+  const root = h("div", {}, h("div", { class: "homehead" }, h("img", { src: "icons/logo.png", width: "64", height: "64", alt: "" }), h("div", {}, h("h1", {}, "Home"), h("p", { class: "muted" }, "Saintpaulia Hybridizer"))));
   const empty = !crosses.length;
   if (empty) root.append(h("div", { class: "panel" }, h("p", {}, "Nothing here yet. Start by recording a cross: the two parents and the date. Then add the seedlings that grow from it."), h("a", { class: "btn", href: "#/cross/new" }, "Record your first cross")));
   else root.append(h("div", { class: "row" }, h("a", { class: "btn", href: "#/cross/new" }, "New cross"), h("a", { class: "btn secondary", href: "#/crosses" }, "All crosses")));

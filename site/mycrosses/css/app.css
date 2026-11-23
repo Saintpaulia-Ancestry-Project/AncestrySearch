@@ -100,3 +100,7 @@ label.inline { display: inline-flex; align-items: center; gap: .3rem; margin-rig
 .badge { font-size: .75rem; background: var(--accent); color: var(--accent-fg); border-radius: 999px; padding: 0 .4rem; }
 .cell button.plus { margin: 0; padding: 0 .5rem; line-height: 1.5; }
 .cell.k-open a { color: var(--link); }
+
+header.top .brand { display: inline-flex; align-items: center; gap: .5rem; color: var(--text); text-decoration: none; }
+.homehead { display: flex; align-items: center; gap: .8rem; margin: .2rem 0 .6rem; } .homehead h1 { margin: 0; } .homehead p { margin: 0; }
+.homehead img { width: 64px; height: 64px; flex: none; }
