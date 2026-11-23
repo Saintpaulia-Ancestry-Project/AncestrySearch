@@ -2,7 +2,7 @@
 
 Everything on this site is under one license: [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/). This covers the data (names, parentage, sports links, registration details), the descriptions, the photos hosted by this project, the ancestry graphs and outlines as the site draws them, and the downloadable files. Please credit the Saintpaulia Ancestry Project. The site's program code is separate and is released under the MIT License.
 
-Cultivar names and registration data come from the AVSA (African Violet Society of America), the international registrar of African violet cultivars.
+Registered cultivar names and registration data come from the AVSA (African Violet Society of America), the international registrar of African violet cultivars.
 
 **What "NonCommercial" means here.** You are welcome to use the data for your own collection, hybridizing records, club newsletters and shows, teaching, research, and free websites and apps. Please do not sell the data or a product that mainly consists of it (a paid catalog, a subscription database, a paid app), and do not use it for advertising or to promote selling plants, pots or other goods. Hybridizing and selling your own plants is fine; the data just may not be what you are selling or what draws customers to a sales page. If you are unsure whether a use is commercial, ask the project before you start.
 
