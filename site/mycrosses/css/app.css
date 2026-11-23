@@ -71,3 +71,8 @@ dialog img { max-width: 90vw; max-height: 75vh; display: block; }
 
 .pline { display: flex; gap: .6rem; align-items: center; padding: .2rem 0; } .pthumb { flex: none; width: var(--thumb); min-height: 1px; } .pthumb a { display: block; }
 .pthumb:empty { display: none; }
+
+/* every labelled field: the input sits on its own line with room for the focus outline */
+label.f > input:not([type=checkbox]):not([type=radio]), label.f > select, label.f > textarea { display: block; margin-top: .4rem; }
+label.f { margin: .9rem 0; }
+.fgrid > label.f, .pick > label.f { margin-top: .5rem; margin-bottom: .5rem; }
