@@ -101,7 +101,8 @@ async function parentLine(app, role, name, ref) {
   return li;
 }
 async function parentsBlock(app, c) {
-  return h("div", { class: "panel" }, await parentLine(app, "Seed parent", c.seed_parent_name, c.seed_parent_ref), await parentLine(app, "Pollen parent", c.pollen_parent_name, c.pollen_parent_ref));
+  return h("div", { class: "panel compact" }, await parentLine(app, "Seed parent", c.seed_parent_name, c.seed_parent_ref), await parentLine(app, "Pollen parent", c.pollen_parent_name, c.pollen_parent_ref),
+    c.hybridizer ? h("div", {}, h("span", { class: "muted" }, "Hybridizer: "), h("b", {}, c.hybridizer)) : null);
 }
 
 // ---------------------------------------------------------------- the cross page
@@ -117,14 +118,11 @@ export async function crossPage(app, parts) {
   const collisions = (await repo.labelCollisions()).filter((x) => x.cross_id === c.id);
   const remake = c.remake_of ? await repo.get("crosses", c.remake_of) : null;
 
-  const root = h("div", {}, h("p", {}, h("a", { href: "#/crosses" }, "← Crosses")), h("h1", {}, c.code || "(no code)"), h("p", {}, h("b", {}, crossTitle(c))), await parentsBlock(app, c));
+  const root = h("div", {}, h("p", {}, h("a", { href: "#/crosses" }, "← Crosses")), h("h1", {}, c.code || "(no code)"), await parentsBlock(app, c));
   if (dupCode) root.append(h("div", { class: "warn" }, `Another cross uses the code ${c.code} (probably made on another device). Change one of the codes: `, h("a", { href: `#/cross/${c.id}/edit` }, "edit this cross"), "."));
-  const rows = [["Hybridizer", c.hybridizer], ["Date made", showDate(c.date_made)], ["Date seed harvested", showDate(c.date_harvested)], ["Date seed sown", showDate(c.date_sown)], ["Number of seeds sown", c.seeds_sown], ["Notes", c.notes]].filter(([, x]) => x !== null && x !== "" && x !== undefined);
-  const stored = c.seed_stored === 1 ? "Yes" + (c.stored_from || c.stored_to ? ` (${showDate(c.stored_from) || "?"} to ${showDate(c.stored_to) || "?"})` : "") : c.seed_stored === 0 ? "No" : "";
-  const storageBlock = stored || c.storage_notes ? h("details", {}, h("summary", {}, "Seed storage"), h("dl", { class: "kv" }, h("dt", {}, "Stored"), h("dd", {}, stored || "not recorded"), c.storage_notes ? [h("dt", {}, "How"), h("dd", {}, c.storage_notes)] : null)) : null;
+  const rows = [["Date made", showDate(c.date_made)], ["Date seed harvested", showDate(c.date_harvested)], ["Seed stored", c.seed_stored === 1 ? "Yes" + (c.stored_from || c.stored_to ? ` (${showDate(c.stored_from) || "?"} to ${showDate(c.stored_to) || "?"})` : "") : c.seed_stored === 0 ? "No" : ""], ["Storage", c.storage_notes], ["Date seed sown", showDate(c.date_sown)], ["Number of seeds sown", c.seeds_sown], ["Notes", c.notes]].filter(([, x]) => x !== null && x !== "" && x !== undefined);
   root.append(h("dl", { class: "kv" }, ...rows.flatMap(([k, x]) => [h("dt", {}, k), h("dd", {}, String(x))]),
     remake ? [h("dt", {}, "Repeats"), h("dd", {}, h("a", { href: "#/cross/" + remake.id }, remake.code || crossTitle(remake)))] : null));
-  if (storageBlock) root.append(storageBlock);
   root.append(h("div", { class: "row" }, h("a", { class: "btn secondary", href: `#/cross/${c.id}/edit` }, "Edit cross"),
     h("button", { class: "danger", onclick: async () => { if (!confirm("Move this cross, its seedlings and photos to the Trash? You can bring them back from the Trash.")) return; await repo.softDelete("crosses", c.id); app.dirty(); app.toast("Moved to the Trash."); location.hash = "#/crosses"; } }, "Delete…")));
 

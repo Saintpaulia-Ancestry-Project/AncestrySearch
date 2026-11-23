@@ -66,3 +66,5 @@ dialog img { max-width: 90vw; max-height: 75vh; display: block; }
 .pick-list li { padding: .4rem .5rem; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; }
 .pick-list li[aria-selected="true"] { background: var(--accent); color: var(--accent-fg); } .pick-list li[aria-selected="true"] .muted { color: inherit; }
 .pick-list li.info { cursor: default; color: var(--muted); } .pick-list li.action { border: 1px dashed var(--line); margin: .2rem 0; } .pick-list .sub { font-size: .85rem; }
+
+.panel.compact { padding-top: .35rem; padding-bottom: .35rem; margin-top: .2rem; }
