@@ -8,8 +8,6 @@ Cultivar names and registration data come from the AVSA (African Violet Society 
 
 **What "ShareAlike" means here.** If you adapt or build on the data (for example by merging it with your own records or building a new tool or chart from it), you must share the result under the same license and say that you changed it.
 
-**Facts and rights.** Who crossed which cultivar with which, and registration numbers and dates, are facts, and facts as such may not be protected by copyright in your country. The license applies to whatever rights do exist: in the descriptions and photos, in the selection and arrangement of the database, in the graphs as drawn, and in database rights where your country has them. It does not take away anything the law already allows you to do, such as quoting a few records.
-
 **Sources.** Some registration details (registration numbers and dates) and notes come from the AVSA Master List supplements printed in the [African Violet Magazine](https://www.biodiversitylibrary.org/bibliography/146187), whose digitized issues are curated by the Biodiversity Heritage Library, which makes its online collection available under CC BY-NC-SA 4.0. The names, codes and descriptions of the species, subspecies, varieties and clones (names beginning "S.") follow K. Barbi's African Violet Species Identification Guide (MAAVS, 2019) and the accession list of J. Smith and W. Goretsky, *Gesneriads* 68(1), 2018, also CC BY-NC-SA 4.0. A record's Notes column shows where its information came from.
 
 **Photos on other sites.** Links to photos on the AVSA Photo Gallery and the Gesneriad Reference Web are only links. Those images belong to their owners and keep their own terms.
