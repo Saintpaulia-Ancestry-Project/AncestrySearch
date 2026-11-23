@@ -18,6 +18,7 @@
 <ul id="list"></ul>
 <script type="module">
 import { defineTests } from "./suite.js";
+import { defineSyncTests } from "./sync.suite.js";
 import { IdbAdapter } from "../js/core/adapters/idb.js";
 
 const tests = [];
@@ -42,6 +43,7 @@ const assert = {
 let n = 0; const opened = [];
 const makeAdapter = async () => { const a = new IdbAdapter({ name: "hybridizer-test-" + (++n) + "-" + Math.random().toString(36).slice(2, 8) }); opened.push(a); await a.open(); return a; };
 defineTests({ test, assert, makeAdapter });
+defineSyncTests({ test, assert, makeAdapter });
 
 const results = [];
 const list = document.getElementById("list");

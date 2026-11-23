@@ -9,7 +9,7 @@
 //  - local_seq (this device only) rises on every local change, for incremental sync files (stage 3).
 import { SCHEMA_VERSION, TABLES, STORES, SYNC_TABLES, COMMON_MERGEABLE, DEFAULT_SETTINGS, emptyFields } from "./schema.js";
 import { newId, isLocalId } from "./ids.js";
-import { newClockState, tick, stampTime } from "./clock.js";
+import { newClockState, tick, observe as observeClock, stampTime } from "./clock.js";
 import { validateFields, crossDateErrors, checkValue, ValidationError } from "./validate.js";
 import { nextCrossCode, nextLabel, findDuplicates, compareLabels, cleanInitials } from "./codes.js";
 import { sha256Hex } from "./hash.js";
@@ -93,6 +93,7 @@ export class Repo {
       nowMs,
       stamp: () => { const [s, next] = tick(clock, nowMs, this.deviceId); clock = next; return s; },
       seq: () => ++seq,
+      observe: (stamp) => { clock = observeClock(clock, stamp, nowMs); },   // a stamp that arrived in a sync file
       flush: async () => { await t.put("meta", { key: "clock", value: clock }); await t.put("meta", { key: "local_seq", value: seq }); },
     };
   }
@@ -399,11 +400,35 @@ export class Repo {
   }
   async getOfficial(id) { return this.adapter.tx(["official_cache"], "readonly", (t) => t.get("official_cache", id)); }
 
-  async logSync({ peer_device_id = null, direction, counts = {} }) {
+  /** extra: { last_seq (highest local_seq an export contained), stamp (highest stamp seen or made) }. */
+  async logSync({ peer_device_id = null, direction, counts = {}, ...extra }) {
     if (!["export", "import"].includes(direction)) throw new Error("direction must be export or import");
-    return this.adapter.tx(["sync_log"], "readwrite", (t) => t.put("sync_log", { device_id: this.deviceId, peer_device_id, direction, at: new Date(this.now()).toISOString(), counts }));
+    return this.adapter.tx(["sync_log"], "readwrite", (t) => t.put("sync_log", { device_id: this.deviceId, peer_device_id, direction, at: new Date(this.now()).toISOString(), counts, ...extra }));
   }
   async syncLog() { return this.adapter.tx(["sync_log"], "readonly", (t) => t.getAll("sync_log")); }
+
+  /** What this device knows about its last exchange with a peer: { export_seq, stamp, known } (export_seq 0 and stamp null when they never met). */
+  async lastSync(peerDeviceId) {
+    let export_seq = 0, stamp = null, known = false;
+    for (const e of await this.syncLog()) {
+      if (e.peer_device_id !== peerDeviceId) continue;
+      known = true;
+      if (e.direction === "export" && (e.last_seq || 0) > export_seq) export_seq = e.last_seq;
+      if (e.stamp && (stamp === null || e.stamp > stamp)) stamp = e.stamp;
+    }
+    return { export_seq, stamp, known };
+  }
+
+  /** Remove photo files no live or trashed photo record refers to (left behind by a failed import). Returns how many. */
+  async cleanOrphanBlobs() {
+    return this.adapter.tx(["blobs", "photos"], "readwrite", async (t) => {
+      const used = new Set();
+      for (const p of await t.getAll("photos")) { if (p.erased) continue; used.add(p.sha256); if (p.thumb_sha256) used.add(p.thumb_sha256); }
+      let n = 0;
+      for (const b of await t.getAll("blobs")) if (!used.has(b.key)) { await t.del("blobs", b.key); n++; }
+      return n;
+    });
+  }
 
   /** Every record of every synced table as stored, sorted, WITHOUT local_seq: two devices that agree produce the same snapshot. */
   async snapshot() {

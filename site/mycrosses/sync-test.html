@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<title>Hybridizer sync test</title>
+<style>
+  :root { --bg: #fff; --fg: #1d1d1f; --muted: #555; --panel: #f3f0f8; --line: #cfc7dd; --accent: #5b2a86; --accent-fg: #fff; --ok: #0a6b2d; --bad: #b00020; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #15121a; --fg: #eee; --muted: #b9b2c4; --panel: #211c2b; --line: #3d3450; --accent: #c9a6ee; --accent-fg: #1a1226; --ok: #6fdc8c; --bad: #ff8a80; } }
+  body { background: var(--bg); color: var(--fg); font: 16px/1.45 system-ui, sans-serif; margin: 0 auto; padding: 16px; max-width: 54rem; }
+  h1 { font-size: 1.4rem; } h2 { font-size: 1.1rem; margin-top: 1.6em; border-bottom: 1px solid var(--line); padding-bottom: .2em; }
+  section, .box { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .6em .9em; margin: .6em 0; }
+  button { background: var(--accent); color: var(--accent-fg); border: 0; border-radius: 6px; padding: .55em .9em; font: inherit; margin: .2em .3em .2em 0; cursor: pointer; }
+  button.secondary { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+  button:disabled { opacity: .5; cursor: default; }
+  label { display: inline-block; margin-right: 1em; } input[type=password], input[type=text], select { font: inherit; padding: .3em; }
+  table { border-collapse: collapse; width: 100%; font-size: .92rem; } th, td { border-bottom: 1px solid var(--line); text-align: left; padding: .25em .4em; }
+  .muted { color: var(--muted); } .ok { color: var(--ok); } .bad { color: var(--bad); font-weight: 600; }
+  #log { white-space: pre-wrap; font: .85rem/1.35 ui-monospace, monospace; max-height: 16rem; overflow: auto; }
+  .warn { border-left: 4px solid var(--bad); padding-left: .6em; margin: .3em 0; }
+</style>
+</head>
+<body>
+<h1>Hybridizer: sync file test page</h1>
+<p class="muted">Synthetic data only. This page keeps its own test database (<code id="dbname"></code>) and never touches anything else. Open it on two devices (or on one device with <code>?device=B</code> added to the address for a second test device), make changes on each, export from one and import into the other.</p>
+
+<div class="box" id="status">Starting&hellip;</div>
+
+<h2>1. Test data on this device</h2>
+<section>
+  <button id="b-cross">Add a sample cross (12 seedlings)</button>
+  <button id="b-photos">Add 6 sample photos</button>
+  <button id="b-edit" class="secondary">Change a note on a random seedling</button>
+  <button id="b-delete" class="secondary">Move a random seedling to the Trash</button>
+  <button id="b-reset" class="secondary">Delete all test data here</button>
+  <div id="counts" class="muted"></div>
+</section>
+
+<h2>2. Make a sync file (export)</h2>
+<section>
+  <p><label>Contents <select id="x-mode"><option value="full">Everything (also a full backup)</option><option value="incremental">Only changes since the last file for another device</option></select></label>
+  <label id="x-peer-wrap" hidden>For device <select id="x-peer"></select></label></p>
+  <p><label>Photos <select id="x-photos"><option value="none">Data only</option><option value="thumbs" selected>Thumbnails</option><option value="all">All photos (large)</option></select></label>
+  <label>Passphrase (optional) <input id="x-pass" type="password" autocomplete="new-password" size="16"></label></p>
+  <button id="x-save">Save&hellip;</button><button id="x-share">Share&hellip;</button><button id="x-download">Download</button>
+  <div id="x-out" class="muted"></div>
+</section>
+
+<h2>3. Read a sync file (import)</h2>
+<section>
+  <p><input type="file" id="i-file"> <label>Passphrase (if the file is protected) <input id="i-pass" type="password" autocomplete="off" size="16"></label></p>
+  <div id="i-summary"></div>
+  <button id="i-apply" disabled>Import</button><button id="i-cancel" class="secondary" disabled>Cancel</button>
+</section>
+
+<h2>4. What is on this device</h2>
+<section><div id="records"></div></section>
+
+<h2>Log</h2>
+<div class="box"><div id="log"></div></div>
+
+<script type="module">
+import { Repo } from "./js/core/repo.js";
+import { IdbAdapter } from "./js/core/adapters/idb.js";
+import { requestPersistence, describePersistence } from "./js/core/persistence.js";
+import { exportSync } from "./js/sync/export.js";
+import { readSyncFile, planImport, applyImport } from "./js/sync/import.js";
+import { shortId } from "./js/core/ids.js";
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const log = (m) => { $("log").textContent += `[${new Date().toLocaleTimeString()}] ${m}\n`; $("log").scrollTop = 1e9; };
+const device = new URLSearchParams(location.search).get("device") || "main";
+const DB = "hybridizer-synctest-" + device.replace(/[^A-Za-z0-9_-]/g, "").slice(0, 20);
+$("dbname").textContent = DB;
+
+let repo = null, pending = null, lastExport = null;
+async function open() { repo = await Repo.open({ adapter: new IdbAdapter({ name: DB }) }); window.__hyb = { repo }; }
+
+async function refresh() {
+  const c = await repo.counts();
+  $("counts").textContent = `Crosses ${c.crosses}, seedlings ${c.seedlings} (Trash ${c.seedlings_trash}), photos ${c.photos}. This device is ${shortId(repo.deviceId)}.`;
+  const crosses = await repo.list("crosses"), seedlings = await repo.list("seedlings");
+  const photos = await repo.list("photos");
+  const nPhotos = new Map(); for (const p of photos) nPhotos.set(p.seedling_id, (nPhotos.get(p.seedling_id) || 0) + 1);
+  const rows = [];
+  for (const c1 of crosses) for (const s of await repo.seedlingsOf(c1.id)) rows.push(`<tr><td>${esc(c1.code)}</td><td>${esc(s.label)}</td><td>${esc(s.status)}</td><td>${esc(s.notes || "")}</td><td>${nPhotos.get(s.id) || ""}</td></tr>`);
+  const trash = await repo.list("seedlings", { state: "trash" });
+  const lc = await repo.labelCollisions(), dc = await repo.duplicateCrossCodes();
+  $("records").innerHTML = (lc.length || dc.length ? `<div class="warn">Flagged: ${lc.length} label collision(s), ${dc.length} duplicate cross code(s) (both versions are kept).</div>` : "")
+    + `<table><tr><th>Cross</th><th>Label</th><th>Status</th><th>Notes</th><th>Photos</th></tr>${rows.slice(0, 60).join("")}</table>${rows.length > 60 ? `<p class="muted">${rows.length - 60} more not shown.</p>` : ""}` + (trash.length ? `<p class="muted">${trash.length} seedling(s) in the Trash.</p>` : "");
+  const sel = $("x-peer"), peers = [...new Set((await repo.syncLog()).map((e) => e.peer_device_id).filter(Boolean))];
+  sel.innerHTML = peers.map((p) => `<option value="${esc(p)}">${esc(shortId(p))}</option>`).join("") || `<option value="">(no other device yet: import a file from one first)</option>`;
+}
+
+// ---------------------------------------------------------------- sample data
+async function jpegBytes(w, h, hue, text) {
+  const c = document.createElement("canvas"); c.width = w; c.height = h; const x = c.getContext("2d");
+  const g = x.createLinearGradient(0, 0, w, h); g.addColorStop(0, `hsl(${hue},70%,60%)`); g.addColorStop(1, `hsl(${(hue + 60) % 360},70%,35%)`);
+  x.fillStyle = g; x.fillRect(0, 0, w, h); x.fillStyle = "#fff"; x.font = `${Math.round(h / 8)}px sans-serif`; x.fillText(text, w * 0.06, h * 0.55);
+  for (let i = 0; i < 25; i++) { x.fillStyle = `hsla(${hue + i * 7},80%,70%,.4)`; x.beginPath(); x.arc(Math.random() * w, Math.random() * h, h / 12, 0, 7); x.fill(); }
+  const blob = await new Promise((r) => c.toBlob(r, "image/jpeg", 0.82));
+  return new Uint8Array(await blob.arrayBuffer());
+}
+$("b-cross").onclick = async () => {
+  const code = await repo.suggestCrossCode();
+  const c = await repo.create("crosses", { code, seed_parent_name: "Sample seed parent", pollen_parent_name: "Sample pollen parent", date_made: new Date().toISOString().slice(0, 10) });
+  await repo.createMany("seedlings", Array.from({ length: 12 }, (_, i) => ({ cross_id: c.id, label: String(i + 1) })));
+  log(`Added cross ${code} with 12 seedlings.`); await refresh();
+};
+$("b-photos").onclick = async () => {
+  const seedlings = await repo.list("seedlings"); if (!seedlings.length) return log("Add a sample cross first.");
+  for (let i = 0; i < 6; i++) {
+    const s = seedlings[Math.floor(Math.random() * seedlings.length)], hue = Math.floor(Math.random() * 360), t = `Seedling ${s.label}`;
+    await repo.addPhoto({ seedling_id: s.id, full: await jpegBytes(1000, 750, hue, t), thumb: await jpegBytes(300, 225, hue, t), width: 1000, height: 750 });
+  }
+  log("Added 6 sample photos (1000 px and 300 px)."); await refresh();
+};
+$("b-edit").onclick = async () => {
+  const s = await repo.list("seedlings"); if (!s.length) return log("No seedlings yet.");
+  const r = s[Math.floor(Math.random() * s.length)], note = `edited on ${shortId(repo.deviceId)} at ${new Date().toLocaleTimeString()}`;
+  await repo.update("seedlings", r.id, { notes: note }); log(`Seedling ${r.label}: notes = "${note}"`); await refresh();
+};
+$("b-delete").onclick = async () => {
+  const s = await repo.list("seedlings"); if (!s.length) return log("No seedlings yet.");
+  const r = s[Math.floor(Math.random() * s.length)]; await repo.softDelete("seedlings", r.id); log(`Seedling ${r.label} moved to the Trash.`); await refresh();
+};
+$("b-reset").onclick = async () => {
+  if (!confirm("Delete all test data on this device?")) return;
+  repo.adapter.close(); await IdbAdapter.deleteDatabase(DB); await open(); log("Test data deleted; this is now a new device."); await refresh();
+};
+
+// ---------------------------------------------------------------- export
+$("x-mode").onchange = () => { $("x-peer-wrap").hidden = $("x-mode").value !== "incremental"; };
+async function makeFile() {
+  const mode = $("x-mode").value, photos = $("x-photos").value, passphrase = $("x-pass").value || null;
+  const out = await exportSync(repo, { mode, photos, passphrase, peerDeviceId: mode === "incremental" ? $("x-peer").value || null : null });
+  lastExport = out;
+  $("x-out").textContent = `${out.name}: ${(out.blob.size / 1048576).toFixed(2)} MB, ${out.counts.crosses} crosses, ${out.counts.seedlings} seedlings, ${out.counts.photos} photos${out.encrypted ? ", protected by the passphrase" : ""}.`;
+  log("Made " + out.name); await refresh();
+  return out;
+}
+const guard = (fn) => async () => { try { await fn(); } catch (e) { log("PROBLEM: " + (e && e.message || e)); $("status").textContent = "Problem: " + (e && e.message || e); } };
+$("x-download").onclick = guard(async () => { const o = await makeFile(); const a = document.createElement("a"); a.href = URL.createObjectURL(o.blob); a.download = o.name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 20000); });
+$("x-save").onclick = guard(async () => {
+  if (!window.showSaveFilePicker) return log("This browser has no 'Save…' dialog; use Share or Download.");
+  const o = await makeFile();
+  const h = await showSaveFilePicker({ suggestedName: o.name, types: [{ description: "Sync file", accept: { "application/zip": [".zip"] } }] });
+  const w = await h.createWritable(); await w.write(o.blob); await w.close(); log("Saved: " + h.name);
+});
+$("x-share").onclick = guard(async () => {
+  if (!navigator.share) return log("This browser cannot share files; use Download.");
+  const o = await makeFile();
+  const f = new File([o.blob], o.name + ".txt", { type: "text/plain" });          // Android Chrome refuses .zip but accepts text; the importer checks content, not the name
+  if (navigator.canShare && !navigator.canShare({ files: [f] })) return log("This browser would not share the file; use Download.");
+  await navigator.share({ files: [f], title: o.name }); log("Shared " + f.name);
+});
+
+// ---------------------------------------------------------------- import
+function summaryHtml(p) {
+  const t = p.tables, row = (n) => `<tr><td>${n}</td><td>${t[n].new}</td><td>${t[n].updated}</td><td>${t[n].unchanged}</td><td>${t[n].conflicts}</td></tr>`;
+  let h = `<p>File from device <b>${esc(shortId(p.from.device_id))}</b>, made ${esc(p.from.exported_at.replace("T", " ").slice(0, 19))} UTC (${p.from.mode === "full" ? "everything" : "changes only"}, photos: ${esc(p.from.photos)}).</p>`;
+  h += `<table><tr><th></th><th>New</th><th>Updated</th><th>Unchanged</th><th>Conflicts</th></tr>${["crosses", "seedlings", "photos", "traits"].map(row).join("")}</table>`;
+  h += `<p><b>${p.totals.new}</b> new, <b>${p.totals.updated}</b> updated, <b>${p.totals.unchanged}</b> unchanged, <b>${p.totals.conflicts}</b> conflicts; photo files to add: <b>${p.photos.to_add}</b> (already here: ${p.photos.already_here}${p.photos.ignored ? `, ignored: ${p.photos.ignored}` : ""}).</p>`;
+  for (const w of p.warnings) h += `<div class="warn">${esc(w.message)}</div>`;
+  if (p.conflicts_total) h += `<p>Conflicts (the later edit wins):</p><ul>${p.conflicts.slice(0, 10).map((c) => `<li>${esc(c.table)} ${esc(c.field)}: here "${esc(c.local)}" / file "${esc(c.remote)}" &rarr; ${c.winner === "remote" ? "the file's" : "this device's"} value is kept</li>`).join("")}</ul>`;
+  if (p.nothing_to_do) h += `<p class="ok">Nothing to import: this device already has everything in the file.</p>`;
+  return h;
+}
+$("i-file").onchange = guard(async () => {
+  pending = null; $("i-apply").disabled = true; $("i-cancel").disabled = true; $("i-summary").innerHTML = "";
+  const f = $("i-file").files[0]; if (!f) return;
+  const copy = new Blob([await f.arrayBuffer()]);                    // copy into memory now: Android can lose access to a picked file later
+  log(`Reading ${f.name} (${(copy.size / 1048576).toFixed(2)} MB)...`);
+  try {
+    const parsed = await readSyncFile(copy, { passphrase: $("i-pass").value || null });
+    const plan = await planImport(repo, parsed);
+    pending = { parsed, plan }; $("i-summary").innerHTML = summaryHtml(plan);
+    $("i-apply").disabled = plan.nothing_to_do; $("i-cancel").disabled = false; log("Checked the file: nothing has been changed yet.");
+  } catch (e) {
+    $("i-summary").innerHTML = `<div class="warn bad">${esc(e.message)}</div>`; log("The file was refused: " + e.message + (e.code ? ` (${e.code})` : ""));
+  }
+});
+$("i-pass").onchange = () => { if ($("i-file").files[0]) $("i-file").onchange(); };
+$("i-cancel").onclick = () => { pending = null; $("i-summary").innerHTML = ""; $("i-apply").disabled = true; $("i-cancel").disabled = true; $("i-file").value = ""; log("Import cancelled."); };
+$("i-apply").onclick = guard(async () => {
+  if (!pending) return;
+  $("i-apply").disabled = true;
+  const r = await applyImport(repo, pending.parsed);
+  log(`Imported: ${r.writes} record(s) written, ${r.photos_added} photo file(s) added.`);
+  $("i-summary").innerHTML = `<p class="ok">Done: ${r.writes} record(s) written, ${r.photos_added} photo file(s) added.</p>`;
+  pending = null; $("i-cancel").disabled = true; $("i-file").value = ""; await refresh();
+});
+
+// ---------------------------------------------------------------- start
+guard(async () => {
+  await open();
+  const p = await requestPersistence();
+  $("status").textContent = describePersistence(p);
+  log(`Device ${repo.deviceId}. Storage: ${p.persisted ? "persistent" : "not guaranteed"}${p.quota ? `, quota ${(p.quota / 1048576).toFixed(0)} MB` : ""}.`);
+  await refresh();
+  document.title = "Hybridizer sync test (ready)";
+})();
+</script>
+</body>
+</html>
