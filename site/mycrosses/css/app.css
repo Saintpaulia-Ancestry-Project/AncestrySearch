@@ -104,3 +104,8 @@ label.inline { display: inline-flex; align-items: center; gap: .3rem; margin-rig
 header.top .brand { display: inline-flex; align-items: center; gap: .5rem; color: var(--text); text-decoration: none; }
 .homehead { display: flex; align-items: center; gap: .8rem; margin: .2rem 0 .6rem; } .homehead h1 { margin: 0; } .homehead p { margin: 0; }
 .homehead img { width: 64px; height: 64px; flex: none; }
+
+.cell.editing.pop .pick { position: absolute; left: 0; top: 0; width: 24rem; max-width: 80vw; margin: 0; padding: .4rem; background: var(--bg); border: 2px solid var(--link); border-radius: 6px; box-shadow: 0 4px 14px rgba(0, 0, 0, .35); white-space: normal; z-index: 12; }
+.cell.editing.pop .pick .pick-list { position: static; margin-top: .3rem; max-height: 12rem; box-shadow: none; }
+.cell.editing.pop .pick input[type=text] { height: 2.4rem; border: 1px solid var(--line); border-radius: 6px; }
+a.plink { text-decoration: none; margin-left: .2rem; }

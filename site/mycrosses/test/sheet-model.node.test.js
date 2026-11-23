@@ -95,6 +95,35 @@ test("csv: header, quoting, formula text is defused, cross always included", () 
   assert.equal(COLUMNS.filter((c) => c.field).every((c) => ["text", "status", "date"].includes(c.kind)), true);
 });
 
+test("parent columns: shown from the cross, searched, sorted, exported", () => {
+  const r = rows();
+  assert.equal(cellText(r[0], "seed_parent"), "Alpha");
+  assert.equal(cellText(r[0], "pollen_parent"), "Beta");
+  const noParent = r.map((x) => (x.id === "s1" ? { ...x, cross: { ...x.cross, seed_parent_name: null } } : x));
+  assert.equal(cellText(noParent.find((x) => x.id === "s1"), "seed_parent"), "");
+  assert.deepEqual(ids(sortRows(noParent, { sort: "seed_parent" })).at(-1), "s1", "empty parent last");
+  assert.ok(toCsv(r, ["label", "seed_parent"]).includes("Cross,No.,Seed parent"));
+  assert.deepEqual(coerce("seed_parent", "  Baby   Pink "), { ok: true, value: "Baby   Pink" });
+  assert.deepEqual(coerce("pollen_parent", ""), { ok: true, value: null });
+  assert.equal(coerce("seed_parent", "x".repeat(201)).ok, false);
+});
+
+test("planPaste into a parent column: one edit per cross, typed text is unlinked, unchanged names are left alone", () => {
+  const withRef = rows().map((x) => ({ ...x, cross: { ...x.cross, seed_parent_ref: "alpha-id" } }));
+  const r = sortRows(withRef);                                  // s2, s10 (cross c1), s1 (cross c2)
+  let p = planPaste([["Gamma"], ["Delta"], ["Epsilon"]], r, ["seed_parent"]);
+  assert.equal(p.edits.length, 2, "two crosses, not three rows");
+  const c1 = p.edits.find((e) => e.id === "c1");
+  assert.equal(c1.table, "crosses");
+  assert.deepEqual(c1.patch, { seed_parent_name: "Delta", seed_parent_ref: null }, "the last pasted value for the cross wins and the link is dropped");
+  assert.deepEqual(c1.before, { seed_parent_name: "Alpha", seed_parent_ref: "alpha-id" }, "undo restores the first original, link included");
+  p = planPaste([["Alpha"], ["Alpha"], ["Alpha"]], r, ["seed_parent"]);
+  assert.equal(p.edits.length, 0, "the same name keeps its link");
+  p = planPaste([["X", "Rain", "growing"]], r, ["seed_parent", "pollen_parent", "status"]);
+  assert.deepEqual(p.edits.map((e) => e.table).sort(), ["crosses", "seedlings"]);
+  assert.ok(p.edits.find((e) => e.table === "crosses").patch.pollen_parent_name === "Rain");
+});
+
 test("undo stack: last in, first out, bounded", () => {
   const u = new UndoStack(2); u.push(1); u.push(2); u.push(3);
   assert.equal(u.size, 2); assert.equal(u.pop(), 3); assert.equal(u.pop(), 2); assert.equal(u.pop(), null);

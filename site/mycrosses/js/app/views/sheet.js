@@ -4,6 +4,8 @@
 import { h, showDate, blobUrl } from "../dom.js";
 import { statusChip, STATUSES, STATUS_LABEL, msgOf } from "./common.js";
 import { preparePhoto } from "../photos.js";
+import { parentPicker } from "../picker.js";
+import { refKind } from "../../core/ids.js";
 import { compareLabels } from "../../core/codes.js";
 import { COLUMNS, COLUMN_IDS, buildRows, filterRows, sortRows, flatten, cellText, coerce, parseTsv, planPaste, toCsv, UndoStack, crossLabel, isEditable } from "../sheet-model.js";
 
@@ -93,6 +95,12 @@ export async function sheetPage(app, parts, query) {
     const r = row.rec;
     switch (col.kind) {
       case "status": return [statusChip(r.status)];
+      case "parent": {
+        const name = row.cross[col.nameField], ref = row.cross[col.refField], k = refKind(ref);
+        if (!name) return [""];
+        return [name, k === "official" ? h("a", { class: "plink", href: "../#/c/" + encodeURIComponent(ref), target: "_blank", rel: "noopener noreferrer", title: "Official page", "aria-label": "Official page of " + name }, "\u2197")
+          : k === "local" ? h("a", { class: "plink", href: "#/seedling/" + ref, title: "Your own seedling", "aria-label": "Open " + name }, "\u2197") : null];
+      }
       case "date": return [showDate(r.date_added)];
       case "cross": return [h("a", { href: "#/cross/" + row.cross.id }, crossLabel(row.cross))];
       case "photo": return [row.photos[0] ? h("a", { href: "#/seedling/" + row.id, "aria-label": "Open seedling " + r.label }, thumbImg(row.photos[0])) : null, row.photos.length > 1 ? h("span", { class: "badge" }, String(row.photos.length)) : null,
@@ -112,7 +120,7 @@ export async function sheetPage(app, parts, query) {
     const row = it.row, isSelRow = row.id === sel.id;
     visCols.forEach((col, ci) => {
       const cell = h("div", { class: "cell k-" + col.kind + (ci === 0 ? " first" : "") + (isSelRow && sel.col === ci ? " sel" : "") + (isEditable(col) ? " editable" : ""), role: "gridcell", id: cellId(i, ci), "aria-colindex": String(ci + 1), "aria-selected": String(isSelRow && sel.col === ci), "data-r": row.id, "data-c": String(ci) }, ...cellContent(row, col));
-      if (col.kind === "text" || col.kind === "traits") cell.title = cellText(row, col.id);
+      if (col.kind === "text" || col.kind === "traits" || col.kind === "parent") cell.title = cellText(row, col.id);
       el.append(cell);
     });
     el.append(h("div", { class: "cell k-open", role: "gridcell", "aria-colindex": String(visCols.length + 1) }, h("a", { href: "#/seedling/" + row.id, "aria-label": "Open seedling " + row.rec.label }, "Open")));
@@ -160,34 +168,50 @@ export async function sheetPage(app, parts, query) {
     if (editing || busy) return;
     const i = selIndex(), col = visCols[sel.col]; if (i < 0 || !isEditable(col)) return;
     const row = items[i].row, cell = document.getElementById(cellId(i, sel.col)); if (!cell) return;
-    const cur = row.rec[col.field] ?? "";
-    let ed;
-    if (col.kind === "status") ed = h("select", { "aria-label": col.title }, ...STATUSES.map((s) => h("option", { value: s, selected: s === row.rec.status }, STATUS_LABEL[s])));
+    const cur = col.cross ? (row.cross[col.nameField] ?? "") : (row.rec[col.field] ?? "");
+    let ed, input = null, hidden = null;
+    if (col.kind === "parent") { ed = parentPicker(app, { label: col.title, nameField: "name", refField: "ref", name: cur, ref: row.cross[col.refField] ?? "", excludeCrossId: row.cross.id }); input = ed.querySelector("input[type=text]"); hidden = ed.querySelector("input[type=hidden]"); }
+    else if (col.kind === "status") ed = h("select", { "aria-label": col.title }, ...STATUSES.map((s) => h("option", { value: s, selected: s === row.rec.status }, STATUS_LABEL[s])));
     else if (col.kind === "date") ed = h("input", { type: "date", "aria-label": col.title, value: cur });
     else if (col.long) ed = h("textarea", { "aria-label": col.title, rows: 4 });
     else ed = h("input", { type: "text", "aria-label": col.title });
     if (col.kind === "text") ed.value = typed !== null ? typed : cur;
     else if (col.kind === "status" && typed) { const m = STATUSES.find((s) => STATUS_LABEL[s].toLowerCase().startsWith(typed.toLowerCase())); if (m) ed.value = m; }
-    editing = { row, col, cell, ed, original: cur, done: false };
-    cell.classList.add("editing"); if (col.long) cell.classList.add("pop");
-    cell.replaceChildren(ed); ed.focus();
+    editing = { row, col, cell, ed, input, hidden, original: cur, done: false };
+    cell.classList.add("editing"); if (col.long || col.kind === "parent") cell.classList.add("pop");
+    cell.replaceChildren(ed); (input || ed).focus();
+    if (input && typed !== null) { input.value = typed; input.dispatchEvent(new Event("input")); }
     if (col.kind === "text" && ed.setSelectionRange) { const n = ed.value.length; ed.setSelectionRange(typed !== null ? n : 0, n); }
     ed.addEventListener("keydown", (e) => {
+      if (col.kind === "parent" && e.defaultPrevented) { e.stopPropagation(); return; }     // the picker used the key (choosing a suggestion, closing its list)
       if (e.key === "Enter" && !(col.long && e.shiftKey)) { e.preventDefault(); finish(true, 1, 0); }
       else if (e.key === "Tab") { e.preventDefault(); finish(true, 0, e.shiftKey ? -1 : 1); }
       else if (e.key === "Escape") { e.preventDefault(); finish(false); }
       e.stopPropagation();
     });
-    ed.addEventListener("blur", () => { if (editing && !editing.done) finish(true, 0, 0, false); });
+    if (col.kind === "parent") ed.addEventListener("focusout", (e) => { if (editing && !editing.done && !ed.contains(e.relatedTarget)) setTimeout(() => { if (editing && !editing.done) finish(true, 0, 0, false); }, 200); });
+    else ed.addEventListener("blur", () => { if (editing && !editing.done) finish(true, 0, 0, false); });
     if (col.kind === "status" || col.kind === "date") ed.addEventListener("change", () => { if (col.kind === "status") finish(true, 0, 0); });
   }
 
   async function finish(save, dr = 0, dc = 0, refocus = true) {
     if (!editing || editing.done) return;
     const e = editing; e.done = true;
-    const text = e.ed.value; editing = null;
+    const text = e.input ? e.input.value : e.ed.value, linkRef = e.hidden ? e.hidden.value : ""; editing = null;
     let err = null;
-    if (save) {
+    if (save && e.col.cross) {
+      const name = text.trim(), c = e.row.cross, col = e.col;
+      const patch = { [col.nameField]: name || null, [col.refField]: name && linkRef ? linkRef : null };
+      if ((c[col.nameField] ?? null) !== patch[col.nameField] || (c[col.refField] ?? null) !== patch[col.refField]) {
+        busy = true;
+        try {
+          const before = { [col.nameField]: c[col.nameField] ?? null, [col.refField]: c[col.refField] ?? null };
+          const res = await repo.update("crosses", c.id, patch);
+          setCross(res.record); app.dirty();
+          undo.push({ type: "edit", edits: [{ table: "crosses", id: c.id, patch, before }] });
+        } catch (ex) { err = msgOf(ex); } finally { busy = false; }
+      }
+    } else if (save) {
       const r = coerce(e.col.id, text);
       if (!r.ok) err = r.error;
       else if ((e.row.rec[e.col.field] ?? null) !== r.value) {
@@ -196,7 +220,7 @@ export async function sheetPage(app, parts, query) {
           const before = e.row.rec[e.col.field] ?? null;
           const res = await repo.update("seedlings", e.row.id, { [e.col.field]: r.value });
           e.row.rec = res.record; app.dirty();
-          undo.push({ type: "edit", edits: [{ id: e.row.id, patch: { [e.col.field]: r.value }, before: { [e.col.field]: before } }] });
+          undo.push({ type: "edit", edits: [{ table: "seedlings", id: e.row.id, patch: { [e.col.field]: r.value }, before: { [e.col.field]: before } }] });
         } catch (ex) { err = msgOf(ex); } finally { busy = false; }
       }
     }
@@ -206,14 +230,28 @@ export async function sheetPage(app, parts, query) {
     if (dr || dc) move(dr, dc);
   }
 
+  /** A cross changed: every seedling row and group heading of that cross shows the new parents. */
+  function setCross(rec) {
+    for (const r of all) if (r.cross.id === rec.id) r.cross = rec;
+    for (const it of items) if (it.type === "group" && it.cross.id === rec.id) it.cross = rec;
+    const k = crossesLive.findIndex((c) => c.id === rec.id); if (k >= 0) crossesLive[k] = rec;
+  }
+
   async function clearCell() {
     const i = selIndex(), col = visCols[sel.col]; if (i < 0 || !isEditable(col) || busy) return;
     const row = items[i].row, r = coerce(col.id, col.kind === "status" ? "" : "");
+    if (col.cross) {
+      const c = row.cross; if (!c[col.nameField] && !c[col.refField]) return;
+      busy = true;
+      try { const before = { [col.nameField]: c[col.nameField] ?? null, [col.refField]: c[col.refField] ?? null }, patch = { [col.nameField]: null, [col.refField]: null }; const res = await repo.update("crosses", c.id, patch); setCross(res.record); app.dirty(); undo.push({ type: "edit", edits: [{ table: "crosses", id: c.id, patch, before }] }); }
+      catch (ex) { toast(msgOf(ex), true); } finally { busy = false; }
+      return refresh();
+    }
     if (col.kind === "status") return toast("A seedling always has a status: choose one.", true);
     if (!r.ok) return toast(r.error, true);
     if ((row.rec[col.field] ?? null) === null) return;
     busy = true;
-    try { const before = row.rec[col.field]; const res = await repo.update("seedlings", row.id, { [col.field]: null }); row.rec = res.record; app.dirty(); undo.push({ type: "edit", edits: [{ id: row.id, patch: { [col.field]: null }, before: { [col.field]: before } }] }); }
+    try { const before = row.rec[col.field]; const res = await repo.update("seedlings", row.id, { [col.field]: null }); row.rec = res.record; app.dirty(); undo.push({ type: "edit", edits: [{ table: "seedlings", id: row.id, patch: { [col.field]: null }, before: { [col.field]: before } }] }); }
     catch (ex) { toast(msgOf(ex), true); } finally { busy = false; }
     refresh();
   }
@@ -221,6 +259,7 @@ export async function sheetPage(app, parts, query) {
   async function applyEdits(list, key) {                     // key: "patch" (forward) or "before" (undo)
     const rows = byId();
     for (const ed of key === "before" ? [...list].reverse() : list) {
+      if (ed.table === "crosses") { const res = await repo.update("crosses", ed.id, ed[key]); setCross(res.record); continue; }
       const row = rows.get(ed.id); if (!row) continue;
       const res = await repo.update("seedlings", ed.id, ed[key]); row.rec = res.record;
     }
@@ -253,7 +292,7 @@ export async function sheetPage(app, parts, query) {
     catch (ex) { toast(msgOf(ex), true); } finally { busy = false; }
     refresh();
     const extra = [plan.skippedRows ? `${plan.skippedRows} pasted row${plan.skippedRows === 1 ? "" : "s"} did not fit below` : "", plan.skippedCols ? `${plan.skippedCols} pasted column${plan.skippedCols === 1 ? "" : "s"} did not fit to the right` : ""].filter(Boolean).join("; ");
-    toast(`Pasted into ${plan.edits.length} seedling${plan.edits.length === 1 ? "" : "s"}.${extra ? " " + extra + "." : ""}`);
+    toast(`Pasted into ${plan.edits.length} record${plan.edits.length === 1 ? "" : "s"}.${extra ? " " + extra + "." : ""}`);
   });
   scroll.addEventListener("copy", (e) => {
     if (editing) return;

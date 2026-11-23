@@ -313,3 +313,5 @@ App at site/mycrosses/index.html (CSP meta: scripts, styles and images from 'sel
 - Logic without a DOM in js/app/sheet-model.js (9 Node tests); tools/sheet-e2e.mjs drives headless Edge (keyboard edit, validation, paste, undo, add, filters, sort, columns, CSV, 3,000-row virtualization); node --test: 73 tests.
 - Not done: selecting a range of cells (copy copies the current cell only), editing traits in the grid (read only, edit on the seedling page), Family mode with a generation column, delete rows from the grid, redo, a larger-screen layout for the toolbar.
 
+
+- Spreadsheet parents (2026-11-23): columns "Seed parent" and "Pollen parent" show the cross parents on every seedling row (a small arrow links to the official page or your own seedling) and are edited with the same parent picker as the cross form, in a pop-up inside the cell (official database, own seedlings, "as typed"). The change is made on the CROSS, so all its seedling rows update; undo restores name and link. Paste into a parent column sets typed (unlinked) names, one edit per cross. Delete clears. 75 Node tests; tools/sheet-e2e.mjs extended.

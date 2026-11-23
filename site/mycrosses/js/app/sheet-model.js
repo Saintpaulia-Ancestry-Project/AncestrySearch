@@ -9,6 +9,8 @@ export const STATUS_NAMES = { growing: "Growing", flowering: "Flowering", culled
 export const COLUMNS = [
   { id: "label", title: "No.", kind: "text", field: "label", width: 96, required: true },
   { id: "cross", title: "Cross", kind: "cross", width: 120 },
+  { id: "seed_parent", title: "Seed parent", kind: "parent", width: 210, cross: true, nameField: "seed_parent_name", refField: "seed_parent_ref" },
+  { id: "pollen_parent", title: "Pollen parent", kind: "parent", width: 210, cross: true, nameField: "pollen_parent_name", refField: "pollen_parent_ref" },
   { id: "photo", title: "Photo", kind: "photo", width: 84 },
   { id: "status", title: "Status", kind: "status", field: "status", width: 130 },
   { id: "description", title: "Description", kind: "text", field: "description", width: 280, long: true },
@@ -19,7 +21,8 @@ export const COLUMNS = [
 ];
 export const COLUMN_IDS = COLUMNS.map((c) => c.id);
 export const colById = (id) => COLUMNS.find((c) => c.id === id);
-export const isEditable = (col) => !!(col && col.field);
+/** A column is editable when it edits a seedling field, or (parents) a field of the seedling's cross: every seedling of that cross shows the change. */
+export const isEditable = (col) => !!(col && (col.field || col.cross));
 
 /** One entry per live seedling, with its cross, photos and traits at hand. */
 export function buildRows(crosses, seedlings, photos, traits) {
@@ -44,6 +47,7 @@ export function cellText(row, colId) {
   const r = row.rec;
   switch (colId) {
     case "cross": return crossLabel(row.cross);
+    case "seed_parent": case "pollen_parent": return row.cross[colById(colId).nameField] || "";
     case "photo": return row.photos.length ? String(row.photos.length) : "";
     case "traits": return traitsText(row);
     case "status": return STATUS_NAMES[r.status] || r.status || "";
@@ -114,6 +118,7 @@ export function coerce(colId, text) {
   const col = colById(colId);
   if (!isEditable(col)) return { ok: false, error: `${col ? col.title : colId} cannot be edited here.` };
   const t = String(text ?? "");
+  if (col.kind === "parent") { const v = t.replace(/[\r\n\t]+/g, " ").trim(); return v.length > 200 ? { ok: false, error: `${col.title} is longer than 200 characters.` } : { ok: true, value: v === "" ? null : v }; }
   if (col.kind === "status") { const s = parseStatusCell(t); return s ? { ok: true, value: s } : { ok: false, error: `"${t.trim()}" is not a status (${STATUSES.map((x) => STATUS_NAMES[x]).join(", ")}).` }; }
   if (col.kind === "date") { if (!t.trim()) return { ok: true, value: null }; const d = parseDateCell(t); return d ? { ok: true, value: d } : { ok: false, error: `"${t.trim()}" is not a date: write it as 2026-11-23 or 23 Nov 2026.` }; }
   const v = col.long ? t.replace(/\r\n?/g, "\n").trim() : t.replace(/[\r\n\t]+/g, " ").trim();
@@ -146,7 +151,7 @@ export function parseTsv(text) {
  * Returns { edits: [{ id, patch: {field: value}, before: {field: old} }], errors: [text], skippedRows, skippedCols }.
  */
 export function planPaste(matrix, rowsFrom, colIds) {
-  const edits = [], errors = [];
+  const edits = [], errors = [], crossEdits = new Map();
   const usable = matrix.length === 1 && matrix[0].length === 1 && matrix[0][0] === "" ? [] : matrix;
   const rowsUsed = Math.min(usable.length, rowsFrom.length);
   let skippedCols = 0;
@@ -159,10 +164,21 @@ export function planPaste(matrix, rowsFrom, colIds) {
       if (!isEditable(col)) return;
       const r = coerce(colId, text);
       if (!r.ok) { errors.push(`Row ${i + 1}, ${col.title}: ${r.error}`); return; }
+      if (col.cross) {                                            // a parent: the change belongs to the cross (typed text = a name that is not linked)
+        const cur = row.cross[col.nameField] ?? null;
+        if (cur !== r.value) {
+          const e = crossEdits.get(row.cross.id) || { table: "crosses", id: row.cross.id, patch: {}, before: {} };
+          e.patch[col.nameField] = r.value; e.patch[col.refField] = null;
+          if (!(col.nameField in e.before)) { e.before[col.nameField] = cur; e.before[col.refField] = row.cross[col.refField] ?? null; }
+          crossEdits.set(row.cross.id, e);
+        }
+        return;
+      }
       if ((row.rec[col.field] ?? null) !== r.value) { patch[col.field] = r.value; before[col.field] = row.rec[col.field] ?? null; }
     });
-    if (Object.keys(patch).length) edits.push({ id: row.id, patch, before });
+    if (Object.keys(patch).length) edits.push({ table: "seedlings", id: row.id, patch, before });
   }
+  edits.push(...crossEdits.values());
   return { edits, errors, skippedRows: Math.max(0, usable.length - rowsUsed), skippedCols };
 }
 
