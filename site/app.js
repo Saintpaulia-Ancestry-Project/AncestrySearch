@@ -1031,7 +1031,7 @@ function renderSpecies(app) {
 function renderProse(text) {
   const inline = (s) => {
     let out = "", last = 0;
-    const re = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)|\*\*([^*]+)\*\*|`([^`]+)`|(https?:\/\/[^\s<]+)|(\bwww\.[^\s<]+)/g;
+    const re = /\[([^\]]+)\]\((https?:\/\/[^)\s]+|#\/[^)\s]+)\)|\*\*([^*]+)\*\*|`([^`]+)`|(https?:\/\/[^\s<]+)|(\bwww\.[^\s<]+)/g;
     for (let m; (m = re.exec(s));) {
       out += esc(s.slice(last, m.index));
       if (m[3]) out += `<strong>${esc(m[3])}</strong>`;
@@ -1039,7 +1039,8 @@ function renderProse(text) {
       else {
         const url = m[2] || m[5] || "https://" + m[6];
         const label = m[1] || m[5] || m[6];
-        out += `<a href="${esc(url)}" rel="noopener" target="_blank">${esc(label)}</a>`;
+        out += url.startsWith("#/") ? `<a href="${esc(url)}">${esc(label)}</a>`   // a page of this site: same tab
+                                    : `<a href="${esc(url)}" rel="noopener" target="_blank">${esc(label)}</a>`;
       }
       last = m.index + m[0].length;
     }

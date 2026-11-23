@@ -289,6 +289,8 @@ function renderSubmit(app) {
     <div class="prose">${pg ? renderProse(pg.body) : `<p>Add your own cultivars, with parentage, descriptions and photos. Nothing is sent from this page:
       you download a file and send it to the project, and a reviewer checks it before anything is added. Add as many cultivars as you like first.
       Your work is saved in this browser as you type.</p>`}</div>
+    <p class="quick-cta"><a class="btn" href="#/quick">Quick add: one cultivar from a list entry</a>
+      <span class="muted">No parentage to record? Paste one AVSA-style entry and add one photo.</span></p>
     <datalist id="dl-size">${sizeList().map((s) => `<option value="${esc(s)}">`).join("")}</datalist>
     <form id="sform" novalidate onsubmit="return false">
       <section class="panel"><h2>About you</h2>

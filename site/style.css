@@ -268,3 +268,6 @@ label[hidden], .gen-word[hidden] { display: none; }
 .adv-form input[type=number] { width: 7em; }
 .adv-form fieldset { border: 1px solid var(--border); border-radius: 8px; display: grid; gap: 10px; padding: 10px 12px; }
 .adv-form .filters label { font-weight: 400; display: inline-flex; }
+
+/* Contribute page: the Quick add button under the intro text */
+.quick-cta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin: 14px 0; }

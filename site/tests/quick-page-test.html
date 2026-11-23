@@ -59,6 +59,10 @@ async function until(fn, ms = 20000) { const t = Date.now(); while (Date.now() -
   w().quickToFullForm();
   await wait(300);
   ok("hand-over opens the full form", fr.contentWindow.location.hash === "#/submit");
+  const link = d().querySelector('.prose a[href="#/quick"]');
+  ok("Contribute page links to Quick add", !!link && link.textContent === "Quick add" && !link.target, link && link.outerHTML);
+  const btn = d().querySelector('a.btn[href="#/quick"]');
+  ok("Contribute page has a Quick add button", !!btn && /Quick add/.test(btn.textContent), btn && btn.outerHTML);
   ok("full form has the entry", d().querySelector(".entry .sname") && d().querySelector(".entry .sname").textContent.includes("Zzyzx"), d().body.textContent.slice(0, 200));
   finish();
   } catch (err) { bad.push("EXCEPTION: " + err.message); finish(); }
