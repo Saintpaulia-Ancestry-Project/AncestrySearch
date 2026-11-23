@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Quick add page test</title></head>
+<body>
+<p id="summary">running...</p><pre id="log"></pre>
+<iframe id="app" src="../index.html#/quick" style="width:900px;height:900px"></iframe>
+<script>
+"use strict";
+const bad = []; let n = 0;
+const ok = (label, cond, info) => { n++; if (!cond) bad.push(label + (info !== undefined ? "  -> " + JSON.stringify(info) : "")); };
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+async function until(fn, ms = 20000) { const t = Date.now(); while (Date.now() - t < ms) { try { const v = fn(); if (v) return v; } catch (_) {} await wait(100); } return null; }
+(async () => { try {
+  const fr = document.getElementById("app"), w = () => fr.contentWindow, d = () => fr.contentDocument;
+  const area = await until(() => d().getElementById("q-text"));
+  ok("quick page renders", !!area);
+  if (!area) return finish();
+  const set = (el, v) => { el.value = v; el.dispatchEvent(new (w().Event)("input", { bubbles: true })); };
+  const val = (k) => d().querySelector(`[data-q="${k}"]`).value;
+  set(area, "Aca's Lady Jane (5037) 08/12/1982 (J. Brownlie) Semidouble pink. Plain, quilted. Semiminiature (CA 288, 1983)");
+  ok("name", val("name") === "Aca's Lady Jane", val("name"));
+  ok("reg", val("reg") === "5037", val("reg"));
+  ok("date iso", val("date") === "1982-08-12", val("date"));
+  ok("hyb", val("hyb") === "Brownlie, J.", val("hyb"));
+  ok("size", val("size") === "Semiminiature", val("size"));
+  ok("desc", val("desc") === "Semidouble pink. Plain, quilted.", val("desc"));
+  ok("notes", val("notes") === "Printed as: CA 288, 1983", val("notes"));
+  ok("date in words", d().getElementById("q-date-words").textContent.includes("August 12, 1982"), d().getElementById("q-date-words").textContent);
+  ok("registration 5037 is already in the database", d().getElementById("q-reg-check").textContent.includes("already belongs"), d().getElementById("q-reg-check").textContent);
+  ok("name already exists note", d().getElementById("q-name-check").textContent.includes("already in the database"), d().getElementById("q-name-check").textContent);
+  ok("hybridizer matched to a person", /In the database as/.test(d().getElementById("q-hyb-hint").textContent), d().getElementById("q-hyb-hint").textContent);
+  ok("send blocked by errors", d().getElementById("q-review").textContent.includes("Please fix"));
+  // a new cultivar: no number, so nothing blocks except About you
+  set(area, "Zzyzx Test Violet 3/4/2005 (Q. Nobody) Double blue. Large");
+  ok("new name no clash", !d().getElementById("q-name-check").textContent.includes("already"), d().getElementById("q-name-check").textContent);
+  ok("new person noted", d().getElementById("q-hyb-hint").textContent.includes("Not in the database"), d().getElementById("q-hyb-hint").textContent);
+  const errs = () => d().getElementById("q-review").textContent;
+  ok("needs your name and license", errs().includes("Enter your name") && errs().includes("agreement"), errs());
+  set(d().querySelector('[data-qa="name"]'), "Test Person");
+  const lic = d().querySelector('[data-qa="license"]'); lic.checked = true; lic.dispatchEvent(new (w().Event)("input", { bubbles: true }));
+  ok("everything required is filled in", errs().includes("Everything required"), errs());
+  // a hand-edited field survives more typing in the box
+  set(d().querySelector('[data-q="size"]'), "Standard");
+  set(area, "Zzyzx Test Violet 3/4/2005 (Q. Nobody) Double blue. Large.");
+  ok("edited size is kept", val("size") === "Standard", val("size"));
+  // wrong date order is refused and explained
+  d().querySelector('[data-q="date"]').value = "";
+  set(area, "Zzyzx Test Violet 13/08/1982 (Q. Nobody) Double blue.");
+  ok("day-first date warned", d().getElementById("q-warn").textContent.includes("month/day/year"), d().getElementById("q-warn").textContent);
+  // the CSV row (shared columns + listing_text)
+  const row = w().quickRow("");
+  ok("row has listing_text", row.listing_text === "Zzyzx Test Violet 13/08/1982 (Q. Nobody) Double blue.", row.listing_text);
+  ok("row action new, kind cultivar", row.action === "new" && row.kind === "cultivar" && row.agreed_license === "yes");
+  ok("row has every CSV column", w().eval("CSV_COLS").every((c) => c in row));
+  // photo without confirmation blocks sending
+  w().eval("quick").photo = new (w().File)(["x"], "p.jpg", { type: "image/jpeg" }); w().eval("quick").photoUrl = ""; w().refreshQuick();
+  ok("photo needs permission", errs().includes("Confirm that you took the photo"), errs());
+  // full form hand-over
+  w().eval("quick").photo = null; w().refreshQuick();
+  w().quickToFullForm();
+  await wait(300);
+  ok("hand-over opens the full form", fr.contentWindow.location.hash === "#/submit");
+  ok("full form has the entry", d().querySelector(".entry .sname") && d().querySelector(".entry .sname").textContent.includes("Zzyzx"), d().body.textContent.slice(0, 200));
+  finish();
+  } catch (err) { bad.push("EXCEPTION: " + err.message); finish(); }
+  function finish() {
+    document.getElementById("summary").innerHTML = bad.length ? `<b style="color:#b00020">${bad.length} of ${n} checks failed</b>` : `<b style="color:#0a6b2d">All ${n} checks passed</b>`;
+    document.getElementById("log").textContent = bad.join("\n");
+    document.title = bad.length ? "FAIL" : "PASS";
+  }
+})();
+</script></body></html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quick add parser tests</title>
+<style>
+  body { font: 15px/1.4 system-ui, sans-serif; margin: 16px; max-width: 70rem; }
+  .pass { color: #0a6b2d; } .fail { color: #b00020; font-weight: 600; }
+  pre { white-space: pre-wrap; background: #f4f4f4; padding: .5em; }
+</style>
+</head>
+<body>
+<h1>Quick add parser tests</h1>
+<p id="summary">running...</p>
+<pre id="log"></pre>
+<script src="../quickadd.js"></script>
+<script>
+"use strict";
+const log = [], bad = [];
+let n = 0;
+function eq(label, got, want) {
+  n++;
+  if (JSON.stringify(got) !== JSON.stringify(want)) bad.push(`${label}\n   got  ${JSON.stringify(got)}\n   want ${JSON.stringify(want)}`);
+}
+// pick fields of a parse result
+const P = (t, keys) => { const r = parseListing(t); return Object.fromEntries(keys.map((k) => [k, r[k]])); };
+
+(async () => {
+  // ---- the plan's example
+  eq("example", parseListing("Aca's Lady Jane (5037) 08/12/1982 (J. Brownlie) Semidouble pink. Plain, quilted. Semiminiature (CA 288, 1983)"), {
+    name: "Aca's Lady Jane", reg: "5037", date: "1982-08-12", dateWords: "August 12, 1982", hyb: "Brownlie, J.", size: "Semiminiature",
+    desc: "Semidouble pink. Plain, quilted.", notes: "Printed as: CA 288, 1983", warnings: [] });
+  // ---- optional parts
+  eq("name only", parseListing("Lady Jane"), { name: "Lady Jane", reg: "", date: "", dateWords: "", hyb: "", size: "", desc: "", notes: "", warnings: [] });
+  eq("no number no date", P("Lady Jane (J. Brownlie) Semidouble pink. Plain, quilted. Miniature", ["name", "reg", "date", "hyb", "size", "desc"]),
+    { name: "Lady Jane", reg: "", date: "", hyb: "Brownlie, J.", size: "Miniature", desc: "Semidouble pink. Plain, quilted." });
+  eq("number, no date", P("Lady Jane (5037) (J. Brownlie) Single blue. Large", ["name", "reg", "date", "hyb", "size", "desc"]),
+    { name: "Lady Jane", reg: "5037", date: "", hyb: "Brownlie, J.", size: "Large", desc: "Single blue." });
+  eq("date, no number", P("Lady Jane 3/4/2005 (Smith) Double pink.", ["name", "reg", "date", "hyb", "desc"]),
+    { name: "Lady Jane", reg: "", date: "2005-03-04", hyb: "Smith", desc: "Double pink." });
+  eq("no hybridizer", P("Lady Jane (5037) 08/12/1982 Semidouble pink. Standard", ["name", "reg", "date", "hyb", "size", "desc"]),
+    { name: "Lady Jane", reg: "5037", date: "1982-08-12", hyb: "", size: "Standard", desc: "Semidouble pink." });
+  eq("no size", P("Lady Jane (5037) 08/12/1982 (J. Brownlie) Semidouble pink. Plain, quilted.", ["size", "desc"]),
+    { size: "", desc: "Semidouble pink. Plain, quilted." });
+  eq("trailing source only", P("Lady Jane (J. Brownlie) Semidouble pink. (CA 288, 1983)", ["desc", "notes"]),
+    { desc: "Semidouble pink.", notes: "Printed as: CA 288, 1983" });
+  eq("long size name", P("Lady Jane (5037) 08/12/1982 (J. Brownlie) Double pink. Semiminiature trailer", ["size", "desc"]),
+    { size: "Semiminiature trailer", desc: "Double pink." });
+  // ---- names
+  eq("name with parentheses", P("Rob's (Pink) Lady (5037) 08/12/1982 (J. Brownlie) Double pink.", ["name", "reg"]), { name: "Rob's (Pink) Lady", reg: "5037" });
+  eq("curly apostrophe", P("Aca’s Lady Jane (5037) 08/12/1982", ["name"]), { name: "Aca's Lady Jane" });
+  eq("nbsp and spaces", P("Lady  Jane   (5037)", ["name", "reg"]), { name: "Lady Jane", reg: "5037" });
+  eq("long text, no parentheses", parseListing("Semidouble pink flowers with a plain quilted foliage. Very nice.").warnings.length, 1);
+  // ---- dates (US order only)
+  eq("date words", parseListing("X (1) 12/31/1999").dateWords, "December 31, 1999");
+  eq("iso date", P("X (1) 1999-12-31", ["date"]), { date: "1999-12-31" });
+  const dayFirst = parseListing("X (1) 13/08/1982 (Smith) Double.");
+  eq("day-first date is refused", [dayFirst.date, dayFirst.warnings.length], ["", 1]);
+  const bad2 = parseListing("X (1) 02/30/1982 (Smith) Double.");
+  eq("impossible date is refused", [bad2.date, bad2.warnings.length], ["", 1]);
+  // ---- hybridizers
+  eq("two hybridizers", quickHybridizers("A. Smith & B. Jones"), "Smith, A.; Jones, B.");
+  eq("surname first stays", quickHybridizers("Brownlie, J."), "Brownlie, J.");
+  eq("particles", quickHybridizers("Hans van der Berg"), "van der Berg, Hans");
+  eq("organization stays", quickHybridizers("Dibleys Nurseries"), "Dibleys Nurseries");
+  eq("one word stays", quickHybridizers("Brownlie"), "Brownlie");
+  eq("two hybridizers warn", parseListing("X (1) 1/2/2000 (A. Smith & B. Jones) Double.").warnings.length, 1);
+
+  // ---- round trip with real records (site/tests/quickadd_roundtrip.json)
+  let cases = [];
+  try { cases = await (await fetch("quickadd_roundtrip.json")).json(); } catch (e) { bad.push("could not load quickadd_roundtrip.json: " + e.message); }
+  for (const c of cases) {
+    const r = parseListing(c.line);
+    eq("round trip name: " + c.line, r.name, c.name);
+    eq("round trip reg: " + c.name, r.reg, c.reg);
+    eq("round trip date: " + c.name, r.date, c.date);
+    eq("round trip size: " + c.name, r.size, c.size);
+    eq("round trip desc: " + c.name, r.desc, c.desc);
+    const words = (c.hyb_raw.match(/[A-Za-zÀ-ɏ'-]{2,}/g) || []);
+    eq("round trip hybridizer words: " + c.name + " [" + c.hyb_raw + " -> " + r.hyb + "]", words.every((w) => r.hyb.includes(w)), true);
+  }
+  document.getElementById("summary").innerHTML = bad.length ? `<span class="fail">${bad.length} of ${n} checks failed</span>` : `<span class="pass">All ${n} checks passed</span>`;
+  document.getElementById("log").textContent = bad.join("\n");
+  document.title = bad.length ? "FAIL" : "PASS";
+})();
+</script>
+</body>
+</html>

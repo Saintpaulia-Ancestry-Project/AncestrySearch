@@ -19,7 +19,7 @@ var COLUMNS = [
   'action', 'existing_id', 'name', 'kind', 'hybridizers', 'year_introduced', 'seed_parent', 'pollen_parent',
   'parent_certainty', 'sport_of', 'parentage_note', 'registration_no', 'registered_date', 'size_class', 'color',
   'bloom_description', 'foliage_description', 'description', 'notes', 'links', 'photo_files', 'photo_captions',
-  'photo_credits', 'photo_permission',
+  'photo_credits', 'photo_permission', 'listing_text',
   // filled in by the reviewer
   'decision', 'join_id', 'overwrite_fields', 'admin_note', 'reply_note', 'flag_name_match', 'flag_parents', 'flag_other',
   'corrected_name', 'corrected_kind', 'corrected_hybridizers', 'corrected_year_introduced', 'corrected_seed_parent',
@@ -138,8 +138,9 @@ function doGet() {
 }
 
 function doPost(e) {
-  var lock = LockService.getScriptLock();
+  var lock = null;
   try {
+    lock = LockService.getScriptLock();
     lock.waitLock(25000);
     var payload;
     try { payload = JSON.parse(e.postData.contents); } catch (err) { return jsonOut_({ ok: false, error: 'Unreadable submission.' }); }
@@ -204,9 +205,12 @@ function doPost(e) {
     notify_(v, added, refreshed, saved);
     return jsonOut_({ ok: true, received: added + refreshed, kept: kept, photos: saved, sid: v.sid });
   } catch (err) {
-    return jsonOut_({ ok: false, error: 'The receiver had a problem. Please download the file and email it instead.' });
+    console.error('doPost failed: ' + (err && err.stack ? err.stack : err));   // shows in Executions / Cloud logs
+    // detail = the error's own message (no data from the Sheet), so a failure can be diagnosed from the page
+    return jsonOut_({ ok: false, error: 'The receiver had a problem. Please download the file and email it instead.',
+                      detail: String(err && err.message ? err.message : err).slice(0, 200) });
   } finally {
-    try { lock.releaseLock(); } catch (x) { /* not held */ }
+    try { if (lock) lock.releaseLock(); } catch (x) { /* not held */ }
   }
 }
 
@@ -288,6 +292,13 @@ function setupSheet() {
   var n = COLUMNS.length;
   if (sheet.getMaxColumns() < n) sheet.insertColumnsAfter(sheet.getMaxColumns(), n - sheet.getMaxColumns());
   if (sheet.getMaxRows() < 2001) sheet.insertRowsAfter(sheet.getMaxRows(), 2001 - sheet.getMaxRows());
+  // Migration: a Sheet made before listing_text existed gets the new column INSERTED before 'decision', so rows already
+  // in the Inbox move right with their headers (overwriting only the header row would shift every later column's title).
+  var lastCol = sheet.getLastColumn();
+  if (lastCol > 0) {
+    var cur = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+    if (cur.indexOf('decision') > -1 && cur.indexOf('listing_text') < 0) sheet.insertColumnBefore(cur.indexOf('decision') + 1);
+  }
   sheet.getRange(1, 1, 1, n).setValues([COLUMNS]);                     // essential: the receiver reads this header
   SpreadsheetApp.flush();
 
@@ -308,6 +319,9 @@ function setupSheet() {
     for (var c = 1; c <= n; c++) sheet.setColumnWidth(c, 130);
     ['description', 'notes', 'corrected_description', 'corrected_notes', 'flag_name_match', 'flag_parents', 'flag_other']
       .forEach(function (h) { sheet.setColumnWidth(COLUMNS.indexOf(h) + 1, 320); });
+  });
+  step('clear old validation', function () {                          // a column that moved (listing_text) must not keep the old dropdown
+    sheet.getRange(2, 1, 2000, n).clearDataValidations();
   });
   step('decision dropdown', function () {
     var rule = SpreadsheetApp.newDataValidation().requireValueInList(DECISIONS, true).setAllowInvalid(false).build();

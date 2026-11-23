@@ -2,6 +2,8 @@
 
 Hybridizers and collectors can add cultivars to this database: a name, the seed and pollen parents, a description, registration details and photos. You can add as many cultivars as you like in one submission. Corrections to cultivars already in the database are welcome too.
 
+**Only one cultivar, with no parentage?** Use [Quick add](#/quick): paste its entry in the AVSA list format and add one photo.
+
 ## How it works
 
 - Fill in the form below. Only the cultivar name is required. A cultivar may have a description with no parentage, or parentage with no description.

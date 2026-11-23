@@ -23,11 +23,12 @@ INBOX = ROOT / "submissions" / "inbox"          # git-ignored: raw Sheet exports
 TEXT_FIELDS = ["size_class", "color", "bloom_description", "foliage_description", "description", "notes"]
 FIELDS = ["action", "existing_id", "name", "kind", "hybridizers", "year_introduced", "seed_parent", "pollen_parent",
           "parent_certainty", "sport_of", "parentage_note", "registration_no", "registered_date"] + TEXT_FIELDS + [
-    "links", "photo_files", "photo_captions", "photo_credits", "photo_permission"]
+    "links", "photo_files", "photo_captions", "photo_credits", "photo_permission",
+    "listing_text"]   # listing_text: the AVSA-style line pasted into #/quick, exactly as typed (empty for the full form)
 SUBMISSION_COLS = ["submission_id", "entry_no", "received_at", "submitter_name", "contact", "agreed_license"]
 ADMIN_COLS = ["decision", "join_id", "overwrite_fields", "admin_note", "reply_note",
               "flag_name_match", "flag_parents", "flag_other"]
-CORRECTED_COLS = ["corrected_" + f for f in FIELDS if f not in ("action", "existing_id")]
+CORRECTED_COLS = ["corrected_" + f for f in FIELDS if f not in ("action", "existing_id", "listing_text")]
 SHEET_COLUMNS = SUBMISSION_COLS + FIELDS + ADMIN_COLS + CORRECTED_COLS
 # Written to data/submissions/<id>.csv (tracked). No contact, no admin notes.
 PUBLIC_COLS = ["submission_id", "entry_no", "received_at", "submitter_name", "force_new", "overwrite_fields"] + FIELDS
@@ -68,7 +69,7 @@ def effective(row):
         if c:
             out[f] = c
     for f in FIELDS:
-        out[f] = ie.cname(out.get(f, "")) if f not in ("description", "notes") else ie.clean(out.get(f, ""))
+        out[f] = ie.cname(out.get(f, "")) if f not in ("description", "notes", "listing_text") else ie.clean(out.get(f, ""))
     out["action"] = (out.get("action") or "new").lower()
     return out
 
@@ -133,6 +134,42 @@ class Base:
     def person_near(self, name):
         key = ie.pkey(name)
         return [p["name"] for p in self.people.values() if ie.pkey(p["name"]) == key and ie.norm(p["name"]) != ie.norm(name)][:3]
+
+
+# ------------------------------------------------------------------ AVSA-style description split (quick add)
+COLOR_WORDS = ("white|pink|red|blue|purple|lavender|fuchsia|orchid|coral|peach|rose|magenta|violet|wine|burgundy|"
+               "salmon|cream|yellow|green|lilac|plum|raspberry|cranberry|maroon|mauve|periwinkle|navy|black|rust")
+COLOR_RE = re.compile(rf"(?:(?:light|medium|dark|deep|pale|bright|soft|hot|pastel)\s+)?(?:{COLOR_WORDS})(?:[/-](?:{COLOR_WORDS}))*",
+                      re.I)
+FOLIAGE_RE = re.compile(r"\b(foliage|leaf|leaves|plain|quilted|ruffled|wavy|variegated|girl|boy|tailored|glossy|shiny|"
+                        r"serrated|scalloped|spooned|pointed|ovate|holly|bustle|waxy|crinkled|puckered|rounded|elongated|"
+                        r"lance|hairy|furry)\b", re.I)
+BLOOM_RE = re.compile(r"\b(single|double|semi-?double|star|pansy|bell|fringed?|blossoms?|blooms?|petals?|flowers?|edge|"
+                      r"eye|fantasy|stripe[sd]?|rays?|chimera|ruffled blossoms?)\b", re.I)
+
+
+def split_description(text):
+    """Split an AVSA-style description ('Semidouble pink. Plain, quilted.') into (color, bloom, foliage).
+    A sentence that has foliage words and no bloom words is foliage; every other sentence is bloom. The first colour
+    phrase of the bloom text becomes the colour and is taken out of the bloom text. `description` itself is never
+    changed by the caller. Empty strings when nothing can be said."""
+    sentences = [x.strip() for x in re.split(r"(?<=[.!?])\s+", ie.clean(text)) if x.strip()]
+    bloom, foliage = [], []
+    for sent in sentences:
+        (foliage if FOLIAGE_RE.search(sent) and not BLOOM_RE.search(sent) else bloom).append(sent)
+    bloom_text, color = " ".join(bloom), ""
+    m = COLOR_RE.search(bloom_text)
+    if m:
+        color = m.group(0)[0].upper() + m.group(0)[1:].lower()
+        rest = (bloom_text[:m.start()] + " " + bloom_text[m.end():])
+        rest = re.sub(r"\s+", " ", rest)
+        rest = re.sub(r"\s+([,.;])", r"\1", rest).strip(" ,;")
+        rest = re.sub(r"^[,.;\s]+", "", rest)
+        if re.search(r"[A-Za-z]", rest):
+            bloom_text = rest[0].upper() + rest[1:]
+            if not re.search(r"[.!?]$", bloom_text):
+                bloom_text += "."
+    return color, bloom_text, " ".join(foliage)
 
 
 def has_cycle(parents_of, child, parent_ids):
@@ -238,6 +275,9 @@ def check_row(row, base, batch_names=None):
         creds = split_list(r["photo_credits"], "|")
         if not creds and not r["photo_credits"]:
             ot.append("photos without credit (the submitter name will be used)")
+    if r.get("listing_text") and r["description"] and not (r["color"] or r["bloom_description"] or r["foliage_description"]):
+        c, b, f = split_description(r["description"])
+        ot.append(f"quick add: description will be split into color={c!r}; bloom={b!r}; foliage={f!r} (fix with corrected_*)")
     if not (r["description"] or r["seed_parent"] or r["pollen_parent"] or r["sport_of"] or r["parentage_note"]
             or any(r[f] for f in TEXT_FIELDS)):
         ot.append("entry has no description and no parentage")

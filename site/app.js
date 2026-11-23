@@ -7,6 +7,7 @@
  *   #/about                 project history
  *   #/downloads             downloadable files (list: DOWNLOADS below)
  *   #/submit                contributor form (submit.js)
+ *   #/quick                 quick add: one cultivar from an AVSA-style list entry (quickadd.js)
  */
 "use strict";
 
@@ -198,6 +199,7 @@ function route(keepScroll) {
     else if (parts[0] === "about") renderAbout(app);
     else if (parts[0] === "downloads") renderDownloads(app);
     else if (parts[0] === "submit") renderSubmit(app);   // submit.js
+    else if (parts[0] === "quick") renderQuick(app);     // quickadd.js
     else renderSearch(app, params);
   } catch (err) {
     console.error(err);

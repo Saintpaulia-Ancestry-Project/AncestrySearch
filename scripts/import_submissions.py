@@ -65,6 +65,9 @@ def ingest(path):
         if bad:
             notes.append(f"REFUSED {label}: overwrite_fields not understood: {bad}")
             continue
+        if r.get("listing_text") and r["description"] and not (r["color"] or r["bloom_description"] or r["foliage_description"]):
+            # quick-add row: split the AVSA-style description (the reviewer's corrected_* values already won above)
+            r["color"], r["bloom_description"], r["foliage_description"] = sl.split_description(r["description"])
         pub = {c: r.get(c, "") for c in sl.PUBLIC_COLS}
         pub.update(submission_id=sid, entry_no=ie.clean(raw.get("entry_no", "")) or str(i),
                    received_at=ie.clean(raw.get("received_at", "")), submitter_name=ie.cname(raw.get("submitter_name", "")),

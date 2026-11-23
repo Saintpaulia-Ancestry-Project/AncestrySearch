@@ -63,6 +63,11 @@ Work from the repository root with the project Python: `.venv/Scripts/python.exe
 
    - `ingest` keeps only accept/join/different rows with `agreed_license=yes`, removes contact and admin columns,
      and writes `data/submissions/<submission_id>.csv`. These files are tracked.
+   - Rows from **Quick add** (`#/quick`) have the pasted line in `listing_text`. At `ingest`, when you left color, bloom and
+     foliage empty, they are filled from the description (e.g. "Semidouble pink. Plain, quilted." -> Pink / Semidouble. /
+     Plain, quilted.); the description itself stays whole. `check_submissions.py` shows the proposed split in `flag_other`; type
+     `corrected_color` / `corrected_bloom_description` / `corrected_foliage_description` to change it. A header `listing_text`
+     must exist in the Inbox tab: re-run `setupSheet` in the Apps Script project after updating `Code.gs` (it never deletes rows).
    - `apply` adds every file in `data/submissions/` to the master `data/*.csv` (import_excel.py is archived and is no longer run).
      Applying is repeatable: each applied entry is tagged `(submission <id>, entry <n>)` in `source_note`, so nothing is added
      twice.

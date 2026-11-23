@@ -13,7 +13,7 @@ const CSV_COLS = ["submission_id", "entry_no", "received_at", "submitter_name", 
   "action", "existing_id", "name", "kind", "hybridizers", "year_introduced", "seed_parent", "pollen_parent",
   "parent_certainty", "sport_of", "parentage_note", "registration_no", "registered_date", "size_class", "color",
   "bloom_description", "foliage_description", "description", "notes", "links", "photo_files", "photo_captions",
-  "photo_credits", "photo_permission"];
+  "photo_credits", "photo_permission", "listing_text"];
 
 /* ------------------------------------------------------------------ state */
 const sub = { sid: "", sendMsg: null, sending: false, about: { name: "", contact: "", hybridizer: "", license: false }, entries: [], open: new Set(), files: {} };
@@ -485,10 +485,10 @@ async function sendSubmission() {
     let res;
     try {
       res = await fetch(SUBMIT_URL, { method: "POST", body: JSON.stringify(payload) });   // text/plain: no preflight
-    } catch (err) { throw new Error("Could not reach the receiver. Check your connection, or download the file and email it."); }
+    } catch (err) { throw new Error("Could not read the receiver's answer. Your entry may still have arrived, so check with the project before sending it again. You can also download the file and email it."); }
     let data;
     try { data = await res.json(); } catch (err) { throw new Error("The receiver gave an unexpected answer. Please download the file and email it instead."); }
-    if (!data.ok) throw new Error(data.error || "The receiver rejected the submission.");
+    if (!data.ok) throw new Error((data.error || "The receiver rejected the submission.") + (data.detail ? " (" + data.detail + ")" : ""));
     sub.sendMsg = { ok: true, text: `Thank you! ${data.received + (data.kept || 0)} ${data.received + (data.kept || 0) === 1 ? "cultivar" : "cultivars"} received${data.photos ? ` with ${data.photos} ${data.photos === 1 ? "photo" : "photos"}` : ""}. Your reference is ${sub.sid}. A reviewer will check them before anything is added. You can still edit and send again.` };
   } catch (err) {
     sub.sendMsg = { ok: false, text: err.message };

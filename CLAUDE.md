@@ -338,6 +338,12 @@ receiver's pure validation code in headless Edge. Deployed: SUBMIT_URL in submit
   When a registered name equals an older plant's name, the older record keeps its data but its id gets an originator suffix (honey-bunch-haga).
 - data/submissions/rivermist-baker-2026-04.csv: entries 12 and 66 are action=update (their names now also exist from the magazine).
 
+- **Quick add** (`#/quick`, site/quickadd.js, plan + status in notes/quick-add-plan.md): one cultivar from a pasted AVSA-style line
+  ("Name (reg) m/d/yyyy (Hybridizer) description. Size (source)") plus one optional photo; same receiver and review as `#/submit`; new
+  Sheet column `listing_text` (re-run setupSheet after publishing Code.gs); color/bloom/foliage are split at ingest
+  (submissions_lib.split_description). Tests: scripts/test_submissions_quick.py and `scripts/run_browser_test.py tests/quickadd-test.html`
+  / `tests/quick-page-test.html` (headless Edge over DevTools; --dump-dom cannot wait for the database).
+
 ## Licensing (decided with the user and Hector, 2026-11-23)
 ONE license for all data, descriptions, project-hosted photos, graphs and downloads: CC BY-NC-SA 4.0 (same as the OCRed AVSA/BHL
 magazine content and the species sources). Code (scripts/, site program files) stays MIT. Link-outs (AVSA gallery, Gesneriad
@@ -347,6 +353,11 @@ announced and had only three testers (decided with the user), so there is no "ea
 agreed to CC BY 4.0 (`agreed_license=yes` rows before this date).
 TO DO: tell earlier contributors of the change; record Hector's group agreement in notes/; name CC BY-NC-SA in the ANZ permission
 request and in photo permissions; the Hybridizer app (site/mycrosses) users' own data stays theirs.
+
+- **Quick add live Send: FIXED 2026-11-23** (live Send from `#/quick` returned the thank-you message). Cause was a stale strict `decision`
+  dropdown left on Sheet column AE (listing_text) after the column insert; the write failed at the end of the run so Google sent an HTML
+  error page (shown in the browser as a CORS error; the row was saved). setupSheet now clears old validation first. If the Inbox columns
+  ever move again, run setupSheet after deploying a new version. The send-failure wording says the entry may have arrived.
 
 ## Next steps
 1. User review of the prototype; decide look/feel and extra filters.
