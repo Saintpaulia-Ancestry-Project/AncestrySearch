@@ -11,5 +11,3 @@ Registered cultivar names and registration data come from the AVSA (African Viol
 **Sources.** Some registration details (registration numbers and dates) and notes come from the AVSA Master List supplements printed in the [African Violet Magazine](https://www.biodiversitylibrary.org/bibliography/146187), whose digitized issues are curated by the Biodiversity Heritage Library, which makes its online collection available under CC BY-NC-SA 4.0. The names, codes and descriptions of the species, subspecies, varieties and clones (names beginning "S.") follow K. Barbi's African Violet Species Identification Guide (MAAVS, 2019) and the accession list of J. Smith and W. Goretsky, *Gesneriads* 68(1), 2018, also CC BY-NC-SA 4.0. A record's Notes column shows where its information came from.
 
 **Photos on other sites.** Links to photos on the AVSA Photo Gallery and the Gesneriad Reference Web are only links. Those images belong to their owners and keep their own terms.
-
-**Earlier downloads.** Files downloaded before November 2026 were published under CC BY 4.0. Those copies stay under CC BY 4.0, but anything published from now on is CC BY-NC-SA 4.0.
