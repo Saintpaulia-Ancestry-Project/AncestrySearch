@@ -59,3 +59,10 @@ dialog img { max-width: 90vw; max-height: 75vh; display: block; }
 .fgrid textarea { min-height: 6em; resize: vertical; }
 @media (max-width: 560px) { .fgrid { grid-template-columns: minmax(0, 1fr); } }
 .fgrid input:not([type=checkbox]), .fgrid select { height: 2.6rem; }
+
+/* Parent picker */
+.pick { position: relative; margin: .5rem 0; } .pick > label.f { margin: 0; } .pick .hint { font-size: .9rem; color: var(--muted); margin-top: .15rem; min-height: 1.3em; }
+.pick-list { position: absolute; z-index: 10; left: 0; right: 0; top: 4.2rem; margin: 0; padding: .2rem; list-style: none; background: var(--bg); border: 1px solid var(--accent); border-radius: 8px; max-height: 18rem; overflow: auto; box-shadow: 0 4px 14px rgba(0, 0, 0, .3); }
+.pick-list li { padding: .4rem .5rem; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; }
+.pick-list li[aria-selected="true"] { background: var(--accent); color: var(--accent-fg); } .pick-list li[aria-selected="true"] .muted { color: inherit; }
+.pick-list li.info { cursor: default; color: var(--muted); } .pick-list li.action { border: 1px dashed var(--line); margin: .2rem 0; } .pick-list .sub { font-size: .85rem; }

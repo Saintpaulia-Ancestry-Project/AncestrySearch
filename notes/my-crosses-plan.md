@@ -293,3 +293,12 @@ App at site/mycrosses/index.html (CSP meta: scripts, styles and images from 'sel
 - Tested: site/mycrosses/tools/app-e2e.mjs drives headless Edge through the whole flow (25 checks, no console or CSP errors); node --test: 56 tests.
 - NOT built yet: parent picker and official database (parents are typed names, refs stay null), lineage graph, spreadsheet view (editable), Family view, service worker and install (offline), Web Share Target, 8-digit pairing. Next slice proposal: parent picker + official snapshot, then the spreadsheet view.
 
+## Stage 5, parent picker (built 2026-11-23, uncommitted)
+- New cross / Edit cross: the two parent fields are comboboxes (js/app/picker.js, ARIA combobox pattern, keyboard and touch). Suggestions: the user's own seedlings (by name, cross code or number; not the cross being edited), the official database, then "Use what I typed (not linked)" and "Unknown parent". Choosing fills the parent NAME and the REF (official slug or seedling UUID); editing the text afterwards drops the link.
+- Official database (js/app/official.js): loaded on first use only, with progress (about 11 MB, browser cache helps), read only, shared by both pickers. Name search = FTS prefix over the name column, every word must match, any order, exact name first. The 1963/old-supplement names are a second file loaded only on request ("Also search the older names"). id_redirects are followed by `get`.
+- Offline: each pick stores a small snapshot (name, hybridizer, size, short description, registration no) in the user's own database (`official_cache`, device only, not synced); if the database cannot be loaded the picker offers those names and says so; typed names always work.
+- Cross page: parents shown with links (official page on the main site, or the user's own seedling) and the snapshot facts.
+- CSP now allows 'wasm-unsafe-eval' (needed by sql.js); still no inline script/style, connect-src 'self'.
+- Tests: official.node.test.js (6, on the committed database files), tools/picker-e2e.mjs (14 checks in headless Edge incl. offline fallback via a blocked database URL); node --test: 63 tests.
+- Not done yet: refresh of a stale snapshot after a database update, lineage graph, spreadsheet view, Family view.
+

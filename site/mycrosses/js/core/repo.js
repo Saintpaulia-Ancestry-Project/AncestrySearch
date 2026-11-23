@@ -401,6 +401,7 @@ export class Repo {
     return row;
   }
   async getOfficial(id) { return this.adapter.tx(["official_cache"], "readonly", (t) => t.get("official_cache", id)); }
+  async listOfficial() { return this.adapter.tx(["official_cache"], "readonly", (t) => t.getAll("official_cache")); }
 
   /** extra: { last_seq (highest local_seq an export contained), stamp (highest stamp seen or made) }. */
   async logSync({ peer_device_id = null, direction, counts = {}, ...extra }) {

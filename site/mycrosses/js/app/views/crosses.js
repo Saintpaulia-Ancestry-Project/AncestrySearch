@@ -1,6 +1,8 @@
 import { h, showDate } from "../dom.js";
 import { STATUSES, STATUS_LABEL, statusChip, crossTitle, photoImg, field, formValues, msgOf } from "./common.js";
 import { nextLabel } from "../../core/codes.js";
+import { parentPicker } from "../picker.js";
+import { refKind } from "../../core/ids.js";
 
 // ---------------------------------------------------------------- list
 export async function crossesList(app, parts, query) {
@@ -63,8 +65,8 @@ export async function crossForm(app, parts) {
     h("div", { class: "fgrid" },
       field("Cross code", inp("code"), "Suggested from your initials, the year and a running number."),
       field("Date made", inp("date_made", "date")),
-      field("Seed parent (the mother)", inp("seed_parent_name"), "Type the name. Linking to the official database comes in a later version."),
-      field("Pollen parent (the father)", inp("pollen_parent_name")),
+      parentPicker(app, { label: "Seed parent (the mother)", hint: "Type a name to search the official database and your own seedlings.", nameField: "seed_parent_name", refField: "seed_parent_ref", name: v.seed_parent_name ?? "", ref: v.seed_parent_ref ?? "", excludeCrossId: id }),
+      parentPicker(app, { label: "Pollen parent (the father)", hint: "The same: pick from the list, or use the name as typed.", nameField: "pollen_parent_name", refField: "pollen_parent_ref", name: v.pollen_parent_name ?? "", ref: v.pollen_parent_ref ?? "", excludeCrossId: id }),
       field("Hybridizer", inp("hybridizer"), "Who made the cross. Leave empty if you did. Fill in when the seeds came from someone else."),
       h("div", {}),
       field("Date seed harvested", inp("date_harvested", "date")),
@@ -80,6 +82,27 @@ export async function crossForm(app, parts) {
   return h("div", {}, h("h1", {}, id ? "Edit cross" : "New cross"), form);
 }
 
+
+// ---------------------------------------------------------------- the parents on the cross page
+async function parentLine(app, role, name, ref) {
+  const kind = refKind(ref);
+  const li = h("div", {}, h("span", { class: "muted" }, role + ": "));
+  if (kind === "official") {
+    const snap = await app.repo.getOfficial(ref);
+    li.append(h("b", {}, (snap && snap.name) || name || ref), " ", h("a", { href: "../#/c/" + encodeURIComponent(ref), target: "_blank", rel: "noopener noreferrer" }, "official page"));
+    const facts = snap ? [snap.hybridizer, snap.size_class, snap.registration_no ? "reg. " + snap.registration_no : null].filter(Boolean).join(" \u00B7 ") : "";
+    if (facts) li.append(h("div", { class: "muted" }, facts));
+  } else if (kind === "local") {
+    const s = await app.repo.get("seedlings", ref);
+    if (s && !s.erased && !s.deleted) li.append(h("b", {}, name || "Seedling " + s.label), " ", h("a", { href: "#/seedling/" + ref }, "your seedling"));
+    else li.append(h("b", {}, name || "unknown"), h("span", { class: "muted" }, " (that seedling is no longer available)"));
+  } else li.append(h("b", {}, name || "unknown"));
+  return li;
+}
+async function parentsBlock(app, c) {
+  return h("div", { class: "panel" }, await parentLine(app, "Seed parent", c.seed_parent_name, c.seed_parent_ref), await parentLine(app, "Pollen parent", c.pollen_parent_name, c.pollen_parent_ref));
+}
+
 // ---------------------------------------------------------------- the cross page
 export async function crossPage(app, parts) {
   const { repo } = app;
@@ -93,7 +116,7 @@ export async function crossPage(app, parts) {
   const collisions = (await repo.labelCollisions()).filter((x) => x.cross_id === c.id);
   const remake = c.remake_of ? await repo.get("crosses", c.remake_of) : null;
 
-  const root = h("div", {}, h("p", {}, h("a", { href: "#/crosses" }, "← Crosses")), h("h1", {}, c.code || "(no code)"), h("p", {}, h("b", {}, crossTitle(c))));
+  const root = h("div", {}, h("p", {}, h("a", { href: "#/crosses" }, "← Crosses")), h("h1", {}, c.code || "(no code)"), h("p", {}, h("b", {}, crossTitle(c))), await parentsBlock(app, c));
   if (dupCode) root.append(h("div", { class: "warn" }, `Another cross uses the code ${c.code} (probably made on another device). Change one of the codes: `, h("a", { href: `#/cross/${c.id}/edit` }, "edit this cross"), "."));
   const rows = [["Hybridizer", c.hybridizer], ["Date made", showDate(c.date_made)], ["Date seed harvested", showDate(c.date_harvested)], ["Seed stored", c.seed_stored === 1 ? "Yes" + (c.stored_from || c.stored_to ? ` (${showDate(c.stored_from) || "?"} to ${showDate(c.stored_to) || "?"})` : "") : c.seed_stored === 0 ? "No" : ""], ["Storage", c.storage_notes], ["Date seed sown", showDate(c.date_sown)], ["Number of seeds sown", c.seeds_sown], ["Notes", c.notes]].filter(([, x]) => x !== null && x !== "" && x !== undefined);
   root.append(h("dl", { class: "kv" }, ...rows.flatMap(([k, x]) => [h("dt", {}, k), h("dd", {}, String(x))]),
