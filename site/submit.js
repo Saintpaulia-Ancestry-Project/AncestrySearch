@@ -296,7 +296,7 @@ function renderSubmit(app) {
         ${field("Contact (email or other, optional)", `<input data-about="contact" value="${esc(sub.about.contact)}" autocomplete="email">`, "Only the reviewer sees this. It is never published.")}</div>
         ${field("Your usual hybridizer name", `<input data-about="hybridizer" data-ac="ppl" list="dl-about-hyb" autocomplete="off" value="${esc(sub.about.hybridizer)}"><datalist id="dl-about-hyb"></datalist>`, "Surname, Given. New entries start with this hybridizer; change it per cultivar if needed.")}
         <label class="check"><input type="checkbox" data-about="license"${sub.about.license ? " checked" : ""}><span>I am the hybridizer, or have the hybridizer's permission, and I agree that this information and any photos may be published under the
-        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> license with credit.</span></label>
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> license (attribution, non-commercial, share-alike) with credit.</span></label>
       </section>
       <h2>Your cultivars</h2>
       <div id="entries">${sub.entries.map(entryHtml).join("")}</div>

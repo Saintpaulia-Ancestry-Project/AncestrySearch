@@ -78,5 +78,7 @@ Every push to `main` rebuilds and validates the database, then publishes `site/`
 
 ## License
 
-The code is released under the MIT License (see `LICENSE`). The cultivar data is compiled from the
-sources above and may carry its own terms.
+The code (scripts, site program files) is released under the MIT License (see `LICENSE`). The data,
+descriptions, photos hosted by the project and the files in `site/downloads/` are released under
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). See the Downloads page of the site
+(`data/pages/downloads.md`) for what NonCommercial means here and for the sources.

@@ -338,6 +338,15 @@ receiver's pure validation code in headless Edge. Deployed: SUBMIT_URL in submit
   When a registered name equals an older plant's name, the older record keeps its data but its id gets an originator suffix (honey-bunch-haga).
 - data/submissions/rivermist-baker-2026-04.csv: entries 12 and 66 are action=update (their names now also exist from the magazine).
 
+## Licensing (decided with the user and Hector, 2026-11-23)
+ONE license for all data, descriptions, project-hosted photos, graphs and downloads: CC BY-NC-SA 4.0 (same as the OCRed AVSA/BHL
+magazine content and the species sources). Code (scripts/, site program files) stays MIT. Link-outs (AVSA gallery, Gesneriad
+Reference Web) are links only and keep their owners' terms. Text lives in data/pages/downloads.md (incl. "What NonCommercial means
+here"), the contribute checkbox in site/submit.js, the xlsx About sheet in export_ancestry_xlsx.py, README.md. Files downloaded
+before Nov 2026 stay CC BY 4.0 (not revocable); earlier contributors agreed to CC BY 4.0 (`agreed_license=yes` rows before this date).
+TO DO: tell earlier contributors of the change; record Hector's group agreement in notes/; name CC BY-NC-SA in the ANZ permission
+request and in photo permissions; the Hybridizer app (site/mycrosses) users' own data stays theirs.
+
 ## Next steps
 1. User review of the prototype; decide look/feel and extra filters.
 2. Local mode: REPLACED by the separate PWA "Saintpaulia Hybridizer" (site/mycrosses/, IndexedDB + in-memory sql.js, per-field sync zip); planning in

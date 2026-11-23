@@ -4,7 +4,7 @@ Reads site/avancestry.sqlite (run build_db.py first) and writes
 site/downloads/AfricanVioletAncestry.xlsx with three sheets:
   Ancestry  one row per cultivar with at least one recorded seed/pollen/unordered parent
   Sports    one row per cultivar that is a sport of another
-  About     date, row counts, column legend, license (CC BY 4.0)
+  About     date, row counts, column legend, license (CC BY-NC-SA 4.0)
 Needs openpyxl (see requirements.txt).
 """
 import argparse
@@ -111,15 +111,17 @@ def main():
         ("Database built", meta.get("built_at", "")),
         ("Ancestry sheet", f"{len(anc)} cultivars with at least one recorded parent"),
         ("Sports sheet", f"{len(sports)} sports"),
-        ("License", "This data is exported under the Creative Commons Attribution 4.0 International "
-                    "license (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/"),
-        ("Exception", "Some registration details and notes come from the AVSA Master List supplements in the "
-                      "African Violet Magazine (https://www.biodiversitylibrary.org/bibliography/146187, curated by the "
-                      "Biodiversity Heritage Library). The online collection of the magazine is made available under "
-                      "CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/), and that content stays "
-                      "under those terms. The same applies to the names and descriptions of species (names beginning 'S.'), which follow "
-                      "K. Barbi, African Violet Species Identification Guide (MAAVS, 2019) and J. Smith and W. Goretsky, "
-                      "Gesneriads 68(1), 2018 (CC BY-NC-SA 4.0)."),
+        ("License", "This data is exported under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 "
+                    "International license (CC BY-NC-SA 4.0): https://creativecommons.org/licenses/by-nc-sa/4.0/ "
+                    "Credit the Saintpaulia Ancestry Project, do not use the data commercially, and share anything "
+                    "you build from it under the same license. See the Downloads page of the site for what "
+                    "NonCommercial means here."),
+        ("Sources", "Some registration details and notes come from the AVSA Master List supplements in the "
+                    "African Violet Magazine (https://www.biodiversitylibrary.org/bibliography/146187, curated by the "
+                    "Biodiversity Heritage Library, CC BY-NC-SA 4.0). The names and descriptions of species (names "
+                    "beginning 'S.') follow K. Barbi, African Violet Species Identification Guide (MAAVS, 2019) and "
+                    "J. Smith and W. Goretsky, Gesneriads 68(1), 2018 (CC BY-NC-SA 4.0). Files downloaded before "
+                    "November 2026 were published under CC BY 4.0."),
         ("Credit", "Saintpaulia Ancestry Project, https://github.com/Saintpaulia-Ancestry-Project"),
         (None, None),
         ("Column", "Meaning"),

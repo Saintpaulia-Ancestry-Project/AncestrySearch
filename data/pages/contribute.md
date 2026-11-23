@@ -13,7 +13,7 @@ Hybridizers and collectors can add cultivars to this database: a name, the seed 
 ## Before you start
 
 - **About you:** your name is the public credit. Your contact (email) is private and is used only if the reviewer has a question. It is never published.
-- **License:** the data and photos you contribute are published under CC BY 4.0, like the rest of the database. You keep your copyright; others may reuse the data with credit. You must tick the agreement to send.
+- **License:** the data and photos you contribute are published under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike), like the rest of the database. You keep your copyright; others may reuse the data with credit, not for commercial use, and must share what they build from it under the same license (see Downloads). You must tick the agreement to send.
 - Have your photos ready as image files (JPEG, PNG or WebP). The form shrinks each one to 1600 pixels on the longest side and saves it as a JPEG. This removes camera data such as the location. The photo is resized on your device before it is sent.
 
 ## Filling in a cultivar
