@@ -67,13 +67,13 @@ export async function crossForm(app, parts) {
       field("Pollen parent (the father)", inp("pollen_parent_name")),
       field("Hybridizer", inp("hybridizer"), "Who made the cross. Leave empty if you did. Fill in when the seeds came from someone else."),
       h("div", {}),
-      field("Seed harvested", inp("date_harvested", "date")),
+      field("Date seed harvested", inp("date_harvested", "date")),
       field("Seed stored?", h("select", { name: "seed_stored" }, h("option", { value: "" }, "Not recorded"), h("option", { value: "1", selected: v.seed_stored === 1 }, "Yes"), h("option", { value: "0", selected: v.seed_stored === 0 }, "No"))),
       field("Stored from", inp("stored_from", "date")),
       field("Stored until", inp("stored_to", "date")),
       field("How it was stored", inp("storage_notes"), "For example: in the refrigerator.", true),
-      field("Seed sown", inp("date_sown", "date")),
-      field("Seeds sown", inp("seeds_sown", "number", { min: 0 })),
+      field("Date seed sown", inp("date_sown", "date")),
+      field("Number of seeds sown", inp("seeds_sown", "number", { min: 0 })),
       field("Notes", h("textarea", { name: "notes" }, v.notes ?? ""), null, true),
       others.length ? field("This cross repeats an earlier one", h("select", { name: "remake_of" }, h("option", { value: "" }, "No"), ...others.map((o) => h("option", { value: o.id, selected: o.id === v.remake_of }, `${o.code || "(no code)"}: ${crossTitle(o)}`))), null, true) : null),
     err, h("button", {}, "Save"), h("a", { class: "btn secondary", href: id ? "#/cross/" + id : "#/crosses" }, "Cancel"));
@@ -95,7 +95,7 @@ export async function crossPage(app, parts) {
 
   const root = h("div", {}, h("p", {}, h("a", { href: "#/crosses" }, "← Crosses")), h("h1", {}, c.code || "(no code)"), h("p", {}, h("b", {}, crossTitle(c))));
   if (dupCode) root.append(h("div", { class: "warn" }, `Another cross uses the code ${c.code} (probably made on another device). Change one of the codes: `, h("a", { href: `#/cross/${c.id}/edit` }, "edit this cross"), "."));
-  const rows = [["Hybridizer", c.hybridizer], ["Made", showDate(c.date_made)], ["Seed harvested", showDate(c.date_harvested)], ["Seed stored", c.seed_stored === 1 ? "Yes" + (c.stored_from || c.stored_to ? ` (${showDate(c.stored_from) || "?"} to ${showDate(c.stored_to) || "?"})` : "") : c.seed_stored === 0 ? "No" : ""], ["Storage", c.storage_notes], ["Seed sown", showDate(c.date_sown)], ["Seeds sown", c.seeds_sown], ["Notes", c.notes]].filter(([, x]) => x !== null && x !== "" && x !== undefined);
+  const rows = [["Hybridizer", c.hybridizer], ["Date made", showDate(c.date_made)], ["Date seed harvested", showDate(c.date_harvested)], ["Seed stored", c.seed_stored === 1 ? "Yes" + (c.stored_from || c.stored_to ? ` (${showDate(c.stored_from) || "?"} to ${showDate(c.stored_to) || "?"})` : "") : c.seed_stored === 0 ? "No" : ""], ["Storage", c.storage_notes], ["Date seed sown", showDate(c.date_sown)], ["Number of seeds sown", c.seeds_sown], ["Notes", c.notes]].filter(([, x]) => x !== null && x !== "" && x !== undefined);
   root.append(h("dl", { class: "kv" }, ...rows.flatMap(([k, x]) => [h("dt", {}, k), h("dd", {}, String(x))]),
     remake ? [h("dt", {}, "Repeats"), h("dd", {}, h("a", { href: "#/cross/" + remake.id }, remake.code || crossTitle(remake)))] : null));
   root.append(h("div", { class: "row" }, h("a", { class: "btn secondary", href: `#/cross/${c.id}/edit` }, "Edit cross"),
