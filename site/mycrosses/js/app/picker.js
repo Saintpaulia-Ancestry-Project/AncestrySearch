@@ -78,13 +78,14 @@ export function parentPicker(app, { label, hint, nameField, refField, name = "",
 
   function startLoad() {
     if (official || app._officialLoading || loadErr) return;
-    app._officialLoading = loadOfficial((got) => { progress = got; if (!list.hidden) { clearTimeout(timer); timer = setTimeout(refresh, 250); } })
+    app._officialLoading = loadOfficial((got) => { progress = got; if (!list.hidden && !chosen) { clearTimeout(timer); timer = setTimeout(refresh, 250); } })
       .then((db) => { official = app.officialDb = db; }, (e) => { loadErr = e; })
       .finally(() => { app._officialLoading = null; refresh(); });
   }
 
   async function choose(i) {
     const o = options[i]; if (!o || o.kind === "info") return;
+    if (o.kind !== "action") { clearTimeout(timer); token++; }                // a pending search (typing, download progress) must not re-open the list after a choice
     if (o.kind === "action") {
       if (loadingOld) return;
       loadingOld = true; refresh();

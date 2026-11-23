@@ -98,6 +98,44 @@ await ev("window.__csv=null; const o=URL.createObjectURL.bind(URL); URL.createOb
 await ev("[...document.querySelectorAll('.sheet-tools button')].find(b=>b.textContent==='Export CSV').click()"); await until("window.__csv!==null");
 const csv = await ev("window.__csv"); const csvLines = csv ? csv.split(String.fromCharCode(13, 10)) : []; check("CSV has header and one line per seedling", !!csv && csv.includes("No.,Cross,Seed parent,Pollen parent,Status,Description") && csvLines.length === 12, String(csvLines.length));
 
+// long text editing: a roomy panel, caret at the end, Esc keeps the original, one undo step
+await ev(`(async()=>{const r=window.__hyb.repo;const s=(await r.list('seedlings')).find(x=>x.label==='6'&&x.cross_id===window.__c1); await r.update('seedlings',s.id,{description:'Ruffled pink edge with a white margin and a long note that goes on'}); return 1})()`);
+await go("#/sheet?edit=1"); await until("document.querySelectorAll('.sgroup').length===2");
+const desc = async () => JSON.parse(await rec("6")).description;
+const ORIG = "Ruffled pink edge with a white margin and a long note that goes on";
+await ev("document.querySelector('.sheet-scroll').scrollTop = 0");
+await ev(`(()=>{const rows=[...document.querySelectorAll('.srow[aria-rowindex]')].filter(r=>!r.classList.contains('shead')&&!r.classList.contains('sgroup')); const r=rows.find(x=>x.querySelector('.cell.first')?.textContent.trim()==='6'); const c=r.querySelector('.cell[data-c="6"]'); c.dispatchEvent(new MouseEvent('dblclick',{bubbles:true,cancelable:true})); return 1})()`);
+check("double-click opens a roomy editor with ALL the text", await until("!!document.querySelector('.longedit textarea')") && (await ev("document.querySelector('.longedit textarea').value")) === ORIG, JSON.stringify([await ev("document.querySelector('.longedit textarea')?.value"), await desc(), await ev("location.hash"), await ev("document.querySelectorAll('.srow').length"), await ev("document.getElementById('main').innerText.slice(0,200)")]));
+const geo = await ev("(()=>{const t=document.querySelector('.longedit textarea'), p=document.querySelector('.longedit').getBoundingClientRect(); return [t.selectionStart, t.selectionEnd, t.value.length, p.left>=0, p.top>=0, p.right<=innerWidth, p.bottom<=innerHeight, Math.round(p.width), Math.round(t.getBoundingClientRect().height)]})()");
+check("the caret is at the end (nothing selected) and the panel is inside the window", geo[0] === geo[2] && geo[1] === geo[2] && geo[3] && geo[4] && geo[5] && geo[6], JSON.stringify(geo));
+await shot("23-longedit");
+await ev("document.querySelector('.longedit textarea').focus(); document.execCommand('insertText', false, ' (clarification)')");
+const enterNotPrevented = await ev("document.querySelector('.longedit textarea').dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true,cancelable:true}))");
+check("Enter does not save (it adds a line)", enterNotPrevented === true && (await ev("!!document.querySelector('.longedit')")));
+check("the box's own Ctrl+Z goes back to the ORIGINAL text, not to the first typed text", await ev("(()=>{const t=document.querySelector('.longedit textarea'); document.execCommand('undo'); return t.value})()") === ORIG);
+await ev("document.execCommand('insertText', false, ' scratch')");
+await key(".longedit textarea", "Escape"); await sleep(400);
+check("Esc closes the panel and keeps the original", !(await ev("!!document.querySelector('.longedit')")) && (await desc()) === ORIG && (await toastText()).includes("original is kept"), await toastText());
+// restore original button, then save with Ctrl+Enter
+await ev("document.querySelector('.sheet-scroll').focus()"); await key(G, "Enter");
+check("Enter on the cell opens it again", await until("!!document.querySelector('.longedit textarea')"));
+await ev("document.querySelector('.longedit textarea').focus(); document.execCommand('insertText', false, ' WRONG')");
+await ev("[...document.querySelectorAll('.longedit button')].find(b=>b.textContent==='Restore original').click()"); await sleep(200);
+check("Restore original puts the old text back and keeps editing", (await ev("document.querySelector('.longedit textarea').value")) === ORIG && (await ev("!!document.querySelector('.longedit')")));
+await ev("document.querySelector('.longedit textarea').focus(); document.execCommand('insertText', false, ' -- see also notes')");
+await key(".longedit textarea", "Enter", { ctrl: true }); await sleep(700);
+check("Ctrl+Enter saves", (await desc()) === ORIG + " -- see also notes");
+await ev("document.querySelector('.sheet-scroll').focus()"); await key(G, "z", { ctrl: true }); await sleep(700);
+check("Ctrl+Z in the grid undoes the whole edit in one step, back to the original", (await desc()) === ORIG, await desc());
+// leaving the panel by clicking elsewhere saves; typing a character replaces the text
+await ev("document.querySelector('.sheet-scroll').focus()"); await key(G, "Enter"); await until("!!document.querySelector('.longedit textarea')");
+await ev("document.querySelector('.longedit textarea').focus(); document.execCommand('insertText', false, ' (more)')");
+for (const type of ["mousePressed", "mouseReleased"]) await send("Input.dispatchMouseEvent", { type, x: 600, y: 90, button: "left", clickCount: 1 });
+await sleep(900);
+check("clicking away saves what was typed", (await desc()) === ORIG + " (more)", await desc());
+await ev("document.querySelector('.sheet-scroll').focus()"); await key(G, "z", { ctrl: true }); await sleep(600);
+check("and that is undoable too", (await desc()) === ORIG);
+
 // parent columns with the picker
 await go("#/sheet"); await until("document.querySelectorAll('.sgroup').length===2");
 const crossRec = (code) => ev(`(async()=>{const c=(await window.__hyb.repo.list('crosses')).find(x=>x.code===${JSON.stringify(code)}); return JSON.stringify({s:c.seed_parent_name,sr:c.seed_parent_ref,p:c.pollen_parent_name,pr:c.pollen_parent_ref})})()`);

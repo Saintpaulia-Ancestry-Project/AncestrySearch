@@ -111,3 +111,9 @@ header.top .brand { display: inline-flex; align-items: center; gap: .5rem; color
 a.plink { text-decoration: none; margin-left: .2rem; }
 
 #toast button { background: transparent; color: inherit; border: 1px solid currentColor; margin: 0 0 0 .6rem; padding: .25em .7em; }
+
+/* long text (description, notes): a roomy panel with all the text, placed beside the cell */
+.longedit { position: fixed; z-index: 30; display: flex; flex-direction: column; gap: .4rem; padding: .6rem; background: var(--bg); color: var(--text); border: 2px solid var(--link); border-radius: 8px; box-shadow: 0 6px 20px rgba(0, 0, 0, .45); white-space: normal; font-weight: 400; text-overflow: clip; }
+.longedit .lhead { font-weight: 700; }
+.cell.editing .longedit textarea { width: 100%; height: auto; min-height: 8rem; max-height: 60vh; resize: vertical; font: inherit; line-height: 1.4; white-space: pre-wrap; border: 1px solid var(--line); border-radius: 6px; padding: .4rem; background: var(--bg); color: var(--text); }
+.longedit .lbtns { display: flex; flex-wrap: wrap; gap: .4rem; } .longedit .lbtns button { margin: 0; }

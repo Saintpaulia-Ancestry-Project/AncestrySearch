@@ -173,29 +173,55 @@ export async function sheetPage(app, parts, query) {
     const i = selIndex(), col = visCols[sel.col]; if (i < 0 || !isEditable(col)) return;
     const row = items[i].row, cell = document.getElementById(cellId(i, sel.col)); if (!cell) return;
     const cur = col.cross ? (row.cross[col.nameField] ?? "") : (row.rec[col.field] ?? "");
+    const isParent = col.kind === "parent", isLong = !!col.long;
     let ed, input = null, hidden = null;
-    if (col.kind === "parent") { ed = parentPicker(app, { label: col.title, nameField: "name", refField: "ref", name: cur, ref: row.cross[col.refField] ?? "", excludeCrossId: row.cross.id }); input = ed.querySelector("input[type=text]"); hidden = ed.querySelector("input[type=hidden]"); }
+    if (isParent) { ed = parentPicker(app, { label: col.title, nameField: "name", refField: "ref", name: cur, ref: row.cross[col.refField] ?? "", excludeCrossId: row.cross.id }); input = ed.querySelector("input[type=text]"); hidden = ed.querySelector("input[type=hidden]"); }
     else if (col.kind === "status") ed = h("select", { "aria-label": col.title }, ...STATUSES.map((s) => h("option", { value: s, selected: s === row.rec.status }, STATUS_LABEL[s])));
     else if (col.kind === "date") ed = h("input", { type: "date", "aria-label": col.title, value: cur });
-    else if (col.long) ed = h("textarea", { "aria-label": col.title, rows: 4 });
-    else ed = h("input", { type: "text", "aria-label": col.title });
-    if (col.kind === "text") ed.value = typed !== null ? typed : cur;
-    else if (col.kind === "status" && typed) { const m = STATUSES.find((s) => STATUS_LABEL[s].toLowerCase().startsWith(typed.toLowerCase())); if (m) ed.value = m; }
+    else if (isLong) {
+      // a roomy panel next to the cell: all the text is visible and the caret goes to the end, so a clarification can be added or the caret placed with a click
+      input = h("textarea", { "aria-label": col.title, rows: Math.max(8, Math.min(18, String(cur).split("\n").length + Math.ceil(String(cur).length / 55))) }, cur);
+      ed = h("div", { class: "longedit", role: "group", "aria-label": `${col.title} of seedling ${row.rec.label}` },
+        h("div", { class: "lhead" }, `${col.title}, seedling ${row.rec.label}`), input,
+        h("div", { class: "lbtns" },
+          h("button", { type: "button", onclick: () => finish(true, 0, 0) }, "Save"),
+          h("button", { type: "button", class: "secondary", onclick: () => finish(false) }, "Cancel"),
+          h("button", { type: "button", class: "secondary", onclick: () => { input.value = cur; input.focus(); input.setSelectionRange(cur.length, cur.length); } }, "Restore original")),
+        h("div", { class: "muted small" }, "Enter adds a line. Ctrl+Enter saves. Esc cancels and keeps the original."));
+      ed.querySelector(".lbtns").addEventListener("pointerdown", (e) => e.preventDefault());       // keep the caret in the text while a button is pressed
+    } else { input = h("input", { type: "text", "aria-label": col.title, value: cur }); ed = input; }
     editing = { row, col, cell, ed, input, hidden, original: cur, done: false };
-    cell.classList.add("editing"); if (col.long || col.kind === "parent") cell.classList.add("pop");
-    cell.replaceChildren(ed); (input || ed).focus();
-    if (input && typed !== null) { input.value = typed; input.dispatchEvent(new Event("input")); }
-    if (col.kind === "text" && ed.setSelectionRange) { const n = ed.value.length; ed.setSelectionRange(typed !== null ? n : 0, n); }
+    cell.classList.add("editing"); if (isParent) cell.classList.add("pop");
+    cell.replaceChildren(ed);
+    if (isLong) placePanel(ed, cell);
+    (input || ed).focus();
+    if (col.kind === "status" && typed) { const m = STATUSES.find((s) => STATUS_LABEL[s].toLowerCase().startsWith(typed.toLowerCase())); if (m) ed.value = m; }
+    if (isParent) { if (typed !== null) { input.value = typed; input.dispatchEvent(new Event("input")); } }
+    else if (input && input.setSelectionRange) {
+      if (typed !== null) { input.select(); if (!document.execCommand("insertText", false, typed)) input.value = typed; }       // replaces the text, and the box's own undo can bring it back
+      else { const n = input.value.length; input.setSelectionRange(n, n); if (isLong) input.scrollTop = input.scrollHeight; }
+    }
     ed.addEventListener("keydown", (e) => {
-      if (col.kind === "parent" && e.defaultPrevented) { e.stopPropagation(); return; }     // the picker used the key (choosing a suggestion, closing its list)
-      if (e.key === "Enter" && !(col.long && e.shiftKey)) { e.preventDefault(); finish(true, 1, 0); }
+      if (isParent && e.defaultPrevented) { e.stopPropagation(); return; }     // the picker used the key (choosing a suggestion, closing its list)
+      if (isLong) {
+        if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); finish(true, 0, 0); }
+        else if (e.key === "Escape") { e.preventDefault(); finish(false); }
+      } else if (e.key === "Enter") { e.preventDefault(); finish(true, 1, 0); }
       else if (e.key === "Tab") { e.preventDefault(); finish(true, 0, e.shiftKey ? -1 : 1); }
       else if (e.key === "Escape") { e.preventDefault(); finish(false); }
-      e.stopPropagation();
+      e.stopPropagation();                                                  // everything else (including Ctrl+Z) belongs to the box
     });
-    if (col.kind === "parent") ed.addEventListener("focusout", (e) => { if (editing && !editing.done && !ed.contains(e.relatedTarget)) setTimeout(() => { if (editing && !editing.done) finish(true, 0, 0, false); }, 200); });
+    if (isParent || isLong) ed.addEventListener("focusout", (e) => { if (editing && !editing.done && !ed.contains(e.relatedTarget)) setTimeout(() => { if (editing && !editing.done && !ed.contains(document.activeElement)) finish(true, 0, 0, false); }, 150); });
     else ed.addEventListener("blur", () => { if (editing && !editing.done) finish(true, 0, 0, false); });
-    if (col.kind === "status" || col.kind === "date") ed.addEventListener("change", () => { if (col.kind === "status") finish(true, 0, 0); });
+    if (col.kind === "status") ed.addEventListener("change", () => finish(true, 0, 0));
+  }
+
+  /** Put the long-text panel beside its cell, inside the window. */
+  function placePanel(panel, cell) {
+    const r = cell.getBoundingClientRect(), vw = window.innerWidth, vh = window.innerHeight, w = Math.min(560, vw - 16);
+    panel.style.width = w + "px"; panel.style.left = Math.max(8, Math.min(r.left, vw - w - 8)) + "px"; panel.style.top = Math.max(8, r.top) + "px";
+    const overflow = panel.getBoundingClientRect().bottom - (vh - 8);
+    if (overflow > 0) panel.style.top = Math.max(8, r.top - overflow) + "px";
   }
 
   async function finish(save, dr = 0, dc = 0, refocus = true) {
@@ -203,6 +229,7 @@ export async function sheetPage(app, parts, query) {
     const e = editing; e.done = true;
     const text = e.input ? e.input.value : e.ed.value, linkRef = e.hidden ? e.hidden.value : ""; editing = null;
     let err = null;
+    if (!save && text.trim() !== String(e.original ?? "").trim()) toast("Edit cancelled: the original is kept.");
     if (save && e.col.cross) {
       const name = text.trim(), c = e.row.cross, col = e.col;
       const patch = { [col.nameField]: name || null, [col.refField]: name && linkRef ? linkRef : null };
