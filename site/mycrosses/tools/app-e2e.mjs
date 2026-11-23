@@ -32,7 +32,7 @@ await shot("1-home-empty");
 await go("#/cross/new");
 check("form shows suggested code", await until("document.querySelector('[name=code]')?.value?.length>3"));
 await setVal("[name=seed_parent_name]", "Rob's Boolgooroo"); await setVal("[name=pollen_parent_name]", "<b>Baby Pink</b>");
-await setVal("[name=date_made]", "2026-11-01"); await setVal("[name=date_harvested]", "2026-10-01");
+await setVal("[name=hybridizer]", "Test Person"); await setVal("[name=date_made]", "2026-11-01"); await setVal("[name=date_harvested]", "2026-10-01");
 await click("Save");
 check("date order error is shown", await until("document.querySelector('[role=alert]')?.textContent.includes('before')"), await text());
 await setVal("[name=date_harvested]", "2026-12-01"); await click("Save");

@@ -361,6 +361,10 @@ export function defineTests({ test, assert, makeAdapter }) {
     await repo.setSetting("mode", "hc-dark");
     assert.equal((await repo.getSettings()).scheme, "green");
     await assert.rejects(() => repo.setSetting("scheme", "pink"));
+    await repo.setSetting("hybridizer_name", "Grace Goode");
+    assert.equal((await repo.getSettings()).hybridizer_name, "Grace Goode");
+    await assert.rejects(() => repo.setSetting("hybridizer_name", " padded "));
+    await assert.rejects(() => repo.setSetting("hybridizer_name", "two" + String.fromCharCode(10) + "lines"));
     await assert.rejects(() => repo.setSetting("nonsense", 1));
   });
 

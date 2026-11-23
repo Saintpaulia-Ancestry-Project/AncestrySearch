@@ -51,7 +51,8 @@ export async function crossForm(app, parts) {
   const id = parts[1] === "new" ? null : parts[1];
   const c = id ? await repo.get("crosses", id) : null;
   if (id && (!c || c.erased)) return h("p", {}, "That cross does not exist.");
-  const v = c || { code: await repo.suggestCrossCode(), seed_stored: null };
+  const settings = await repo.getSettings();
+  const v = c || { code: await repo.suggestCrossCode(), seed_stored: null, hybridizer: settings.hybridizer_name || "" };
   const others = (await repo.list("crosses")).filter((x) => !id || x.id !== id);
   const err = h("div", { class: "bad", role: "alert" });
   const inp = (name, type = "text", extra = {}) => h("input", { type, name, value: v[name] ?? "", ...extra });
@@ -69,7 +70,7 @@ export async function crossForm(app, parts) {
       field("Date made", inp("date_made", "date")),
       parentPicker(app, { label: "Seed parent (the mother)", hint: "Type a name to search the official database and your own seedlings.", nameField: "seed_parent_name", refField: "seed_parent_ref", name: v.seed_parent_name ?? "", ref: v.seed_parent_ref ?? "", excludeCrossId: id }),
       parentPicker(app, { label: "Pollen parent (the father)", hint: "The same: pick from the list, or use the name as typed.", nameField: "pollen_parent_name", refField: "pollen_parent_ref", name: v.pollen_parent_name ?? "", ref: v.pollen_parent_ref ?? "", excludeCrossId: id }),
-      field("Hybridizer", inp("hybridizer"), "Who made the cross. Leave empty if you did. Fill in when the seeds came from someone else."),
+      field("Hybridizer", inp("hybridizer", "text", { required: true, maxlength: 200, value: v.hybridizer || settings.hybridizer_name || "" }), settings.hybridizer_name ? "Who made the cross. Filled in with your name from Settings; change it when the seeds came from someone else." : h("span", {}, "Who made the cross. Your own name goes here: set it once in ", h("a", { href: "#/settings" }, "Settings"), " and it is filled in for you.")),
       h("div", {}),
       field("Date seed harvested", inp("date_harvested", "date")),
       field("Seed stored?", h("select", { name: "seed_stored" }, h("option", { value: "" }, "Not recorded"), h("option", { value: "1", selected: v.seed_stored === 1 }, "Yes"), h("option", { value: "0", selected: v.seed_stored === 0 }, "No"))),

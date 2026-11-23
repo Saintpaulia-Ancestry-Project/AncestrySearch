@@ -91,7 +91,7 @@ export const STORES = {
   official_cache: { keyPath: "id" },  // small snapshot of official cultivars the user referenced, for offline display
 };
 
-export const DEFAULT_SETTINGS = { trash_days: 30, initials: "", mode: "device", scheme: "violet", text_size: "normal", density: "comfortable", reduce_motion: false, ancestry_level: "online" };
+export const DEFAULT_SETTINGS = { trash_days: 30, hybridizer_name: "", initials: "", mode: "device", scheme: "violet", text_size: "normal", density: "comfortable", reduce_motion: false, ancestry_level: "online" };
 
 /** A new, empty set of the table's own fields (everything null except defaults). */
 export function emptyFields(table) {

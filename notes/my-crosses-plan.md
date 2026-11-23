@@ -304,3 +304,5 @@ App at site/mycrosses/index.html (CSP meta: scripts, styles and images from 'sel
 
 
 - Cross page (2026-11-23): parents shown once with a thumbnail (official: the project photo through jsDelivr, address kept in the offline snapshot and only used when it starts with the allowed host; own seedling: its first photo), hybridizer under the parents, seed storage no longer in the summary (still in the form). CSP img-src now also allows https://cdn.jsdelivr.net/gh/Saintpaulia-Ancestry-Project/ (GET of images only). tools/thumbs-e2e.mjs; 64 Node tests.
+
+- Hybridizer (2026-11-23): Settings has "Your name" (device setting hybridizer_name; also suggests the initials); every new cross is pre-filled with it and the form requires a hybridizer (stored in the cross, so it syncs); Settings offers to fill it for old crosses that have none. tools/name-e2e.mjs.

@@ -1,0 +1,46 @@
+import { spawn } from "node:child_process"; import { mkdtempSync, writeFileSync } from "node:fs"; import { tmpdir } from "node:os"; import { join } from "node:path";
+const port = "9386", base = "http://127.0.0.1:8765/mycrosses/index.html?db=name";
+const edge = "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"; const dir = mkdtempSync(join(tmpdir(), "edge-a-"));
+const proc = spawn(edge, ["--headless=new", "--disable-gpu", `--remote-debugging-port=${port}`, `--user-data-dir=${dir}`, "--no-first-run", "--remote-allow-origins=*", "--window-size=420,900", "about:blank"], { stdio: "ignore" });
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+for (let i = 0; i < 50; i++) { try { await (await fetch(`http://127.0.0.1:${port}/json/version`)).json(); break; } catch { await sleep(200); } }
+const t = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: "PUT" })).json();
+const ws = new WebSocket(t.webSocketDebuggerUrl); await new Promise((r) => (ws.onopen = r));
+let id = 0; const w = new Map(); const problems = [];
+ws.onmessage = (m) => { const d = JSON.parse(m.data); if (d.id && w.has(d.id)) { w.get(d.id)(d); w.delete(d.id); }
+  if (d.method === "Log.entryAdded" && d.params.entry.level === "error") problems.push("LOG " + d.params.entry.text + " " + (d.params.entry.url || ""));
+  if (d.method === "Runtime.exceptionThrown") problems.push("EXC " + JSON.stringify(d.params.exceptionDetails).slice(0, 400));
+  if (d.method === "Runtime.consoleAPICalled" && d.params.type === "error") problems.push("console.error " + d.params.args.map((a) => a.value || a.description).join(" ").slice(0, 300)); };
+const send = (method, params = {}) => new Promise((r) => { const i = ++id; w.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
+const ev = async (e) => { const r = (await send("Runtime.evaluate", { expression: e, returnByValue: true, awaitPromise: true })).result; if (r.exceptionDetails) throw new Error(JSON.stringify(r.exceptionDetails).slice(0, 300)); return r.result?.value; };
+const shot = async (name) => { const r = await send("Page.captureScreenshot", { format: "png" }); writeFileSync(join(process.argv[2], name + ".png"), Buffer.from(r.result.data, "base64")); };
+await send("Page.enable"); await send("Runtime.enable"); await send("Log.enable"); await send("Network.enable"); await send("Network.setCacheDisabled", { cacheDisabled: true });
+await send("Emulation.setDeviceMetricsOverride", { width: 420, height: 900, deviceScaleFactor: 1, mobile: true });
+let fails = 0; const check = (name, ok, extra = "") => { console.log((ok ? "PASS " : "FAIL ") + name + (ok ? "" : " " + extra)); if (!ok) fails++; };
+const until = async (expr, ms = 8000) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { try { if (await ev(expr)) return true; } catch {} await sleep(150); } return false; };
+const go = async (hash) => { await ev(`location.hash = ${JSON.stringify(hash)}`); await sleep(500); };
+const setVal = (sel, v) => ev(`(()=>{const e=document.querySelector(${JSON.stringify(sel)}); e.value=${JSON.stringify(v)}; e.dispatchEvent(new Event('input',{bubbles:true})); e.dispatchEvent(new Event('change',{bubbles:true})); return true})()`);
+const click = (txt) => ev(`(()=>{const b=[...document.querySelectorAll('button,a.btn')].find(x=>x.textContent.trim().startsWith(${JSON.stringify(txt)})); if(!b) return false; b.click(); return true})()`);
+const text = () => ev("document.getElementById('main').innerText");
+
+await send("Page.navigate", { url: base });
+await send("Page.navigate", { url: base });
+await until("document.querySelector('h1')?.textContent==='Home'");
+await ev(`(async()=>{const r=window.__hyb.repo;await r.create('crosses',{code:'OLD-1'});await r.create('crosses',{code:'OLD-2',hybridizer:'Someone Else'});return 1})()`);
+await go("#/cross/new"); await until("document.querySelector('[name=hybridizer]')");
+check("no name set: field empty, required, hint points to Settings", (await ev("document.querySelector('[name=hybridizer]').value")) === "" && (await ev("document.querySelector('[name=hybridizer]').required")) === true && (await text()).includes("set it once in Settings"), await text());
+await go("#/settings"); await until("[...document.querySelectorAll('input')].some(i=>i.maxLength===200)");
+await setVal("input[maxlength='200']", "  Grace Goode  ");
+await sleep(600);
+const st = await ev("(async()=>{const s=await window.__hyb.repo.getSettings();return [s.hybridizer_name,s.initials]})()");
+check("name saved trimmed and initials suggested", JSON.stringify(st) === '["Grace Goode","GG"]', JSON.stringify(st));
+check("offers to fill the crosses without a hybridizer (only the empty one)", (await text()).includes("1 cross has no hybridizer entered"), await text());
+await ev("window.confirm = () => true"); await click("Use my name for these crosses"); await sleep(600);
+const hy = await ev("(async()=>(await window.__hyb.repo.list('crosses')).map(c=>c.code+':'+c.hybridizer).sort())()");
+check("only the empty cross was filled", JSON.stringify(hy) === '["OLD-1:Grace Goode","OLD-2:Someone Else"]', JSON.stringify(hy));
+await go("#/cross/new"); await until("document.querySelector('[name=hybridizer]')");
+check("new cross: hybridizer pre-filled from Settings", (await ev("document.querySelector('[name=hybridizer]').value")) === "Grace Goode");
+await shot("14-newcross-name");
+await setVal("[name=hybridizer]", ""); await click("Save"); await sleep(500);
+check("an empty hybridizer is not accepted", (await ev("location.hash")) === "#/cross/new");
+console.log(fails ? "FAILED" : "ALL PASSED"); proc.kill(); process.exit(0);

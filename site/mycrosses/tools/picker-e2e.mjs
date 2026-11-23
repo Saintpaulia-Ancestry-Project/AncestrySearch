@@ -45,7 +45,7 @@ check("own seedling is offered", await until("[...document.querySelectorAll('.pi
 await ev("[...document.querySelectorAll('.pick-list:not([hidden]) li')].find(l=>/your seedling/.test(l.innerText)).click()");
 const ref2 = await ev("document.querySelector('[name=pollen_parent_ref]').value");
 check("own seedling sets a local id as ref", /^[0-9a-f]{8}-/.test(ref2), ref2);
-await click("Save");
+await setVal("[name=hybridizer]", "Test Person"); await click("Save");
 check("cross page shows both links", await until("document.body.innerText.includes('official page') && document.body.innerText.includes('your seedling')"), await text());
 const hrefs = await ev("[...document.querySelectorAll('main a')].map(a=>a.getAttribute('href')).filter(h=>h.includes('#/c/')||h.includes('#/seedling/'))");
 check("link targets", hrefs.some(h=>h.startsWith("../#/c/")) && hrefs.some(h=>h.startsWith("#/seedling/")), JSON.stringify(hrefs));

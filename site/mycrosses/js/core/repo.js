@@ -29,6 +29,7 @@ export const LIMITS = { fullPhotoBytes: 8 * 1024 * 1024, thumbBytes: 1024 * 1024
 
 const SETTING_CHECKS = {
   trash_days: (v) => v === null || (Number.isInteger(v) && v >= 7 && v <= 90),
+  hybridizer_name: (v) => typeof v === "string" && v.length <= 200 && v === v.trim() && !/[\u0000-\u001f]/.test(v),
   initials: (v) => typeof v === "string" && cleanInitials(v) === v,
   mode: (v) => ["device", "light", "dark", "hc-light", "hc-dark"].includes(v),
   scheme: (v) => ["violet", "blue", "green", "red", "brown", "grey"].includes(v),
