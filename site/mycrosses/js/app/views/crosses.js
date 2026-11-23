@@ -1,0 +1,129 @@
+import { h, showDate } from "../dom.js";
+import { STATUSES, STATUS_LABEL, statusChip, crossTitle, photoImg, field, formValues, msgOf } from "./common.js";
+import { nextLabel } from "../../core/codes.js";
+
+// ---------------------------------------------------------------- list
+export async function crossesList(app, parts, query) {
+  const { repo } = app;
+  const crosses = await repo.list("crosses"), seedlings = await repo.list("seedlings");
+  const per = new Map(); for (const s of seedlings) { if (!per.has(s.cross_id)) per.set(s.cross_id, []); per.get(s.cross_id).push(s); }
+  const q = (query.get("q") || "").trim().toLowerCase(), status = query.get("status") || "";
+  const hay = (c) => [c.code, c.seed_parent_name, c.pollen_parent_name, c.notes, c.date_made, ...(per.get(c.id) || []).flatMap((s) => [s.label, s.promoted_name, s.notes, s.description])].filter(Boolean).join(" ").toLowerCase();
+  const words = q.split(/\s+x\s+|\s+/).filter(Boolean);                      // "baby pink x rob" or "pink baby": every word must appear, in any order
+  let shown = crosses.filter((c) => words.every((w) => hay(c).includes(w)) && (!status || (per.get(c.id) || []).some((s) => s.status === status)));
+  shown.sort((a, b) => ((b.date_made || b.created_at) > (a.date_made || a.created_at) ? 1 : -1));
+
+  const root = h("div", {}, h("h1", {}, "Crosses"));
+  const form = h("form", { class: "row", role: "search", onsubmit: (e) => { e.preventDefault(); const v = formValues(form); location.hash = "#/crosses?" + new URLSearchParams(Object.entries(v).filter(([, x]) => x)).toString(); } },
+    h("input", { type: "search", name: "q", value: query.get("q") || "", placeholder: "Search parents, code, notes, seedlings", "aria-label": "Search crosses" }),
+    h("select", { name: "status", "aria-label": "Seedling status" }, h("option", { value: "" }, "Any status"), ...STATUSES.map((s) => h("option", { value: s, selected: s === status }, STATUS_LABEL[s]))),
+    h("button", {}, "Search"), h("a", { class: "btn", href: "#/cross/new" }, "New cross"));
+  root.append(form);
+  if (!crosses.length) { root.append(h("p", { class: "muted" }, "No crosses yet.")); return root; }
+  root.append(h("p", { class: "muted" }, `${shown.length} of ${crosses.length} cross${crosses.length === 1 ? "" : "es"}.`));
+  const cards = h("div", { class: "cards" });
+  for (const c of shown) {
+    const ss = per.get(c.id) || [], counts = STATUSES.map((st) => [st, ss.filter((s) => s.status === st).length]).filter(([, n]) => n);
+    const thumb = h("div", { class: "thumb" });
+    cards.append(h("a", { class: "card", href: "#/cross/" + c.id }, thumb,
+      h("div", {}, h("div", { class: "t" }, c.code || "(no code)"), h("div", {}, crossTitle(c)), h("div", { class: "muted" }, c.date_made ? showDate(c.date_made) : "date not entered", " · ", `${ss.length} seedling${ss.length === 1 ? "" : "s"}`),
+        h("div", {}, ...counts.map(([st, n]) => h("span", {}, statusChip(st), ` ${n} `))))));
+    firstPhoto(app, ss).then((p) => { if (p) thumb.replaceWith(photoImg(app, p)); });
+  }
+  root.append(cards);
+  return root;
+}
+
+async function firstPhoto(app, seedlings) {
+  const ids = new Set(seedlings.map((s) => s.id));
+  if (!ids.size) return null;
+  if (!app._photoIndex || app._photoIndexAt !== app.dataVersion) { app._photoIndex = await app.repo.list("photos"); app._photoIndexAt = app.dataVersion; }
+  return app._photoIndex.find((p) => ids.has(p.seedling_id)) || null;
+}
+
+// ---------------------------------------------------------------- form (new and edit)
+export async function crossForm(app, parts) {
+  const { repo } = app;
+  const id = parts[1] === "new" ? null : parts[1];
+  const c = id ? await repo.get("crosses", id) : null;
+  if (id && (!c || c.erased)) return h("p", {}, "That cross does not exist.");
+  const v = c || { code: await repo.suggestCrossCode(), seed_stored: null };
+  const others = (await repo.list("crosses")).filter((x) => !id || x.id !== id);
+  const err = h("div", { class: "bad", role: "alert" });
+  const inp = (name, type = "text", extra = {}) => h("input", { type, name, value: v[name] ?? "", ...extra });
+  const form = h("form", { onsubmit: async (e) => {
+    e.preventDefault(); err.textContent = "";
+    const x = formValues(form); x.seed_stored = x.seed_stored === "" ? null : Number(x.seed_stored); x.remake_of = x.remake_of || null;
+    x.seeds_sown = x.seeds_sown === "" ? null : x.seeds_sown;
+    try {
+      if (id) await repo.update("crosses", id, x); else { const rec = await repo.create("crosses", x); location.hash = "#/cross/" + rec.id; app.dirty(); return; }
+      app.dirty(); app.toast("Saved."); location.hash = "#/cross/" + id;
+    } catch (ex) { err.textContent = msgOf(ex); }
+  } },
+    h("div", { class: "grid2" },
+      field("Cross code", inp("code"), "Suggested from your initials, the year and a running number. You can change it."),
+      field("Date made", inp("date_made", "date"))),
+    h("div", { class: "grid2" },
+      field("Seed parent (the mother)", inp("seed_parent_name"), "Type the name. Linking to the official database comes in a later version."),
+      field("Pollen parent (the father)", inp("pollen_parent_name"))),
+    h("div", { class: "grid2" },
+      field("Seed harvested", inp("date_harvested", "date")),
+      field("Seed stored?", h("select", { name: "seed_stored" }, h("option", { value: "" }, "Not recorded"), h("option", { value: "1", selected: v.seed_stored === 1 }, "Yes"), h("option", { value: "0", selected: v.seed_stored === 0 }, "No")))),
+    h("div", { class: "grid2" }, field("Stored from", inp("stored_from", "date")), field("Stored until", inp("stored_to", "date"))),
+    field("How it was stored", inp("storage_notes"), "For example: in the refrigerator."),
+    h("div", { class: "grid2" }, field("Seed sown", inp("date_sown", "date")), field("Seeds sown", inp("seeds_sown", "number", { min: 0 }))),
+    field("Notes", h("textarea", { name: "notes" }, v.notes ?? "")),
+    others.length ? field("This cross repeats an earlier one", h("select", { name: "remake_of" }, h("option", { value: "" }, "No"), ...others.map((o) => h("option", { value: o.id, selected: o.id === v.remake_of }, `${o.code || "(no code)"}: ${crossTitle(o)}`)))) : null,
+    err, h("button", {}, "Save"), h("a", { class: "btn secondary", href: id ? "#/cross/" + id : "#/crosses" }, "Cancel"));
+  return h("div", {}, h("h1", {}, id ? "Edit cross" : "New cross"), form);
+}
+
+// ---------------------------------------------------------------- the cross page
+export async function crossPage(app, parts) {
+  const { repo } = app;
+  if (parts[1] === "new" || parts[2] === "edit") return crossForm(app, parts);
+  const c = await repo.get("crosses", parts[1]);
+  if (!c || c.erased) return h("p", {}, "That cross does not exist. ", h("a", { href: "#/crosses" }, "Back to the list"));
+  if (c.deleted) return h("p", {}, "That cross is in the Trash. ", h("a", { href: "#/trash" }, "Open the Trash"));
+  const seedlings = await repo.seedlingsOf(c.id), photos = await repo.list("photos");
+  const byS = new Map(); for (const p of photos) { if (!byS.has(p.seedling_id)) byS.set(p.seedling_id, []); byS.get(p.seedling_id).push(p); }
+  const dupCode = (await repo.duplicateCrossCodes()).find((d) => d.ids.includes(c.id));
+  const collisions = (await repo.labelCollisions()).filter((x) => x.cross_id === c.id);
+  const remake = c.remake_of ? await repo.get("crosses", c.remake_of) : null;
+
+  const root = h("div", {}, h("p", {}, h("a", { href: "#/crosses" }, "← Crosses")), h("h1", {}, c.code || "(no code)"), h("p", {}, h("b", {}, crossTitle(c))));
+  if (dupCode) root.append(h("div", { class: "warn" }, `Another cross uses the code ${c.code} (probably made on another device). Change one of the codes: `, h("a", { href: `#/cross/${c.id}/edit` }, "edit this cross"), "."));
+  const rows = [["Made", showDate(c.date_made)], ["Seed harvested", showDate(c.date_harvested)], ["Seed stored", c.seed_stored === 1 ? "Yes" + (c.stored_from || c.stored_to ? ` (${showDate(c.stored_from) || "?"} to ${showDate(c.stored_to) || "?"})` : "") : c.seed_stored === 0 ? "No" : ""], ["Storage", c.storage_notes], ["Seed sown", showDate(c.date_sown)], ["Seeds sown", c.seeds_sown], ["Notes", c.notes]].filter(([, x]) => x !== null && x !== "" && x !== undefined);
+  root.append(h("dl", { class: "kv" }, ...rows.flatMap(([k, x]) => [h("dt", {}, k), h("dd", {}, String(x))]),
+    remake ? [h("dt", {}, "Repeats"), h("dd", {}, h("a", { href: "#/cross/" + remake.id }, remake.code || crossTitle(remake)))] : null));
+  root.append(h("div", { class: "row" }, h("a", { class: "btn secondary", href: `#/cross/${c.id}/edit` }, "Edit cross"),
+    h("button", { class: "danger", onclick: async () => { if (!confirm("Move this cross, its seedlings and photos to the Trash? You can bring them back from the Trash.")) return; await repo.softDelete("crosses", c.id); app.dirty(); app.toast("Moved to the Trash."); location.hash = "#/crosses"; } }, "Delete…")));
+
+  root.append(h("h2", {}, `Seedlings (${seedlings.length})`));
+  if (collisions.length) root.append(h("div", { class: "warn" }, "Some numbers are used twice: " + collisions.map((x) => x.label).join(", ") + ". Open each and change the number."));
+  const cards = h("div", { class: "cards" });
+  for (const s of seedlings) {
+    const first = (byS.get(s.id) || [])[0];
+    cards.append(h("div", { class: "card" }, first ? photoImg(app, first) : h("div", { class: "thumb" }),
+      h("div", { class: "grow" }, h("a", { class: "t", href: "#/seedling/" + s.id }, "Seedling " + s.label + (s.promoted_name ? ` “${s.promoted_name}”` : "")),
+        h("div", { class: "muted" }, (s.description || s.notes || "").slice(0, 80)),
+        h("label", { class: "row" }, statusChip(s.status), h("select", { "aria-label": "Status of seedling " + s.label, onchange: async (e) => { await repo.update("seedlings", s.id, { status: e.target.value }); app.dirty(); app.toast(`Seedling ${s.label}: ${STATUS_LABEL[e.target.value]}.`); app.rerender(true); } },
+          ...STATUSES.map((st) => h("option", { value: st, selected: st === s.status }, STATUS_LABEL[st])))))));
+  }
+  root.append(cards);
+
+  const addErr = h("div", { class: "bad", role: "alert" });
+  const nInput = h("input", { type: "number", min: 1, max: 500, value: 1, class: "narrow", "aria-label": "How many seedlings" });
+  root.append(h("div", { class: "panel" }, h("b", {}, "Add seedlings "),
+    h("div", { class: "row" }, nInput, h("button", { onclick: async () => {
+      addErr.textContent = "";
+      try {
+        const n = Math.max(1, Math.min(500, parseInt(nInput.value, 10) || 1));
+        const labels = []; let cur = await repo.suggestLabel(c.id);
+        for (let i = 0; i < n; i++) { labels.push(cur); cur = nextLabel([...seedlings.map((s) => s.label), ...labels]); }
+        await repo.createMany("seedlings", labels.map((label) => ({ cross_id: c.id, label })));
+        app.dirty(); app.rerender(true);
+      } catch (e) { addErr.textContent = msgOf(e); }
+    } }, "Add"), h("span", { class: "muted" }, "Numbered one after another. Open a seedling to add its photo.")), addErr));
+  return root;
+}

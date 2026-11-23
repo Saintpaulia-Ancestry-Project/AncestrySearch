@@ -286,3 +286,10 @@ home, PC browser = Chrome or Edge.
 
 ## Open questions (waiting on the user)
 - How to run the phone tests (see chat). 
+
+## Stage 5, first slice of the app screens (built 2026-11-23, uncommitted)
+App at site/mycrosses/index.html (CSP meta: scripts, styles and images from 'self' only, no inline style or script). Sync test round trip PC<->Android passed first (2026-11-23: new records, edits, Trash, incremental import).
+- Built: theme system (6 schemes x Match device/Light/Dark/High contrast light/dark, generated css/themes.css from js/app/palettes.js; 4 Node contrast tests: AA, AAA in high contrast; text size, density, reduce motion; first paint from localStorage), Home (counts, status chips, backup age warning, flowering list, seeds-sown-without-seedlings, duplicate code/label warnings), Crosses list (search in any word order, status filter, thumbnails), Cross form and page (all date/seed-storage fields, remake_of, add N seedlings, quick status change, delete to Trash), Seedling page (edit, photos with the 1000/300 px pipeline, traits, delete), Trash (restore, erase, empty), Sync (export Save/Share/Download with optional passphrase, import with dry run), Settings (look, initials, trash days, storage, privacy text).
+- Tested: site/mycrosses/tools/app-e2e.mjs drives headless Edge through the whole flow (25 checks, no console or CSP errors); node --test: 56 tests.
+- NOT built yet: parent picker and official database (parents are typed names, refs stay null), lineage graph, spreadsheet view (editable), Family view, service worker and install (offline), Web Share Target, 8-digit pairing. Next slice proposal: parent picker + official snapshot, then the spreadsheet view.
+
