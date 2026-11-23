@@ -302,3 +302,5 @@ App at site/mycrosses/index.html (CSP meta: scripts, styles and images from 'sel
 - Tests: official.node.test.js (6, on the committed database files), tools/picker-e2e.mjs (14 checks in headless Edge incl. offline fallback via a blocked database URL); node --test: 63 tests.
 - Not done yet: refresh of a stale snapshot after a database update, lineage graph, spreadsheet view, Family view.
 
+
+- Cross page (2026-11-23): parents shown once with a thumbnail (official: the project photo through jsDelivr, address kept in the offline snapshot and only used when it starts with the allowed host; own seedling: its first photo), hybridizer under the parents, seed storage no longer in the summary (still in the form). CSP img-src now also allows https://cdn.jsdelivr.net/gh/Saintpaulia-Ancestry-Project/ (GET of images only). tools/thumbs-e2e.mjs; 64 Node tests.

@@ -68,3 +68,6 @@ dialog img { max-width: 90vw; max-height: 75vh; display: block; }
 .pick-list li.info { cursor: default; color: var(--muted); } .pick-list li.action { border: 1px dashed var(--line); margin: .2rem 0; } .pick-list .sub { font-size: .85rem; }
 
 .panel.compact { padding-top: .35rem; padding-bottom: .35rem; margin-top: .2rem; }
+
+.pline { display: flex; gap: .6rem; align-items: center; padding: .2rem 0; } .pthumb { flex: none; width: var(--thumb); min-height: 1px; } .pthumb a { display: block; }
+.pthumb:empty { display: none; }

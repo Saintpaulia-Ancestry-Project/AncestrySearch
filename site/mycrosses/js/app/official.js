@@ -9,10 +9,10 @@ export const searchWords = (text) => (String(text).match(/[\p{L}\p{N}]+/gu) || [
 /** FTS4 prefix terms limited to the name column: name:baby* name:pink*  (words are letters and digits only, so nothing can be injected). */
 export const nameQuery = (words) => words.map((w) => `name:${w}*`).join(" ");
 
-const COLS = "l.id, l.name, l.kind, l.size_class, l.registration_no, l.registered_year, l.hybridizers, l.has_ancestry, l.has_descendants";
+const COLS = "l.id, l.name, l.kind, l.size_class, l.registration_no, l.registered_year, l.hybridizers, l.has_ancestry, l.has_descendants, l.photo";
 
 export class OfficialDb {
-  constructor(SQL, mainBytes) { this.SQL = SQL; this.main = new SQL.Database(mainBytes); this.old = null; this.builtAt = this._meta(this.main, "built_at"); }
+  constructor(SQL, mainBytes) { this.SQL = SQL; this.main = new SQL.Database(mainBytes); this.old = null; this.builtAt = this._meta(this.main, "built_at"); this.imageBase = this._meta(this.main, "image_base_url"); }
 
   _meta(db, key) { const st = db.prepare("SELECT value FROM meta WHERE key = :k"); try { st.bind({ ":k": key }); return st.step() ? st.getAsObject().value : null; } finally { st.free(); } }
   _all(db, sql, bind) { const st = db.prepare(sql), out = []; try { if (bind) st.bind(bind); while (st.step()) out.push(st.getAsObject()); } finally { st.free(); } return out; }
@@ -56,7 +56,14 @@ export class OfficialDb {
 }
 
 /** What the app keeps in the user's database about a chosen official cultivar (for offline display). */
-export const snapshotOf = (r) => ({ id: r.id, name: r.name, hybridizer: r.hybridizers || null, size_class: r.size_class || null, description: r.description || null, registration_no: r.registration_no ?? null });
+export const snapshotOf = (r, imageBase = null) => ({ id: r.id, name: r.name, hybridizer: r.hybridizers || null, size_class: r.size_class || null, description: r.description || null, registration_no: r.registration_no ?? null, photo: r.photo || null, image_base: r.photo ? imageBase : null });
+
+/** The only place official photos may come from (the same address the security policy allows). Anything else is ignored. */
+export const IMAGE_HOST = "https://cdn.jsdelivr.net/gh/Saintpaulia-Ancestry-Project/";
+export function thumbUrlOf(snap) {
+  if (!snap || !snap.photo || typeof snap.image_base !== "string" || !snap.image_base.startsWith(IMAGE_HOST)) return null;
+  return snap.image_base + "thumbs/" + encodeURIComponent(snap.photo);
+}
 
 /** One line to show in a list: "Baby Pink - Rienhardt - Standard - reg. 1234 (1997)". */
 export function describeCultivar(r) {

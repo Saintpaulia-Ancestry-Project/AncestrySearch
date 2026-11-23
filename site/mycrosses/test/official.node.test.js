@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
-import { OfficialDb, searchWords, nameQuery, snapshotOf, describeCultivar } from "../js/app/official.js";
+import { OfficialDb, searchWords, nameQuery, snapshotOf, describeCultivar, thumbUrlOf, IMAGE_HOST } from "../js/app/official.js";
 
 const site = (p) => fileURLToPath(new URL("../../" + p, import.meta.url));
 const require = createRequire(import.meta.url);
@@ -40,8 +40,8 @@ test("get: returns the record with its facts, null for an unknown id", () => {
   const one = db.get(first.id);
   assert.equal(one.id, first.id); assert.equal(one.name, first.name); assert.equal(one.redirected, false);
   assert.equal(db.get("no-such-cultivar-id"), null);
-  const snap = snapshotOf(one);
-  assert.deepEqual(Object.keys(snap), ["id", "name", "hybridizer", "size_class", "description", "registration_no"]);
+  const snap = snapshotOf(one, db.imageBase);
+  assert.deepEqual(Object.keys(snap), ["id", "name", "hybridizer", "size_class", "description", "registration_no", "photo", "image_base"]);
   assert.equal(typeof describeCultivar(one), "string");
 });
 
@@ -60,4 +60,16 @@ test("older names are a second file searched only after it is added", () => {
   const r = db.search(probe);
   assert.ok(r.some((x) => x.in_old && x.name === probe), "found in the old file");
   assert.ok(db.get(r.find((x) => x.in_old).id), "get also looks in the old file");
+});
+
+test("thumbnail address: built from the snapshot, only for the project's image host", () => {
+  assert.ok(db.imageBase.startsWith(IMAGE_HOST), "the database's image base is inside the allowed host");
+  const withPhoto = db._all(db.main, "SELECT id FROM cultivar_list WHERE photo IS NOT NULL LIMIT 1")[0];
+  const snap = snapshotOf(db.get(withPhoto.id), db.imageBase);
+  assert.ok(snap.photo);
+  assert.equal(thumbUrlOf(snap), db.imageBase + "thumbs/" + encodeURIComponent(snap.photo));
+  assert.equal(thumbUrlOf({ ...snap, image_base: "https://evil.example/" }), null);
+  assert.equal(thumbUrlOf({ ...snap, photo: null }), null);
+  assert.equal(thumbUrlOf(undefined), null);
+  assert.equal(thumbUrlOf({ photo: "a.webp" }), null);
 });

@@ -396,7 +396,7 @@ export class Repo {
   /** Keep a small snapshot of an official cultivar the user referenced, so its name and basics show offline. */
   async rememberOfficial(snap) {
     if (!snap || typeof snap.id !== "string" || !snap.id || isLocalId(snap.id)) throw new Error("an official cultivar needs its database id");
-    const row = { id: snap.id, name: snap.name ?? null, hybridizer: snap.hybridizer ?? null, size_class: snap.size_class ?? null, description: (snap.description ?? "").slice(0, 400) || null, registration_no: snap.registration_no ?? null, saved_at: new Date(this.now()).toISOString() };
+    const row = { id: snap.id, name: snap.name ?? null, hybridizer: snap.hybridizer ?? null, size_class: snap.size_class ?? null, description: (snap.description ?? "").slice(0, 400) || null, registration_no: snap.registration_no ?? null, photo: typeof snap.photo === "string" ? snap.photo.slice(0, 200) : null, image_base: typeof snap.image_base === "string" ? snap.image_base.slice(0, 300) : null, saved_at: new Date(this.now()).toISOString() };
     await this.adapter.tx(["official_cache"], "readwrite", (t) => t.put("official_cache", row));
     return row;
   }

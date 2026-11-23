@@ -2,6 +2,7 @@ import { h, showDate } from "../dom.js";
 import { STATUSES, STATUS_LABEL, statusChip, crossTitle, photoImg, field, formValues, msgOf } from "./common.js";
 import { nextLabel } from "../../core/codes.js";
 import { parentPicker } from "../picker.js";
+import { thumbUrlOf, snapshotOf, loadOfficial } from "../official.js";
 import { refKind } from "../../core/ids.js";
 
 // ---------------------------------------------------------------- list
@@ -87,22 +88,41 @@ export async function crossForm(app, parts) {
 // ---------------------------------------------------------------- the parents on the cross page
 async function parentLine(app, role, name, ref) {
   const kind = refKind(ref);
-  const li = h("div", {}, h("span", { class: "muted" }, role + ": "));
+  const thumb = h("div", { class: "pthumb" }), text = h("div", { class: "grow" }, h("span", { class: "muted" }, role + ": "));
+  const li = h("div", { class: "pline" }, thumb, text);
+  const showThumb = (url, href) => {
+    const img = h("img", { class: "thumb", alt: "", loading: "lazy", referrerpolicy: "no-referrer" });
+    img.addEventListener("error", () => img.remove());                          // offline, or the photo moved: just no picture
+    img.src = url;
+    thumb.replaceChildren(href ? h("a", { href, target: href.startsWith("#") ? null : "_blank", rel: "noopener noreferrer", "aria-label": "Open " + (name || role) }, img) : img);
+  };
   if (kind === "official") {
-    const snap = await app.repo.getOfficial(ref);
-    li.append(h("b", {}, (snap && snap.name) || name || ref), " ", h("a", { href: "../#/c/" + encodeURIComponent(ref), target: "_blank", rel: "noopener noreferrer" }, "official page"));
-    const facts = snap ? [snap.hybridizer, snap.size_class, snap.registration_no ? "reg. " + snap.registration_no : null].filter(Boolean).join(" \u00B7 ") : "";
-    if (facts) li.append(h("div", { class: "muted" }, facts));
+    const href = "../#/c/" + encodeURIComponent(ref);
+    let snap = await app.repo.getOfficial(ref);
+    const fill = () => {
+      text.replaceChildren(h("span", { class: "muted" }, role + ": "), h("b", {}, (snap && snap.name) || name || ref), " ", h("a", { href, target: "_blank", rel: "noopener noreferrer" }, "official page"));
+      const facts = snap ? [snap.hybridizer, snap.size_class, snap.registration_no ? "reg. " + snap.registration_no : null].filter(Boolean).join(" \u00B7 ") : "";
+      if (facts) text.append(h("div", { class: "muted" }, facts));
+      const u = thumbUrlOf(snap); if (u) showThumb(u, href);
+    };
+    fill();
+    // a snapshot saved before photos were kept: refresh it once from the database (usually already in the browser's cache)
+    if (snap && snap.photo === undefined) {
+      loadOfficial().then(async (db) => { const rec = db.get(ref); if (rec) { snap = await app.repo.rememberOfficial(snapshotOf(rec, db.imageBase)); fill(); } }).catch(() => {});
+    }
   } else if (kind === "local") {
     const s = await app.repo.get("seedlings", ref);
-    if (s && !s.erased && !s.deleted) li.append(h("b", {}, name || "Seedling " + s.label), " ", h("a", { href: "#/seedling/" + ref }, "your seedling"));
-    else li.append(h("b", {}, name || "unknown"), h("span", { class: "muted" }, " (that seedling is no longer available)"));
-  } else li.append(h("b", {}, name || "unknown"));
+    if (s && !s.erased && !s.deleted) {
+      text.append(h("b", {}, name || "Seedling " + s.label), " ", h("a", { href: "#/seedling/" + ref }, "your seedling"));
+      const p = (await app.repo.photosOf(s.id))[0];
+      if (p) { thumb.replaceChildren(h("a", { href: "#/seedling/" + ref, "aria-label": "Open " + (name || "seedling") }, photoImg(app, p))); }
+    } else text.append(h("b", {}, name || "unknown"), h("span", { class: "muted" }, " (that seedling is no longer available)"));
+  } else text.append(h("b", {}, name || "unknown"));
   return li;
 }
 async function parentsBlock(app, c) {
   return h("div", { class: "panel compact" }, await parentLine(app, "Seed parent", c.seed_parent_name, c.seed_parent_ref), await parentLine(app, "Pollen parent", c.pollen_parent_name, c.pollen_parent_ref),
-    c.hybridizer ? h("div", {}, h("span", { class: "muted" }, "Hybridizer: "), h("b", {}, c.hybridizer)) : null);
+    h("div", {}, h("span", { class: "muted" }, "Hybridizer: "), c.hybridizer ? h("b", {}, c.hybridizer) : h("span", { class: "muted" }, "not entered")));
 }
 
 // ---------------------------------------------------------------- the cross page
@@ -120,7 +140,7 @@ export async function crossPage(app, parts) {
 
   const root = h("div", {}, h("p", {}, h("a", { href: "#/crosses" }, "← Crosses")), h("h1", {}, c.code || "(no code)"), await parentsBlock(app, c));
   if (dupCode) root.append(h("div", { class: "warn" }, `Another cross uses the code ${c.code} (probably made on another device). Change one of the codes: `, h("a", { href: `#/cross/${c.id}/edit` }, "edit this cross"), "."));
-  const rows = [["Date made", showDate(c.date_made)], ["Date seed harvested", showDate(c.date_harvested)], ["Seed stored", c.seed_stored === 1 ? "Yes" + (c.stored_from || c.stored_to ? ` (${showDate(c.stored_from) || "?"} to ${showDate(c.stored_to) || "?"})` : "") : c.seed_stored === 0 ? "No" : ""], ["Storage", c.storage_notes], ["Date seed sown", showDate(c.date_sown)], ["Number of seeds sown", c.seeds_sown], ["Notes", c.notes]].filter(([, x]) => x !== null && x !== "" && x !== undefined);
+  const rows = [["Date made", showDate(c.date_made)], ["Date seed harvested", showDate(c.date_harvested)], ["Date seed sown", showDate(c.date_sown) || "not entered"], ["Number of seeds sown", c.seeds_sown], ["Notes", c.notes]].filter(([, x]) => x !== null && x !== "" && x !== undefined);
   root.append(h("dl", { class: "kv" }, ...rows.flatMap(([k, x]) => [h("dt", {}, k), h("dd", {}, String(x))]),
     remake ? [h("dt", {}, "Repeats"), h("dd", {}, h("a", { href: "#/cross/" + remake.id }, remake.code || crossTitle(remake)))] : null));
   root.append(h("div", { class: "row" }, h("a", { class: "btn secondary", href: `#/cross/${c.id}/edit` }, "Edit cross"),

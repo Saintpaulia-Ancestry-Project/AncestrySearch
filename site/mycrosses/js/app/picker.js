@@ -95,7 +95,7 @@ export function parentPicker(app, { label, hint, nameField, refField, name = "",
       input.value = o.pickName; setChosen({ ref: o.ref, name: o.pickName });
       if (refKind(o.ref) === "official") {
         const rec = official && official.get(o.ref);
-        try { await app.repo.rememberOfficial(rec ? snapshotOf(rec) : { id: o.ref, name: o.pickName }); } catch (_) { /* a snapshot is only a convenience */ }
+        try { await app.repo.rememberOfficial(rec ? snapshotOf(rec, official.imageBase) : { id: o.ref, name: o.pickName }); } catch (_) { /* a snapshot is only a convenience */ }
         showStatus();
       }
     } else if (o.kind === "typed") setChosen(null);
