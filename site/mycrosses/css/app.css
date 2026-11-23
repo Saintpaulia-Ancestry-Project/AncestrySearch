@@ -109,3 +109,5 @@ header.top .brand { display: inline-flex; align-items: center; gap: .5rem; color
 .cell.editing.pop .pick .pick-list { position: static; margin-top: .3rem; max-height: 12rem; box-shadow: none; }
 .cell.editing.pop .pick input[type=text] { height: 2.4rem; border: 1px solid var(--line); border-radius: 6px; }
 a.plink { text-decoration: none; margin-left: .2rem; }
+
+#toast button { background: transparent; color: inherit; border: 1px solid currentColor; margin: 0 0 0 .6rem; padding: .25em .7em; }

@@ -201,5 +201,7 @@ export class UndoStack {
   constructor(limit = 200) { this.items = []; this.limit = limit; }
   push(entry) { this.items.push(entry); if (this.items.length > this.limit) this.items.shift(); }
   pop() { return this.items.pop() || null; }
+  peek() { return this.items.length ? this.items[this.items.length - 1] : null; }
+  clear() { this.items.length = 0; }
   get size() { return this.items.length; }
 }

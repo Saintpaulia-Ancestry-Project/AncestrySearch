@@ -42,6 +42,13 @@ await key(G, "Enter");
 check("Enter opens a status editor", await until("!!document.querySelector('.cell.editing select')"));
 await ev("(()=>{const s=document.querySelector('.cell.editing select'); s.value='flowering'; s.dispatchEvent(new Event('change',{bubbles:true}))})()");
 check("status saved to the record", await until("document.querySelector('.cell.editing')===null"), "") && check("record has the new status", JSON.parse(await rec("1")).status === "flowering");
+check("the confirmation message has an Undo button", await until("document.querySelector('#toast button')?.textContent==='Undo'"));
+check("the toolbar Undo says what it will undo", (await ev("[...document.querySelectorAll('.sheet-tools button')].find(b=>b.textContent.startsWith('Undo'))?.textContent")).includes("Status of seedling 1"));
+await ev("document.querySelector('#toast button').click()"); await sleep(700);
+check("tapping Undo on the message reverts the status", JSON.parse(await rec("1")).status === "growing");
+check("the next message offers Redo and the toolbar shows it", await until("document.querySelector('#toast button')?.textContent==='Redo'") && (await ev("[...document.querySelectorAll('.sheet-tools button')].some(b=>b.textContent.startsWith('Redo: Status'))")));
+await ev("document.querySelector('#toast button').click()"); await sleep(700);
+check("Redo applies the change again", JSON.parse(await rec("1")).status === "flowering");
 // type to replace a label, then undo
 await clickCell("1", 0); await ev("document.querySelector('.sheet-scroll').focus()");
 await key(G, "x"); check("typing starts an editor with that character", await until("document.querySelector('.cell.editing input')?.value==='x'"));
@@ -68,6 +75,11 @@ check("undo reverts the whole paste", JSON.parse(await rec("5")).status === "gro
 await ev("document.querySelector('.sheet-tools select').value = window.__c2"); await ev("[...document.querySelectorAll('.sheet-tools button')].find(b=>b.textContent==='Add seedling').click()"); await sleep(700);
 check("Add seedling numbers it 4 in the chosen cross", (await ev("(async()=>(await window.__hyb.repo.list('seedlings')).filter(s=>s.cross_id===window.__c2).map(s=>s.label).sort().join(','))()")) === "1,2,3,4");
 check("count updated", (await ev("document.querySelector('.sheet-tools .muted').textContent")) === "10 of 10 seedlings");
+const n = () => ev("(async()=>(await window.__hyb.repo.list('seedlings')).filter(s=>s.cross_id===window.__c2).length)()");
+await ev("[...document.querySelectorAll('.sheet-tools button')].find(b=>b.textContent.startsWith('Undo')).click()"); await sleep(700);
+check("undo of an added row sends it to the Trash", (await n()) === 3 && (await ev("document.querySelector('.sheet-tools .muted').textContent")) === "9 of 9 seedlings");
+await ev("[...document.querySelectorAll('.sheet-tools button')].find(b=>b.textContent.startsWith('Redo')).click()"); await sleep(700);
+check("redo brings the added row back", (await n()) === 4 && (await ev("document.querySelector('.sheet-tools .muted').textContent")) === "10 of 10 seedlings");
 await clickCell("2", 6); await ev("document.querySelector('.sheet-scroll').focus()"); await key(G, "Delete"); await sleep(500);
 check("Delete clears a cell", JSON.parse(await rec("2")).notes === null || true);
 

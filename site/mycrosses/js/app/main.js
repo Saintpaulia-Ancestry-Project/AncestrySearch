@@ -22,9 +22,11 @@ const main = document.getElementById("main");
 const app = {
   repo: null, persistence: null, dataVersion: 0,
   dirty() { this.dataVersion++; },
-  toast(msg, isError = false) {
+  /** A short message. action = { label, onclick } adds one button (for example Undo) and keeps the message a little longer. */
+  toast(msg, isError = false, action = null) {
     const t = document.getElementById("toast"); t.textContent = msg; t.className = isError ? "err" : ""; t.hidden = false;
-    clearTimeout(app._toastTimer); app._toastTimer = setTimeout(() => { t.hidden = true; }, isError ? 7000 : 2500);
+    if (action) { const b = document.createElement("button"); b.type = "button"; b.textContent = action.label; b.addEventListener("click", () => { t.hidden = true; clearTimeout(app._toastTimer); action.onclick(); }); t.append(" ", b); }
+    clearTimeout(app._toastTimer); app._toastTimer = setTimeout(() => { t.hidden = true; }, isError ? 7000 : action ? 7000 : 2500);
   },
   async reloadSettings() { const s = await this.repo.getSettings(); applyLook(s); },
   rerender(keepScroll) { return route(keepScroll); },

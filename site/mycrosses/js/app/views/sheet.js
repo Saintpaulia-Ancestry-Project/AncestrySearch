@@ -52,11 +52,12 @@ export async function sheetPage(app, parts, query) {
 
   const chooser = h("details", { class: "colpick" }, h("summary", {}, "Columns"),
     h("div", {}, ...COLUMNS.map((c) => h("label", { class: "inline" }, h("input", { type: "checkbox", checked: chosen.includes(c.id), disabled: c.id === "label", onchange: (e) => { const now = new Set(chosen); if (e.target.checked) now.add(c.id); else now.delete(c.id); saveCols(COLUMN_IDS.filter((x) => now.has(x))); app.rerender(true); } }), " " + c.title))));
-  const undo = new UndoStack(200);
+  const undo = new UndoStack(200), redo = new UndoStack(200);
   const undoBtn = h("button", { class: "secondary", disabled: true, onclick: () => doUndo() }, "Undo");
+  const redoBtn = h("button", { class: "secondary", disabled: true, onclick: () => doRedo() }, "Redo");
   const count = h("span", { class: "muted", role: "status" });
   const addCross = h("select", { "aria-label": "Add a seedling to this cross" }, ...crosses.map((c) => h("option", { value: c.id, selected: c.id === (st.cross || crosses[crosses.length - 1].id) }, crossLabel(c))));
-  const tools = h("div", { class: "row sheet-tools" }, chooser, undoBtn,
+  const tools = h("div", { class: "row sheet-tools" }, chooser, undoBtn, redoBtn,
     h("button", { class: "secondary", onclick: exportCsv }, "Export CSV"),
     h("span", { class: "row" }, addCross, h("button", { onclick: () => addRow() }, "Add seedling")), count);
   root.append(tools);
@@ -139,7 +140,8 @@ export async function sheetPage(app, parts, query) {
     body.replaceChildren(frag);
     const si = selIndex(); scroll.setAttribute("aria-activedescendant", si >= 0 ? cellId(si, sel.col) : "");
     count.textContent = `${rowIndex.size} of ${all.length} seedling${all.length === 1 ? "" : "s"}`;
-    undoBtn.disabled = !undo.size;
+    undoBtn.disabled = !undo.size; redoBtn.disabled = !redo.size;
+    undoBtn.textContent = undo.size ? "Undo: " + undo.peek().label : "Undo"; redoBtn.textContent = redo.size ? "Redo: " + redo.peek().label : "Redo";
   }
   const refresh = () => renderWindow(true);
 
@@ -163,7 +165,9 @@ export async function sheetPage(app, parts, query) {
   }
 
   // ---------------------------------------------------------------- editing
-  const toast = (m, bad) => app.toast(m, bad);
+  const toast = (m, bad, action) => app.toast(m, bad, action);
+  /** Remember a change so it can be undone, and tell the person how (the button is on the message, because a phone has no Ctrl+Z). */
+  function record(entry, label, msg) { entry.label = label; undo.push(entry); redo.clear(); toast(msg || `Changed ${label}.`, false, { label: "Undo", onclick: () => doUndo() }); }
   function startEdit(typed = null) {
     if (editing || busy) return;
     const i = selIndex(), col = visCols[sel.col]; if (i < 0 || !isEditable(col)) return;
@@ -208,7 +212,7 @@ export async function sheetPage(app, parts, query) {
           const before = { [col.nameField]: c[col.nameField] ?? null, [col.refField]: c[col.refField] ?? null };
           const res = await repo.update("crosses", c.id, patch);
           setCross(res.record); app.dirty();
-          undo.push({ type: "edit", edits: [{ table: "crosses", id: c.id, patch, before }] });
+          record({ type: "edit", edits: [{ table: "crosses", id: c.id, patch, before }] }, `${col.title} of ${crossLabel(c)}`);
         } catch (ex) { err = msgOf(ex); } finally { busy = false; }
       }
     } else if (save) {
@@ -220,7 +224,7 @@ export async function sheetPage(app, parts, query) {
           const before = e.row.rec[e.col.field] ?? null;
           const res = await repo.update("seedlings", e.row.id, { [e.col.field]: r.value });
           e.row.rec = res.record; app.dirty();
-          undo.push({ type: "edit", edits: [{ table: "seedlings", id: e.row.id, patch: { [e.col.field]: r.value }, before: { [e.col.field]: before } }] });
+          record({ type: "edit", edits: [{ table: "seedlings", id: e.row.id, patch: { [e.col.field]: r.value }, before: { [e.col.field]: before } }] }, `${e.col.title} of seedling ${e.row.rec.label}`);
         } catch (ex) { err = msgOf(ex); } finally { busy = false; }
       }
     }
@@ -243,7 +247,7 @@ export async function sheetPage(app, parts, query) {
     if (col.cross) {
       const c = row.cross; if (!c[col.nameField] && !c[col.refField]) return;
       busy = true;
-      try { const before = { [col.nameField]: c[col.nameField] ?? null, [col.refField]: c[col.refField] ?? null }, patch = { [col.nameField]: null, [col.refField]: null }; const res = await repo.update("crosses", c.id, patch); setCross(res.record); app.dirty(); undo.push({ type: "edit", edits: [{ table: "crosses", id: c.id, patch, before }] }); }
+      try { const before = { [col.nameField]: c[col.nameField] ?? null, [col.refField]: c[col.refField] ?? null }, patch = { [col.nameField]: null, [col.refField]: null }; const res = await repo.update("crosses", c.id, patch); setCross(res.record); app.dirty(); record({ type: "edit", edits: [{ table: "crosses", id: c.id, patch, before }] }, `${col.title} of ${crossLabel(c)} cleared`); }
       catch (ex) { toast(msgOf(ex), true); } finally { busy = false; }
       return refresh();
     }
@@ -251,7 +255,7 @@ export async function sheetPage(app, parts, query) {
     if (!r.ok) return toast(r.error, true);
     if ((row.rec[col.field] ?? null) === null) return;
     busy = true;
-    try { const before = row.rec[col.field]; const res = await repo.update("seedlings", row.id, { [col.field]: null }); row.rec = res.record; app.dirty(); undo.push({ type: "edit", edits: [{ table: "seedlings", id: row.id, patch: { [col.field]: null }, before: { [col.field]: before } }] }); }
+    try { const before = row.rec[col.field]; const res = await repo.update("seedlings", row.id, { [col.field]: null }); row.rec = res.record; app.dirty(); record({ type: "edit", edits: [{ table: "seedlings", id: row.id, patch: { [col.field]: null }, before: { [col.field]: before } }] }, `${col.title} of seedling ${row.rec.label} cleared`); }
     catch (ex) { toast(msgOf(ex), true); } finally { busy = false; }
     refresh();
   }
@@ -268,13 +272,27 @@ export async function sheetPage(app, parts, query) {
 
   async function doUndo() {
     if (editing || busy) return;
-    const entry = undo.pop(); if (!entry) return;
+    const entry = undo.pop(); if (!entry) return toast("Nothing to undo.");
     busy = true;
     try {
-      if (entry.type === "add") { await repo.softDelete("seedlings", entry.id); all = all.filter((r) => r.id !== entry.id); app.dirty(); rebuild(); if (sel.id === entry.id) { const f = items.find((x) => x.type === "row"); sel = { id: f ? f.row.id : null, col: sel.col }; } }
+      if (entry.type === "add") { entry.row = all.find((r) => r.id === entry.id) || entry.row; await repo.softDelete("seedlings", entry.id); all = all.filter((r) => r.id !== entry.id); app.dirty(); rebuild(); if (sel.id === entry.id) { const f = items.find((x) => x.type === "row"); sel = { id: f ? f.row.id : null, col: sel.col }; } }
       else await applyEdits(entry.edits, "before");
-      toast("Undone.");
-    } catch (ex) { toast(msgOf(ex), true); } finally { busy = false; }
+      redo.push(entry);
+      toast(`Undone: ${entry.label}.`, false, { label: "Redo", onclick: () => doRedo() });
+    } catch (ex) { undo.push(entry); toast(msgOf(ex), true); } finally { busy = false; }
+    refresh();
+  }
+
+  async function doRedo() {
+    if (editing || busy) return;
+    const entry = redo.pop(); if (!entry) return toast("Nothing to redo.");
+    busy = true;
+    try {
+      if (entry.type === "add") { await repo.restore("seedlings", entry.id); entry.row.rec = await repo.get("seedlings", entry.id); all.push(entry.row); app.dirty(); rebuild(); }
+      else await applyEdits(entry.edits, "patch");
+      undo.push(entry);
+      toast(`Redone: ${entry.label}.`, false, { label: "Undo", onclick: () => doUndo() });
+    } catch (ex) { redo.push(entry); toast(msgOf(ex), true); } finally { busy = false; }
     refresh();
   }
 
@@ -288,11 +306,11 @@ export async function sheetPage(app, parts, query) {
     if (plan.errors.length) return toast(`Nothing pasted. ${plan.errors.slice(0, 3).join(" ")}${plan.errors.length > 3 ? ` (and ${plan.errors.length - 3} more)` : ""}`, true);
     if (!plan.edits.length) return toast("Nothing to change: the pasted text matches what is already there.");
     busy = true;
-    try { await applyEdits(plan.edits, "patch"); undo.push({ type: "group", edits: plan.edits }); }
+    try { await applyEdits(plan.edits, "patch"); undo.push({ type: "group", edits: plan.edits, label: `paste into ${plan.edits.length} record${plan.edits.length === 1 ? "" : "s"}` }); redo.clear(); }
     catch (ex) { toast(msgOf(ex), true); } finally { busy = false; }
     refresh();
     const extra = [plan.skippedRows ? `${plan.skippedRows} pasted row${plan.skippedRows === 1 ? "" : "s"} did not fit below` : "", plan.skippedCols ? `${plan.skippedCols} pasted column${plan.skippedCols === 1 ? "" : "s"} did not fit to the right` : ""].filter(Boolean).join("; ");
-    toast(`Pasted into ${plan.edits.length} record${plan.edits.length === 1 ? "" : "s"}.${extra ? " " + extra + "." : ""}`);
+    toast(`Pasted into ${plan.edits.length} record${plan.edits.length === 1 ? "" : "s"}.${extra ? " " + extra + "." : ""}`, false, { label: "Undo", onclick: () => doUndo() });
   });
   scroll.addEventListener("copy", (e) => {
     if (editing) return;
@@ -315,8 +333,8 @@ export async function sheetPage(app, parts, query) {
       const crossId = addCross.value, cross = crossesLive.find((c) => c.id === crossId);
       const rec = await repo.create("seedlings", { cross_id: crossId, label: await repo.suggestLabel(crossId) });
       const row = { id: rec.id, rec, cross, photos: [], traits: [] };
-      all.push(row); app.dirty(); undo.push({ type: "add", id: rec.id }); rebuild();
-      if (rowIndex.has(rec.id)) { select(rec.id, 0); toast(`Added seedling ${rec.label} to ${crossLabel(cross)}.`); }
+      all.push(row); app.dirty(); undo.push({ type: "add", id: rec.id, row, label: `added seedling ${rec.label}` }); redo.clear(); rebuild();
+      if (rowIndex.has(rec.id)) { select(rec.id, 0); toast(`Added seedling ${rec.label} to ${crossLabel(cross)}.`, false, { label: "Undo", onclick: () => doUndo() }); }
       else { toast(`Added seedling ${rec.label} to ${crossLabel(cross)}. The current search or filter hides it.`); refresh(); }
     } catch (ex) { toast(msgOf(ex), true); } finally { busy = false; }
   }
@@ -346,7 +364,8 @@ export async function sheetPage(app, parts, query) {
   scroll.addEventListener("keydown", (e) => {
     if (editing || busy) return;
     const mod = e.ctrlKey || e.metaKey, page = Math.max(1, Math.floor((scroll.clientHeight - HEAD_H) / ROW_H) - 1);
-    if (mod && (e.key === "z" || e.key === "Z")) { e.preventDefault(); doUndo(); return; }
+    if (mod && (e.key === "z" || e.key === "Z") && !e.shiftKey) { e.preventDefault(); doUndo(); return; }
+    if (mod && (e.key === "y" || e.key === "Y" || ((e.key === "z" || e.key === "Z") && e.shiftKey))) { e.preventDefault(); doRedo(); return; }
     if (mod && e.key !== "Home" && e.key !== "End") return;                 // copy, paste and the browser's own shortcuts
     switch (e.key) {
       case "ArrowDown": e.preventDefault(); move(1, 0); break;
