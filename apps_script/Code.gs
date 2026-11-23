@@ -230,9 +230,7 @@ function warnDrive_(frac, day, refusing) {
       'Your Google storage is ' + Math.round(frac * 100) + '% used. ' +
       (refusing ? 'The submission form now refuses photos until space is freed (limit ' + Math.round(LIMITS.driveStop * 100) + '%).'
                 : 'Photos will be refused at ' + Math.round(LIMITS.driveStop * 100) + '%.') +
-      '
-Check Drive > "AV Submissions photos" for spam or old submissions.
-');
+      '\nCheck Drive > "AV Submissions photos" for spam or old submissions.\n');
   } catch (err) { /* a warning must never block a submission */ }
 }
 
