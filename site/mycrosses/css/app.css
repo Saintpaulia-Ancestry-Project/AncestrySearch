@@ -117,3 +117,10 @@ a.plink { text-decoration: none; margin-left: .2rem; }
 .longedit .lhead { font-weight: 700; }
 .cell.editing .longedit textarea { width: 100%; height: auto; min-height: 8rem; max-height: 60vh; resize: vertical; font: inherit; line-height: 1.4; white-space: pre-wrap; border: 1px solid var(--line); border-radius: 6px; padding: .4rem; background: var(--bg); color: var(--text); }
 .longedit .lbtns { display: flex; flex-wrap: wrap; gap: .4rem; } .longedit .lbtns button { margin: 0; }
+
+/* restore from a backup */
+.restore-list { max-height: 50vh; overflow: auto; border: 1px solid var(--line); border-radius: 8px; margin: .5rem 0; background: var(--bg); }
+.restore-item { padding: .4rem .6rem; border-bottom: 1px solid var(--line); } .restore-item .t { font-weight: 700; }
+.restore-row { display: flex; gap: .5rem; align-items: flex-start; margin: .2rem 0; font-weight: 400; overflow-wrap: anywhere; }
+.restore-row input { margin-top: .25rem; flex: none; }
+.restore-row .was { text-decoration: line-through; color: var(--muted); } .restore-row .willbe { color: var(--ok); }

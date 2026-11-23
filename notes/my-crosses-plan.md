@@ -315,3 +315,6 @@ App at site/mycrosses/index.html (CSP meta: scripts, styles and images from 'sel
 
 
 - Spreadsheet parents (2026-11-23): columns "Seed parent" and "Pollen parent" show the cross parents on every seedling row (a small arrow links to the official page or your own seedling) and are edited with the same parent picker as the cross form, in a pop-up inside the cell (official database, own seedlings, "as typed"). The change is made on the CROSS, so all its seedling rows update; undo restores name and link. Paste into a parent column sets typed (unlinked) names, one edit per cross. Delete clears. 75 Node tests; tools/sheet-e2e.mjs extended.
+
+## Restore from a backup (2026-11-23)
+Problem found by the user: a backup zip could not bring back an older description, because the merge import keeps the newer edit. Decision: keep the merge (it is what makes two devices converge) and add a separate, explicit **Restore from this file** on the Sync page (js/sync/restore.js): lists every differing value, tick what to bring back, restored values become new edits (so they sync), Trash records can be brought back, erased ones cannot, a safety copy of the current state is offered first. 5 new tests (80 in all); tools/restore-e2e.mjs. Not done: restoring only part of a file by date, comparing two backups with each other.

@@ -8,6 +8,7 @@ import { exportSync } from "../js/sync/export.js";
 import { readSyncFile, planImport, applyImport } from "../js/sync/import.js";
 import { SyncFormatError, LIMITS as FORMAT_LIMITS } from "../js/sync/format.js";
 import { mergeRecords } from "../js/sync/merge.js";
+import { planRestore, applyRestore } from "../js/sync/restore.js";
 
 const START = Date.parse("2026-11-23T10:00:00.000Z");
 const jpeg = (seed, len = 64) => { const b = new Uint8Array(len); for (let i = 0; i < len; i++) b[i] = (seed * 31 + i * 7) & 255; b[0] = 0xff; b[1] = 0xd8; return b; };
@@ -533,6 +534,104 @@ export function defineSyncTests({ test, assert, makeAdapter }) {
     globalThis.__scaleReport = note;
     console.log(note);
   });
+  // ------------------------------------------------------------------ restoring from a backup (a normal import keeps the newer edit; restore goes back)
+  async function backupOf(d, photos = "none") { const out = await exportSync(d.repo, { photos }); return readSyncFile(out.blob); }
+
+  test("restore: a normal import cannot bring back older text, restore can, and it reaches other devices as a new edit", async () => {
+    const A = await device(), B = await device(START + 7000);
+    const c = await A.repo.create("crosses", { code: "R-1" });
+    const [s] = await A.repo.createMany("seedlings", [{ cross_id: c.id, label: "1", description: "original text" }]);
+    await sync(A, B);                                                           // B knows the same
+    const backup = await backupOf(A);
+    A.adv(60000); await A.repo.update("seedlings", s.id, { description: "edited later" });
+    const plain = await planImport(A.repo, backup);
+    assert.equal(plain.nothing_to_do, true, "the merge import changes nothing: the edit is newer than the backup " + JSON.stringify(plain.totals) + JSON.stringify(plain.tables));
+    const plan = await planRestore(A.repo, backup);
+    assert.equal(plan.items.length, 1); assert.equal(plan.counts.values, 1);
+    assert.deepEqual(plan.items[0].fields, [{ field: "description", here: "edited later", backup: "original text" }]);
+    A.adv(600000);                                                             // the restore happens well after everything else in this story
+    const res = await applyRestore(A.repo, backup, [{ table: "seedlings", id: s.id }]);
+    assert.equal(res.values, 1); assert.deepEqual(res.failed, []);
+    assert.equal((await A.repo.get("seedlings", s.id)).description, "original text");
+    assert.equal((await planRestore(A.repo, backup)).items.length, 0, "nothing left to restore");
+    // the other device had "edited later" only after a sync; give it that, then let it receive the restored value
+    B.adv(120000); await B.repo.update("seedlings", s.id, { description: "edited later" });
+    A.adv(60000);
+    const back = await sync(A, B);
+    assert.equal(back.plan.totals.updated >= 1, true);
+    assert.equal((await B.repo.get("seedlings", s.id)).description, "original text");
+  });
+
+  test("restore: only the chosen values come back; the rest stays as it is", async () => {
+    const A = await device();
+    const c = await A.repo.create("crosses", { code: "R-2" });
+    const [s] = await A.repo.createMany("seedlings", [{ cross_id: c.id, label: "1", description: "d0", notes: "n0" }]);
+    const backup = await backupOf(A);
+    A.adv(5000); await A.repo.update("seedlings", s.id, { description: "d1", notes: "n1", status: "culled" });
+    const plan = await planRestore(A.repo, backup);
+    assert.deepEqual(plan.items[0].fields.map((f) => f.field).sort(), ["description", "notes", "status"]);
+    A.adv(5000);
+    await applyRestore(A.repo, backup, [{ table: "seedlings", id: s.id, fields: ["notes"] }]);
+    const now = await A.repo.get("seedlings", s.id);
+    assert.deepEqual([now.description, now.notes, now.status], ["d1", "n0", "culled"]);
+  });
+
+  test("restore: a record moved to the Trash since the backup comes back with its values; an erased one is reported, a missing one is imported", async () => {
+    const A = await device();
+    const c = await A.repo.create("crosses", { code: "R-3" });
+    const [keep, trashed, gone] = await A.repo.createMany("seedlings", [{ cross_id: c.id, label: "1", notes: "keep" }, { cross_id: c.id, label: "2", notes: "to trash" }, { cross_id: c.id, label: "3", notes: "to erase" }]);
+    const backup = await backupOf(A);
+    A.adv(5000);
+    await A.repo.softDelete("seedlings", trashed.id); await A.repo.softDelete("seedlings", gone.id); await A.repo.erase("seedlings", gone.id);
+    const plan = await planRestore(A.repo, backup);
+    assert.equal(plan.counts.undelete, 1); assert.equal(plan.counts.erased_here, 1);
+    assert.equal(plan.items.length, 1);
+    assert.equal(plan.items[0].undelete, true);
+    A.adv(5000);
+    const res = await applyRestore(A.repo, backup, [{ table: "seedlings", id: trashed.id, undelete: true }]);
+    assert.equal(res.undeleted, 1);
+    assert.equal((await A.repo.get("seedlings", trashed.id)).deleted, 0);
+    assert.equal((await A.repo.get("seedlings", gone.id)).erased, 1, "erased stays erased");
+    assert.equal((await A.repo.get("seedlings", keep.id)).notes, "keep");
+    // a record the device never had arrives through the merge that restore starts with
+    const C = await device(START + 9000);
+    const r = await applyRestore(C.repo, backup, []);
+    assert.equal(r.merge.writes >= 2, true);
+    assert.equal((await C.repo.list("seedlings")).length, 3, "all three were alive when the backup was made");
+  });
+
+  test("restore: a value the repository refuses is reported, not thrown, and the others still restore", async () => {
+    const A = await device();
+    const c = await A.repo.create("crosses", { code: "R-4", date_made: "2026-01-01", date_harvested: "2026-02-01" });
+    const backup = await backupOf(A);
+    A.adv(5000);
+    await A.repo.update("crosses", c.id, { date_harvested: "2026-03-01" });
+    // later, the date of making moves after the restored harvest date, so restoring only the harvest date is refused by the date-order rule
+    A.adv(5000); await A.repo.update("crosses", c.id, { date_made: "2026-02-15", date_harvested: "2026-04-01" });
+    const plan = await planRestore(A.repo, backup);
+    assert.equal(plan.items.length, 1);
+    A.adv(5000);
+    const res = await applyRestore(A.repo, backup, [{ table: "crosses", id: c.id, fields: ["date_harvested"] }]);
+    assert.equal(res.failed.length, 1);
+    assert.match(res.failed[0].message, /date/i);
+    assert.equal((await A.repo.get("crosses", c.id)).date_harvested, "2026-04-01", "unchanged after the refusal");
+    const all = await applyRestore(A.repo, backup, [{ table: "crosses", id: c.id }]);
+    assert.deepEqual(all.failed, []);
+    assert.deepEqual([(await A.repo.get("crosses", c.id)).date_made, (await A.repo.get("crosses", c.id)).date_harvested], ["2026-01-01", "2026-02-01"]);
+  });
+
+  test("restore: a backup from before a field existed does not blank that field", async () => {
+    const A = await device();
+    const c = await A.repo.create("crosses", { code: "R-5", hybridizer: "Rob" });
+    const out = await exportSync(A.repo, { photos: "none" });
+    const parsed = await readSyncFile(out.blob);
+    for (const r of parsed.tables.crosses) { delete r.hybridizer; delete r._t.hybridizer; }       // what a version-1 backup looks like
+    A.adv(5000);
+    const plan = await planRestore(A.repo, parsed);
+    assert.equal(plan.items.length, 0);
+    assert.equal((await A.repo.get("crosses", c.id)).hybridizer, "Rob");
+  });
+
   // ------------------------------------------------------------------ schema version 1 -> 2 (crosses.hybridizer was added)
   test("schema 1 data: opening migrates, old records without hybridizer export, import and then merge normally", async () => {
     const A = await device(), B = await device(START + 5000);
