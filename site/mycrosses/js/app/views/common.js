@@ -22,7 +22,7 @@ export function photoImg(app, photo, { cls = "thumb", full = false, alt = "" } =
   return img;
 }
 
-export function field(label, input, hint) { return h("label", { class: "f" }, label, hint ? h("span", { class: "hint" }, hint) : null, input); }
+export function field(label, input, hint, wide = false) { return h("label", { class: wide ? "f wide" : "f" }, label, input, hint ? h("span", { class: "hint" }, hint) : null); }
 
 /** Read a form's named inputs into a plain object (empty text stays "", the repo turns it into null). */
 export function formValues(form) {

@@ -1,7 +1,10 @@
 // The local data model of the Saintpaulia Hybridizer. One place that says what every table holds.
 // docs/hybridizer-data-model.md explains it in prose; the sync file (stage 3) uses the same field lists.
 
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
+
+// Fields added after version 1. Records and files written before that have no value and no stamp for them: that is fine (= never edited, empty).
+export const ADDED_LATER = { crosses: ["hybridizer"] };
 
 export const STATUSES = ["growing", "flowering", "culled", "keeping", "released"];
 
@@ -15,6 +18,7 @@ const int = (min, max, o = {}) => ({ kind: "int", min, max, ...o });
 export const TABLES = {
   crosses: {
     fields: {
+      hybridizer: str(200),                // who made the cross (empty = the user); added in schema version 2
       code: str(40),                       // user-facing code, for example GG-26-014 (suggested, editable, duplicates are flagged)
       seed_parent_ref: { kind: "ref" },    // official cultivar id, local seedling id, or null (unknown)
       seed_parent_name: str(200),          // the name as it was when chosen (shown offline, and when the parent is not in the database)

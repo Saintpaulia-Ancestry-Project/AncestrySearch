@@ -16,12 +16,11 @@ export async function seedlingPage(app, parts) {
     try { const r = await repo.update("seedlings", s.id, formValues(form)); app.dirty(); app.toast(r.changed.length ? "Saved." : "Nothing changed."); app.rerender(true); }
     catch (ex) { err.textContent = msgOf(ex); }
   } },
-    h("div", { class: "grid2" },
+    h("div", { class: "fgrid" },
       field("Number in this cross", h("input", { type: "text", name: "label", value: s.label, required: true, maxlength: 20 })),
-      field("Status", h("select", { name: "status" }, ...STATUSES.map((st) => h("option", { value: st, selected: st === s.status }, STATUS_LABEL[st]))))),
-    field("Description", h("textarea", { name: "description" }, s.description ?? ""), "Color, form, foliage, growth habit."),
-    field("Notes", h("textarea", { name: "notes" }, s.notes ?? "")),
-    h("div", { class: "grid2" },
+      field("Status", h("select", { name: "status" }, ...STATUSES.map((st) => h("option", { value: st, selected: st === s.status }, STATUS_LABEL[st])))),
+      field("Description", h("textarea", { name: "description" }, s.description ?? ""), "Color, form, foliage, growth habit.", true),
+      field("Notes", h("textarea", { name: "notes" }, s.notes ?? ""), null, true),
       field("Name (when kept or released)", h("input", { type: "text", name: "promoted_name", value: s.promoted_name ?? "" })),
       field("Date added", h("input", { type: "date", name: "date_added", value: s.date_added ?? "" }))),
     err, h("button", {}, "Save"));

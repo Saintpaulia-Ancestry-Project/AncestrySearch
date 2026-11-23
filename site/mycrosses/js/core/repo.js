@@ -79,7 +79,9 @@ export class Repo {
         this.deviceId = dev;
       } else {
         if (sv.value > SCHEMA_VERSION) throw new SchemaTooNewError(sv.value);
-        // sv.value < SCHEMA_VERSION: migrations go here, one step per version, inside this transaction (none exist yet).
+        // sv.value < SCHEMA_VERSION: migrations go here, one step per version, inside this transaction.
+        // 1 -> 2 added the optional field crosses.hybridizer: old records simply lack it (read as empty), so only the version number changes.
+        if (sv.value < SCHEMA_VERSION) await t.put("meta", { key: "schema_version", value: SCHEMA_VERSION });
         this.deviceId = (await t.get("meta", "device_id")).value;
       }
     });

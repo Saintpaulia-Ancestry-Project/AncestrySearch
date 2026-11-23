@@ -13,7 +13,7 @@ Every record has: `id` (UUID v4 made on the device), `created_at`, `updated_at` 
 
 | table | own fields |
 |---|---|
-| crosses | code, seed_parent_ref, seed_parent_name, pollen_parent_ref, pollen_parent_name, date_made, date_harvested, seed_stored (0/1/null), stored_from, stored_to, storage_notes, date_sown, seeds_sown, notes, remake_of |
+| crosses | code, hybridizer (v2), seed_parent_ref, seed_parent_name, pollen_parent_ref, pollen_parent_name, date_made, date_harvested, seed_stored (0/1/null), stored_from, stored_to, storage_notes, date_sown, seeds_sown, notes, remake_of |
 | seedlings | cross_id, label, description, status (growing, flowering, culled, keeping, released), notes, date_added, promoted_name, official_plant_ref |
 | photos | seedling_id, sha256 (1000 px file), thumb_sha256 (300 px file), width, height, taken_on, caption |
 | traits | seedling_id, trait, value |
@@ -46,7 +46,8 @@ official cultivars the user referenced: id, name, hybridizer, size class, a shor
 (schema version, device id, clock, local_seq).
 
 ## Schema versions
-`meta.schema_version` is 1. A store written by a newer schema is refused with a clear message; migrations for older stores run inside the opening transaction (none exist yet).
+`meta.schema_version` is 2. A store written by a newer schema is refused with a clear message; migrations for older stores run inside the opening transaction.
+- 1 -> 2 (2026-11-23): `crosses.hybridizer` (who made the cross; empty = the user, for seed received from someone else). Old records simply lack it and read as empty; only the version number changes. `ADDED_LATER` in schema.js lists such fields: a record or file without them (and without their stamps) is valid.
 
 ## Persistence status
 `requestPersistence()` asks the browser to keep the data, with a 3-second limit (Stage 1: `persist()` can hang and is usually not granted on a fresh site) and `describePersistence()` gives the plain sentence for the status area.

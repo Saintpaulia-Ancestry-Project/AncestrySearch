@@ -533,4 +533,26 @@ export function defineSyncTests({ test, assert, makeAdapter }) {
     globalThis.__scaleReport = note;
     console.log(note);
   });
+  // ------------------------------------------------------------------ schema version 1 -> 2 (crosses.hybridizer was added)
+  test("schema 1 data: opening migrates, old records without hybridizer export, import and then merge normally", async () => {
+    const A = await device(), B = await device(START + 5000);
+    const c = await A.repo.create("crosses", { code: "OLD-1", seed_parent_name: "X" });
+    // make the stored record look like one written by version 1: no hybridizer value, no stamp for it, and the old version number
+    await A.adapter.tx(["crosses", "meta"], "readwrite", async (t) => {
+      const r = await t.get("crosses", c.id); delete r.hybridizer; delete r._t.hybridizer; await t.put("crosses", r);
+      await t.put("meta", { key: "schema_version", value: 1 });
+    });
+    const again = await Repo.open({ adapter: A.adapter, now: () => A.ms });
+    assert.equal((await A.adapter.tx(["meta"], "readonly", (t) => t.get("meta", "schema_version"))).value, 2);
+    A.repo = again;
+    const first = await sync(A, B);
+    assert.equal(first.plan.totals.new, 1);
+    const onB = await B.repo.get("crosses", c.id);
+    assert.equal(onB.hybridizer ?? null, null);
+    B.adv(); await B.repo.update("crosses", c.id, { hybridizer: "Rob Boolgooroo" });
+    A.adv(60000);
+    const back = await sync(B, A);
+    assert.equal(back.plan.totals.updated, 1);
+    assert.equal((await A.repo.get("crosses", c.id)).hybridizer, "Rob Boolgooroo");
+  });
 }

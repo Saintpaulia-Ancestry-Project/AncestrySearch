@@ -1,5 +1,5 @@
 // The sync file format: names, limits, the manifest and the checks every incoming record must pass. docs/sync-format.md describes it for other developers.
-import { SCHEMA_VERSION, TABLES, SYNC_TABLES, COMMON_MERGEABLE } from "../core/schema.js";
+import { SCHEMA_VERSION, TABLES, SYNC_TABLES, COMMON_MERGEABLE, ADDED_LATER } from "../core/schema.js";
 import { validateFields } from "../core/validate.js";
 import { UUID_RE } from "../core/ids.js";
 import { HLC_RE, parseStamp } from "../core/clock.js";
@@ -98,7 +98,7 @@ export function recordProblems(table, r) {
   const own = {};
   for (const k of OWN(table)) own[k] = r[k] === undefined ? undefined : r[k];
   for (const e of validateFields(table, own)) out.push(`${e.field} ${e.message}`);
-  for (const f of mergeable(table)) if (!(f in r._t)) out.push(`has no stamp for ${f}`);
+  for (const f of mergeable(table)) if (!(f in r._t) && !(ADDED_LATER[table] || []).includes(f)) out.push(`has no stamp for ${f}`);
   for (const f of Object.keys(r._t)) if (!mergeable(table).includes(f)) out.push(`has a stamp for an unknown field ${f}`);
   return out;
 }

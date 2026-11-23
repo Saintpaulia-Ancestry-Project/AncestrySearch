@@ -8,7 +8,7 @@ export async function crossesList(app, parts, query) {
   const crosses = await repo.list("crosses"), seedlings = await repo.list("seedlings");
   const per = new Map(); for (const s of seedlings) { if (!per.has(s.cross_id)) per.set(s.cross_id, []); per.get(s.cross_id).push(s); }
   const q = (query.get("q") || "").trim().toLowerCase(), status = query.get("status") || "";
-  const hay = (c) => [c.code, c.seed_parent_name, c.pollen_parent_name, c.notes, c.date_made, ...(per.get(c.id) || []).flatMap((s) => [s.label, s.promoted_name, s.notes, s.description])].filter(Boolean).join(" ").toLowerCase();
+  const hay = (c) => [c.code, c.hybridizer, c.seed_parent_name, c.pollen_parent_name, c.notes, c.date_made, ...(per.get(c.id) || []).flatMap((s) => [s.label, s.promoted_name, s.notes, s.description])].filter(Boolean).join(" ").toLowerCase();
   const words = q.split(/\s+x\s+|\s+/).filter(Boolean);                      // "baby pink x rob" or "pink baby": every word must appear, in any order
   let shown = crosses.filter((c) => words.every((w) => hay(c).includes(w)) && (!status || (per.get(c.id) || []).some((s) => s.status === status)));
   shown.sort((a, b) => ((b.date_made || b.created_at) > (a.date_made || a.created_at) ? 1 : -1));
@@ -60,20 +60,22 @@ export async function crossForm(app, parts) {
       app.dirty(); app.toast("Saved."); location.hash = "#/cross/" + id;
     } catch (ex) { err.textContent = msgOf(ex); }
   } },
-    h("div", { class: "grid2" },
-      field("Cross code", inp("code"), "Suggested from your initials, the year and a running number. You can change it."),
-      field("Date made", inp("date_made", "date"))),
-    h("div", { class: "grid2" },
+    h("div", { class: "fgrid" },
+      field("Cross code", inp("code"), "Suggested from your initials, the year and a running number."),
+      field("Date made", inp("date_made", "date")),
       field("Seed parent (the mother)", inp("seed_parent_name"), "Type the name. Linking to the official database comes in a later version."),
-      field("Pollen parent (the father)", inp("pollen_parent_name"))),
-    h("div", { class: "grid2" },
+      field("Pollen parent (the father)", inp("pollen_parent_name")),
+      field("Hybridizer", inp("hybridizer"), "Who made the cross. Leave empty if you did. Fill in when the seeds came from someone else."),
+      h("div", {}),
       field("Seed harvested", inp("date_harvested", "date")),
-      field("Seed stored?", h("select", { name: "seed_stored" }, h("option", { value: "" }, "Not recorded"), h("option", { value: "1", selected: v.seed_stored === 1 }, "Yes"), h("option", { value: "0", selected: v.seed_stored === 0 }, "No")))),
-    h("div", { class: "grid2" }, field("Stored from", inp("stored_from", "date")), field("Stored until", inp("stored_to", "date"))),
-    field("How it was stored", inp("storage_notes"), "For example: in the refrigerator."),
-    h("div", { class: "grid2" }, field("Seed sown", inp("date_sown", "date")), field("Seeds sown", inp("seeds_sown", "number", { min: 0 }))),
-    field("Notes", h("textarea", { name: "notes" }, v.notes ?? "")),
-    others.length ? field("This cross repeats an earlier one", h("select", { name: "remake_of" }, h("option", { value: "" }, "No"), ...others.map((o) => h("option", { value: o.id, selected: o.id === v.remake_of }, `${o.code || "(no code)"}: ${crossTitle(o)}`)))) : null,
+      field("Seed stored?", h("select", { name: "seed_stored" }, h("option", { value: "" }, "Not recorded"), h("option", { value: "1", selected: v.seed_stored === 1 }, "Yes"), h("option", { value: "0", selected: v.seed_stored === 0 }, "No"))),
+      field("Stored from", inp("stored_from", "date")),
+      field("Stored until", inp("stored_to", "date")),
+      field("How it was stored", inp("storage_notes"), "For example: in the refrigerator.", true),
+      field("Seed sown", inp("date_sown", "date")),
+      field("Seeds sown", inp("seeds_sown", "number", { min: 0 })),
+      field("Notes", h("textarea", { name: "notes" }, v.notes ?? ""), null, true),
+      others.length ? field("This cross repeats an earlier one", h("select", { name: "remake_of" }, h("option", { value: "" }, "No"), ...others.map((o) => h("option", { value: o.id, selected: o.id === v.remake_of }, `${o.code || "(no code)"}: ${crossTitle(o)}`))), null, true) : null),
     err, h("button", {}, "Save"), h("a", { class: "btn secondary", href: id ? "#/cross/" + id : "#/crosses" }, "Cancel"));
   return h("div", {}, h("h1", {}, id ? "Edit cross" : "New cross"), form);
 }
@@ -93,7 +95,7 @@ export async function crossPage(app, parts) {
 
   const root = h("div", {}, h("p", {}, h("a", { href: "#/crosses" }, "← Crosses")), h("h1", {}, c.code || "(no code)"), h("p", {}, h("b", {}, crossTitle(c))));
   if (dupCode) root.append(h("div", { class: "warn" }, `Another cross uses the code ${c.code} (probably made on another device). Change one of the codes: `, h("a", { href: `#/cross/${c.id}/edit` }, "edit this cross"), "."));
-  const rows = [["Made", showDate(c.date_made)], ["Seed harvested", showDate(c.date_harvested)], ["Seed stored", c.seed_stored === 1 ? "Yes" + (c.stored_from || c.stored_to ? ` (${showDate(c.stored_from) || "?"} to ${showDate(c.stored_to) || "?"})` : "") : c.seed_stored === 0 ? "No" : ""], ["Storage", c.storage_notes], ["Seed sown", showDate(c.date_sown)], ["Seeds sown", c.seeds_sown], ["Notes", c.notes]].filter(([, x]) => x !== null && x !== "" && x !== undefined);
+  const rows = [["Hybridizer", c.hybridizer], ["Made", showDate(c.date_made)], ["Seed harvested", showDate(c.date_harvested)], ["Seed stored", c.seed_stored === 1 ? "Yes" + (c.stored_from || c.stored_to ? ` (${showDate(c.stored_from) || "?"} to ${showDate(c.stored_to) || "?"})` : "") : c.seed_stored === 0 ? "No" : ""], ["Storage", c.storage_notes], ["Seed sown", showDate(c.date_sown)], ["Seeds sown", c.seeds_sown], ["Notes", c.notes]].filter(([, x]) => x !== null && x !== "" && x !== undefined);
   root.append(h("dl", { class: "kv" }, ...rows.flatMap(([k, x]) => [h("dt", {}, k), h("dd", {}, String(x))]),
     remake ? [h("dt", {}, "Repeats"), h("dd", {}, h("a", { href: "#/cross/" + remake.id }, remake.code || crossTitle(remake)))] : null));
   root.append(h("div", { class: "row" }, h("a", { class: "btn secondary", href: `#/cross/${c.id}/edit` }, "Edit cross"),

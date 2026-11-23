@@ -19,7 +19,7 @@ Writers use UTF-8 names, no zip64, no encryption flag, no data descriptors. Read
 ## manifest.json
 
 ```json
-{ "format": "saintpaulia-hybridizer-sync", "format_version": 1, "schema_version": 1, "app_version": "0.3.0",
+{ "format": "saintpaulia-hybridizer-sync", "format_version": 1, "schema_version": 2, "app_version": "0.3.0",
   "device_id": "<uuid of the device that made the file>", "exported_at": "2026-11-23T10:00:00.000Z",
   "mode": "full | incremental", "since": null | { "peer_device_id": "<uuid>", "local_seq": 12 },
   "photos": "none | thumbs | all", "counts": { "crosses": 3, "seedlings": 1200, "photos": 402, "traits": 0 },
@@ -70,4 +70,5 @@ its additional authenticated data is the 36 header bytes plus one byte (1 for th
 A lost passphrase means the file cannot be opened. Backups and files made earlier without a passphrase stay readable by anyone who has them.
 
 ## Versions
-`format_version` changes when the file layout changes; `schema_version` when the record fields change. A reader refuses newer versions and migrates older ones (none exist yet).
+`format_version` changes when the file layout changes; `schema_version` when the record fields change. A reader refuses newer versions and reads older ones.
+- schema 2 (2026-11-23) added `crosses.hybridizer`. A version 1 file (no such field, no stamp for it) is still valid; a version 1 app refuses a version 2 file ("update or reload the app").
