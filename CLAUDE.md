@@ -341,7 +341,7 @@ receiver's pure validation code in headless Edge. Deployed: SUBMIT_URL in submit
 ## Next steps
 1. User review of the prototype; decide look/feel and extra filters.
 2. Local mode: REPLACED by the separate PWA "Saintpaulia Hybridizer" (site/mycrosses/, IndexedDB + in-memory sql.js, per-field sync zip); planning in
-   notes/my-crosses-plan.md, nothing built yet. The official database now ships an `id_redirects` table (old id -> current id) for saved references.
+   notes/my-crosses-plan.md; stage 2 (data layer + tests, no screens) built in site/mycrosses/, docs/hybridizer-data-model.md; sync file is stage 3. The official database now ships an `id_redirects` table (old id -> current id) for saved references.
 3. Deploy to GitHub Pages; images via jsDelivr.
 
 ## MVL supplements 1964-2002: FROZEN (plan: notes/freeze-plan.md; history: notes/mvl-supplements-plan.md, mvl-supplements-recent-plan.md)

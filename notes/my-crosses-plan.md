@@ -1,4 +1,4 @@
-# "Saintpaulia Hybridizer": local-first PWA for hybridizers (planning, 2026-11-17; NOTHING BUILT YET)
+# "Saintpaulia Hybridizer": local-first PWA for hybridizers (planning 2026-11-17; stage 2 data layer built 2026-11-23, no screens yet)
 
 Continuation of a separate planning chat. Its prompt asked for a private PWA that records crosses and seedlings on the user's own device, syncs
 between the user's devices by a zip file, and later combines the data with the official read-only database. This note records what was checked
@@ -59,7 +59,7 @@ Private by design (no analytics, no accounts, no network calls except loading th
 ## Stages (revised; stop after 1 and 3 as in the prompt)
 1. Report (this note + the spike): IndexedDB capacity test with 1,200 photos on the user's Android phone and PC; iPhone behavior if available;
    memory of building the zip; whether the in-memory user DB can sit beside the 38 MB official DB. Wait for approval.
-2. Local schema and IndexedDB layer with the fields above.
+2. Local schema and IndexedDB layer with the fields above. **DONE 2026-11-23** (uncommitted until approved): site/mycrosses/js/core/ (clock, ids, schema, validate, repo, codes, hash, persistence, adapters memory + idb), docs/hybridizer-data-model.md, 29 tests in site/mycrosses/test/ (`node --test site/mycrosses/test/` and test/browser.html on real IndexedDB; both 29/29; four deliberate code breaks were each caught). WAITING for review before stage 3 (sync file).
 3. Sync file (zip, manifest, JSONL per table) + dry run + one-transaction import; docs/sync-format.md; test page. Wait for review.
 4. Tests (idempotence, convergence both ways, per-field conflict, delete propagation, label collision, duplicate photo, tampered photo, bad zips,
    scale report).

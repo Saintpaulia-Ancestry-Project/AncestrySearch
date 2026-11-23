@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hybridizer data layer tests</title>
+<style>
+  body { font: 16px/1.4 system-ui, sans-serif; margin: 16px; max-width: 60rem; }
+  .pass { color: #0a6b2d; } .fail { color: #b00020; font-weight: 600; }
+  pre { white-space: pre-wrap; background: #f4f4f4; padding: .5em; }
+  @media (prefers-color-scheme: dark) { body { background: #111; color: #eee; } pre { background: #222; } .pass { color: #6fdc8c; } .fail { color: #ff8a80; } }
+</style>
+</head>
+<body>
+<h1>Hybridizer data layer: tests on real IndexedDB</h1>
+<p id="summary">Running&hellip;</p>
+<p>These tests use throw-away databases named <code>hybridizer-test-N</code> and delete them afterwards. They never touch the real data.</p>
+<ul id="list"></ul>
+<script type="module">
+import { defineTests } from "./suite.js";
+import { IdbAdapter } from "../js/core/adapters/idb.js";
+
+const tests = [];
+const test = (name, fn) => tests.push({ name, fn });
+const same = (a, b) => JSON.stringify(sortKeys(a)) === JSON.stringify(sortKeys(b));
+function sortKeys(v) { if (Array.isArray(v)) return v.map(sortKeys); if (v instanceof Uint8Array) return Array.from(v); if (v && typeof v === "object") return Object.fromEntries(Object.keys(v).sort().map((k) => [k, sortKeys(v[k])])); return v; }
+const fail = (m) => { const e = new Error(m); e.name = "AssertionError"; throw e; };
+const assert = {
+  equal: (a, b, m) => { if (a !== b) fail(m || `expected ${JSON.stringify(b)} but got ${JSON.stringify(a)}`); },
+  notEqual: (a, b, m) => { if (a === b) fail(m || "values should differ"); },
+  ok: (v, m) => { if (!v) fail(m || "expected a truthy value"); },
+  deepEqual: (a, b, m) => { if (!same(a, b)) fail(m || `expected ${JSON.stringify(sortKeys(b))} but got ${JSON.stringify(sortKeys(a))}`); },
+  async rejects(fn, expected) {
+    let threw = null;
+    try { await (typeof fn === "function" ? fn() : fn); } catch (e) { threw = e; }
+    if (!threw) fail("expected the call to be rejected");
+    if (typeof expected === "function" && !(threw instanceof expected)) fail(`expected ${expected.name} but got ${threw.name}: ${threw.message}`);
+    if (expected instanceof RegExp && !expected.test(String(threw.message))) fail(`message ${JSON.stringify(threw.message)} does not match ${expected}`);
+  },
+};
+
+let n = 0; const opened = [];
+const makeAdapter = async () => { const a = new IdbAdapter({ name: "hybridizer-test-" + (++n) + "-" + Math.random().toString(36).slice(2, 8) }); opened.push(a); await a.open(); return a; };
+defineTests({ test, assert, makeAdapter });
+
+const results = [];
+const list = document.getElementById("list");
+for (const t of tests) {
+  const t0 = performance.now();
+  let status = "pass", detail = "";
+  try { await t.fn(); } catch (e) { status = "fail"; detail = (e && e.stack) || String(e); }
+  results.push({ name: t.name, status, ms: Math.round(performance.now() - t0), detail });
+  const li = document.createElement("li"); li.className = status;
+  li.textContent = `${status === "pass" ? "PASS" : "FAIL"}  ${t.name} (${Math.round(performance.now() - t0)} ms)`;
+  if (detail) { const pre = document.createElement("pre"); pre.textContent = detail; li.append(pre); }
+  list.append(li);
+}
+for (const a of opened) { a.close(); try { await IdbAdapter.deleteDatabase(a.name); } catch (_) { /* ignore */ } }
+const failed = results.filter((r) => r.status === "fail").length;
+document.getElementById("summary").textContent = `${results.length - failed} of ${results.length} passed${failed ? `, ${failed} FAILED` : ""}.`;
+window.__results = { total: results.length, failed, results, ua: navigator.userAgent };
+document.title = "DONE";
+</script>
+</body>
+</html>

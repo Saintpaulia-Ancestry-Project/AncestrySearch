@@ -1,0 +1,8 @@
+{
+  "name": "saintpaulia-hybridizer",
+  "private": true,
+  "type": "module",
+  "description": "Saintpaulia Hybridizer: local-first records of crosses and seedlings. Plain ES modules, no dependencies. Tests: node --test test/",
+  "scripts": { "test": "node --test test/" },
+  "license": "UNLICENSED"
+}
