@@ -14,6 +14,7 @@ ws.onmessage = (m) => { const d = JSON.parse(m.data); if (d.id && w.has(d.id)) {
 const send = (method, params = {}) => new Promise((r) => { const i = ++id; w.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
 const ev = async (e) => { const r = (await send("Runtime.evaluate", { expression: e, returnByValue: true, awaitPromise: true })).result; if (r.exceptionDetails) throw new Error(JSON.stringify(r.exceptionDetails).slice(0, 300)); return r.result?.value; };
 const shot = async (name) => { const r = await send("Page.captureScreenshot", { format: "png" }); writeFileSync(join(process.argv[2], name + ".png"), Buffer.from(r.result.data, "base64")); };
+await send("Browser.setDownloadBehavior", { behavior: "deny" });   // tests must never write into the real Downloads folder
 await send("Page.enable"); await send("Runtime.enable"); await send("Log.enable"); await send("Network.enable"); await send("Network.setCacheDisabled", { cacheDisabled: true });
 await send("Emulation.setDeviceMetricsOverride", { width: 420, height: 900, deviceScaleFactor: 1, mobile: true });
 let fails = 0; const check = (name, ok, extra = "") => { console.log((ok ? "PASS " : "FAIL ") + name + (ok ? "" : " " + extra)); if (!ok) fails++; };

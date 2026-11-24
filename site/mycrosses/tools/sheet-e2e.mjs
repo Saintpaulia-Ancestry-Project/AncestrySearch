@@ -14,6 +14,7 @@ ws.onmessage = (m) => { const d = JSON.parse(m.data); if (d.id && w.has(d.id)) {
 const send = (method, params = {}) => new Promise((r) => { const i = ++id; w.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
 const ev = async (e) => { const r = (await send("Runtime.evaluate", { expression: e, returnByValue: true, awaitPromise: true })).result; if (r.exceptionDetails) throw new Error(JSON.stringify(r.exceptionDetails).slice(0, 400)); return r.result?.value; };
 const shot = async (name) => { const r = await send("Page.captureScreenshot", { format: "png" }); writeFileSync(join(process.argv[2], name + ".png"), Buffer.from(r.result.data, "base64")); };
+await send("Browser.setDownloadBehavior", { behavior: "deny" });   // tests must never write into the real Downloads folder
 await send("Page.enable"); await send("Runtime.enable"); await send("Log.enable"); await send("Network.enable"); await send("Network.setCacheDisabled", { cacheDisabled: true });
 let fails = 0, seen = 0; const check = (name, ok, extra = "") => { const np = problems.length > seen ? " [+" + (problems.length - seen) + " console problems: " + problems[seen].slice(0, 90) + "]" : ""; seen = problems.length; console.log((ok ? "PASS " : "FAIL ") + name + (ok ? "" : " " + extra) + np); if (!ok) fails++; };
 const until = async (expr, ms = 8000) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { try { if (await ev(expr)) return true; } catch {} await sleep(120); } return false; };
