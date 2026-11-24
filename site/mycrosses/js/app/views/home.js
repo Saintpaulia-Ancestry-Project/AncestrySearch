@@ -11,11 +11,12 @@ export async function home(app) {
   const lastFile = log.filter((e) => e.direction === "export").map((e) => e.at).sort().pop() || null;
   const age = lastFile ? daysAgo(lastFile) : null;
   const p = app.persistence;
+  const name = ((await repo.getSettings()).hybridizer_name || "").trim();
 
-  const root = h("div", {}, h("div", { class: "homehead" }, h("img", { src: "icons/logo.png", width: "64", height: "64", alt: "" }), h("div", {}, h("h1", {}, "Home"), h("p", { class: "muted" }, "Saintpaulia Hybridizer"))));
+  const root = h("div", {}, h("div", { class: "homehead" }, h("img", { src: "icons/logo.png", width: "64", height: "64", alt: "" }), h("div", {}, h("h1", {}, name ? `Welcome, ${name}` : "Home"), h("p", { class: "muted" }, name ? "Your Saintpaulia Hybridizer" : "Saintpaulia Hybridizer"))));
   const empty = !crosses.length;
   if (empty) root.append(h("div", { class: "panel" }, h("p", {}, "Nothing here yet. Start by recording a cross: the two parents and the date. Then add the seedlings that grow from it."), h("a", { class: "btn", href: "#/cross/new" }, "Record your first cross")));
-  else root.append(h("div", { class: "row" }, h("a", { class: "btn", href: "#/cross/new" }, "New cross"), h("a", { class: "btn secondary", href: "#/crosses" }, "All crosses")));
+  else root.append(h("div", { class: "homebtns" }, h("a", { class: "btn", href: "#/cross/new" }, "New cross"), h("a", { class: "btn secondary", href: "#/crosses" }, name ? "All your crosses" : "All crosses")));
 
   root.append(h("div", { class: "stats" }, h("a", { class: "stat", href: "#/crosses" }, h("b", {}, counts.crosses), h("span", { class: "linktext" }, "crosses")), h("div", { class: "stat" }, h("b", {}, counts.seedlings), "seedlings"), h("div", { class: "stat" }, h("b", {}, counts.photos), "photos")));
   if (seedlings.length) root.append(h("p", {}, ...STATUSES.flatMap((s) => [statusChip(s), ` ${by[s]}  `])));
