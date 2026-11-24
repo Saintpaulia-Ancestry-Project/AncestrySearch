@@ -47,7 +47,7 @@ await shot("14-newcross-name");
 await setVal("[name=hybridizer]", ""); await click("Save"); await sleep(500);
 check("an empty hybridizer is not accepted", (await ev("location.hash")) === "#/cross/new");
 await go("#/"); await until("document.querySelector('.homebtns') && document.querySelector('.stats')");
-check("Home with a name: greeting", (await ev("document.querySelector('h1').textContent")) === "Welcome, Grace Goode" && (await ev("document.querySelector('.homehead p').textContent")).startsWith("Your "), await ev("document.querySelector('h1').textContent"));
+check("Home with a name: subtitle says Saintpaulia Hybridizer for the name", (await ev("document.querySelector('.homehead p').textContent")) === "Saintpaulia Hybridizer for Grace Goode", await ev("document.querySelector('.homehead p').textContent"));
 const geo = await ev(`(()=>{const r=(e)=>{const q=e.getBoundingClientRect();return {left:q.left,right:q.right,top:q.top,bottom:q.bottom}},b=[...document.querySelectorAll('.homebtns .btn')].map(r),s=[...document.querySelectorAll('.stats .stat')].map(r);return {b,s,bl:b.length,sl:s.length}})()`);
 const near = (a, c) => Math.abs(a - c) < 1.5;
 check("Home buttons: left and right edges line up with the boxes", geo.bl === 2 && geo.sl === 3 && near(geo.b[0].left, geo.s[0].left) && near(geo.b[1].right, geo.s[2].right), JSON.stringify(geo));
